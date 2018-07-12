@@ -1,8 +1,13 @@
 package com.qxb.student.common.http;
 
-import android.content.Context;
-
 import com.qxb.student.common.utils.Singleton;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class HttpUtils {
 
@@ -26,6 +31,38 @@ public class HttpUtils {
         this.httpConfigure = httpConfigure;
     }
 
+    public static <T> T create(Class<T> clazz) {
+        return httpConfigure.getRetrofit().create(clazz);
+    }
 
+    public <T> void request(Observable<T> observable, final HttpResponse<T> httpResponse) {
+        observable.subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+//                        if (dialog != null) {
+//                            dialog.show();
+//                        }
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnComplete(new Action() {
+                    @Override
+                    public void run() throws Exception {
+//                        dialog.dismiss();
+                    }
+                })
+                .subscribe(new Consumer<T>() {
+                    @Override
+                    public void accept(T t) throws Exception {
+                        httpResponse.success(t);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        httpResponse.failed(throwable);
+                    }
+                });
+    }
 
 }

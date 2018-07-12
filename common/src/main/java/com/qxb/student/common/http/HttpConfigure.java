@@ -3,6 +3,7 @@ package com.qxb.student.common.http;
 import android.content.Context;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import com.qxb.student.common.Config;
 
 import java.io.File;
 import java.security.SecureRandom;
@@ -29,11 +30,17 @@ public class HttpConfigure {
     private final HttpUrl httpUrl;
     private final Call.Factory callFactory;
     private final Retrofit retrofit;
+    private final Context context;
 
-    public HttpConfigure(HttpUrl httpUrl, Call.Factory callFactory, Retrofit retrofit) {
+    public HttpConfigure(Context context, HttpUrl httpUrl, Call.Factory callFactory, Retrofit retrofit) {
+        this.context = context;
         this.httpUrl = httpUrl;
         this.callFactory = callFactory;
         this.retrofit = retrofit;
+    }
+
+    public Context getContext() {
+        return context;
     }
 
     public HttpUrl getHttpUrl() {
@@ -81,14 +88,14 @@ public class HttpConfigure {
         }
 
         public HttpConfigure build() {
+            if (context == null) {
+                throw new IllegalArgumentException("context must be not empty");
+            }
             if (httpUrl == null) {
-                throw new IllegalArgumentException("httpUrl must be not empty");
+                httpUrl = HttpUrl.parse(Config.SERVER_URL);
             }
             if (callFactory == null) {
                 if (cookieJar == null) {
-                    if (context == null) {
-                        throw new IllegalArgumentException("context must be not empty");
-                    }
                     cookieJar = new CookieManager(context);
                 }
                 try {
@@ -126,7 +133,7 @@ public class HttpConfigure {
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
             }
-            return new HttpConfigure(httpUrl, callFactory, retrofit);
+            return new HttpConfigure(context, httpUrl, callFactory, retrofit);
         }
 
         private HostnameVerifier hostnameVerifier = new HostnameVerifier() {
