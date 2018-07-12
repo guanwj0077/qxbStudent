@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">QiuXueBao</string>
+
+    <string name="title_login">Login</string>
+
+    <string name="main_home">Home</string>
+    <string name="main_chat">Message</string>
+    <string name="main_info">BanKao</string>
+    <string name="main_mine">Me</string>
+
+    <string name="com_add">Add</string>
+
+    <string name="hint_exit">Return an exit program</string>
+</resources>

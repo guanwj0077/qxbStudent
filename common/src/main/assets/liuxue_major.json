@@ -1,0 +1,142 @@
+[
+  {
+    "code": "01",
+    "depth": 1,
+    "id": 1,
+    "isClose": 0,
+    "name": "农业与环境学",
+    "parent_code": "1",
+    "recruit_num": 0,
+    "state": "closed"
+  },
+  {
+    "code": "02",
+    "depth": 1,
+    "id": 2,
+    "isClose": 0,
+    "name": "建筑学",
+    "parent_code": "1",
+    "recruit_num": 0,
+    "state": "closed"
+  },
+  {
+    "code": "03",
+    "depth": 1,
+    "id": 3,
+    "isClose": 0,
+    "name": "人文社会科学",
+    "parent_code": "1",
+    "recruit_num": 0,
+    "state": "closed"
+  },
+  {
+    "code": "04",
+    "depth": 1,
+    "id": 4,
+    "isClose": 0,
+    "name": "商业管理学",
+    "parent_code": "1",
+    "recruit_num": 0,
+    "state": "closed"
+  },
+  {
+    "code": "05",
+    "depth": 1,
+    "id": 5,
+    "isClose": 0,
+    "name": "创意产业学",
+    "parent_code": "1",
+    "recruit_num": 0,
+    "state": "closed"
+  },
+  {
+    "code": "06",
+    "depth": 1,
+    "id": 6,
+    "isClose": 0,
+    "name": "教育学",
+    "parent_code": "1",
+    "recruit_num": 0,
+    "state": "closed"
+  },
+  {
+    "code": "07",
+    "depth": 1,
+    "id": 7,
+    "isClose": 0,
+    "name": "工程技术学",
+    "parent_code": "1",
+    "recruit_num": 0,
+    "state": "closed"
+  },
+  {
+    "code": "08",
+    "depth": 1,
+    "id": 8,
+    "isClose": 0,
+    "name": "公共事务",
+    "parent_code": "1",
+    "recruit_num": 0,
+    "state": "closed"
+  },
+  {
+    "code": "09",
+    "depth": 1,
+    "id": 9,
+    "isClose": 0,
+    "name": "中小学教育",
+    "parent_code": "1",
+    "recruit_num": 0,
+    "state": "closed"
+  },
+  {
+    "code": "10",
+    "depth": 1,
+    "id": 10,
+    "isClose": 0,
+    "name": "预科与英文强化课程",
+    "parent_code": "1",
+    "recruit_num": 0,
+    "state": "closed"
+  },
+  {
+    "code": "11",
+    "depth": 1,
+    "id": 11,
+    "isClose": 0,
+    "name": "医疗卫生科学",
+    "parent_code": "1",
+    "recruit_num": 0,
+    "state": "closed"
+  },
+  {
+    "code": "12",
+    "depth": 1,
+    "id": 12,
+    "isClose": 0,
+    "name": "信息技术学",
+    "parent_code": "1",
+    "recruit_num": 0,
+    "state": "closed"
+  },
+  {
+    "code": "13",
+    "depth": 1,
+    "id": 13,
+    "isClose": 0,
+    "name": "自然科学",
+    "parent_code": "1",
+    "recruit_num": 0,
+    "state": "closed"
+  },
+  {
+    "code": "14",
+    "depth": 1,
+    "id": 14,
+    "isClose": 0,
+    "name": "法律司法学",
+    "parent_code": "1",
+    "recruit_num": 0,
+    "state": "closed"
+  }
+]

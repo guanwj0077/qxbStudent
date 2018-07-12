@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">求学宝</string>
+
+    <string name="title_login">登录</string>
+
+    <string name="main_home">首页</string>
+    <string name="main_chat">消息</string>
+    <string name="main_info">伴考</string>
+    <string name="main_mine">我的</string>
+
+    <string name="com_add">添加</string>
+    <string name="hint_exit">再返回一次退出程序</string>
+</resources>

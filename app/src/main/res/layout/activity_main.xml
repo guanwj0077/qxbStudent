@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorTheme"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioButton1"
+            style="@style/Main.NavigationItem"
+            android:checked="true"
+            android:drawableTop="@drawable/a_menu_main"
+            android:text="@string/main_home" />
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            style="@style/Main.NavigationItem"
+            android:drawableTop="@drawable/a_menu_msg"
+            android:text="@string/main_chat" />
+
+        <RadioButton
+            android:id="@+id/radioButton3"
+            style="@style/Main.NavigationItem"
+            android:text="" />
+
+        <RadioButton
+            android:id="@+id/radioButton4"
+            style="@style/Main.NavigationItem"
+            android:drawableTop="@drawable/a_menu_find"
+            android:text="@string/main_info" />
+
+        <RadioButton
+            android:id="@+id/radioButton5"
+            style="@style/Main.NavigationItem"
+            android:drawableTop="@drawable/a_menu_mine"
+            android:text="@string/main_mine" />
+
+    </RadioGroup>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/radioGroup" />
+
+    <TextView
+        android:id="@+id/main_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/px_6"
+        android:background="@mipmap/kb_green"
+        android:gravity="center"
+        android:padding="@dimen/px_0"
+        android:text="智能\n选校"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/px_35" />
+
+</RelativeLayout>

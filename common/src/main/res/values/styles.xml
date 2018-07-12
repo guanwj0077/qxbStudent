@@ -1,0 +1,30 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!-- activity -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!--空出状态栏-->
+        <item name="android:windowTranslucentStatus">true</item>
+        <!--空出底部栏-->
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:screenOrientation">portrait</item>
+        <item name="android:configChanges">orientation|keyboardHidden</item>
+        <item name="android:windowSoftInputMode">stateAlwaysHidden|adjustResize</item>
+
+        <!--<item name="android:fitsSystemWindows">true</item>-->
+        <!--<item name="android:clipToPadding">true</item>-->
+        <!--标题栏-->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="TextAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/px_16</item>
+    </style>
+
+</resources>
