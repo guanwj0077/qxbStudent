@@ -8,7 +8,7 @@ android {
         targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0"
-
+        vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -35,6 +35,8 @@ dependencies {
     api "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
     api "com.github.bumptech.glide:glide:4.6.1"
     api "com.google.code.gson:gson:2.8.2"
+
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-5'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

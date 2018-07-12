@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorTheme">#ddd</color>
+    <color name="colorTheme">@android:color/white</color>
     <!--标题栏颜色-->
     <color name="colorPrimary">@color/colorTheme</color>
     <!--状态栏颜色，打开任务管理应用头部颜色-->

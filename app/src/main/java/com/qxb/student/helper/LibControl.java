@@ -6,6 +6,7 @@ import android.content.Context;
 import com.qxb.student.common.utils.CrashCollectUtils;
 import com.qxb.student.common.utils.FileUtils;
 import com.qxb.student.common.utils.Singleton;
+import com.qxb.student.common.utils.SysUtils;
 
 public class LibControl {
 
@@ -29,6 +30,7 @@ public class LibControl {
      */
     public void init(Application application) {
         context = application.getApplicationContext();
+        SysUtils.getInstance().setContext(context);
         FileUtils.getInstance().setContext(context);
         CrashCollectUtils.getInstance();
 

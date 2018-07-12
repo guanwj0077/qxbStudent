@@ -1,11 +1,15 @@
 package com.qxb.student.ui;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -18,6 +22,7 @@ import com.qxb.student.ui.home.HomeFragment;
 import com.qxb.student.ui.message.MessageFragment;
 import com.qxb.student.ui.mine.MineFragment;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 
 public class MainActivity extends BaseAppActivity {
@@ -28,7 +33,19 @@ public class MainActivity extends BaseAppActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            try {
+                Class decorViewClazz = Class.forName("com.android.internal.policy.DecorView");
+                Field field = decorViewClazz.getDeclaredField("mSemiTransparentStatusBarColor");
+                field.setAccessible(true);
+                field.setInt(getWindow().getDecorView(), Color.TRANSPARENT); //改为透明
+            } catch (Exception e) {
+            }
+        }
+
         setContentView(R.layout.activity_main);
+
         viewPager = findViewById(R.id.viewPager);
         radioGroup = findViewById(R.id.radioGroup);
         radioGroup.setOnCheckedChangeListener(checkedChangeListener);

@@ -15,16 +15,16 @@
         <item name="android:configChanges">orientation|keyboardHidden</item>
         <item name="android:windowSoftInputMode">stateAlwaysHidden|adjustResize</item>
 
-        <!--<item name="android:fitsSystemWindows">true</item>-->
-        <!--<item name="android:clipToPadding">true</item>-->
+        <item name="android:fitsSystemWindows">false</item>
+        <item name="android:clipToPadding">true</item>
         <!--标题栏-->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
     <style name="TextAppearance" parent="@android:style/TextAppearance">
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">@dimen/px_16</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">@dimen/px_30</item>
     </style>
 
 </resources>
