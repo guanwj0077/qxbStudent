@@ -1,4 +1,4 @@
-package com.qxb.student.common.bean;
+package com.qxb.student.common.module.bean;
 
 public class ApiModel<T> {
 
