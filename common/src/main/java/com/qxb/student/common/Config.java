@@ -4,7 +4,14 @@ public final class Config {
     /**
      * 是否调试模式
      */
-    public static final boolean isDebug = true;
+    public static final boolean isDebug = false;
+
+    private static final String SERVER_URL_RELEASE = "https://api.qiuxuebao.com/api/";
+    private static final String SERVER_URL_DEBUG = "http://qxb.ylcplus.club:8081/qxb_api/api/";
+
+    public static final String SERVER_URL = isDebug ? SERVER_URL_DEBUG : SERVER_URL_RELEASE;
+
+
     /**
      * 设计屏幕宽、高
      */
@@ -25,4 +32,6 @@ public final class Config {
     public static final boolean COLLECTION_TEXTVIEW = true;
 
     public static final String NAVIGATION_ID = "navigation_id";
+
+
 }

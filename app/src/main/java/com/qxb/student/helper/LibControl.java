@@ -3,6 +3,8 @@ package com.qxb.student.helper;
 import android.app.Application;
 import android.content.Context;
 
+import com.qxb.student.common.http.HttpConfigure;
+import com.qxb.student.common.http.HttpUtils;
 import com.qxb.student.common.utils.CrashCollectUtils;
 import com.qxb.student.common.utils.FileUtils;
 import com.qxb.student.common.utils.Singleton;
@@ -33,8 +35,7 @@ public class LibControl {
         SysUtils.getInstance().setContext(context);
         FileUtils.getInstance().setContext(context);
         CrashCollectUtils.getInstance();
-
-//        MobSDK.init(context);
+        HttpUtils.getInstance().setHttpConfigure(new HttpConfigure.Builder().setContext(context).build());
     }
 
     public Context getContext() {
