@@ -1,4 +1,4 @@
-package com.qxb.student.common.recycler.adapter;
+package com.qxb.student.common.view.recycler.adapter;
 
 import android.support.annotation.LayoutRes;
 import android.util.SparseArray;

@@ -1,4 +1,4 @@
-package com.qxb.student.common.recycler;
+package com.qxb.student.common.view.recycler;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.qxb.student.common.recycler.adapter.ExtendRecyclerAdapter;
+import com.qxb.student.common.view.recycler.adapter.ExtendRecyclerAdapter;
 
 import java.util.ArrayList;
 

@@ -1,8 +1,8 @@
-package com.qxb.student.common.recycler.adapter;
+package com.qxb.student.common.view.recycler.adapter;
 
 import android.support.annotation.LayoutRes;
 
-import com.qxb.student.common.recycler.ViewHolder;
+import com.qxb.student.common.view.recycler.ViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;

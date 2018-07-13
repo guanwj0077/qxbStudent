@@ -5,7 +5,7 @@
 
         <variable
             name="bankao"
-            type="com.qxb.student.common.bean.Bankao" />
+            type="com.qxb.student.common.module.bean.Bankao" />
     </data>
 
     <RelativeLayout

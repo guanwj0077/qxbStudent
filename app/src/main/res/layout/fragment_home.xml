@@ -47,5 +47,5 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <include layout="@layout/view_recycler" />
+    <include layout="@layout/fragment_refresh" />
 </LinearLayout>

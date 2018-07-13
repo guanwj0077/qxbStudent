@@ -8,8 +8,8 @@ import android.view.View;
 
 import com.qxb.student.R;
 import com.qxb.student.common.basics.ExpandFragment;
-import com.qxb.student.common.recycler.ExtendRecyclerView;
-import com.qxb.student.common.recycler.adapter.QuickAdapter;
+import com.qxb.student.common.view.recycler.ExtendRecyclerView;
+import com.qxb.student.common.view.recycler.adapter.QuickAdapter;
 import com.qxb.student.common.utils.SysUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 

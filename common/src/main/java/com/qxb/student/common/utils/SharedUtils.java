@@ -1,4 +1,4 @@
-package com.qxb.student.common.db;
+package com.qxb.student.common.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -1,4 +1,4 @@
-package com.qxb.student.common.recycler.adapter;
+package com.qxb.student.common.view.recycler.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
-import com.qxb.student.common.recycler.ViewHolder;
-import com.qxb.student.common.recycler.listener.OnItemClickListener;
+import com.qxb.student.common.view.recycler.ViewHolder;
+import com.qxb.student.common.view.recycler.listener.OnItemClickListener;
 
 /**
  * Created by winky on 2018/4/9.

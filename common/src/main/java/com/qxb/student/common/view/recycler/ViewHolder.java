@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.qxb.student.common.recycler;
+package com.qxb.student.common.view.recycler;
 
 import android.graphics.Bitmap;
 import android.graphics.Paint;

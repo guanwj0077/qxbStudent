@@ -7,9 +7,9 @@ import android.view.ViewStub;
 
 import com.qxb.student.R;
 import com.qxb.student.common.basics.RefreshFragment;
-import com.qxb.student.common.bean.Bankao;
-import com.qxb.student.common.recycler.ViewHolder;
-import com.qxb.student.common.recycler.adapter.QuickAdapter;
+import com.qxb.student.common.module.bean.Bankao;
+import com.qxb.student.common.view.recycler.ViewHolder;
+import com.qxb.student.common.view.recycler.adapter.QuickAdapter;
 import com.qxb.student.control.BankaoControl;
 
 public class BanKaoListFragment extends RefreshFragment<Bankao> {
@@ -19,7 +19,6 @@ public class BanKaoListFragment extends RefreshFragment<Bankao> {
     @Override
     public void initContent(@Nullable Bundle savedInstanceState) {
         bankaoControl = ViewModelProviders.of(this).get(BankaoControl.class);
-
     }
 
     @Override

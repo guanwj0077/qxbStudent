@@ -1,9 +1,9 @@
-package com.qxb.student.common.recycler.adapter;
+package com.qxb.student.common.view.recycler.adapter;
 
 import android.support.annotation.LayoutRes;
 import android.util.SparseArray;
 
-import com.qxb.student.common.recycler.listener.MultiItemEntity;
+import com.qxb.student.common.view.recycler.listener.MultiItemEntity;
 
 
 /**

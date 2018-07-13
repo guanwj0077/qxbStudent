@@ -1,4 +1,4 @@
-package com.qxb.student.common.recycler.decoration;
+package com.qxb.student.common.view.recycler.decoration;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
