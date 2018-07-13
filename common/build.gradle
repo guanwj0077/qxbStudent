@@ -20,6 +20,10 @@ android {
         }
     }
 
+    dataBinding {
+        enabled = true
+    }
+
 }
 
 dependencies {
@@ -28,6 +32,8 @@ dependencies {
     api 'android.arch.navigation:navigation-fragment:1.0.0-alpha02'
     api 'android.arch.navigation:navigation-ui:1.0.0-alpha02'
     api "android.arch.persistence.room:runtime:1.1.1"
+    api "android.arch.lifecycle:extensions:1.1.1"
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.0"
 
     api "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     api "com.android.support:design:$rootProject.supportLibraryVersion"

@@ -9,6 +9,7 @@ import android.view.View;
 import com.qxb.student.R;
 import com.qxb.student.common.basics.ExpandFragment;
 import com.qxb.student.common.recycler.ExtendRecyclerView;
+import com.qxb.student.common.recycler.adapter.QuickAdapter;
 import com.qxb.student.common.utils.SysUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -22,6 +23,7 @@ public class MessageFragment extends ExpandFragment {
     private Toolbar toolbar;
     private SmartRefreshLayout smartRefreshLayout;
     private ExtendRecyclerView recyclerView;
+    private QuickAdapter<String> adapter;
 
     @Override
     public void init(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -30,6 +32,5 @@ public class MessageFragment extends ExpandFragment {
         setSupportActionBar(toolbar);
         smartRefreshLayout = view.findViewById(R.id.refreshLayout);
         recyclerView = view.findViewById(R.id.recyclerView);
-
     }
 }

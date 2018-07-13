@@ -28,8 +28,12 @@ public class RoomUtils {
         database = Room.databaseBuilder(context, DefaultDatabase.class, DATABASE_NAME).build();
     }
 
+
     @Database(entities = {Test.class}, version = 1)
     private abstract class DefaultDatabase extends RoomDatabase {
+
+        abstract TestDao testDao();
+
     }
 
 }

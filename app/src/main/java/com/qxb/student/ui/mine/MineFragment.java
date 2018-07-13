@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.qxb.student.R;
 import com.qxb.student.common.basics.ExpandFragment;
+import com.qxb.student.common.utils.NavigationUtils;
 
 public class MineFragment extends ExpandFragment {
     @Override
@@ -18,6 +19,12 @@ public class MineFragment extends ExpandFragment {
     @Override
     public void init(@NonNull View view, @Nullable Bundle savedInstanceState) {
         ((TextView) view.findViewById(R.id.text1)).setText(getClass().getSimpleName());
-
+        findViewById(R.id.text1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                NavigationUtils.getInstance().jump(getFragment(), R.id.fragment_login);
+                NavigationUtils.getInstance().toNavigation(getActivity(), R.navigation.nav_login);
+            }
+        });
     }
 }
