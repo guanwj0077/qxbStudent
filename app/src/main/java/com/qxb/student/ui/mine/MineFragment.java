@@ -17,7 +17,7 @@ public class MineFragment extends ExpandFragment {
 
     @Override
     public void init(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        ((TextView) view.findViewById(R.id.text1)).setText(getClass().getSimpleName());
+       // ((TextView) view.findViewById(R.id.text1)).setText(getClass().getSimpleName());
 
     }
 }
