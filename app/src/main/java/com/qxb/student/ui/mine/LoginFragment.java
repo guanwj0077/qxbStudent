@@ -7,9 +7,10 @@ import android.view.View;
 
 import com.qxb.student.R;
 import com.qxb.student.common.basics.BaseFragment;
+import com.qxb.student.common.basics.ExpandFragment;
 import com.qxb.student.common.basics.ToolbarFragment;
 
-public class LoginFragment extends ToolbarFragment {
+public class LoginFragment extends ExpandFragment {
     @Override
     public int bindLayout() {
         return R.layout.fragment_login;

@@ -5,6 +5,7 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
+import com.qxb.student.common.module.bean.School;
 import com.qxb.student.common.module.bean.Test;
 import com.qxb.student.common.utils.Singleton;
 
@@ -21,18 +22,21 @@ public class RoomUtils {
         return SINGLETON.get();
     }
 
-    private final String DATABASE_NAME = "qxb";
-    private DefaultDatabase database;
+    private static final String DATABASE_NAME = "qxb.db";
+    private static volatile DefaultDatabase database;
 
     public void init(Context context) {
         database = Room.databaseBuilder(context, DefaultDatabase.class, DATABASE_NAME).build();
     }
 
+    public DefaultDatabase getDefDatabase() {
+        return database;
+    }
 
-    @Database(entities = {Test.class}, version = 1)
-    private abstract class DefaultDatabase extends RoomDatabase {
+    @Database(entities = {School.class}, version = 1, exportSchema = false)
+    public abstract class DefaultDatabase extends RoomDatabase {
 
-        abstract TestDao testDao();
+        public abstract SchoolDao schoolDao();
 
     }
 

@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.qxb.student.common.http.HttpConfigure;
 import com.qxb.student.common.http.HttpUtils;
+import com.qxb.student.common.module.dao.RoomUtils;
 import com.qxb.student.common.utils.CrashCollectUtils;
 import com.qxb.student.common.utils.FileUtils;
 import com.qxb.student.common.utils.Singleton;
@@ -36,6 +37,7 @@ public class LibControl {
         FileUtils.getInstance().setContext(context);
         CrashCollectUtils.getInstance();
         HttpUtils.getInstance().setHttpConfigure(new HttpConfigure.Builder().setContext(context).build());
+        RoomUtils.getInstance().init(context);
     }
 
     public Context getContext() {

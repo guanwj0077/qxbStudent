@@ -62,7 +62,14 @@ public abstract class BaseAdapter extends RecyclerView.Adapter<ViewHolder> {
         this.itemClickListener = itemClickListener;
     }
 
-    protected abstract int getLayoutId(int viewType);
+    protected int getLayoutId(int viewType){
+        return 0;
+    }
+
+    @Override
+    public int getItemCount() {
+        return 0;
+    }
 
     protected abstract void convert(ViewHolder holder, int position);
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <import type="com.qxb.student.helper.BindingUtils" />
+        <variable
+            name="school"
+            type="com.qxb.student.common.module.bean.School" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/px_12"
+        android:paddingTop="@dimen/px_12">
+<!--imageUrl="@{school.coverRealPath}"-->
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="@dimen/px_120"
+            android:layout_height="@dimen/px_120"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px_20"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:lines="2"
+            android:text="@{school.school_name}"
+            android:textColor="#3e3a39"
+            android:textSize="@dimen/px_25" />
+    </LinearLayout>
+
+</layout>

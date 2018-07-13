@@ -40,9 +40,6 @@ public class HttpUtils {
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-//                        if (dialog != null) {
-//                            dialog.show();
-//                        }
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
