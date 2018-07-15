@@ -2,11 +2,9 @@ package com.qxb.student.common.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Rect;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -16,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.qxb.student.common.R;
-import com.qxb.student.common.utils.SysUtils;
 
 public class Toolbar extends android.support.v7.widget.Toolbar {
 
