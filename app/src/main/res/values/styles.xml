@@ -8,7 +8,7 @@
         <item name="android:paddingTop">@dimen/px_8</item>
         <item name="android:paddingBottom">@dimen/px_8</item>
         <item name="android:gravity">center</item>
-        <item name="android:textColor">@drawable/text_color_selector</item>
+        <item name="android:textColor">@drawable/text_selector</item>
         <item name="android:textSize">@dimen/px_30</item>
     </style>
 </resources>

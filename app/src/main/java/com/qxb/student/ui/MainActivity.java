@@ -51,7 +51,7 @@ public class MainActivity extends BaseAppActivity {
         radioGroup.setOnCheckedChangeListener(checkedChangeListener);
         viewPager.addOnPageChangeListener(pageChangeListener);
         viewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager(), Arrays.asList(
-                new MessageFragment().setTitle(getString(R.string.main_home)),
+                new HomeFragment().setTitle(getString(R.string.main_home)),
                 new MessageFragment().setTitle(getString(R.string.main_chat)),
                 new BanKaoNewsFragment().setTitle(getString(R.string.main_info)),
                 new MineFragment().setTitle(getString(R.string.main_mine)))));

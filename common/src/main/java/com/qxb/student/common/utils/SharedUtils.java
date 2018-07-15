@@ -15,25 +15,21 @@ public class SharedUtils {
 
     private final static String DEFAULT_FILE_NAME = "default_shared";
     /*上下文*/
-    private Context context;
+    private Context context = ContextUtils.getInstance().getContext();
     /*保存在手机里面的文件名*/
     private String fileName;
 
-    public static SharedUtils get(Context context) {
-        return get(context, DEFAULT_FILE_NAME);
+    public static SharedUtils get() {
+        return get(DEFAULT_FILE_NAME);
     }
 
-    public static SharedUtils get(Context context, String fileName) {
+    public static SharedUtils get(String fileName) {
         synchronized (SharedUtils.class) {
-            return new SharedUtils(context, fileName);
+            return new SharedUtils(fileName);
         }
     }
 
-    private SharedUtils(Context context, String fileName) {
-        if (context == null) {
-            throw new IllegalArgumentException("context Can not be empty");
-        }
-        this.context = context;
+    private SharedUtils(String fileName) {
         this.fileName = TextUtils.isEmpty(fileName) ? DEFAULT_FILE_NAME : fileName;
     }
 

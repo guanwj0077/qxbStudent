@@ -2,9 +2,13 @@ package com.qxb.student.common;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.qxb.student.common.module.api.AdvertApi;
+import com.qxb.student.common.module.api.SchoolApi;
 import com.qxb.student.common.module.bean.ApiModel;
+import com.qxb.student.common.module.bean.School;
 
 import org.junit.Test;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -33,8 +37,8 @@ public class ExampleUnitTest {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        AdvertApi advertApi = retrofit.create(AdvertApi.class);
-        Observable<ApiModel<String>> observable = advertApi.getLiveHomeAd();
+        SchoolApi schoolApi = retrofit.create(SchoolApi.class);
+        Observable<ApiModel<List<School>>> observable = schoolApi.getRecommendedColleges("26","42000");
         observable
 //                .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -43,10 +47,10 @@ public class ExampleUnitTest {
                     }
                 })
 //                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<ApiModel<String>>() {
+                .subscribe(new Consumer<ApiModel<List<School>>>() {
                     @Override
-                    public void accept(ApiModel<String> t) throws Exception {
-                        System.out.println("success:" + t.getData());
+                    public void accept(ApiModel<List<School>> t) throws Exception {
+                        System.out.println("success:" + t.toString());
                     }
                 }, new Consumer<Throwable>() {
                     @Override

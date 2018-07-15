@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/px_2"
-    android:layout_marginTop="@dimen/px_20"
+    android:layout_marginTop="@dimen/px_30"
+    android:background="@drawable/shape_bottom_divider"
     android:gravity="center_vertical"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/px_20"
-    android:paddingRight="@dimen/px_20">
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/px_40"
+    android:paddingRight="@dimen/px_40">
 
     <ImageView
         android:id="@+id/tag_image"
@@ -21,6 +21,6 @@
         android:layout_marginLeft="@dimen/px_16"
         android:padding="@dimen/px_16"
         android:textColor="@android:color/black"
-        android:textSize="@dimen/px_25" />
+        android:textSize="@dimen/px_40" />
 
 </LinearLayout>

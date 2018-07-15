@@ -2,6 +2,7 @@ package com.qxb.student.control;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
@@ -21,13 +22,13 @@ public class HomeControl extends AndroidViewModel {
         super(application);
     }
 
-    public MutableLiveData<List<School>> getSchoolLiveData() {
+    public LiveData<List<School>> getSchoolLiveData() {
         String studId = "26";
         String proinvceCode = "420000";
         return schoolRepository.getSchoolLiveData(studId, proinvceCode);
     }
 
-    public String getLiveAdvert() {
+    public LiveData<String> getLiveAdvert() {
         return advertRepository.getLiveHomeAd();
     }
 }

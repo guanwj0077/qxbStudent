@@ -39,11 +39,7 @@ public class SysUtils {
      */
     private static DisplayMetrics displayMetrics;
 
-    private Context context;
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
+    private Context context = ContextUtils.getInstance().getContext();
 
     /**
      * 获得进程的名字

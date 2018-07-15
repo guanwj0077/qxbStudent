@@ -33,5 +33,11 @@ public final class Config {
 
     public static final String NAVIGATION_ID = "navigation_id";
 
+    public static final String AUTH = "auth";
+    public static final String COMMON = "common";
+    public static final String CUSTOM = "custom";
+    public static final String AUTH_COMMON = "auth:common";
+    public static final String AUTH_CUSTOM = "auth:custom";
+
 
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="com.qxb.student.common.utils.BindingUtils" />
+
+        <variable
+            name="imageUrl"
+            type="java.lang.String" />
+    </data>
+
+    <ImageView
+        android:id="@+id/image1"
+        imageUrl="@{imageUrl}"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY" />
+</layout>

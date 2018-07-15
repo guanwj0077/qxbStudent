@@ -6,6 +6,7 @@ import android.content.Context;
 import com.qxb.student.common.http.HttpConfigure;
 import com.qxb.student.common.http.HttpUtils;
 import com.qxb.student.common.module.dao.RoomUtils;
+import com.qxb.student.common.utils.ContextUtils;
 import com.qxb.student.common.utils.CrashCollectUtils;
 import com.qxb.student.common.utils.FileUtils;
 import com.qxb.student.common.utils.Singleton;
@@ -24,7 +25,7 @@ public class LibControl {
         return SINGLETON.get();
     }
 
-    private volatile static Context context;
+    private volatile Context context;
 
     /**
      * 初始化三方库及辅助工具类
@@ -33,11 +34,10 @@ public class LibControl {
      */
     public void init(Application application) {
         context = application.getApplicationContext();
-        SysUtils.getInstance().setContext(context);
-        FileUtils.getInstance().setContext(context);
+        ContextUtils.getInstance().setContext(context);
         CrashCollectUtils.getInstance();
-        HttpUtils.getInstance().setHttpConfigure(new HttpConfigure.Builder().setContext(context).build());
-        RoomUtils.getInstance().init(context);
+        HttpUtils.getInstance().setHttpConfigure(new HttpConfigure.Builder().build());
+
     }
 
     public Context getContext() {
@@ -51,6 +51,7 @@ public class LibControl {
      * 释放三方库及辅助工具类
      */
     public void release() {
+        ContextUtils.getInstance().cleared();
         context = null;
     }
 }

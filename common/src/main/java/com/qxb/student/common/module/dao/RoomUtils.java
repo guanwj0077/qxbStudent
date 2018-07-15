@@ -7,14 +7,18 @@ import android.content.Context;
 
 import com.qxb.student.common.module.bean.School;
 import com.qxb.student.common.module.bean.Test;
+import com.qxb.student.common.utils.ContextUtils;
 import com.qxb.student.common.utils.Singleton;
 
-public class RoomUtils {
+@Database(entities = {School.class}, version = 1, exportSchema = false)
+public abstract class RoomUtils extends RoomDatabase {
+
+    private static final String DATABASE_NAME = "qxb.db";
 
     private static final Singleton<RoomUtils> SINGLETON = new Singleton<RoomUtils>() {
         @Override
         protected RoomUtils create() {
-            return new RoomUtils();
+            return Room.databaseBuilder(ContextUtils.getInstance().getContext(), RoomUtils.class, DATABASE_NAME).build();
         }
     };
 
@@ -22,22 +26,6 @@ public class RoomUtils {
         return SINGLETON.get();
     }
 
-    private static final String DATABASE_NAME = "qxb.db";
-    private static volatile DefaultDatabase database;
-
-    public void init(Context context) {
-        database = Room.databaseBuilder(context, DefaultDatabase.class, DATABASE_NAME).build();
-    }
-
-    public DefaultDatabase getDefDatabase() {
-        return database;
-    }
-
-    @Database(entities = {School.class}, version = 1, exportSchema = false)
-    public abstract class DefaultDatabase extends RoomDatabase {
-
-        public abstract SchoolDao schoolDao();
-
-    }
+    public abstract SchoolDao schoolDao();
 
 }

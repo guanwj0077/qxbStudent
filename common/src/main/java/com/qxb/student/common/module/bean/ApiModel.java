@@ -47,4 +47,15 @@ public class ApiModel<T> {
     public void setSocailMsg(int socailMsg) {
         this.socailMsg = socailMsg;
     }
+
+    @Override
+    public String toString() {
+        return "ApiModel{" +
+                "CODE=" + CODE +
+                ", total=" + total +
+                ", msg='" + msg + '\'' +
+                ", data=" + data +
+                ", socailMsg=" + socailMsg +
+                '}';
+    }
 }

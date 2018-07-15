@@ -1,9 +1,7 @@
-package com.qxb.student.helper;
+package com.qxb.student.common.utils;
 
 import android.databinding.BindingAdapter;
 import android.widget.ImageView;
-
-import com.qxb.student.common.utils.GlideUtils;
 
 public class BindingUtils {
 

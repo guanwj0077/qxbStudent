@@ -28,11 +28,7 @@ public class FileUtils {
         return SINGLETON.get();
     }
 
-    private Context context;
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
+    private Context context = ContextUtils.getInstance().getContext();
 
     /**
      * 得到手机的缓存目录

@@ -1,5 +1,6 @@
 package com.qxb.student.common.module;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.qxb.student.common.http.HttpResponse;
@@ -12,12 +13,13 @@ public class AdvertRepository {
 
     private RoomUtils roomUtils = RoomUtils.getInstance();
 
-    public String getLiveHomeAd() {
+    public LiveData<String> getLiveHomeAd() {
+        final MutableLiveData<String> liveData = new MutableLiveData<>();
         HttpUtils.getInstance().request(HttpUtils.create(AdvertApi.class).getLiveHomeAd(), new HttpResponse<ApiModel<String>>() {
             @Override
             public void success(ApiModel<String> result) {
                 if (result.getCODE() == 1) {
-
+                    liveData.setValue(result.getData());
                 }
             }
 
@@ -26,6 +28,6 @@ public class AdvertRepository {
 
             }
         });
-        return "";
+        return liveData;
     }
 }

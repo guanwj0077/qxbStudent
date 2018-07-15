@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.qxb.student.common.Config;
+import com.qxb.student.common.utils.ContextUtils;
 
 import java.io.File;
 import java.security.SecureRandom;
@@ -60,12 +61,6 @@ public class HttpConfigure {
         private Call.Factory callFactory;
         private Retrofit retrofit;
         private CookieJar cookieJar;
-        private Context context;
-
-        public Builder setContext(Context context) {
-            this.context = context;
-            return this;
-        }
 
         public Builder baseUrl(String url) {
             httpUrl = HttpUrl.parse(url);
@@ -88,6 +83,7 @@ public class HttpConfigure {
         }
 
         public HttpConfigure build() {
+            Context context = ContextUtils.getInstance().getContext();
             if (context == null) {
                 throw new IllegalArgumentException("context must be not empty");
             }
@@ -111,7 +107,7 @@ public class HttpConfigure {
                             //设置计算机验证
                             .hostnameVerifier(hostnameVerifier)
                             //添加日志拦截器
-                            .addInterceptor(new LogInterceptor())
+                            .addInterceptor(new AuthenticationInterceptor())
                             //添加网络连接器
                             //.addNetworkInterceptor(new CookiesInterceptor(MyApplication.getInstance().getApplicationContext()))
                             //设置请求读写的超时时间
