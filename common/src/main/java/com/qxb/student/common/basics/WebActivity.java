@@ -1,17 +1,22 @@
 package com.qxb.student.common.basics;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.qxb.student.common.R;
 import com.qxb.student.common.module.bean.WebAttr;
 import com.qxb.student.common.utils.SysUtils;
 import com.qxb.student.common.view.web.WebView;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class WebActivity extends BaseAppActivity {
 
@@ -31,7 +36,6 @@ public class WebActivity extends BaseAppActivity {
         }
         toolbar = findViewById(R.id.toolbar);
         webView = findViewById(R.id.webView);
-        toolbar.setPadding(0, SysUtils.getInstance().getStatusHeight(), 0, 0);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.arrow_left_black);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

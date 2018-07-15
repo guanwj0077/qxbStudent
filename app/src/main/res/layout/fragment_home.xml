@@ -5,17 +5,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
+    <com.qxb.student.common.view.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/px_180"
-        android:background="@drawable/shape_bottom_divider"
-        android:padding="0dp"
-        app:title="">
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_bottom_divider">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/px_30"
+            android:paddingRight="@dimen/px_30">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -25,25 +25,15 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="@dimen/px_40" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_centerVertical="true"
-                android:text="求学宝"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/px_50" />
-
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/px_30"
                 app:srcCompat="@drawable/main_frg_search" />
         </RelativeLayout>
 
-    </android.support.v7.widget.Toolbar>
+    </com.qxb.student.common.view.Toolbar>
 
     <include layout="@layout/fragment_refresh" />
 </LinearLayout>

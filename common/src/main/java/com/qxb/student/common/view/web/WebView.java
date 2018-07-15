@@ -1,9 +1,14 @@
 package com.qxb.student.common.view.web;
 
 import android.content.Context;
+import android.net.http.SslError;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.webkit.GeolocationPermissions;
+import android.webkit.SslErrorHandler;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
+import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 /**
@@ -18,26 +23,26 @@ public class WebView extends android.webkit.WebView {
         progressbar = new ProgressBar(context, null, android.R.attr.progressBarStyleHorizontal);
         progressbar.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 3, 0, 0));
         addView(progressbar);
-//        setWebViewClient(new WebViewClient() {
-//            @Override
-//            public boolean shouldOverrideUrlLoading(android.webkit.WebView view, String url) {
-//                view.loadUrl(url);
-//                return true;
-//            }
-//
-//            @Override
-//            public boolean shouldOverrideUrlLoading(android.webkit.WebView view, WebResourceRequest request) {
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                    view.loadUrl(request.getUrl().toString());
-//                }
-//                return super.shouldOverrideUrlLoading(view, request);
-//            }
-//
-//            @Override
-//            public void onReceivedSslError(android.webkit.WebView view, SslErrorHandler handler, SslError error) {
-//                handler.proceed();// 接受所有网站的证书
-//            }
-//        });
+        setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(android.webkit.WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+
+            @Override
+            public boolean shouldOverrideUrlLoading(android.webkit.WebView view, WebResourceRequest request) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    view.loadUrl(request.getUrl().toString());
+                }
+                return super.shouldOverrideUrlLoading(view, request);
+            }
+
+            @Override
+            public void onReceivedSslError(android.webkit.WebView view, SslErrorHandler handler, SslError error) {
+                handler.proceed();// 接受所有网站的证书
+            }
+        });
 
         setWebChromeClient(new WebChromeClient());
         WebSettings settings = getSettings();
