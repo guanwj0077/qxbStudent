@@ -5,7 +5,10 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.qxb.student.common.Config;
+import com.qxb.student.common.module.bean.AppSrc;
 import com.qxb.student.common.module.bean.User;
 import com.qxb.student.common.utils.Encrypt;
 import com.qxb.student.common.utils.Logger;
@@ -24,7 +27,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class AuthenticationInterceptor implements Interceptor {
+public class AuthInterceptor implements Interceptor {
 
     private final String POST = "POST";
     private final static String AUTHORIZATION = "Authorization";
@@ -35,9 +38,9 @@ public class AuthenticationInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
+        Request.Builder builder = request.newBuilder();
         if (request.method().equals(POST)) {
 //            HttpUrl httpUrl = request.url();
-            Request.Builder builder = request.newBuilder();
             if (Config.CUSTOM.equals(request.header(Config.AUTH))) {
                 User user = UserCache.getInstance().getUser();
                 if (user != null) {
@@ -49,7 +52,7 @@ public class AuthenticationInterceptor implements Interceptor {
             }
             builder.addHeader(APP_SRC, getAppSrc());
         }
-        Response response = chain.proceed(request);
+        Response response = chain.proceed(builder.build());
         return response;
     }
 
@@ -101,18 +104,6 @@ public class AuthenticationInterceptor implements Interceptor {
     }
 
     private String getAppSrc() {
-        try {
-            PackageInfo packageInfo = SysUtils.getInstance().getPackageInfo();
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("os_type", 1);
-            jsonObject.put("app_type", 1);
-            jsonObject.put("ver_v", String.valueOf(packageInfo.versionCode));
-            jsonObject.put("ver_s", packageInfo.versionName);
-//            jsonObject.put("chan", String.valueOf(bundle.getInt("CHAN")));
-            return jsonObject.toString();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return "";
+        return new Gson().toJson(new AppSrc());
     }
 }

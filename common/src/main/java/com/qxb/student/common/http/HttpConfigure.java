@@ -107,7 +107,7 @@ public class HttpConfigure {
                             //设置计算机验证
                             .hostnameVerifier(hostnameVerifier)
                             //添加日志拦截器
-                            .addInterceptor(new AuthenticationInterceptor())
+                            .addInterceptor(new AuthInterceptor())
                             //添加网络连接器
                             //.addNetworkInterceptor(new CookiesInterceptor(MyApplication.getInstance().getApplicationContext()))
                             //设置请求读写的超时时间
