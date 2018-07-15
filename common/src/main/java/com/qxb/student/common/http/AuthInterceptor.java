@@ -1,26 +1,15 @@
 package com.qxb.student.common.http;
 
-import android.content.pm.PackageInfo;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
-import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.qxb.student.common.Config;
-import com.qxb.student.common.module.bean.AppSrc;
 import com.qxb.student.common.module.bean.User;
 import com.qxb.student.common.utils.Encrypt;
 import com.qxb.student.common.utils.Logger;
-import com.qxb.student.common.utils.SysUtils;
 import com.qxb.student.common.utils.UserCache;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 
-import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -48,7 +37,7 @@ public class AuthInterceptor implements Interceptor {
                     handle(builder, request.url(), request.body(), user);
                 }
             } else {
-                builder.addHeader(AUTHORIZATION, common());
+                builder.addHeader(AUTHORIZATION, Config.AUTH_COMMON_SECRET);
             }
             builder.addHeader(APP_SRC, getAppSrc());
         }
@@ -86,14 +75,6 @@ public class AuthInterceptor implements Interceptor {
 //        builder.post(bodyBuilder.build());
     }
 
-    private String common() {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(Encrypt.md5("fdas897329hflsh*&929jdjksjk))8238901)_02821###889sjfdskal;11n;;``11;"));
-        buffer.append(":");
-        buffer.append(Encrypt.md5("sokd889223_938$&@^@!(19LWKfdj1112990)*&&!JK02010838ufdskll38x988**&*()ook"));
-        return Encrypt.base64(buffer.toString());
-    }
-
     private String custom(@NonNull User user) {
         StringBuffer buffer = new StringBuffer();
         buffer.append(user.getTelphone());
@@ -104,6 +85,7 @@ public class AuthInterceptor implements Interceptor {
     }
 
     private String getAppSrc() {
-        return new Gson().toJson(new AppSrc());
+//        PackageInfo packageInfo = SysUtils.getInstance().getPackageInfo();
+        return "{\"os_type\":1,\"app_type\":1,\"ver_v\":\"76\",\"ver_s\":\"5.0\",\"chan\":\"3\"}";
     }
 }

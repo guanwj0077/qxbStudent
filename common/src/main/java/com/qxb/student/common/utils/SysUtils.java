@@ -38,6 +38,10 @@ public class SysUtils {
      * 屏幕高度
      */
     private static DisplayMetrics displayMetrics;
+    /**
+     * 当前包信息
+     */
+    private PackageInfo packageInfo;
 
     private Context context = ContextUtils.getInstance().getContext();
 
@@ -141,7 +145,10 @@ public class SysUtils {
      * @return
      */
     public PackageInfo getPackageInfo() {
-        return getPackageInfo(context.getPackageName());
+        if (packageInfo == null) {
+            packageInfo = getPackageInfo(context.getPackageName());
+        }
+        return packageInfo;
     }
 
     /**
