@@ -46,6 +46,7 @@ dependencies {
     api "com.google.code.gson:gson:2.8.2"
 
     api "com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-5"
+    api 'com.zhy:autolayout:1.4.5'
 
     api 'com.squareup.retrofit2:converter-gson:2.3.0'
     api 'com.squareup.retrofit2:retrofit:2.4.0'

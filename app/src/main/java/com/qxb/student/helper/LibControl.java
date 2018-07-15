@@ -11,6 +11,7 @@ import com.qxb.student.common.utils.CrashCollectUtils;
 import com.qxb.student.common.utils.FileUtils;
 import com.qxb.student.common.utils.Singleton;
 import com.qxb.student.common.utils.SysUtils;
+import com.zhy.autolayout.config.AutoLayoutConifg;
 
 public class LibControl {
 
@@ -34,9 +35,14 @@ public class LibControl {
      */
     public void init(Application application) {
         context = application.getApplicationContext();
+        //上下文托管
         ContextUtils.getInstance().setContext(context);
+        //错误日志收集
         CrashCollectUtils.getInstance();
+        //http请求工具
         HttpUtils.getInstance().setHttpConfigure(new HttpConfigure.Builder().build());
+        //布局适配框架：注意recycler的holder里设置item适配
+        AutoLayoutConifg.getInstance().useDeviceSize();
 
     }
 
