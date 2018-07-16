@@ -9,6 +9,10 @@ import retrofit2.http.POST;
 
 public interface AdvertApi {
 
+    /**
+     * 首页banner广告
+     * @return
+     */
     @Headers(Config.AUTH_COMMON)
     @POST("chatRoom/liveHomeAd23")
     Observable<ApiModel<String>> getLiveHomeAd();
