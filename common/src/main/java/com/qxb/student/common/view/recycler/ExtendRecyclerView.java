@@ -12,8 +12,8 @@ import java.util.ArrayList;
 
 public class ExtendRecyclerView extends RecyclerView {
 
-    private ArrayList<View> headerViews=new ArrayList<>();
-    private ArrayList<View> footerViews=new ArrayList<>();
+    private ArrayList<View> headerViews = new ArrayList<>();
+    private ArrayList<View> footerViews = new ArrayList<>();
 
     private Adapter adapter;
 
@@ -43,10 +43,8 @@ public class ExtendRecyclerView extends RecyclerView {
 
     @Override
     public void setAdapter(Adapter adapter) {
-        if (headerViews.size() > 0|| footerViews.size() > 0) {
+        if (headerViews.size() > 0 || footerViews.size() > 0) {
             adapter = new ExtendRecyclerAdapter(headerViews, footerViews, adapter);
-        } else {
-            adapter = adapter;
         }
         super.setAdapter(adapter);
     }

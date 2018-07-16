@@ -13,7 +13,7 @@ import java.util.List;
 @Dao
 public interface SchoolDao {
 
-    @Query("SELECT * FROM TB_SCHOOL")
+    @Query("SELECT * FROM tb_school")
     LiveData<List<School>> getRecommendedColleges();
 
     @Insert

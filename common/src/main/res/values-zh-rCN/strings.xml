@@ -22,4 +22,7 @@
 
     <string name="hint_login_third">第三方登录</string>
     <string name="hint_tag_recommended_colleges">推荐院校</string>
+    <string name="hint_sys_msg">系统通知</string>
+    <string name="hint_push_msg">推送通知</string>
+    <string name="hint_no_msg">暂无消息</string>
 </resources>

@@ -12,6 +12,7 @@ import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
+import android.support.annotation.DrawableRes;
 import android.support.v4.app.Fragment;
 import android.widget.ImageView;
 
@@ -319,6 +320,10 @@ public class GlideUtils {
     @SuppressWarnings("unchecked")
     public void LoadFragmentRotateBitmap(android.app.Fragment fragment, String path, ImageView imageView, Float rotateRotationAngle) {
         Glide.with(fragment).load(path).bitmapTransform(new RotateTransformation(fragment.getActivity(), rotateRotationAngle)).into(imageView);
+    }
+
+    public void LoadContextRes(Context context, @DrawableRes int resid, ImageView imageView) {
+        Glide.with(context).load(resid).asBitmap().into(imageView);
     }
 
     /**

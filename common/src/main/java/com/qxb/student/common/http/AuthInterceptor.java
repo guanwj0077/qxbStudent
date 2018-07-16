@@ -29,7 +29,6 @@ public class AuthInterceptor implements Interceptor {
         Request request = chain.request();
         Request.Builder builder = request.newBuilder();
         if (request.method().equals(POST)) {
-//            HttpUrl httpUrl = request.url();
             if (Config.CUSTOM.equals(request.header(Config.AUTH))) {
                 User user = UserCache.getInstance().getUser();
                 if (user != null) {
@@ -39,6 +38,7 @@ public class AuthInterceptor implements Interceptor {
             } else {
                 builder.addHeader(AUTHORIZATION, Config.AUTH_COMMON_SECRET);
             }
+//            builder.removeHeader(Config.AUTH);//删除自定义的认证头标记
             builder.addHeader(APP_SRC, getAppSrc());
         }
         Response response = chain.proceed(builder.build());
