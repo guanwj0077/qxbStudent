@@ -2,7 +2,7 @@ package com.qxb.student.common.delegate;
 
 import android.view.ViewStub;
 
-import com.qxb.student.common.recycler.adapter.QuickAdapter;
+import com.qxb.student.common.view.recycler.adapter.QuickAdapter;
 
 import java.util.List;
 

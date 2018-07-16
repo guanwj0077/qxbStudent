@@ -14,6 +14,8 @@ import android.support.v4.app.Fragment;
 import com.qxb.student.common.Config;
 import com.qxb.student.common.R;
 import com.qxb.student.common.basics.NavigationActivity;
+import com.qxb.student.common.basics.WebActivity;
+import com.qxb.student.common.module.bean.WebAttr;
 
 import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
@@ -57,6 +59,12 @@ public class NavigationUtils {
     public void toNavigation(@NonNull Context context, @NavigationRes int navigationRes) {
         Intent intent = new Intent(context, NavigationActivity.class);
         intent.putExtra(Config.NAVIGATION_ID, navigationRes);
+        context.startActivity(intent);
+    }
+
+    public void toWeb(@NonNull Context context, @NonNull WebAttr webAttr) {
+        Intent intent = new Intent(context, WebActivity.class);
+        intent.putExtra(WebAttr.TAG, webAttr);
         context.startActivity(intent);
     }
 

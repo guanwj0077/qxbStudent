@@ -38,12 +38,12 @@ public class SysUtils {
      * 屏幕高度
      */
     private static DisplayMetrics displayMetrics;
+    /**
+     * 当前包信息
+     */
+    private PackageInfo packageInfo;
 
-    private Context context;
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
+    private Context context = ContextUtils.getInstance().getContext();
 
     /**
      * 获得进程的名字
@@ -145,7 +145,10 @@ public class SysUtils {
      * @return
      */
     public PackageInfo getPackageInfo() {
-        return getPackageInfo(context.getPackageName());
+        if (packageInfo == null) {
+            packageInfo = getPackageInfo(context.getPackageName());
+        }
+        return packageInfo;
     }
 
     /**
@@ -179,27 +182,27 @@ public class SysUtils {
      *
      * @return
      */
-    @SuppressLint("MissingPermission")
-    public final String getIMEI() {
-        try {
-            //实例化TelephonyManager对象
-            TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-            //获取IMEI号
-            String imei;
-            if (Build.VERSION.SDK_INT >= 26) {
-                imei = telephonyManager.getImei();
-            } else {
-                imei = telephonyManager.getDeviceId();
-            }
-            //在次做个验证，也不是什么时候都能获取到的啊
-            if (imei == null) {
-                imei = "";
-            }
-            return imei;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "";
-        }
-
-    }
+//    @SuppressLint("MissingPermission")
+//    public final String getIMEI() {
+//        try {
+//            //实例化TelephonyManager对象
+//            TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+//            //获取IMEI号
+//            String imei;
+//            if (Build.VERSION.SDK_INT >= 26) {
+//                imei = telephonyManager.getImei();
+//            } else {
+//                imei = telephonyManager.getDeviceId();
+//            }
+//            //在次做个验证，也不是什么时候都能获取到的啊
+//            if (imei == null) {
+//                imei = "";
+//            }
+//            return imei;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return "";
+//        }
+//
+//    }
 }

@@ -1,5 +1,6 @@
 package com.qxb.student.common.basics;
 
+import android.arch.lifecycle.HolderFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -14,12 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.qxb.student.common.listener.IBinding;
+import com.qxb.student.common.utils.NavigationUtils;
 
 import java.lang.ref.WeakReference;
 
 import androidx.navigation.fragment.NavHostFragment;
 
-public abstract class BaseFragment extends Fragment implements IBinding {
+public abstract class BaseFragment extends HolderFragment implements IBinding {
 
     private WeakReference<Fragment> weakReference = null;
     private View contentView;
@@ -95,7 +97,7 @@ public abstract class BaseFragment extends Fragment implements IBinding {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            if (!NavHostFragment.findNavController(getFragment()).navigateUp()) {
+            if (!NavigationUtils.getInstance().goBack(getFragment())) {
                 getActivity().finish();
             }
             return true;

@@ -1,5 +1,6 @@
 package com.qxb.student.ui.home;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,8 +9,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.qxb.student.R;
+import com.qxb.student.adapter.HomeAdapter;
 import com.qxb.student.common.basics.ExpandFragment;
 import com.qxb.student.common.utils.SysUtils;
+import com.qxb.student.control.HomeControl;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 public class HomeFragment extends ExpandFragment {
 
@@ -20,14 +26,44 @@ public class HomeFragment extends ExpandFragment {
 
     private Toolbar toolbar;
     private RecyclerView recyclerView;
+    private SmartRefreshLayout refreshLayout;
 
     @Override
     public void init(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        //toolbar
         toolbar = view.findViewById(R.id.toolbar);
         toolbar.setPadding(0, SysUtils.getInstance().getStatusHeight(), 0, 0);
-        recyclerView = view.findViewById(R.id.recyclerView);
         setSupportActionBar(toolbar);
 
+        refreshLayout = view.findViewById(R.id.refreshLayout);
+        recyclerView = view.findViewById(R.id.recyclerView);
+        ////toolbar 设置下拉刷新
+        refreshLayout.setDisableContentWhenLoading(false);
+        refreshLayout.setEnableOverScrollDrag(true);
+        refreshLayout.setEnableLoadMore(false);
+        refreshLayout.setEnableFooterFollowWhenLoadFinished(false);
 
+        recyclerView.setAdapter(new HomeAdapter(this));
+
+        this.refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                refreshlayout.finishRefresh();
+                HomeControl homeControl = ViewModelProviders.of(HomeFragment.this).get(HomeControl.class);
+                homeControl.getLiveAdvert();
+                homeControl.getSchoolLiveData();
+//                homeControl.getSchoolLiveData();
+//                homeControl.getLiveAdvert();
+            }
+        });
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        toolbar = null;
+        recyclerView = null;
+        refreshLayout = null;
+    }
+
 }

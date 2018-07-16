@@ -2,9 +2,27 @@ package com.qxb.student.common.module.bean;
 
 public class ApiModel<T> {
 
+    private int CODE;
+    private int total;
     private String msg;
-    private T result;
-    private String retCode;
+    private T data;
+    private int socailMsg;
+
+    public int getCODE() {
+        return CODE;
+    }
+
+    public void setCODE(int CODE) {
+        this.CODE = CODE;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
 
     public String getMsg() {
         return msg;
@@ -14,19 +32,30 @@ public class ApiModel<T> {
         this.msg = msg;
     }
 
-    public T getResult() {
-        return result;
+    public T getData() {
+        return data;
     }
 
-    public void setResult(T result) {
-        this.result = result;
+    public void setData(T data) {
+        this.data = data;
     }
 
-    public String getRetCode() {
-        return retCode;
+    public int getSocailMsg() {
+        return socailMsg;
     }
 
-    public void setRetCode(String retCode) {
-        this.retCode = retCode;
+    public void setSocailMsg(int socailMsg) {
+        this.socailMsg = socailMsg;
+    }
+
+    @Override
+    public String toString() {
+        return "ApiModel{" +
+                "CODE=" + CODE +
+                ", total=" + total +
+                ", msg='" + msg + '\'' +
+                ", data=" + data +
+                ", socailMsg=" + socailMsg +
+                '}';
     }
 }
