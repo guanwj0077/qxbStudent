@@ -20,12 +20,12 @@ import java.util.List;
 
 public abstract class AbsListAdapter<Binding extends ViewDataBinding, T> extends android.widget.BaseAdapter {
 
-    private WeakReference<Context> contextReference;
+    private Context context;
     private List<T> mList;
     private int layoutId;
 
     public AbsListAdapter(Context context, @LayoutRes int layoutId) {
-        this.contextReference = new WeakReference<>(context);
+        this.context = context;
         this.mList = new ArrayList();
         this.layoutId = layoutId;
     }
@@ -77,7 +77,7 @@ public abstract class AbsListAdapter<Binding extends ViewDataBinding, T> extends
         if (convertView != null) {
             binding = DataBindingUtil.getBinding(convertView);
         } else {
-            binding = DataBindingUtil.inflate(LayoutInflater.from(this.contextReference.get()), layoutId, parent, false);
+            binding = DataBindingUtil.inflate(LayoutInflater.from(context), layoutId, parent, false);
         }
         position = getPosition(position);
         this.bind(binding, position, this.getItem(position));

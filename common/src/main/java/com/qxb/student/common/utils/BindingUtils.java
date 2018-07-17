@@ -8,6 +8,11 @@ public class BindingUtils {
 
     @BindingAdapter({"imageUrl"})
     public static void imageUrl(ImageView imageView, String imageUrl) {
+        GlideUtils.getInstance().loadImage(imageView, imageUrl);
+    }
+
+    @BindingAdapter({"roundImageUrl"})
+    public static void roundImageUrl(ImageView imageView, String imageUrl) {
         GlideUtils.getInstance().LoadContextCircleBitmap(imageView.getContext(), imageUrl, imageView);
     }
 

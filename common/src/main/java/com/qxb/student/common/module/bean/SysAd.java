@@ -1,7 +1,5 @@
 package com.qxb.student.common.module.bean;
 
-import java.util.Date;
-
 /**
  * 系统广告
  */
@@ -59,7 +57,7 @@ public class SysAd {
     /**
      * 创建时间
      */
-    private Date create_time;
+    private Long create_time;
     /**
      * 省份编码
      **/
@@ -199,11 +197,11 @@ public class SysAd {
         this.summary = summary;
     }
 
-    public Date getCreate_time() {
+    public Long getCreate_time() {
         return create_time;
     }
 
-    public void setCreate_time(Date create_time) {
+    public void setCreate_time(Long create_time) {
         this.create_time = create_time;
     }
 

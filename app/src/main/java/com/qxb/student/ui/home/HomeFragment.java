@@ -51,6 +51,7 @@ public class HomeFragment extends ExpandFragment {
                 HomeControl homeControl = ViewModelProviders.of(HomeFragment.this).get(HomeControl.class);
                 homeControl.getLiveAdvert();
                 homeControl.getSchoolLiveData();
+                homeControl.getHomeBanner();
 //                homeControl.getSchoolLiveData();
 //                homeControl.getLiveAdvert();
             }

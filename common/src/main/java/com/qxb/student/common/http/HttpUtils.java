@@ -58,6 +58,7 @@ public class HttpUtils {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         httpResponse.failed(throwable);
+                        System.out.println("throwable:" + throwable.getMessage());
                     }
                 });
     }

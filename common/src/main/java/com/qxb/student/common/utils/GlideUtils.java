@@ -13,6 +13,7 @@ import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.widget.ImageView;
 
@@ -137,6 +138,10 @@ public class GlideUtils {
         } else if (bitmapOrgif.equals(LOAD_GIF)) {
             Glide.with(context).load(path).asGif().crossFade().into(imageView);
         }
+    }
+
+    public void loadImage(@NonNull ImageView imageView, String path) {
+        Glide.with(imageView.getContext()).load(path).into(imageView);
     }
 
     /**

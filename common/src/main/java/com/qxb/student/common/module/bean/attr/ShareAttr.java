@@ -1,4 +1,4 @@
-package com.qxb.student.common.module.bean;
+package com.qxb.student.common.module.bean.attr;
 
 public class ShareAttr {
 

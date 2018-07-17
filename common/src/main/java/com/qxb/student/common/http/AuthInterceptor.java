@@ -6,15 +6,19 @@ import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.User;
 import com.qxb.student.common.utils.Encrypt;
 import com.qxb.student.common.utils.Logger;
-import com.qxb.student.common.utils.UserCache;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 
+import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
+import okio.Buffer;
+import okio.BufferedSource;
 
 public class AuthInterceptor implements Interceptor {
 
@@ -28,13 +32,16 @@ public class AuthInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         Request.Builder builder = request.newBuilder();
+        if (Logger.isDebug) {
+            logger.d("HttpRequest:" + request.url().toString());
+        }
         if (request.method().equals(POST)) {
             if (Config.CUSTOM.equals(request.header(Config.AUTH))) {
-                User user = UserCache.getInstance().getUser();
-                if (user != null) {
-                    builder.addHeader(AUTHORIZATION, custom(user));
-                    handle(builder, request.url(), request.body(), user);
-                }
+//                User user = UserCache.getInstance().getUser();
+//                if (user != null) {
+                builder.addHeader(AUTHORIZATION, custom(null));
+                handle(builder, request.body(), null);
+//                }
             } else if (Config.COMMON.equals(request.header(Config.AUTH))) {
                 builder.addHeader(AUTHORIZATION, Config.AUTH_COMMON_SECRET);
             }
@@ -42,46 +49,60 @@ public class AuthInterceptor implements Interceptor {
             builder.addHeader(APP_SRC, getAppSrc());
         }
         Response response = chain.proceed(builder.build());
+        if (Logger.isDebug) {
+            ResponseBody responseBody = response.body();
+            BufferedSource source = responseBody.source();
+            source.request(responseBody.contentLength());
+            Buffer buffer = source.buffer();
+            String responseBodyString = buffer.clone().readString(Charset.forName("UTF-8"));
+            logger.d("HttpResponse:" + responseBodyString);
+        }
         return response;
     }
 
-    private void handle(Request.Builder builder, HttpUrl httpUrl, RequestBody body, User user) {
-        String loginName = user.getTelphone();
-        String timeTemp = String.valueOf(System.currentTimeMillis());
-        /*密钥*/
-        String secretKey = Encrypt.getReverseString(timeTemp + loginName);
-        /*待签名*/
-//        String signTemp = values.toString() + "&secretKey=" + secretKey;
-//        String md51 = Encrypt.md5(signTemp).toUpperCase();
-//        String sign = Encrypt.md5(Encrypt.getReverseString(md51)).toUpperCase();
-//        FormBody.Builder bodyBuilder = new FormBody.Builder();
-//        if (values != null) {
-//            for (String key : values.keySet()) {
-//                String value = values.getAsString(key);
-//                if (TextUtils.isEmpty(value)) {
-//                    continue;
-//                }
-//                bodyBuilder.add(key, value);
-//            }
-//        }
-//        bodyBuilder.add("timestamp", timeTemp);
-//        bodyBuilder.add("sign", sign);
-//        logger.d("------------------------------------------------------");
-//        logger.d("loginName:" + loginName);
-//        logger.d("timeTemp:" + timeTemp);
-//        logger.d("request:" + httpUrl.url().toString());
-//        logger.d("params:");
-//        logger.d("------------------------------------------------------");
-//        builder.post(bodyBuilder.build());
+    private void handle(Request.Builder builder, RequestBody body, User user) {
+        try {
+            String loginName = "13343426551";//user.getTelphone();
+            String timeTemp = String.valueOf(System.currentTimeMillis());
+            /*密钥*/
+            String secretKey = Encrypt.getReverseString(timeTemp + loginName);
+            Buffer buffer = new Buffer();
+            body.writeTo(buffer);
+            byte[] buff = new byte[(int) buffer.size()];
+            buffer.inputStream().read(buff);
+            String params = new String(buff, "UTF-8");
+            /*待签名*/
+            String signTemp = params + "&secretKey=" + secretKey;
+            String md51 = Encrypt.md5(signTemp).toUpperCase();
+            String sign = Encrypt.md5(Encrypt.getReverseString(md51)).toUpperCase();
+            FormBody.Builder bodyBuilder = new FormBody.Builder();
+            for (String pair : signTemp.split("&")) {
+                String[] kv = pair.split("=");
+                bodyBuilder.add(kv[0], kv[1]);
+            }
+            bodyBuilder.add("timestamp", timeTemp);
+            bodyBuilder.add("sign", sign);
+            if (Logger.isDebug) {
+                logger.d("------------------------------------------------------");
+                logger.d("loginName:" + loginName);
+                logger.d("timeTemp:" + timeTemp);
+                logger.d("params:" + params);
+                logger.d("------------------------------------------------------");
+            }
+            builder.post(bodyBuilder.build());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
-    private String custom(@NonNull User user) {
+    private String custom(User user) {
         StringBuffer buffer = new StringBuffer();
         buffer.append(user.getTelphone());
         buffer.append(":");
         buffer.append(user.getPassword());
         buffer.append(":student");
-        return Encrypt.base64(buffer.toString());
+        return Encrypt.base64("13343426551:123456:student");
+//        return Encrypt.base64(buffer.toString());
     }
 
     private String getAppSrc() {

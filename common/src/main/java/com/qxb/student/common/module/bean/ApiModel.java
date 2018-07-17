@@ -2,18 +2,18 @@ package com.qxb.student.common.module.bean;
 
 public class ApiModel<T> {
 
-    private int CODE;
+    private int code;
     private int total;
     private String msg;
     private T data;
     private int socailMsg;
 
-    public int getCODE() {
-        return CODE;
+    public int getCode() {
+        return code;
     }
 
-    public void setCODE(int CODE) {
-        this.CODE = CODE;
+    public void setCode(int code) {
+        this.code = code;
     }
 
     public int getTotal() {
@@ -48,14 +48,4 @@ public class ApiModel<T> {
         this.socailMsg = socailMsg;
     }
 
-    @Override
-    public String toString() {
-        return "ApiModel{" +
-                "CODE=" + CODE +
-                ", total=" + total +
-                ", msg='" + msg + '\'' +
-                ", data=" + data +
-                ", socailMsg=" + socailMsg +
-                '}';
-    }
 }

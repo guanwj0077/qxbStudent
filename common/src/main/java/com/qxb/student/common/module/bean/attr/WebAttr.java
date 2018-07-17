@@ -1,4 +1,4 @@
-package com.qxb.student.common.module.bean;
+package com.qxb.student.common.module.bean.attr;
 
 import android.os.Parcel;
 import android.os.Parcelable;

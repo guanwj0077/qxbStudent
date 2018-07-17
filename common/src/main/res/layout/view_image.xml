@@ -3,8 +3,6 @@
 
     <data>
 
-        <import type="com.qxb.student.common.utils.BindingUtils" />
-
         <variable
             name="imageUrl"
             type="java.lang.String" />

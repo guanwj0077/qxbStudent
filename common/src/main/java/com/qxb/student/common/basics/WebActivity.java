@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.qxb.student.common.R;
-import com.qxb.student.common.module.bean.WebAttr;
+import com.qxb.student.common.module.bean.attr.WebAttr;
 import com.qxb.student.common.view.Toolbar;
 import com.qxb.student.common.view.web.WebView;
 
@@ -39,6 +39,7 @@ public class WebActivity extends BaseAppActivity {
                 finish();
             }
         });
+        webView.setExternal(attr.isExternal());
         if (TextUtils.isEmpty(attr.getAuth())) {
             webView.loadUrl(attr.getHttpUrl());
         } else {

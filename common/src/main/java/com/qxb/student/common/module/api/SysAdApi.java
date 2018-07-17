@@ -7,9 +7,10 @@ import com.qxb.student.common.module.bean.SysAd;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 /**
  * 系统广告
@@ -33,8 +34,9 @@ public interface SysAdApi {
      * @return
      */
     @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
     @POST("sysAd/list")
-    Observable<ApiModel<List<SysAd>>> getSysAdList(@Query("type") String type, @Query("province") String province, @Query("student_id") String studentId);
+    Observable<ApiModel<List<SysAd>>> getSysAdList(@Field("type") String type, @Field("province") String province, @Field("student_id") String studentId);
 
     /**
      * 首页banner
@@ -43,6 +45,7 @@ public interface SysAdApi {
      * @return
      */
     @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
     @POST("sysAd/new_banner")
-    Observable<ApiModel<List<SysAd>>> getHomeBanner(@Query("province") String province);
+    Observable<ApiModel<List<SysAd>>> getHomeBanner(@Field("province") String province);
 }
