@@ -10,7 +10,8 @@ import retrofit2.http.POST;
 public interface AdvertApi {
 
     /**
-     * 首页banner广告
+     * 直播首页广告 2.3 新版本 新图片
+     *
      * @return
      */
     @Headers(Config.AUTH_COMMON)
