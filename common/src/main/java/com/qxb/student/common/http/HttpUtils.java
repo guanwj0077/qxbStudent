@@ -35,7 +35,7 @@ public class HttpUtils {
         return httpConfigure.getRetrofit().create(clazz);
     }
 
-    public <T> void request(Observable<T> observable, final HttpResponse<T> httpResponse) {
+    public <T> void request(final Observable<T> observable, final HttpResponse<T> httpResponse) {
         observable.subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
@@ -59,6 +59,7 @@ public class HttpUtils {
                     public void accept(Throwable throwable) throws Exception {
                         httpResponse.failed(throwable);
                         System.out.println("throwable:" + throwable.getMessage());
+                        request(observable, httpResponse);
                     }
                 });
     }

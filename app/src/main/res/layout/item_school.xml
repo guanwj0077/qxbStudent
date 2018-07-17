@@ -2,6 +2,7 @@
 <layout>
 
     <data>
+
         <variable
             name="school"
             type="com.qxb.student.common.module.bean.School" />
@@ -10,15 +11,14 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="?attr/selectableItemBackground"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/px_12"
-        android:paddingTop="@dimen/px_12">
+        android:padding="@dimen/px_10">
 
         <ImageView
             android:id="@+id/image"
-            imageUrl="@{school.coverRealPath}"
+            imageUrl="@{school.logoRealPath}"
             android:layout_width="@dimen/px_120"
             android:layout_height="@dimen/px_120"
             android:scaleType="centerCrop" />
@@ -32,7 +32,7 @@
             android:gravity="center"
             android:lines="2"
             android:text="@{school.school_name}"
-            android:textColor="#3e3a39"
+            android:textColor="@android:color/black"
             android:textSize="@dimen/px_35" />
     </LinearLayout>
 

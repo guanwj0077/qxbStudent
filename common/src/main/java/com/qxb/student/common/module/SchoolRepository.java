@@ -40,23 +40,23 @@ public class SchoolRepository {
 //        return liveData;
 //        LiveData<List<School>> liveData = roomUtils.schoolDao().getRecommendedColleges();
 //        if (liveData.getValue() == null) {
-            final MutableLiveData<List<School>> finalLiveData = new MutableLiveData<>();
+        final MutableLiveData<List<School>> finalLiveData = new MutableLiveData<>();
 //            liveData = finalLiveData;
-            Observable<ApiModel<List<School>>> observable = HttpUtils.create(SchoolApi.class).getRecommendedCollegeList(province);
-            HttpUtils.getInstance().request(observable, new HttpResponse<ApiModel<List<School>>>() {
-                @Override
-                public void success(ApiModel<List<School>> result) {
-                    if (result.getCode() == 1) {
+        Observable<ApiModel<List<School>>> observable = HttpUtils.create(SchoolApi.class).getRecommendedCollegeList(province);
+        HttpUtils.getInstance().request(observable, new HttpResponse<ApiModel<List<School>>>() {
+            @Override
+            public void success(ApiModel<List<School>> result) {
+                if (result.getCode() == 1) {
 //                        roomUtils.schoolDao().insertColleges(result.getData());
-                        finalLiveData.setValue(result.getData());
-                    }
+                    finalLiveData.setValue(result.getData());
                 }
+            }
 
-                @Override
-                public void failed(Throwable throwable) {
+            @Override
+            public void failed(Throwable throwable) {
 
-                }
-            });
+            }
+        });
 //        }
         return finalLiveData;
     }

@@ -13,6 +13,7 @@ import com.qxb.student.common.databinding.ViewImageBinding;
 import com.qxb.student.common.module.bean.School;
 import com.qxb.student.common.module.bean.SysAd;
 import com.qxb.student.common.view.abslist.AbsListAdapter;
+import com.qxb.student.common.view.abslist.GridView;
 import com.qxb.student.common.view.bannerview.CircleFlowIndicator;
 import com.qxb.student.common.view.bannerview.ViewFlow;
 import com.qxb.student.common.view.recycler.ViewHolder;
@@ -87,16 +88,17 @@ public class HomeAdapter extends NestingAdapter {
             case SCHOOL:
                 holder.setImageResource(R.id.tag_image, R.mipmap.yuan_xiao_hot);
                 holder.setText(R.id.tag_text, R.string.hint_tag_recommended_colleges);
-                final AbsListAdapter<ItemSchoolBinding, School> schoolAbsListAdapter = new AbsListAdapter<ItemSchoolBinding, School>(fragment.getContext(), R.layout.item_school) {
-                    @Override
-                    protected void bind(ItemSchoolBinding binding, int position, School item) {
-                        binding.setSchool(item);
-                    }
-                };
-                holder.setAdapter(R.id.gridView, schoolAbsListAdapter);
+                final GridView gridView = holder.getView(R.id.gridView);
                 homeControl.getSchoolLiveData().observe(fragment, new Observer<List<School>>() {
                     @Override
                     public void onChanged(@Nullable List<School> schools) {
+                        AbsListAdapter<ItemSchoolBinding, School> schoolAbsListAdapter;
+                        gridView.setAdapter(schoolAbsListAdapter = new AbsListAdapter<ItemSchoolBinding, School>(fragment.getContext(), R.layout.item_school) {
+                            @Override
+                            protected void bind(ItemSchoolBinding binding, int position, School item) {
+                                binding.setSchool(item);
+                            }
+                        });
                         schoolAbsListAdapter.clear();
                         schoolAbsListAdapter.addCollection(schools);
                     }

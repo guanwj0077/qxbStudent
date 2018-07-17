@@ -13,6 +13,7 @@
         android:background="@android:color/white"
         android:horizontalSpacing="@dimen/px_10"
         android:numColumns="4"
+        android:padding="@dimen/px_30"
         android:scrollbars="none"
         android:stretchMode="columnWidth"
         android:verticalSpacing="@dimen/px_10" />
