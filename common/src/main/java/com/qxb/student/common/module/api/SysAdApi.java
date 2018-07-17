@@ -36,6 +36,13 @@ public interface SysAdApi {
     @POST("sysAd/list")
     Observable<ApiModel<List<SysAd>>> getSysAdList(@Query("type") String type, @Query("province") String province, @Query("student_id") String studentId);
 
-
-
+    /**
+     * 首页banner
+     *
+     * @param province 省份编码
+     * @return
+     */
+    @Headers(Config.AUTH_COMMON)
+    @POST("sysAd/new_banner")
+    Observable<ApiModel<List<SysAd>>> getHomeBanner(@Query("province") String province);
 }
