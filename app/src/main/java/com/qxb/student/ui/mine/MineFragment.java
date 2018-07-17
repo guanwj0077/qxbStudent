@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.qxb.student.R;
 import com.qxb.student.common.basics.ExpandFragment;
 import com.qxb.student.common.module.bean.WebAttr;
+import com.qxb.student.common.utils.MobUtils;
 import com.qxb.student.common.utils.NavigationUtils;
 
 public class MineFragment extends ExpandFragment {
@@ -25,11 +26,13 @@ public class MineFragment extends ExpandFragment {
             public void onClick(View view) {
 //                NavigationUtils.getInstance().jump(getFragment(), R.id.fragment_login);
 //                NavigationUtils.getInstance().toNavigation(getActivity(), R.navigation.nav_login);
-                NavigationUtils.getInstance().toWeb(getActivity(),
-                        new WebAttr.Builder()
-                                .title("百度一下")
-                                .url("http://www.baidu.com")
-                                .build());
+//                NavigationUtils.getInstance().toWeb(getActivity(),
+//                        new WebAttr.Builder()
+//                                .title("百度一下")
+//                                .url("http://www.baidu.com")
+//                                .build());
+
+                MobUtils.getInstance().grantAuth();
             }
         });
     }

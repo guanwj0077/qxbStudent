@@ -7,6 +7,11 @@
         android:theme="@style/AppTheme">
         <activity android:name=".basics.NavigationActivity" />
         <activity android:name=".basics.WebActivity" />
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
     </application>
 
 </manifest>

@@ -35,10 +35,10 @@ public class AuthInterceptor implements Interceptor {
                     builder.addHeader(AUTHORIZATION, custom(user));
                     handle(builder, request.url(), request.body(), user);
                 }
-            } else {
+            } else if (Config.COMMON.equals(request.header(Config.AUTH))) {
                 builder.addHeader(AUTHORIZATION, Config.AUTH_COMMON_SECRET);
             }
-//            builder.removeHeader(Config.AUTH);//删除自定义的认证头标记
+            builder.removeHeader(Config.AUTH);//删除自定义的认证头标记
             builder.addHeader(APP_SRC, getAppSrc());
         }
         Response response = chain.proceed(builder.build());

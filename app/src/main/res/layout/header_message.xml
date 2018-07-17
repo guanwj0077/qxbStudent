@@ -13,7 +13,7 @@
         <ImageView
             android:id="@+id/image1"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/px_270"
+            android:layout_height="@dimen/px_300"
             android:background="@color/colorDivider"
             android:paddingBottom="@dimen/px_20"
             android:scaleType="fitXY"
