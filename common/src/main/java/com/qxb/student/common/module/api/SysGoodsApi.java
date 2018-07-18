@@ -4,9 +4,10 @@ import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.ApiModel;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 /**
  * 系统商品
@@ -20,8 +21,9 @@ public interface SysGoodsApi {
      * @return
      */
     @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
     @POST("goods/getGoodsByCode")
-    Observable<ApiModel<String>> getGoodsByCode(@Query("goods_code") String goodsCode);
+    Observable<ApiModel<String>> getGoodsByCode(@Field("goods_code") String goodsCode);
 
 
 }

@@ -3,15 +3,14 @@ package com.qxb.student.common.module.api;
 import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.BaseEvaluationResult;
-import com.qxb.student.common.module.bean.School;
-import com.qxb.student.common.module.bean.SysAd;
 
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 /**
  * 职业性格测评
@@ -24,8 +23,9 @@ public interface EvaluationApi {
      * @return
      */
     @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
     @POST("evaluation/getlist")
-    Observable<ApiModel<List<String>>> getEvaluationList(@Query("type") String type);
+    Observable<ApiModel<List<String>>> getEvaluationList(@Field("type") String type);
 
     /**
      * 测评-获取霍兰德测评答题结果
@@ -35,8 +35,9 @@ public interface EvaluationApi {
      * @return
      */
     @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
     @POST("evaluation/getResultHolland")
-    Observable<ApiModel<String>> getResultHolland(@Query("userid") String studentId,@Query("username") String username,@Query("result") String result);
+    Observable<ApiModel<String>> getResultHolland(@Field("userid") String studentId,@Field("username") String username,@Field("result") String result);
 
     /**
      * 测评-获取答题结果
@@ -47,8 +48,9 @@ public interface EvaluationApi {
      * @return
      */
     @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
     @POST("evaluation/getResult")
-    Observable<ApiModel<BaseEvaluationResult>> getResult(@Query("userid") String studentId, @Query("username") String username, @Query("result") String result, @Query("type") String type);
+    Observable<ApiModel<BaseEvaluationResult>> getResult(@Field("userid") String studentId, @Field("username") String username, @Field("result") String result, @Field("type") String type);
 
 
 }

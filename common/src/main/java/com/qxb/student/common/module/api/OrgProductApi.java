@@ -9,9 +9,10 @@ import com.qxb.student.common.module.bean.SysStaff;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 /**
  * 机构产品
@@ -29,10 +30,11 @@ public interface OrgProductApi {
      * @return
      */
     @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
     @POST("org/product/list")
-    Observable<ApiModel<List<OrgProduct>>> orgProductList(@Query("type") String type, @Query("owner_id") String ownerId,
-                                                         @Query("tags") String tags, @Query("title") String title,
-                                                          @Query("page") String page, @Query("rows") String rows);
+    Observable<ApiModel<List<OrgProduct>>> orgProductList(@Field("type") String type, @Field("owner_id") String ownerId,
+                                                         @Field("tags") String tags, @Field("title") String title,
+                                                          @Field("page") String page, @Field("rows") String rows);
 
     /**
      * 机构服务详情
@@ -41,8 +43,9 @@ public interface OrgProductApi {
      * @return
      */
     @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
     @POST("org/product/detail")
-    Observable<ApiModel<OrgProductDetail>> orgProductDetail(@Query("id") String id, @Query("student_id") String studentId);
+    Observable<ApiModel<OrgProductDetail>> orgProductDetail(@Field("id") String id, @Field("student_id") String studentId);
 
     /**
      * 机构详情
@@ -52,8 +55,9 @@ public interface OrgProductApi {
      * @return
      */
     @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
     @POST("org/product/orgDetail")
-    Observable<ApiModel<String>> orgDetail(@Query("owner_id") String owner_id, @Query("bkzj") String bkzj,@Query("stu_id") String stuId);
+    Observable<ApiModel<String>> orgDetail(@Field("owner_id") String owner_id, @Field("bkzj") String bkzj,@Field("stu_id") String stuId);
 
     /**
      * 报考专家与自主招生专家列表新接口 分省份 分类型
@@ -62,8 +66,9 @@ public interface OrgProductApi {
      * @return
      */
     @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
     @POST("org/product/withSpecialistList")
-    Observable<ApiModel<String>> withSpecialistList(@Query("province") String province,@Query("type") String type);
+    Observable<ApiModel<String>> withSpecialistList(@Field("province") String province,@Field("type") String type);
 
     /**
      * 机构-获取老师列表
@@ -73,8 +78,9 @@ public interface OrgProductApi {
      * @return
      */
     @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
     @POST("org/product/orgTeaList")
-    Observable<ApiModel<List<SysStaff>>> orgTeaList(@Query("owner_id") String ownerId, @Query("page") String page, @Query("rows") String rows);
+    Observable<ApiModel<List<SysStaff>>> orgTeaList(@Field("owner_id") String ownerId, @Field("page") String page, @Field("rows") String rows);
 
     /**
      * 报名机构服务
@@ -83,7 +89,8 @@ public interface OrgProductApi {
      * @return
      */
     @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
     @POST("org/product/regist")
-    Observable<ApiModel<String>> registOrgProduct(@Query("id") String orgProductId, @Query("student_id") String studentId);
+    Observable<ApiModel<String>> registOrgProduct(@Field("id") String orgProductId, @Field("student_id") String studentId);
 
 }

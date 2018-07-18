@@ -4,9 +4,10 @@ import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.ApiModel;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 /**
  * 听讲座
@@ -20,8 +21,9 @@ public interface SysLectureApi {
      * @return
      */
     @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
     @POST("article/lecture/list2")
-    Observable<ApiModel<String>> lectureList(@Query("account_id") String accountId);
+    Observable<ApiModel<String>> lectureList(@Field("account_id") String accountId);
 
 
 }

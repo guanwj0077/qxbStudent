@@ -4,9 +4,10 @@ import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.ApiModel;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 /**
  * 通用排名
@@ -20,8 +21,9 @@ public interface SysRankApi {
      * @return
      */
     @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
     @POST("sysRank/list/1/yxfy")
-    Observable<ApiModel<String>> sysRankList(@Query("page") String page, @Query("rows") String rows);
+    Observable<ApiModel<String>> sysRankList(@Field("page") String page, @Field("rows") String rows);
 
 
 
