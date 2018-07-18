@@ -7,9 +7,10 @@ import com.qxb.student.common.module.bean.SysCollection;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 /**
  * 收藏
@@ -26,8 +27,8 @@ public interface SysCollectionApi {
      * @return
      */
     @Headers(Config.AUTH_COMMON)
-    @POST("collection/list")
-    Observable<ApiModel<List<SysCollection>>> collectionList(@Query("stu_id") String stuId, @Query("item_type") String itemType, @Query("page") String page, @Query("rows") String rows);
+    @FormUrlEncoded    @POST("collection/list")
+    Observable<ApiModel<List<SysCollection>>> collectionList(@Field("stu_id") String stuId, @Field("item_type") String itemType, @Field("page") String page, @Field("rows") String rows);
 
     /**
      * 收藏
@@ -38,8 +39,9 @@ public interface SysCollectionApi {
      * @return
      */
     @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
     @POST("collection/add")
-    Observable<ApiModel<String>> collectionAdd(@Query("stu_id") String stuId,@Query("item_id") String itemId, @Query("item_type") String itemType,@Query("item_name") String itemName);
+    Observable<ApiModel<String>> collectionAdd(@Field("stu_id") String stuId, @Field("item_id") String itemId, @Field("item_type") String itemType, @Field("item_name") String itemName);
 
     /**
      * 取消收藏
@@ -49,7 +51,7 @@ public interface SysCollectionApi {
      * @return
      */
     @Headers(Config.AUTH_CUSTOM)
-    @POST("collection/cancel")
-    Observable<ApiModel<String>> collectionCancel(@Query("stu_id") String stuId,@Query("item_id") String itemId, @Query("item_type") String itemType);
+    @FormUrlEncoded    @POST("collection/cancel")
+    Observable<ApiModel<String>> collectionCancel(@Field("stu_id") String stuId,@Field("item_id") String itemId, @Field("item_type") String itemType);
 
 }

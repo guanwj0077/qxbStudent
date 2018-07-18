@@ -6,8 +6,9 @@ import com.qxb.student.common.module.bean.SchoolMsg;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 /**
  * 学校通知
@@ -16,36 +17,44 @@ public interface SchoolMsgApi {
 
     /**
      * 学校通知列表（后台用户认证头被注释）
+     *
      * @param studentId
-     * @param n 标志  传大于0的数字
+     * @param n         标志  传大于0的数字
      * @param page
-     * @param rows 默认20
+     * @param rows      默认20
      * @return
      */
+    @FormUrlEncoded
     @POST("school/noticlist")
-    Observable<ApiModel<List<SchoolMsg>>> getSchoolNoticlist(@Query("student_id") String studentId, @Query("n") String n, @Query("page") String page, @Query("rows") String rows);
+    Observable<ApiModel<List<SchoolMsg>>> getSchoolNoticlist(@Field("student_id") String studentId, @Field("n") String n, @Field("page") String page, @Field("rows") String rows);
 
     /**
      * 最新学校通知
+     *
      * @param studentId
      * @return
      */
+    @FormUrlEncoded
     @POST("school/newnotic")
-    Observable<ApiModel<List<SchoolMsg>>> schoolNewNotic(@Query("student_id") String studentId);
+    Observable<ApiModel<List<SchoolMsg>>> schoolNewNotic(@Field("student_id") String studentId);
 
     /**
      * 学校通知已读
+     *
      * @param schoolNoticId
      * @return
      */
+    @FormUrlEncoded
     @POST("school/noticread")
-    Observable<ApiModel<String>> schoolNoticRead(@Query("id") String schoolNoticId);
+    Observable<ApiModel<String>> schoolNoticRead(@Field("id") String schoolNoticId);
 
     /**
      * 学校通知详情-返回网页
+     *
      * @param schoolMsgId
      * @return
      */
+    @FormUrlEncoded
     @POST("view/schoolmsg/detail")
-    Observable<String> viewSchoolMsgDetail(@Query("id") String schoolMsgId);
+    Observable<String> viewSchoolMsgDetail(@Field("id") String schoolMsgId);
 }

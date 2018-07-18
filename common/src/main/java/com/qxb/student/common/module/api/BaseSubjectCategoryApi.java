@@ -8,9 +8,10 @@ import com.qxb.student.common.module.bean.SubjectCategory;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 /**
  * 基础学科大类-专业库
@@ -24,8 +25,9 @@ public interface BaseSubjectCategoryApi {
      * @return
      */
     @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
     @POST("baseSubjectCategory/getListByDepth")
-    Observable<ApiModel<List<BaseSubjectCategory>>> getBaseSubjectCategoryListByDepth(@Query("depth") String depth, @Query("type") String type);
+    Observable<ApiModel<List<BaseSubjectCategory>>> getBaseSubjectCategoryListByDepth(@Field("depth") String depth, @Field("type") String type);
 
     /***
      * 通过父编码查询学科列表
@@ -33,8 +35,9 @@ public interface BaseSubjectCategoryApi {
      * @return
      */
     @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
     @POST("baseSubjectCategory/getListByParent")
-    Observable<ApiModel<List<BaseSubjectCategory>>> getBaseSubjectCategoryListByParent(@Query("p_code") String pCode);
+    Observable<ApiModel<List<BaseSubjectCategory>>> getBaseSubjectCategoryListByParent(@Field("p_code") String pCode);
 
     /**
      * 专业大类列表
@@ -43,8 +46,9 @@ public interface BaseSubjectCategoryApi {
      * @return
      */
     @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
     @POST("subject/getList")
-    Observable<ApiModel<List<SubjectCategory>>> getSubjectList(@Query("type") String type, @Query("name") String name);
+    Observable<ApiModel<List<SubjectCategory>>> getSubjectList(@Field("type") String type, @Field("name") String name);
 
     /**
      * 学科实力排行学校列表
@@ -52,7 +56,8 @@ public interface BaseSubjectCategoryApi {
      * @return
      */
     @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
     @POST("subject/getSchoolList")
-    Observable<ApiModel<List<SubjectCategory>>> getSchoolListBySubjectId(@Query("id") String id);
+    Observable<ApiModel<List<SubjectCategory>>> getSchoolListBySubjectId(@Field("id") String id);
 
 }

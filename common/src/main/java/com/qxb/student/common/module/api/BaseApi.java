@@ -5,9 +5,10 @@ import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.AppVersion;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 /**
  * 基础接口
@@ -19,6 +20,7 @@ public interface BaseApi {
      * @return
      */
     @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
     @POST("base/getYear")
     Observable<ApiModel<String>> getCurrentYear();
 
@@ -29,6 +31,7 @@ public interface BaseApi {
      * @return
      */
     @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
     @POST("update/version")
-    Observable<ApiModel<AppVersion>> updateVersion(@Query("client_type")String clientType, @Query("version_code")String versionCode);
+    Observable<ApiModel<AppVersion>> updateVersion(@Field("client_type")String clientType, @Field("version_code")String versionCode);
 }
