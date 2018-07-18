@@ -32,9 +32,8 @@ public class HomeFragment extends ExpandFragment {
     public void init(@NonNull View view, @Nullable Bundle savedInstanceState) {
         //toolbar
         toolbar = view.findViewById(R.id.toolbar);
-        toolbar.setPadding(0, SysUtils.getInstance().getStatusHeight(), 0, 0);
         setSupportActionBar(toolbar);
-
+        toolbar.setTitle(getTitle());
         refreshLayout = view.findViewById(R.id.refreshLayout);
         recyclerView = view.findViewById(R.id.recyclerView);
         ////toolbar 设置下拉刷新
@@ -52,6 +51,7 @@ public class HomeFragment extends ExpandFragment {
                 HomeControl homeControl = ViewModelProviders.of(HomeFragment.this).get(HomeControl.class);
                 homeControl.getLiveAdvert();
                 homeControl.getSchoolLiveData();
+                homeControl.getHomeBanner();
 //                homeControl.getSchoolLiveData();
 //                homeControl.getLiveAdvert();
             }

@@ -13,21 +13,23 @@ public final class Logger {
         }
     };
 
-    private static final boolean isDebug = Config.isDebug;
+    public static final boolean isDebug = true || Config.isDebug;
     private static final String TAG = "Logger";
 
     public static Logger getInstance() {
         return SINGLETON.get();
     }
-    
+
     public void v(String msg) {
         if (isDebug)
             Log.v(TAG, msg);
     }
 
     public void d(String msg) {
-        if (isDebug)
-            Log.d(TAG, msg);
+        if (isDebug) {
+//            Log.d(TAG, msg);
+            System.out.println(msg);
+        }
     }
 
     public void i(String msg) {

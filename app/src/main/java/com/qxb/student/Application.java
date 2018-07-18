@@ -3,7 +3,7 @@ package com.qxb.student;
 import android.os.Build;
 import android.os.Looper;
 
-import com.qxb.student.helper.LibControl;
+import com.qxb.student.common.utils.LibControl;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

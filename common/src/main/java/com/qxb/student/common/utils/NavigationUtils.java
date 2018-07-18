@@ -15,7 +15,7 @@ import com.qxb.student.common.Config;
 import com.qxb.student.common.R;
 import com.qxb.student.common.basics.NavigationActivity;
 import com.qxb.student.common.basics.WebActivity;
-import com.qxb.student.common.module.bean.WebAttr;
+import com.qxb.student.common.module.bean.attr.WebAttr;
 
 import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;

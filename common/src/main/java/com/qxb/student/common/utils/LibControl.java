@@ -1,16 +1,11 @@
-package com.qxb.student.helper;
+package com.qxb.student.common.utils;
 
 import android.app.Application;
 import android.content.Context;
 
+import com.mob.MobSDK;
 import com.qxb.student.common.http.HttpConfigure;
 import com.qxb.student.common.http.HttpUtils;
-import com.qxb.student.common.module.dao.RoomUtils;
-import com.qxb.student.common.utils.ContextUtils;
-import com.qxb.student.common.utils.CrashCollectUtils;
-import com.qxb.student.common.utils.FileUtils;
-import com.qxb.student.common.utils.Singleton;
-import com.qxb.student.common.utils.SysUtils;
 import com.zhy.autolayout.config.AutoLayoutConifg;
 
 public class LibControl {
@@ -38,12 +33,13 @@ public class LibControl {
         //上下文托管
         ContextUtils.getInstance().setContext(context);
         //错误日志收集
-        CrashCollectUtils.getInstance();
+//        CrashCollectUtils.getInstance();
         //http请求工具
         HttpUtils.getInstance().setHttpConfigure(new HttpConfigure.Builder().build());
         //布局适配框架：注意recycler的holder里设置item适配
         AutoLayoutConifg.getInstance().useDeviceSize();
-
+        //分享，登录，用户行为分析
+        MobSDK.init(context);
     }
 
     public Context getContext() {

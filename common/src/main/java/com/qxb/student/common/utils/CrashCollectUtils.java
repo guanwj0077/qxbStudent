@@ -61,7 +61,7 @@ public class CrashCollectUtils implements Thread.UncaughtExceptionHandler {
 //            fileUtils.writeString(fileUtils.ifFileNotExist(filePath + fileName + ".txt"), jsonObject.toJSONString() + "\r\n\n", true);
 //            if (defaultExceptionHandler != null) {
 //                //如果用户没有处理则让系统默认的异常处理器来处理
-//                defaultExceptionHandler.uncaughtException(thread, throwable);
+            defaultExceptionHandler.uncaughtException(thread, throwable);
 //            } else {
 //                //退出程序
 //                android.os.Process.killProcess(android.os.Process.myPid());
