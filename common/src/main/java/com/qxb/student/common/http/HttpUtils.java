@@ -28,7 +28,7 @@ public class HttpUtils {
     private static HttpConfigure httpConfigure;
 
     public void setHttpConfigure(HttpConfigure httpConfigure) {
-        this.httpConfigure = httpConfigure;
+        HttpUtils.httpConfigure = httpConfigure;
     }
 
     public static <T> T create(Class<T> clazz) {
@@ -36,22 +36,22 @@ public class HttpUtils {
     }
 
     public <T> void request(final Observable<T> observable, final HttpResponse<T> httpResponse) {
-        observable.subscribeOn(Schedulers.io())
+        Disposable disposable = observable.subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
-                    public void accept(Disposable disposable) throws Exception {
+                    public void accept(Disposable disposable) {
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnComplete(new Action() {
                     @Override
-                    public void run() throws Exception {
+                    public void run() {
 //                        dialog.dismiss();
                     }
                 })
                 .subscribe(new Consumer<T>() {
                     @Override
-                    public void accept(T t) throws Exception {
+                    public void accept(T t) {
                         httpResponse.success(t);
                     }
                 }, new Consumer<Throwable>() {

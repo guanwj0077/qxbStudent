@@ -104,6 +104,8 @@ public class HomeAdapter extends NestingAdapter {
                     }
                 });
                 break;
+            default:
+                break;
         }
     }
 

@@ -9,22 +9,24 @@ import java.util.List;
 
 /**
  * recycler数据适配器
- * Created by winky on 2017/12/5.
+ *
+ * @author winky
+ * @date 2017/12/5
  */
 public abstract class QuickAdapter<T> extends BaseAdapter {
 
     private int layoutId;
     private final List<T> datas;
 
-    public QuickAdapter(@LayoutRes int layoutId) {
+    protected QuickAdapter(@LayoutRes int layoutId) {
         this(layoutId, null);
     }
 
-    public QuickAdapter(List<T> data) {
+    protected QuickAdapter(List<T> data) {
         this.datas = data == null ? new ArrayList<T>() : data;
     }
 
-    public QuickAdapter(@LayoutRes int layoutId, List<T> data) {
+    protected QuickAdapter(@LayoutRes int layoutId, List<T> data) {
         this.datas = data == null ? new ArrayList<T>() : data;
         if (layoutId != 0) {
             this.layoutId = layoutId;
@@ -48,7 +50,9 @@ public abstract class QuickAdapter<T> extends BaseAdapter {
 
     protected abstract void convert(ViewHolder holder, int position, T item);
 
-    /*根据下标删除item*/
+    /**
+     * 根据下标删除item
+     */
     public void remove(int position) {
         if (isEmpty()) {
             return;
@@ -57,7 +61,9 @@ public abstract class QuickAdapter<T> extends BaseAdapter {
         notifyItemRemoved(position);
     }
 
-    /*根据对象删除item*/
+    /**
+     * 根据对象删除item
+     */
     public void remove(T data) {
         int index = datas.indexOf(data);
         datas.remove(data);
@@ -98,7 +104,7 @@ public abstract class QuickAdapter<T> extends BaseAdapter {
         return datas;
     }
 
-    public T getItem(int position) {
+    protected T getItem(int position) {
         return datas.get(position);
     }
 
@@ -108,10 +114,7 @@ public abstract class QuickAdapter<T> extends BaseAdapter {
     }
 
     private boolean isEmpty() {
-        if (datas == null || datas.isEmpty()) {
-            return true;
-        }
-        return false;
+        return datas == null || datas.isEmpty();
     }
 
     @Override
