@@ -3,6 +3,11 @@ package com.qxb.student.common.utils;
 import java.io.File;
 import java.text.SimpleDateFormat;
 
+/**
+ * 异常拦截
+ *
+ * @author winky
+ */
 public class CrashCollectUtils implements Thread.UncaughtExceptionHandler {
 
     private static final Singleton<CrashCollectUtils> SINGLETON = new Singleton<CrashCollectUtils>() {
@@ -25,13 +30,17 @@ public class CrashCollectUtils implements Thread.UncaughtExceptionHandler {
         Thread.setDefaultUncaughtExceptionHandler(this);
     }
 
-    //系统默认的UncaughtException处理类
+    /**
+     * 系统默认的UncaughtException处理类
+     */
     private Thread.UncaughtExceptionHandler defaultExceptionHandler;
     private String filePath;
-    //用于格式化日期,作为日志文件名的一部分
+    /**
+     * 用于格式化日期,作为日志文件名的一部分
+     */
     private SimpleDateFormat format = new SimpleDateFormat("yy_MM_dd");
 
-    private FileUtils fileUtils;
+    private FileUtils fileUtils=FileUtils.getInstance();
     private static final Object object = new Object();
 
     @Override
@@ -60,7 +69,7 @@ public class CrashCollectUtils implements Thread.UncaughtExceptionHandler {
 //            String fileName = format.format(new Date());
 //            fileUtils.writeString(fileUtils.ifFileNotExist(filePath + fileName + ".txt"), jsonObject.toJSONString() + "\r\n\n", true);
 //            if (defaultExceptionHandler != null) {
-//                //如果用户没有处理则让系统默认的异常处理器来处理
+//            //如果用户没有处理则让系统默认的异常处理器来处理
             defaultExceptionHandler.uncaughtException(thread, throwable);
 //            } else {
 //                //退出程序

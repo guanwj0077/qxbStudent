@@ -4,6 +4,10 @@ import android.databinding.BindingAdapter;
 import android.support.annotation.DrawableRes;
 import android.widget.ImageView;
 
+/**
+ * Databinding框架绑定事件
+ * @author winky
+ */
 public class BindingUtils {
 
     @BindingAdapter({"imageUrl"})
@@ -17,7 +21,7 @@ public class BindingUtils {
     }
 
     @BindingAdapter({"localImage"})
-    public static void localImage(ImageView imageView, @DrawableRes int resid) {
-        GlideUtils.getInstance().LoadContextRes(imageView.getContext(), resid, imageView);
+    public static void localImage(ImageView imageView, @DrawableRes int resId) {
+        GlideUtils.getInstance().LoadContextRes(imageView.getContext(), resId, imageView);
     }
 }

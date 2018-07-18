@@ -1,7 +1,5 @@
 package com.qxb.student.common.http;
 
-import android.support.annotation.NonNull;
-
 import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.User;
 import com.qxb.student.common.utils.Encrypt;
@@ -11,7 +9,6 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 
 import okhttp3.FormBody;
-import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -20,12 +17,17 @@ import okhttp3.ResponseBody;
 import okio.Buffer;
 import okio.BufferedSource;
 
+/**
+ * http请求拦截器
+ * 拦截处理认证头，验证签名等
+ *
+ * @author winky
+ */
 public class AuthInterceptor implements Interceptor {
 
     private final String POST = "POST";
     private final static String AUTHORIZATION = "Authorization";
     private final static String APP_SRC = "Appsrc";
-    private final static String DISPOSITION = "Content-Disposition";
     private final static Logger logger = Logger.getInstance();
 
     @Override

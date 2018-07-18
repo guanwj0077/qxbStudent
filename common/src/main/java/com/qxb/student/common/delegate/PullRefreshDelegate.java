@@ -13,12 +13,16 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import java.util.List;
 
 /**
+ * 下拉刷新实现
+ *
  * @author winky
  * @date 2018/5/12
  */
 public class PullRefreshDelegate<T> {
 
-    //下拉刷新
+    /**
+     * 下拉刷新控件
+     */
     private SmartRefreshLayout refreshLayout;
     private RecyclerView recyclerView;
     private ViewStub viewStub;
@@ -77,8 +81,9 @@ public class PullRefreshDelegate<T> {
         }
         /*如果没有数据则展示空白视图*/
         if (adapter.getItemCount() == 0) {
-            if (viewStub != null)
+            if (viewStub != null) {
                 viewStub.inflate().setVisibility(View.VISIBLE);
+            }
             /*设置不可刷新和加载更多,且列表隐藏*/
             refreshLayout.setEnableRefresh(false);
             refreshLayout.setEnableLoadMore(false);

@@ -8,7 +8,7 @@ public abstract class TRunnable<T> implements Runnable {
 
     private T t;
 
-    public TRunnable(T t) {
+    TRunnable(T t) {
         this.t = t;
     }
 
@@ -17,5 +17,9 @@ public abstract class TRunnable<T> implements Runnable {
         this.run(t);
     }
 
+    /**
+     * 待处理
+     * @param t 事件对象
+     */
     public abstract void run(T t);
 }

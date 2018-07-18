@@ -59,7 +59,7 @@ public class HttpUtils {
                     public void accept(Throwable throwable) throws Exception {
                         httpResponse.failed(throwable);
                         System.out.println("throwable:" + throwable.getMessage());
-                        request(observable, httpResponse);
+//                        request(observable, httpResponse);
                     }
                 });
     }

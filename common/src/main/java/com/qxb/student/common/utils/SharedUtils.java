@@ -9,14 +9,16 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 /**
- * Created by winky on 2017/11/9.
+ * 资源共享工具类
+ * @author winky
+ * @date 2017/11/9
  */
 public class SharedUtils {
 
     private final static String DEFAULT_FILE_NAME = "default_shared";
-    /*上下文*/
+    /**上下文*/
     private Context context = ContextUtils.getInstance().getContext();
-    /*保存在手机里面的文件名*/
+    /**保存在手机里面的文件名*/
     private String fileName;
 
     public static SharedUtils get() {
@@ -62,9 +64,9 @@ public class SharedUtils {
     /**
      * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
      *
-     * @param key
-     * @param defaultObject
-     * @return
+     * @param key 键
+     * @param defaultObject 返回默认值
+     * @return 值
      */
     public Object get(String key, Object defaultObject) {
         SharedPreferences sp = context.getSharedPreferences(fileName, Context.MODE_PRIVATE);
@@ -85,7 +87,7 @@ public class SharedUtils {
     /**
      * 移除某个key值已经对应的值
      *
-     * @param key
+     * @param key 键
      */
     public void remove(String key) {
         SharedPreferences sp = context.getSharedPreferences(fileName, Context.MODE_PRIVATE);
@@ -107,8 +109,8 @@ public class SharedUtils {
     /**
      * 查询某个key是否已经存在
      *
-     * @param key
-     * @return
+     * @param key 键
+     * @return 是否存在
      */
     public boolean contains(String key) {
         SharedPreferences sp = context.getSharedPreferences(fileName, Context.MODE_PRIVATE);
@@ -116,9 +118,7 @@ public class SharedUtils {
     }
 
     /**
-     * 返回所有的键值对
-     *
-     * @return
+     * @return 返回所有的键值对
      */
     public Map<String, ?> getAll() {
         SharedPreferences sp = context.getSharedPreferences(fileName, Context.MODE_PRIVATE);

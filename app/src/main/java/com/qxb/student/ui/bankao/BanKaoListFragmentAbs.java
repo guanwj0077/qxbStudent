@@ -12,7 +12,7 @@ import com.qxb.student.common.view.recycler.ViewHolder;
 import com.qxb.student.common.view.recycler.adapter.QuickAdapter;
 import com.qxb.student.control.BankaoControl;
 
-public class BanKaoListFragment extends RefreshFragment<Bankao> {
+public class BanKaoListFragmentAbs extends RefreshFragment<Bankao> {
 
     private BankaoControl bankaoControl;
 

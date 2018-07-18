@@ -13,7 +13,7 @@ import java.io.OutputStream;
 /**
  * 文件读写工具类
  *
- * @author bear
+ * @author winky
  */
 public class FileUtils {
 
@@ -33,7 +33,7 @@ public class FileUtils {
     /**
      * 得到手机的缓存目录
      *
-     * @return
+     * @return path
      */
     public String getCacheDir() {
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
@@ -52,7 +52,7 @@ public class FileUtils {
      * @param context   the context
      * @param assetPath 皮肤地址
      * @param toPath    指定地址
-     * @return
+     * @return path
      */
     public String copyAssetsToDir(Context context, String assetPath, String toPath) {
         try {
@@ -81,7 +81,7 @@ public class FileUtils {
      * 如果文件不存在，就创建文件
      *
      * @param path 文件路径
-     * @return
+     * @return path
      */
     public String ifFileNotExist(String path) {
         File file = new File(path);
@@ -99,7 +99,7 @@ public class FileUtils {
      * 如果文件不存在，就创建文件
      *
      * @param path 文件路径
-     * @return
+     * @return path
      */
     public String ifDirNotExist(String path) {
         File file = new File(path);
@@ -121,25 +121,23 @@ public class FileUtils {
      * @param append   是否追加原文件
      * @return true表示写入成功 false表示写入失败
      */
-    public boolean writeBytes(String filePath, byte[] data, boolean append) {
+    private void writeBytes(String filePath, byte[] data, boolean append) {
         try {
             FileOutputStream fos = new FileOutputStream(filePath, append);
             fos.write(data);
             fos.close();
-            return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return false;
     }
 
     /**
      * 从文件中读取数据
      *
      * @param file
-     * @return
+     * @return byte[]
      */
-    public byte[] readBytes(String file) {
+    private byte[] readBytes(String file) {
         try {
             FileInputStream fis = new FileInputStream(file);
             int len = fis.available();
@@ -162,7 +160,7 @@ public class FileUtils {
      * @param content 文件内容
      * @param append  是否追加
      */
-    public void writeString(String file, String content, boolean append) {
+    private void writeString(String file, String content, boolean append) {
         try {
             byte[] data = content.getBytes("UTF-8");
             writeBytes(file, data, append);
@@ -177,9 +175,9 @@ public class FileUtils {
      *
      * @param file    文件路径
      * @param charset 读取文件时使用的字符集，如utf-8、GBK等
-     * @return
+     * @return content
      */
-    public String readString(String file, String charset) {
+    private String readString(String file, String charset) {
         byte[] data = readBytes(file);
         String ret = null;
 

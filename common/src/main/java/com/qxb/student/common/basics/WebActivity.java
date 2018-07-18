@@ -12,6 +12,10 @@ import com.qxb.student.common.view.web.WebView;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 通用web页面
+ * @author winky
+ */
 public class WebActivity extends BaseAppActivity {
 
     private final static String AUTHORIZATION = "Authorization";

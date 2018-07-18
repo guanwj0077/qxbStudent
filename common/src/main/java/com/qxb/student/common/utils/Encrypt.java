@@ -5,7 +5,9 @@ import java.security.MessageDigest;
 
 /**
  * 加密
- * Created by winky on 2017/12/11.
+ *
+ * @author winky
+ * @date 2017/12/11
  */
 public class Encrypt {
 
@@ -15,7 +17,7 @@ public class Encrypt {
     }
 
     public static String md5(String s) {
-        char hexDigits[] = {'0', '1', '2', '3', '4',
+        char[] hexDigits = {'0', '1', '2', '3', '4',
                 '5', '6', '7', '8', '9',
                 'a', 'b', 'c', 'd', 'e', 'f'};
         try {
@@ -24,16 +26,15 @@ public class Encrypt {
             mdInst.update(btInput);
             byte[] md = mdInst.digest();
             int j = md.length;
-            char str[] = new char[j * 2];
+            char[] str = new char[j * 2];
             int k = 0;
-            for (int i = 0; i < j; i++) {
-                byte byte0 = md[i];
+            for (byte byte0 : md) {
                 str[k++] = hexDigits[byte0 >>> 4 & 0xf];
                 str[k++] = hexDigits[byte0 & 0xf];
             }
             return new String(str);
         } catch (Exception e) {
-            // e.printStackTrace();
+            e.printStackTrace();
             return null;
         }
     }
@@ -43,7 +44,7 @@ public class Encrypt {
         final char[] legalChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".toCharArray();
         int start = 0;
         int len = data.length;
-        StringBuffer buf = new StringBuffer(data.length * 3 / 2);
+        StringBuilder buf = new StringBuilder(data.length * 3 / 2);
 
         int end = len - 3;
         int i = start;
@@ -80,10 +81,7 @@ public class Encrypt {
     }
 
     public static boolean isEmpty(CharSequence str) {
-        if (str == null || str.length() == 0)
-            return true;
-        else
-            return false;
+        return str == null || str.length() == 0;
     }
 
     public static void main(String[] args) {

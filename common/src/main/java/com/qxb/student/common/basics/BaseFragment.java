@@ -18,9 +18,12 @@ import com.qxb.student.common.listener.IBinding;
 import com.qxb.student.common.utils.NavigationUtils;
 
 import java.lang.ref.WeakReference;
+import java.util.Objects;
 
-import androidx.navigation.fragment.NavHostFragment;
-
+/**
+ * fragment基类
+ * @author winky
+ */
 public abstract class BaseFragment extends HolderFragment implements IBinding {
 
     private WeakReference<Fragment> weakReference = null;
@@ -45,10 +48,12 @@ public abstract class BaseFragment extends HolderFragment implements IBinding {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
-
+    /**
+     * 使用fragment的menu
+     */
     public void setSupportActionBar(Toolbar toolbar) {
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        setHasOptionsMenu(true);//使用fragment的menu
+        ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
+        setHasOptionsMenu(true);
     }
 
     /**
@@ -57,11 +62,6 @@ public abstract class BaseFragment extends HolderFragment implements IBinding {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
     }
 
     public Fragment getFragment() {
@@ -98,7 +98,7 @@ public abstract class BaseFragment extends HolderFragment implements IBinding {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             if (!NavigationUtils.getInstance().goBack(getFragment())) {
-                getActivity().finish();
+                Objects.requireNonNull(getActivity()).finish();
             }
             return true;
         }

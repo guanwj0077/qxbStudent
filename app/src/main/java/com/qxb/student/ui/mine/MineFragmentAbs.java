@@ -7,12 +7,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.qxb.student.R;
-import com.qxb.student.common.basics.ExpandFragment;
+import com.qxb.student.common.basics.AbsExpandFragment;
 import com.qxb.student.common.module.bean.attr.WebAttr;
-import com.qxb.student.common.utils.MobUtils;
 import com.qxb.student.common.utils.NavigationUtils;
 
-public class MineFragment extends ExpandFragment {
+public class MineFragmentAbs extends AbsExpandFragment {
     @Override
     public int bindLayout() {
         return R.layout.fragment_test;

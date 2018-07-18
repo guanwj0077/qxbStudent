@@ -14,6 +14,10 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 
+/**
+ * 获取系统相关
+ * @author winky
+ */
 public class SysUtils {
 
     private static final Singleton<SysUtils> SINGLETON = new Singleton<SysUtils>() {
@@ -85,9 +89,7 @@ public class SysUtils {
     }
 
     /**
-     * 获得状态栏的高度
-     *
-     * @return
+     * @return 获得状态栏的高度
      */
     public int getStatusHeight() {
         if (STATUS_BAR_HEIGHT > 0) {
@@ -121,7 +123,7 @@ public class SysUtils {
      *
      * @param activity         截取当前活动视图
      * @param containSystemBar 是否包含状态栏
-     * @return
+     * @return Bitmap
      */
     public Bitmap snapShot(Activity activity, boolean containSystemBar) {
         View view = activity.getWindow().getDecorView();
@@ -139,7 +141,7 @@ public class SysUtils {
     /**
      * 获取当前包信息
      *
-     * @return
+     * @return PackageInfo
      */
     public PackageInfo getPackageInfo() {
         if (packageInfo == null) {
@@ -151,7 +153,7 @@ public class SysUtils {
     /**
      * 获取包信息
      *
-     * @return
+     * @return PackageInfo
      */
     public PackageInfo getPackageInfo(String packageName) {
         try {

@@ -4,6 +4,10 @@ import android.content.Context;
 
 import java.lang.ref.WeakReference;
 
+/**
+ * 全局上下文托管
+ * @author winky
+ */
 public class ContextUtils {
 
     private static final Singleton<ContextUtils> SINGLETON = new Singleton<ContextUtils>() {

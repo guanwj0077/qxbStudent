@@ -10,14 +10,13 @@ import android.view.View;
 
 import com.qxb.student.R;
 import com.qxb.student.adapter.HomeAdapter;
-import com.qxb.student.common.basics.ExpandFragment;
-import com.qxb.student.common.utils.SysUtils;
+import com.qxb.student.common.basics.AbsExpandFragment;
 import com.qxb.student.control.HomeControl;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-public class HomeFragment extends ExpandFragment {
+public class HomeFragmentAbs extends AbsExpandFragment {
 
     @Override
     public int bindLayout() {
@@ -48,7 +47,7 @@ public class HomeFragment extends ExpandFragment {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 refreshlayout.finishRefresh();
-                HomeControl homeControl = ViewModelProviders.of(HomeFragment.this).get(HomeControl.class);
+                HomeControl homeControl = ViewModelProviders.of(HomeFragmentAbs.this).get(HomeControl.class);
                 homeControl.getLiveAdvert();
                 homeControl.getSchoolLiveData();
                 homeControl.getHomeBanner();

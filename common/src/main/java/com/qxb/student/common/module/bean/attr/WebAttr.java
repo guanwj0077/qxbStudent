@@ -4,6 +4,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
+/**
+ * 通用页面入参
+ * {@link com.qxb.student.common.basics.WebActivity}
+ *
+ * @author winky
+ */
 public class WebAttr implements Parcelable {
 
     public static final String TAG = "WebAttr";
@@ -41,7 +47,7 @@ public class WebAttr implements Parcelable {
      */
     private final String shareText;
 
-    public WebAttr(String title, String httpUrl, boolean external, String auth, boolean canShare, String shareImageUrl, String shareUrl, String shareText) {
+    private WebAttr(String title, String httpUrl, boolean external, String auth, boolean canShare, String shareImageUrl, String shareUrl, String shareText) {
         this.title = title;
         this.httpUrl = httpUrl;
         this.external = external;

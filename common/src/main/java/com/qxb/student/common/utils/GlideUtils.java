@@ -114,11 +114,11 @@ public class GlideUtils {
     /**
      * 加载bitmap，如果是GIF则显示第一帧
      */
-    public static String LOAD_BITMAP = "GLIDEUTILS_GLIDE_LOAD_BITMAP";
+    private static String LOAD_BITMAP = "GLIDEUTILS_GLIDE_LOAD_BITMAP";
     /**
      * 加载gif动画
      */
-    public static String LOAD_GIF = "GLIDEUTILS_GLIDE_LOAD_GIF";
+    private static String LOAD_GIF = "GLIDEUTILS_GLIDE_LOAD_GIF";
 
     /**
      * 使用Application上下文，Glide请求将不受Activity/Fragment生命周期控制
@@ -388,7 +388,9 @@ public class GlideUtils {
         }
 
         private Bitmap circleCrop(BitmapPool pool, Bitmap source) {
-            if (source == null) return null;
+            if (source == null) {
+                return null;
+            }
 
             int size = Math.min(source.getWidth(), source.getHeight());
             int x = (source.getWidth() - size) / 2;
@@ -496,7 +498,9 @@ public class GlideUtils {
         }
 
         private Bitmap roundCrop(BitmapPool pool, Bitmap source) {
-            if (source == null) return null;
+            if (source == null) {
+                return null;
+            }
 
             Bitmap result = pool.get(source.getWidth(), source.getHeight(), Bitmap.Config.ARGB_8888);
             if (result == null) {

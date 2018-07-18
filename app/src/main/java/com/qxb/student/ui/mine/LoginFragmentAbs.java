@@ -6,11 +6,10 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.qxb.student.R;
-import com.qxb.student.common.basics.BaseFragment;
-import com.qxb.student.common.basics.ExpandFragment;
+import com.qxb.student.common.basics.AbsExpandFragment;
 import com.qxb.student.common.basics.ToolbarFragment;
 
-public class LoginFragment extends ExpandFragment {
+public class LoginFragmentAbs extends AbsExpandFragment {
     @Override
     public int bindLayout() {
         return R.layout.fragment_login;

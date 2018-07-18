@@ -11,7 +11,16 @@ import android.view.View;
  */
 public interface IBinding {
 
+    /**
+     * 返回UI布局资源id
+     * @return layoutResId
+     */
     int bindLayout();
 
+    /**
+     * 初始化
+     * @param view 当前内容视图
+     * @param savedInstanceState bundle
+     */
     void init(@NonNull View view, @Nullable Bundle savedInstanceState);
 }

@@ -20,7 +20,6 @@ public interface BaseApi {
      * @return
      */
     @Headers(Config.AUTH_COMMON)
-    @FormUrlEncoded
     @POST("base/getYear")
     Observable<ApiModel<String>> getCurrentYear();
 

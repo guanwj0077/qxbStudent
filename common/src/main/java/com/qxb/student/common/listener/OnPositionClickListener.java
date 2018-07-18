@@ -4,6 +4,7 @@ import android.view.View;
 
 /**
  * 主要作用在列表点击事件.注意列表数量有变化时position不会改变
+ *
  * @author winky
  * @date 2018/5/6
  */
@@ -27,5 +28,11 @@ public abstract class OnPositionClickListener implements View.OnClickListener {
         }, 500);
     }
 
-    public abstract void onPositionClick(View view, int position);
+    /**
+     * 点击下标事件
+     *
+     * @param view     点击视图
+     * @param position 点击视图在列表下标
+     */
+    abstract void onPositionClick(View view, int position);
 }

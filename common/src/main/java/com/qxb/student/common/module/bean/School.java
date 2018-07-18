@@ -4,11 +4,15 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
+/**
+ * 学校信息实体
+ *
+ * @author winky
+ */
 @Entity(tableName = "tb_school")
 public class School {
-
+    @Ignore
     public static final String TAG = "School";
-    @PrimaryKey
     private int school_id;
     private String address;
     private int level;
@@ -47,13 +51,30 @@ public class School {
     private int regis;
     private String sortLetter;
     private String video_url;
-    private int danzhao; //学校是否开启单招
-    private int is_dz;//学生是否已参加学校单招
-    private String connect_type;//如果是school_baseinfo则为学校，如果是t_sys_group则为机构
-    private String videoImageRealPath;//录像背景图片
-    private String imageRealPath;//伴考背景图片
-
-    private int is_join_metting;//院校是否入驻平台  0：未入驻
+    /**
+     * 学校是否开启单招
+     */
+    private int danzhao;
+    /**
+     * 学生是否已参加学校单招
+     */
+    private int is_dz;
+    /**
+     * 如果是school_baseinfo则为学校，如果是t_sys_group则为机构
+     */
+    private String connect_type;
+    /**
+     * 录像背景图片
+     */
+    private String videoImageRealPath;
+    /**
+     * 伴考背景图片
+     */
+    private String imageRealPath;
+    /**
+     * 院校是否入驻平台  0：未入驻
+     */
+    private int is_join_metting;
 
     private int receive_id;
 
