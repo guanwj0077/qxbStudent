@@ -12,10 +12,9 @@
     android:background="@android:color/white">
     <android.support.design.widget.CollapsingToolbarLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/px_400"
+        android:layout_height="@dimen/px_550"
         app:collapsedTitleTextAppearance="@style/ToolBarTitleText"
         app:contentScrim="@android:color/white"
-        app:expandedTitleTextAppearance=""
         app:layout_scrollFlags="scroll|exitUntilCollapsed"></android.support.design.widget.CollapsingToolbarLayout>
 
 </android.support.design.widget.AppBarLayout>

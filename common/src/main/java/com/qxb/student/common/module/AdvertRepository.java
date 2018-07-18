@@ -23,7 +23,7 @@ public class AdvertRepository {
 
     public LiveData<String> getLiveHomeAd() {
         final MutableLiveData<String> liveData = new MutableLiveData<>();
-        HttpUtils.getInstance().request(HttpUtils.create(AdvertApi.class).getLiveHomeAd(), new HttpResponse<ApiModel<String>>() {
+       /* HttpUtils.getInstance().request(HttpUtils.create(AdvertApi.class).getLiveHomeAd(), new HttpResponse<ApiModel<String>>() {
             @Override
             public void success(ApiModel<String> result) {
                 if (result.getCode() == 1) {
@@ -35,7 +35,7 @@ public class AdvertRepository {
             public void failed(Throwable throwable) {
 
             }
-        });
+        });*/
         return liveData;
     }
 

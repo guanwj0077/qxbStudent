@@ -1,50 +1,81 @@
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/coordinator_Layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-    <android.support.design.widget.AppBarLayout
+<layout>
+
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/coordinator_Layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white">
-        <android.support.design.widget.CollapsingToolbarLayout
+        android:layout_height="match_parent"
+        >
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/px_400"
-            app:collapsedTitleTextAppearance="@style/ToolBarTitleText"
-            app:contentScrim="@android:color/white"
-            app:expandedTitleTextAppearance="@style/transparentText"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
-            <RelativeLayout
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            app:elevation="@dimen/px_0">
+
+            <android.support.design.widget.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_collapseMode="pin"
-                app:layout_collapseParallaxMultiplier="0.7">
+                android:layout_height="@dimen/px_480"
+                app:collapsedTitleTextAppearance="@style/ToolBarTitleText"
+                app:contentScrim="@android:color/white"
+                app:expandedTitleTextAppearance="@style/transparentText"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-                    <!--头部布局-->
-            </RelativeLayout>
-<android.support.v7.widget.Toolbar
-    android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
-    app:layout_collapseMode="pin"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-    <TextView
-        android:text="@string/main_mine"
-        android:gravity="center"
-        android:textColor=""
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+                <include layout="@layout/mine_headview"/>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/px_180"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+                    <RelativeLayout
+                        android:id="@+id/re"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+                        <TextView
+                            android:id="@+id/tv"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentBottom="true"
+                            android:paddingBottom="@dimen/px_30"
+                            android:text="@string/mine"
+                            android:textColor="@color/colorDesc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/px_45"/>
+                    </RelativeLayout>
 
 
 
 
-</android.support.v7.widget.Toolbar>
-        </android.support.design.widget.CollapsingToolbarLayout>
 
-    </android.support.design.widget.AppBarLayout>
+                </android.support.v7.widget.Toolbar>
 
 
-</android.support.design.widget.CoordinatorLayout>
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <com.qxb.student.common.view.recycler.ExtendRecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="none"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+
+
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

@@ -24,4 +24,8 @@ public class BindingUtils {
     public static void localImage(ImageView imageView, @DrawableRes int resId) {
         GlideUtils.getInstance().LoadContextRes(imageView.getContext(), resId, imageView);
     }
+    @BindingAdapter({"ImageResource"})
+    public static void ImageResource(ImageView imageView, @DrawableRes int resId) {
+        imageView.setImageResource(resId);
+    }
 }

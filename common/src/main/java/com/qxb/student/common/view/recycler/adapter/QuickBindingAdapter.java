@@ -94,7 +94,7 @@ public abstract class QuickBindingAdapter<V extends ViewDataBinding, T> extends 
      * @param binding  ViewDataBinding
      * @param position 下标
      */
-    abstract void convert(@NonNull V binding, int position);
+    public abstract void convert(@NonNull V binding, int position);
 
     /**
      * 根据下标删除item

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="head"
+            type="com.qxb.student.common.module.bean.User"/>
+
+
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="@dimen/px_50"
+                    android:id="@+id/head_view"
+                    android:background="@drawable/headview_bg"
+                    android:paddingLeft="@dimen/px_70">
+
+        <ImageView
+            android:id="@+id/img"
+            android:src="@color/colorAccent"
+            roundImageUrl="@{head.picRealPath}"
+            android:layout_width="@dimen/px_200"
+            android:layout_height="@dimen/px_200"
+            android:layout_alignParentBottom="true"
+            android:scaleType="centerCrop"
+            />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/px_200"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/px_60"
+            android:layout_toRightOf="@+id/img"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/immediately_login"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/px_45"/>
+
+            <RelativeLayout
+                android:id="@+id/rl_myjf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/username"
+                android:layout_marginTop="@dimen/px_30"
+                android:background="@drawable/integral_bg"
+                >
+
+                <ImageView
+                    android:id="@+id/iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="2dp"
+                    android:src="@mipmap/jinfen"/>
+
+                <TextView
+                    android:id="@+id/tv_myIntegral"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_toRightOf="@+id/iv"
+                    android:text="0积分"
+                    android:textColor="@color/tv_color"
+                    android:textSize="14sp"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="@dimen/px_15"
+                    android:layout_toRightOf="@+id/tv_myIntegral"
+                    android:src="@mipmap/yellow_right_arrow"/>
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
+</layout>

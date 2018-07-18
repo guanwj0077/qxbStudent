@@ -28,7 +28,7 @@ public class SchoolRepository extends BaseRepository {
 
     public LiveData<List<School>> getSchoolLiveData(String province) {
         final MutableLiveData<List<School>> finalLiveData = new MutableLiveData<>();
-        if (checkCacheTime(School.class)) {
+      /*  if (checkCacheTime(School.class)) {
             Observable<ApiModel<List<School>>> observable = HttpUtils.create(SchoolApi.class).getRecommendedCollegeList(province);
             
             HttpUtils.getInstance().request(observable, new HttpResponse<ApiModel<List<School>>>() {
@@ -53,7 +53,7 @@ public class SchoolRepository extends BaseRepository {
             });
         } else {
             finalLiveData.setValue(roomUtils.schoolDao().getRecommendedColleges());
-        }
+        }*/
         return finalLiveData;
     }
 }

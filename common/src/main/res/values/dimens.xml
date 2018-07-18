@@ -60,6 +60,7 @@
     <dimen name="px_350">350px</dimen>
     <dimen name="px_400">400px</dimen>
     <dimen name="px_450">450px</dimen>
+    <dimen name="px_480">480px</dimen>
     <dimen name="px_550">550px</dimen>
     <dimen name="px_600">600px</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->

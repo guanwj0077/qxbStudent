@@ -25,4 +25,6 @@
     <string name="hint_sys_msg">系统通知</string>
     <string name="hint_push_msg">推送通知</string>
     <string name="hint_no_msg">暂无消息</string>
+    <string name="mine">我的</string>
+    <string name="immediately_login">立即登录</string>
 </resources>
