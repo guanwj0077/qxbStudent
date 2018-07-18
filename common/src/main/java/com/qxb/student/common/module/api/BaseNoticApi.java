@@ -2,15 +2,15 @@ package com.qxb.student.common.module.api;
 
 import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.ApiModel;
-import com.qxb.student.common.module.bean.BaseNews;
 import com.qxb.student.common.module.bean.BaseNotic;
 
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 /**
  * 系统通知
@@ -24,14 +24,16 @@ public interface BaseNoticApi {
      * @return
      */
     @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
     @POST("base/noticlist")
-    Observable<ApiModel<List<BaseNotic>>> noticList(@Query("page") String page, @Query("rows") String rows);
+    Observable<ApiModel<List<BaseNotic>>> noticList(@Field("page") String page, @Field("rows") String rows);
 
     /**
      * 最新的一条未读的系统通知记录
      * @return
      */
     @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
     @POST("base/newnotic")
     Observable<ApiModel<List<BaseNotic>>> newnotic();
 
@@ -41,14 +43,16 @@ public interface BaseNoticApi {
      * @return
      */
     @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
     @POST("base/noticDetail")
-    Observable<ApiModel<BaseNotic>> noticDetail(@Query("id") String noticId);
+    Observable<ApiModel<BaseNotic>> noticDetail(@Field("id") String noticId);
 
     /**
      * 根据id查询系统通知的详情,返回网页
      * @param noticId
      * @return
      */
+    @FormUrlEncoded
     @POST("view/notic/detail")
-    Observable<String> viewNoticDetail(@Query("id") String noticId);
+    Observable<String> viewNoticDetail(@Field("id") String noticId);
 }

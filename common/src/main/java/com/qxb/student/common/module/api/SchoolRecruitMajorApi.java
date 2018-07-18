@@ -5,9 +5,10 @@ import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.CollegeMajorRecruit;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 /**
  * 学校在招专业
@@ -22,8 +23,9 @@ public interface SchoolRecruitMajorApi {
      * @return
      */
     @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
     @POST("school/recruitMajorList_new")
-    Observable<ApiModel<String>> getSchoolRecruitMajor(@Query("school_id") String schoolId, @Query("province") String province);
+    Observable<ApiModel<String>> getSchoolRecruitMajor(@Field("school_id") String schoolId, @Field("province") String province);
 
     /**
      * 获取志愿信息
@@ -33,8 +35,8 @@ public interface SchoolRecruitMajorApi {
      * @return
      */
     @Headers(Config.AUTH_COMMON)
-    @POST("school/getSchoolProfessNew")
-    Observable<ApiModel<CollegeMajorRecruit>> getSchoolProfessNew(@Query("id") String id, @Query("stu_id") String stuId, @Query("province") String province);
+    @FormUrlEncoded    @POST("school/getSchoolProfessNew")
+    Observable<ApiModel<CollegeMajorRecruit>> getSchoolProfessNew(@Field("id") String id, @Field("stu_id") String stuId, @Field("province") String province);
 
 
 }

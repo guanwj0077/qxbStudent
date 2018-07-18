@@ -2,14 +2,12 @@ package com.qxb.student.common.module.api;
 
 import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.ApiModel;
-import com.qxb.student.common.module.bean.SysAd;
-
-import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 /**
  * 支付
@@ -28,9 +26,10 @@ public interface PayApi {
      * @return
      */
     @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
     @POST("pay")
-    Observable<ApiModel<String>> pay(@Query("user_id") String userId, @Query("channel") String channel, @Query("clientIp") String clientIp,
-                                          @Query("amount") String amount,@Query("currency") String currency,@Query("subject") String subject,@Query("body") String body);
+    Observable<ApiModel<String>> pay(@Field("user_id") String userId, @Field("channel") String channel, @Field("clientIp") String clientIp,
+                                     @Field("amount") String amount, @Field("currency") String currency, @Field("subject") String subject, @Field("body") String body);
 
 
 

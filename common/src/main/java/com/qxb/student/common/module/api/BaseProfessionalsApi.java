@@ -7,9 +7,10 @@ import com.qxb.student.common.module.bean.BaseSubjectCategory;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 /**
  * 国家标准专业
@@ -23,8 +24,9 @@ public interface BaseProfessionalsApi {
      * @return
      */
     @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
     @POST("baseProfessionals/getProfesById")
-    Observable<ApiModel<List<BaseSubjectCategory>>> getProfesById(@Query("id") String id, @Query("stu_id") String stuId);
+    Observable<ApiModel<List<BaseSubjectCategory>>> getProfesById(@Field("id") String id, @Field("stu_id") String stuId);
 
     /**
      * 获取专业列表
@@ -36,9 +38,10 @@ public interface BaseProfessionalsApi {
      * @return
      */
     @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
     @POST("baseProfessionals/listForApi")
-    Observable<ApiModel<List<BaseSubjectCategory>>> getProfesList(@Query("type") String type,@Query("name") String name,@Query("category_code") String categoryCode,
-                                                                  @Query("rows") String rows,@Query("page") String page);
+    Observable<ApiModel<List<BaseSubjectCategory>>> getProfesList(@Field("type") String type,@Field("name") String name,@Field("category_code") String categoryCode,
+                                                                  @Field("rows") String rows,@Field("page") String page);
 
     /**
      * 标准专业库说明/在招专业库说明
@@ -46,8 +49,9 @@ public interface BaseProfessionalsApi {
      * @return
      */
     @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
     @POST("major/tag")
-    Observable<ApiModel<String>> majorTag(@Query("tag_code") String tag_code);
+    Observable<ApiModel<String>> majorTag(@Field("tag_code") String tag_code);
 
     /**
      * 专业搜索
@@ -60,10 +64,11 @@ public interface BaseProfessionalsApi {
      * @return
      */
     @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
     @POST("major/search")
-    Observable<ApiModel<String>> majorSearch(@Query("province") String province,@Query("category_code") String categoryCode,
-                                          @Query("major_name") String majorName,@Query("subject_type") String subjectType,
-                                          @Query("page") String page,@Query("rows") String rows);
+    Observable<ApiModel<String>> majorSearch(@Field("province") String province,@Field("category_code") String categoryCode,
+                                          @Field("major_name") String majorName,@Field("subject_type") String subjectType,
+                                          @Field("page") String page,@Field("rows") String rows);
 
 
 }

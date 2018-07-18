@@ -7,9 +7,10 @@ import com.qxb.student.common.module.bean.BaseHighSchool;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 /**
  * 高中学校
@@ -24,8 +25,9 @@ public interface BaseHighSchoolApi {
      * @return
      */
     @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
     @POST("base/highschoollistByCode")
-    Observable<ApiModel<List<BaseHighSchool>>> highschoollistByCode(@Query("province") String province,@Query("city") String city,@Query("area") String area);
+    Observable<ApiModel<List<BaseHighSchool>>> highschoollistByCode(@Field("province") String province, @Field("city") String city, @Field("area") String area);
 
 
 }
