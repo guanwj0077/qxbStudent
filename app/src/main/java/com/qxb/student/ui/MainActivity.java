@@ -10,10 +10,10 @@ import android.widget.Toast;
 import com.qxb.student.R;
 import com.qxb.student.common.adapter.FragmentAdapter;
 import com.qxb.student.common.basics.BaseAppActivity;
-import com.qxb.student.ui.bankao.BanKaoNewsFragmentAbs;
-import com.qxb.student.ui.home.HomeFragmentAbs;
+import com.qxb.student.ui.bankao.BanKaoNewsFragment;
+import com.qxb.student.ui.home.HomeFragment;
 import com.qxb.student.ui.message.MessageFragment;
-import com.qxb.student.ui.mine.MineFragmentAbs;
+import com.qxb.student.ui.mine.MineFragment;
 
 import java.util.Arrays;
 
@@ -32,10 +32,10 @@ public class MainActivity extends BaseAppActivity {
         radioGroup.setOnCheckedChangeListener(checkedChangeListener);
         viewPager.addOnPageChangeListener(pageChangeListener);
         viewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager(), Arrays.asList(
-                new HomeFragmentAbs().setTitle(getString(R.string.main_home)),
+                new HomeFragment().setTitle(getString(R.string.main_home)),
                 new MessageFragment().setTitle(getString(R.string.main_chat)),
-                new BanKaoNewsFragmentAbs().setTitle(getString(R.string.main_info)),
-                new MineFragmentAbs().setTitle(getString(R.string.main_mine)))));
+                new BanKaoNewsFragment().setTitle(getString(R.string.main_info)),
+                new MineFragment().setTitle(getString(R.string.main_mine)))));
         viewPager.setOffscreenPageLimit(3);
         viewPager.setCurrentItem(0);
     }

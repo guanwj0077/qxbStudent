@@ -18,7 +18,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import java.util.Arrays;
 
 
-public class MessageFragmentAbs extends AbsExpandFragment {
+public class MessageFragment extends AbsExpandFragment {
 
     @Override
     public int bindLayout() {

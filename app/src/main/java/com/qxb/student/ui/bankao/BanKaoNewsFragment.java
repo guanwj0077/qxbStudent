@@ -10,7 +10,7 @@ import com.qxb.student.R;
 import com.qxb.student.common.basics.AbsExpandFragment;
 import com.qxb.student.databinding.FragmentBankaoNewsBinding;
 
-public class BanKaoNewsFragmentAbs extends AbsExpandFragment {
+public class BanKaoNewsFragment extends AbsExpandFragment {
     @Override
     public int bindLayout() {
         return R.layout.fragment_bankao_news;

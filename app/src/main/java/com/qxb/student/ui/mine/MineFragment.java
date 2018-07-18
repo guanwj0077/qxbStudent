@@ -11,7 +11,7 @@ import com.qxb.student.common.basics.AbsExpandFragment;
 import com.qxb.student.common.module.bean.attr.WebAttr;
 import com.qxb.student.common.utils.NavigationUtils;
 
-public class MineFragmentAbs extends AbsExpandFragment {
+public class MineFragment extends AbsExpandFragment {
     @Override
     public int bindLayout() {
         return R.layout.fragment_test;

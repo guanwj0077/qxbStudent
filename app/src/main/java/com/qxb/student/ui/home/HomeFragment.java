@@ -16,7 +16,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-public class HomeFragmentAbs extends AbsExpandFragment {
+public class HomeFragment extends AbsExpandFragment {
 
     @Override
     public int bindLayout() {
@@ -47,7 +47,7 @@ public class HomeFragmentAbs extends AbsExpandFragment {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 refreshlayout.finishRefresh();
-                HomeControl homeControl = ViewModelProviders.of(HomeFragmentAbs.this).get(HomeControl.class);
+                HomeControl homeControl = ViewModelProviders.of(HomeFragment.this).get(HomeControl.class);
                 homeControl.getLiveAdvert();
                 homeControl.getSchoolLiveData();
                 homeControl.getHomeBanner();

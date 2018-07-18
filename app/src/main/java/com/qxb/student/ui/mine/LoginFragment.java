@@ -9,7 +9,7 @@ import com.qxb.student.R;
 import com.qxb.student.common.basics.AbsExpandFragment;
 import com.qxb.student.common.basics.ToolbarFragment;
 
-public class LoginFragmentAbs extends AbsExpandFragment {
+public class LoginFragment extends AbsExpandFragment {
     @Override
     public int bindLayout() {
         return R.layout.fragment_login;
