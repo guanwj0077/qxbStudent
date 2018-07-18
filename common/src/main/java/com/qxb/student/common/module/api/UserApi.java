@@ -59,4 +59,31 @@ public interface UserApi {
     @Headers({Config.AUTH_CUSTOM})
     @POST("cleanPrecedence")
     Observable<ApiModel<String>> cleanPrecedence(@Query("phone") String phone);
+
+    /**
+     * 通过账户id获取实体信息
+     * @param accountId
+     * @return
+     */
+    @Headers({Config.AUTH_CUSTOM})
+    @POST("getSubjectEntity")
+    Observable<ApiModel<User>> getSubjectEntity(@Query("account_id") String accountId);
+
+    /**
+     * 退出登录清除缓存
+     * @param accountId
+     * @return
+     */
+    @Headers({Config.AUTH_CUSTOM})
+    @POST("logout")
+    Observable<ApiModel<String>> logOut(@Query("account_id") String accountId);
+
+    /**
+     * 写登录记录
+     * @param accountId
+     * @return
+     */
+    @Headers({Config.AUTH_CUSTOM})
+    @POST("loginRecord")
+    Observable<ApiModel<String>> loginRecord(@Query("account_id") String accountId);
 }

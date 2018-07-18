@@ -3,6 +3,7 @@ package com.qxb.student.common.module.api;
 import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.BaseSubjectCategory;
+import com.qxb.student.common.module.bean.SubjectCategory;
 
 import java.util.List;
 
@@ -35,5 +36,23 @@ public interface BaseSubjectCategoryApi {
     @POST("baseSubjectCategory/getListByParent")
     Observable<ApiModel<List<BaseSubjectCategory>>> getBaseSubjectCategoryListByParent(@Query("p_code") String pCode);
 
+    /**
+     * 专业大类列表
+     * @param type 1:获取学科门类列表 2：获取学校学科得分
+     * @param name
+     * @return
+     */
+    @Headers(Config.AUTH_CUSTOM)
+    @POST("subject/getList")
+    Observable<ApiModel<List<SubjectCategory>>> getSubjectList(@Query("type") String type, @Query("name") String name);
+
+    /**
+     * 学科实力排行学校列表
+     * @param id
+     * @return
+     */
+    @Headers(Config.AUTH_CUSTOM)
+    @POST("subject/getSchoolList")
+    Observable<ApiModel<List<SubjectCategory>>> getSchoolListBySubjectId(@Query("id") String id);
 
 }

@@ -40,5 +40,30 @@ public interface BaseProfessionalsApi {
     Observable<ApiModel<List<BaseSubjectCategory>>> getProfesList(@Query("type") String type,@Query("name") String name,@Query("category_code") String categoryCode,
                                                                   @Query("rows") String rows,@Query("page") String page);
 
+    /**
+     * 标准专业库说明/在招专业库说明
+     * @param tag_code 类别编码(必传) rule_major 标准 no_rule_major 在招
+     * @return
+     */
+    @Headers(Config.AUTH_COMMON)
+    @POST("major/tag")
+    Observable<ApiModel<String>> majorTag(@Query("tag_code") String tag_code);
+
+    /**
+     * 专业搜索
+     * @param province 省份
+     * @param categoryCode 专业类别编码
+     * @param majorName 专业名称
+     * @param subjectType 1：文 2：理
+     * @param page
+     * @param rows 默认20
+     * @return
+     */
+    @Headers(Config.AUTH_COMMON)
+    @POST("major/search")
+    Observable<ApiModel<String>> majorSearch(@Query("province") String province,@Query("category_code") String categoryCode,
+                                          @Query("major_name") String majorName,@Query("subject_type") String subjectType,
+                                          @Query("page") String page,@Query("rows") String rows);
+
 
 }
