@@ -41,5 +41,11 @@ public interface SchoolMsgApi {
     @POST("school/noticread")
     Observable<ApiModel<String>> schoolNoticRead(@Query("id") String schoolNoticId);
 
-
+    /**
+     * 学校通知详情-返回网页
+     * @param schoolMsgId
+     * @return
+     */
+    @POST("view/schoolmsg/detail")
+    Observable<String> viewSchoolMsgDetail(@Query("id") String schoolMsgId);
 }
