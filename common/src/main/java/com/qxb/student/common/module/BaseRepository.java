@@ -24,7 +24,7 @@ public class BaseRepository {
      * @param clazz 表实体
      * @return 是否需要请求新的数据
      */
-    boolean checkCacheTime(@NonNull Class<?> clazz) {
+    public boolean checkCacheTime(@NonNull Class<?> clazz) {
         HttpCache httpCache = httpCacheDao.queryByEntity(clazz.getName());
         if (httpCache == null || System.currentTimeMillis() >= httpCache.getTime()) {
             SupportSQLiteStatement statement = roomUtils.compileStatement("delete from " + clazz.getSimpleName());
@@ -40,7 +40,7 @@ public class BaseRepository {
      *
      * @param clazz 表实体
      */
-    void addCache(@NonNull Class<?> clazz, long cacheTime) {
-        httpCacheDao.insert(new HttpCache(clazz.getName(), System.currentTimeMillis()+cacheTime));
+    public void addCache(@NonNull Class<?> clazz, long cacheTime) {
+        httpCacheDao.insert(new HttpCache(clazz.getName(), System.currentTimeMillis() + cacheTime));
     }
 }
