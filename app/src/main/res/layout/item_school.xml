@@ -18,7 +18,7 @@
 
         <ImageView
             android:id="@+id/image"
-            imageUrl="@{school.logoRealPath}"
+            roundImageUrl="@{school.logoRealPath}"
             android:layout_width="@dimen/px_120"
             android:layout_height="@dimen/px_120"
             android:scaleType="centerCrop" />
