@@ -12,6 +12,7 @@ import com.qxb.student.common.adapter.BannerAdapter;
 import com.qxb.student.common.databinding.ViewImageBinding;
 import com.qxb.student.common.module.bean.School;
 import com.qxb.student.common.module.bean.SysAd;
+import com.qxb.student.common.utils.Logger;
 import com.qxb.student.common.view.abslist.AbsListAdapter;
 import com.qxb.student.common.view.abslist.GridView;
 import com.qxb.student.common.view.bannerview.CircleFlowIndicator;
@@ -54,19 +55,19 @@ public class HomeAdapter extends NestingAdapter {
                 viewFlow.setNestedpParent((ViewGroup) viewFlow.getParent());
                 viewFlow.setFlowIndicator(flowIndicator);
                 viewFlow.setTimeSpan(4500);
-                homeControl.getHomeBanner().observe(fragment, new Observer<List<SysAd>>() {
-                    @Override
-                    public void onChanged(@Nullable List<SysAd> sysAds) {
-                        getBannerAdapter().clear();
-                        getBannerAdapter().addCollection(sysAds);
-                        viewFlow.setAdapter(getBannerAdapter());
-                        int size = sysAds.size();
-                        viewFlow.setmSideBuffer(size); // 实际图片张数，
-                        flowIndicator.setCount(size);
-                        viewFlow.setSelection(size * 1000); // 设置初始位置
-                        viewFlow.startAutoFlowTimer(); // 启动自动播放
-                    }
-                });
+//                homeControl.getHomeBanner().observe(fragment, new Observer<List<SysAd>>() {
+//                    @Override
+//                    public void onChanged(@Nullable List<SysAd> sysAds) {
+//                        getBannerAdapter().clear();
+//                        getBannerAdapter().addCollection(sysAds);
+//                        viewFlow.setAdapter(getBannerAdapter());
+//                        int size = sysAds.size();
+//                        viewFlow.setmSideBuffer(size); // 实际图片张数，
+//                        flowIndicator.setCount(size);
+//                        viewFlow.setSelection(size * 1000); // 设置初始位置
+//                        viewFlow.startAutoFlowTimer(); // 启动自动播放
+//                    }
+//                });
                 break;
             case FUNCTION:
 
@@ -76,14 +77,14 @@ public class HomeAdapter extends NestingAdapter {
                 break;
             case LIVE:
                 final ItemHomeLiveBinding binding = DataBindingUtil.bind(holder.itemView);
-                homeControl.getLiveAdvert().observe(fragment, new Observer<String>() {
-                    @Override
-                    public void onChanged(@Nullable String s) {
-                        if (binding != null) {
-                            binding.setImageUrl(s);
-                        }
-                    }
-                });
+//                homeControl.getLiveAdvert().observe(fragment, new Observer<String>() {
+//                    @Override
+//                    public void onChanged(@Nullable String s) {
+//                        if (binding != null) {
+//                            binding.setImageUrl(s);
+//                        }
+//                    }
+//                });
                 break;
             case SCHOOL:
                 holder.setImageResource(R.id.tag_image, R.mipmap.yuan_xiao_hot);
@@ -92,6 +93,7 @@ public class HomeAdapter extends NestingAdapter {
                 homeControl.getSchoolLiveData().observe(fragment, new Observer<List<School>>() {
                     @Override
                     public void onChanged(@Nullable List<School> schools) {
+                        Logger.getInstance().e("onChanged");
                         AbsListAdapter<ItemSchoolBinding, School> schoolAbsListAdapter;
                         gridView.setAdapter(schoolAbsListAdapter = new AbsListAdapter<ItemSchoolBinding, School>(fragment.getContext(), R.layout.item_school) {
                             @Override

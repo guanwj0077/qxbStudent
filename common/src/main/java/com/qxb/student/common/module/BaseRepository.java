@@ -8,6 +8,8 @@ import com.qxb.student.common.module.dao.HttpCacheDao;
 import com.qxb.student.common.module.dao.RoomUtils;
 import com.qxb.student.common.utils.ExecutorUtils;
 
+import java.util.concurrent.RunnableScheduledFuture;
+
 /**
  * @author winky
  * @date 2018/7/18
@@ -42,5 +44,21 @@ public class BaseRepository {
      */
     public void addCache(@NonNull Class<?> clazz, long cacheTime) {
         httpCacheDao.insert(new HttpCache(clazz.getName(), System.currentTimeMillis() + cacheTime));
+//        executorUtils.addTask(new HttpCacheTask(clazz, cacheTime));
+    }
+
+    class HttpCacheTask implements Runnable {
+        private final Class<?> clazz;
+        private final long time;
+
+        HttpCacheTask(Class<?> clazz, long time) {
+            this.clazz = clazz;
+            this.time = time;
+        }
+
+        @Override
+        public void run() {
+            httpCacheDao.insert(new HttpCache(clazz.getName(), System.currentTimeMillis() + time));
+        }
     }
 }

@@ -1,9 +1,11 @@
 package com.qxb.student.common.module.dao;
 
+import android.arch.persistence.db.SupportSQLiteStatement;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.qxb.student.common.module.bean.School;
 import com.qxb.student.common.module.bean.Test;
@@ -47,4 +49,32 @@ public abstract class RoomUtils extends RoomDatabase {
     public abstract SchoolDao schoolDao();
 
 
+    private HttpCacheDao httpCacheDao = httpCacheDao();
+
+    /**
+     * 检查数据缓存到期
+     *
+     * @param clazz 表实体
+     * @return 是否需要请求新的数据
+     */
+    public boolean checkCacheTime(@NonNull Class<?> clazz) {
+        HttpCache httpCache = httpCacheDao.queryByEntity(clazz.getName());
+        if (httpCache == null || System.currentTimeMillis() >= httpCache.getTime()) {
+            SupportSQLiteStatement statement = compileStatement("delete from " + clazz.getSimpleName());
+            statement.execute();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 添加到缓存
+     *
+     * @param clazz 表实体
+     */
+    public void addCache(@NonNull Class<?> clazz, long cacheTime) {
+        httpCacheDao.insert(new HttpCache(clazz.getName(), System.currentTimeMillis() + cacheTime));
+//        executorUtils.addTask(new HttpCacheTask(clazz, cacheTime));
+    }
 }

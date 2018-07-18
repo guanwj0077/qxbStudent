@@ -7,6 +7,15 @@ public class ApiModel<T> {
     private String msg;
     private T data;
     private int socailMsg;
+    private long cacheTime;
+
+    public long getCacheTime() {
+        return cacheTime;
+    }
+
+    public void setCacheTime(long cacheTime) {
+        this.cacheTime = cacheTime;
+    }
 
     public int getCode() {
         return code;
@@ -48,4 +57,15 @@ public class ApiModel<T> {
         this.socailMsg = socailMsg;
     }
 
+    @Override
+    public String toString() {
+        return "ApiModel{" +
+                "code=" + code +
+                ", total=" + total +
+                ", msg='" + msg + '\'' +
+                ", data=" + data +
+                ", socailMsg=" + socailMsg +
+                ", cacheTime=" + cacheTime +
+                '}';
+    }
 }

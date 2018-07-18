@@ -52,9 +52,9 @@ public class HomeFragment extends AbsExpandFragment {
             public void onRefresh(RefreshLayout refreshlayout) {
                 refreshlayout.finishRefresh();
                 HomeControl homeControl = ViewModelProviders.of(HomeFragment.this).get(HomeControl.class);
-                homeControl.getLiveAdvert();
+//                homeControl.getLiveAdvert();
                 homeControl.getSchoolLiveData();
-                homeControl.getHomeBanner();
+//                homeControl.getHomeBanner();
 //                homeControl.getSchoolLiveData();
 //                homeControl.getLiveAdvert();
             }

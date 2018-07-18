@@ -12,9 +12,11 @@ import com.qxb.student.common.module.bean.School;
 import com.qxb.student.common.module.dao.HttpCacheDao;
 import com.qxb.student.common.module.dao.RoomUtils;
 import com.qxb.student.common.utils.ExecutorUtils;
+import com.qxb.student.common.utils.Logger;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -23,6 +25,7 @@ import io.reactivex.Observer;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -34,75 +37,66 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class SchoolRepository extends BaseRepository {
 
-    public LiveData<List<School>> getSchoolLiveData(String province) {
-        final MutableLiveData<List<School>> finalLiveData = new MutableLiveData<>();
-        Observable.create(new ObservableOnSubscribe() {
-            @Override
-            public void subscribe(ObservableEmitter emitter) throws Exception {
-                emitter.onComplete();
-            }
-        }).subscribeOn(Schedulers.io()).subscribe(new Observer() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onNext(Object o) {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
-
-//        if (checkCacheTime(School.class)) {
-//            Observable<ApiModel<List<School>>> observable = HttpUtils.create(SchoolApi.class).getRecommendedCollegeList(province);
-//
-//            Disposable disposable = observable.subscribeOn(Schedulers.io())
-//
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe(new Consumer<ApiModel<List<School>>>() {
-//                        @Override
-//                        public void accept(ApiModel<List<School>> listApiModel) {
-//
-//                        }
-//                    }, new Consumer<Throwable>() {
-//                        @Override
-//                        public void accept(Throwable throwable) {
-//
-//                        }
-//                    });
-//            HttpUtils.getInstance().request(observable, new HttpResponse<ApiModel<List<School>>>() {
-//                @Override
-//                public void success(ApiModel<List<School>> result) {
-//                    if (result.getCode() == 1) {
-//                        finalLiveData.setValue(result.getData());
-//                        addCache(School.class, result.getCode());
-//                        executorUtils.addTask(new TRunnable<List<School>>(result.getData()) {
-//                            @Override
-//                            public void run(List<School> schools) {
-//                                roomUtils.schoolDao().insertColleges(schools);
-//                            }
-//                        });
+    public Observable<ApiModel<List<School>>> getSchoolLiveData(String province) {
+        Logger.getInstance().e("getSchoolLiveData");
+        return HttpUtils.create(SchoolApi.class).getRecommendedCollegeList(province)
+                .subscribeOn(Schedulers.io())
+                .doOnNext(new Consumer<ApiModel<List<School>>>() {
+                    @Override
+                    public void accept(ApiModel<List<School>> listApiModel) throws Exception {
+                        Logger.getInstance().e("SchoolRepository  doOnNext");
+                        addCache(School.class, listApiModel.getCacheTime());
+                        roomUtils.schoolDao().insertColleges(listApiModel.getData());
+                    }
+                });
+//                .subscribe();
+//        Disposable disposable = Observable.create(new ObservableOnSubscribe<List<School>>() {
+//            @Override
+//            public void subscribe(ObservableEmitter<List<School>> emitter) {
+//                System.out.print("subscribe threadName:" + Thread.currentThread().getName());
+//                if (!checkCacheTime(School.class)) {
+//                    List<School> schoolList = roomUtils.schoolDao().getRecommendedColleges();
+//                    if (schoolList == null || schoolList.size() == 0) {
+//                        emitter.onComplete();
+//                    } else {
+//                        emitter.onNext(schoolList);
 //                    }
+//                } else {
+//                    emitter.onComplete();
 //                }
+//            }
+//        })
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .doOnNext(new Consumer<List<School>>() {
+//                    @Override
+//                    public void accept(List<School> schools) throws Exception {
+//                        System.out.print("doOnNext threadName:" + Thread.currentThread().getName());
+//                        finalLiveData.setValue(schools);
+//                    }
+//                }).doOnComplete(new Action() {
+//                    @Override
+//                    public void run() throws Exception {
+//        HttpUtils.getInstance().request(observable, new HttpResponse<ApiModel<List<School>>>() {
+//            @Override
+//            public void success(ApiModel<List<School>> result) {
+//                System.out.print("success threadName:" + Thread.currentThread().getName());
+//                executorUtils.addTask(new TRunnable<ApiModel<List<School>>>(result) {
+//                    @Override
+//                    public void run(ApiModel<List<School>> listApiModel) {
+//                        addCache(School.class, listApiModel.getCacheTime());
+//                        roomUtils.schoolDao().insertColleges(listApiModel.getData());
+//                    }
+//                });
+//            }
 //
-//                @Override
-//                public void failed(Throwable throwable) {
-//
-//                }
-//            });
-//        } else {
-//            finalLiveData.setValue(roomUtils.schoolDao().getRecommendedColleges());
-//        }
-        return finalLiveData;
+//            @Override
+//            public void failed(Throwable throwable) {
+//                System.out.print("Throwable threadName:" + Thread.currentThread().getName());
+//            }
+//        });
+//                    }
+//                }).subscribe();
+//        return observable;
     }
 }
