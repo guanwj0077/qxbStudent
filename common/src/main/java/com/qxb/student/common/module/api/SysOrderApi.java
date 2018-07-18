@@ -58,4 +58,28 @@ public interface SysOrderApi {
     @POST("abroad/order/labelList")
     Observable<ApiModel<List<ExpertLabel>>> abroadOrderLabelList(@Query("accountId") String accountId);
 
+    /**
+     * 创建订单
+     * @param accountId
+     * @param channel
+     * @param goodsCode
+     * @param payWay
+     * @param integral
+     * @param orderId
+     * @return
+     */
+    @Headers(Config.AUTH_CUSTOM)
+    @POST("pay/createOrder")
+    Observable<ApiModel<String>> payCreateOrder(@Query("account_id") String accountId,@Query("channel") String channel,@Query("goods_code") String goodsCode,@Query("pay_way") String payWay,@Query("integral") String integral,@Query("order_id") String orderId);
+
+    /**
+     * 查询学生用户激活卡信息
+     * @param accountId
+     * @return
+     */
+    @Headers(Config.AUTH_CUSTOM)
+    @POST("getUserCard")
+    Observable<ApiModel<String>> getUserCard(@Query("account_id") String accountId);
+
+
 }
