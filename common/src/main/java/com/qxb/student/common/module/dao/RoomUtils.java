@@ -7,14 +7,16 @@ import android.content.Context;
 
 import com.qxb.student.common.module.bean.School;
 import com.qxb.student.common.module.bean.Test;
+import com.qxb.student.common.module.bean.tab.HttpCache;
 import com.qxb.student.common.utils.ContextUtils;
 import com.qxb.student.common.utils.Singleton;
 
 /**
  * Room数据库工具类
+ *
  * @author winky
  */
-@Database(entities = {School.class}, version = 1, exportSchema = false)
+@Database(entities = {HttpCache.class, School.class}, version = 1, exportSchema = false)
 public abstract class RoomUtils extends RoomDatabase {
 
     private static final String DATABASE_NAME = "qxb.db";
@@ -31,10 +33,18 @@ public abstract class RoomUtils extends RoomDatabase {
     }
 
     /**
+     * 请求缓存记录
+     *
+     * @return HttpCacheDao
+     */
+    public abstract HttpCacheDao httpCacheDao();
+
+    /**
      * 获取学校操作
      *
-     * @return
+     * @return SchoolDao
      */
     public abstract SchoolDao schoolDao();
+
 
 }

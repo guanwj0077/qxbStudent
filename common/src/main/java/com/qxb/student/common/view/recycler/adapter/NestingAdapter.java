@@ -5,7 +5,9 @@ import android.util.SparseArray;
 
 /**
  * 主要针对嵌套布局适配
- * Created by winky on 2018/4/9.
+ *
+ * @author winky
+ * @date 2018/4/9
  */
 public abstract class NestingAdapter extends BaseAdapter {
 

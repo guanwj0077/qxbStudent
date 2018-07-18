@@ -8,10 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * copy 自融云 baseAdapter
@@ -23,11 +23,13 @@ public abstract class AbsListAdapter<Binding extends ViewDataBinding, T> extends
     private Context context;
     private List<T> mList;
     private int layoutId;
+    private Binding binding;
 
     public AbsListAdapter(Context context, @LayoutRes int layoutId) {
         this.context = context;
         this.mList = new ArrayList();
         this.layoutId = layoutId;
+        this.binding = DataBindingUtil.inflate(LayoutInflater.from(context), layoutId, null, false);
     }
 
     public void addCollection(Collection<T> collection) {
@@ -58,10 +60,12 @@ public abstract class AbsListAdapter<Binding extends ViewDataBinding, T> extends
         this.mList.clear();
     }
 
+    @Override
     public int getCount() {
         return this.mList == null ? 0 : this.mList.size();
     }
 
+    @Override
     public T getItem(int position) {
         return this.mList == null ? null : (position >= this.mList.size() ? null : this.mList.get(position));
     }
@@ -73,15 +77,21 @@ public abstract class AbsListAdapter<Binding extends ViewDataBinding, T> extends
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Binding binding;
-        if (convertView != null) {
-            binding = DataBindingUtil.getBinding(convertView);
-        } else {
-            binding = DataBindingUtil.inflate(LayoutInflater.from(context), layoutId, parent, false);
+        if (convertView == null) {
+            convertView = getBinding(getItemViewType(position)).getRoot();
         }
         position = getPosition(position);
-        this.bind(binding, position, this.getItem(position));
-        return binding.getRoot();
+        this.bind(getBinding(getItemViewType(position)), position, this.getItem(position));
+        return convertView;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
+
+    public Binding getBinding(int viewType) {
+        return binding;
     }
 
     protected abstract void bind(Binding binding, int position, T item);

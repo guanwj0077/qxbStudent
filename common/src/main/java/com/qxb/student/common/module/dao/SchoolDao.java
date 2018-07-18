@@ -10,12 +10,27 @@ import com.qxb.student.common.module.bean.School;
 
 import java.util.List;
 
+/**
+ * 学校数据操作
+ *
+ * @author winky
+ * @date 2018/07/18
+ */
 @Dao
 public interface SchoolDao {
 
-    @Query("SELECT * FROM tb_school")
-    LiveData<List<School>> getRecommendedColleges();
+    /**
+     * 首页推荐学校
+     * @return 学校集合
+     */
+    @Query("SELECT * FROM School")
+    List<School> getRecommendedColleges();
 
+    /**
+     * 学校列表数据
+     *
+     * @param list 学校集合
+     */
     @Insert
     void insertColleges(List<School> list);
 }

@@ -6,6 +6,7 @@ import android.content.Context;
 import com.mob.MobSDK;
 import com.qxb.student.common.http.HttpConfigure;
 import com.qxb.student.common.http.HttpUtils;
+import com.qxb.student.common.module.dao.RoomUtils;
 import com.zhy.autolayout.config.AutoLayoutConifg;
 
 /**
@@ -59,6 +60,7 @@ public class LibControl {
      */
     public void release() {
         ContextUtils.getInstance().cleared();
+        RoomUtils.getInstance().close();
         context = null;
     }
 }
