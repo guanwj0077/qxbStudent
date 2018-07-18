@@ -8,7 +8,7 @@ public abstract class TRunnable<T> implements Runnable {
 
     private T t;
 
-    TRunnable(T t) {
+    protected TRunnable(T t) {
         this.t = t;
     }
 

@@ -16,6 +16,10 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+/**
+ * 首页
+ * @author winky
+ */
 public class HomeFragment extends AbsExpandFragment {
 
     @Override
@@ -35,7 +39,7 @@ public class HomeFragment extends AbsExpandFragment {
         toolbar.setTitle(getTitle());
         refreshLayout = view.findViewById(R.id.refreshLayout);
         recyclerView = view.findViewById(R.id.recyclerView);
-        ////toolbar 设置下拉刷新
+        //toolbar 设置下拉刷新
         refreshLayout.setDisableContentWhenLoading(false);
         refreshLayout.setEnableOverScrollDrag(true);
         refreshLayout.setEnableLoadMore(false);

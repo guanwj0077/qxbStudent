@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.qxb.student.R;
 import com.qxb.student.common.basics.AbsExpandFragment;
-import com.qxb.student.common.basics.ToolbarFragment;
+import com.qxb.student.common.basics.AbsToolbarFragment;
 
 public class LoginFragment extends AbsExpandFragment {
     @Override

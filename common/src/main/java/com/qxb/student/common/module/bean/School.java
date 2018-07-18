@@ -13,6 +13,7 @@ import android.arch.persistence.room.PrimaryKey;
 public class School {
     @Ignore
     public static final String TAG = "School";
+    @PrimaryKey
     private int school_id;
     private String address;
     private int level;
