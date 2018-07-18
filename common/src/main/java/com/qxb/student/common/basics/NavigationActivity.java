@@ -8,6 +8,10 @@ import com.qxb.student.common.R;
 
 import androidx.navigation.fragment.NavHostFragment;
 
+/**
+ * 导航起点
+ * @author winky
+ */
 public class NavigationActivity extends BaseAppActivity {
 
     private NavHostFragment hostFragment;

@@ -10,6 +10,10 @@ import com.qxb.student.common.module.bean.Test;
 import com.qxb.student.common.utils.ContextUtils;
 import com.qxb.student.common.utils.Singleton;
 
+/**
+ * Room数据库工具类
+ * @author winky
+ */
 @Database(entities = {School.class}, version = 1, exportSchema = false)
 public abstract class RoomUtils extends RoomDatabase {
 
@@ -26,6 +30,11 @@ public abstract class RoomUtils extends RoomDatabase {
         return SINGLETON.get();
     }
 
+    /**
+     * 获取学校操作
+     *
+     * @return
+     */
     public abstract SchoolDao schoolDao();
 
 }

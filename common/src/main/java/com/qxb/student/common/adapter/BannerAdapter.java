@@ -7,11 +7,16 @@ import com.qxb.student.common.databinding.ViewImageBinding;
 import com.qxb.student.common.view.abslist.AbsListAdapter;
 
 /**
- * Created by winky on 2018/4/10.
+ * banner适配器
+ *
+ * @author winky
+ * @date 2018/4/10
  */
 public abstract class BannerAdapter<T> extends AbsListAdapter<ViewImageBinding, T> {
 
-    /*是否轮播*/
+    /**
+     * 是否轮播
+     */
     private boolean isLoop;
 
     public BannerAdapter(Context context, boolean isLoop) {

@@ -20,6 +20,10 @@ import com.qxb.student.common.module.bean.attr.WebAttr;
 import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 
+/**
+ * 导航工具类
+ * @author winky
+ */
 public class NavigationUtils {
 
     private static final Singleton<NavigationUtils> SINGLETON = new Singleton<NavigationUtils>() {
@@ -44,6 +48,13 @@ public class NavigationUtils {
                 .build();
     }
 
+    /**
+     * 设置导航转换动画
+     * @param enterAnim enterAnim
+     * @param exitAnim exitAnim
+     * @param popEnterAnim popEnterAnim
+     * @param popExitAnim popExitAnim
+     */
     public void setNavOptions(@AnimRes @AnimatorRes int enterAnim,
                               @AnimRes @AnimatorRes int exitAnim,
                               @AnimRes @AnimatorRes int popEnterAnim,
@@ -56,26 +67,52 @@ public class NavigationUtils {
                 .build();
     }
 
+    /**
+     * 打开一个新的导航
+     * @param context 上下文
+     * @param navigationRes 导航资源
+     */
     public void toNavigation(@NonNull Context context, @NavigationRes int navigationRes) {
         Intent intent = new Intent(context, NavigationActivity.class);
         intent.putExtra(Config.NAVIGATION_ID, navigationRes);
         context.startActivity(intent);
     }
 
+    /**
+     * 跳转通用网页类
+     * @param context 上下文
+     * @param webAttr 打开网页参数
+     */
     public void toWeb(@NonNull Context context, @NonNull WebAttr webAttr) {
         Intent intent = new Intent(context, WebActivity.class);
         intent.putExtra(WebAttr.TAG, webAttr);
         context.startActivity(intent);
     }
 
+    /**
+     * 导航内页码跳转
+     * @param fragment fragment
+     * @param navigationId 导航页码id
+     */
     public void jump(@NonNull Fragment fragment, @IdRes int navigationId) {
         this.jump(fragment, navigationId, null);
     }
 
+    /**
+     * 导航内页码跳转，带参
+     * @param fragment fragment
+     * @param navigationId 导航页码id
+     * @param bundle 参数
+     */
     public void jump(@NonNull Fragment fragment, @IdRes int navigationId, @Nullable Bundle bundle) {
         NavHostFragment.findNavController(fragment).navigate(navigationId, bundle, navOptions);
     }
 
+    /**
+     * 导航内回退
+     * @param fragment fragment
+     * @return boolean
+     */
     public boolean goBack(Fragment fragment) {
         return NavHostFragment.findNavController(fragment).navigateUp();
     }

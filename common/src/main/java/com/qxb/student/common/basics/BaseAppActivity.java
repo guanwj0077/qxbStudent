@@ -13,6 +13,8 @@ import java.lang.reflect.Field;
 
 /**
  * 上下文管理
+ *
+ * @author winky
  */
 public class BaseAppActivity extends AppCompatActivity {
 
@@ -28,7 +30,7 @@ public class BaseAppActivity extends AppCompatActivity {
                 Class decorViewClazz = Class.forName("com.android.internal.policy.DecorView");
                 Field field = decorViewClazz.getDeclaredField("mSemiTransparentStatusBarColor");
                 field.setAccessible(true);
-                field.setInt(getWindow().getDecorView(), Color.TRANSPARENT); //改为透明
+                field.setInt(getWindow().getDecorView(), Color.TRANSPARENT);
             } catch (Exception e) {
             }
         }

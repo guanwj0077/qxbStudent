@@ -4,6 +4,10 @@ import com.qxb.student.common.module.bean.User;
 
 import java.lang.ref.WeakReference;
 
+/**
+ * 登录用户对象缓存
+ * @author winky
+ */
 public class UserCache {
 
     private static final Singleton<UserCache> SINGLETON = new Singleton<UserCache>() {

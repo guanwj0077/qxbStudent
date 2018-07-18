@@ -6,13 +6,13 @@ import android.support.annotation.Nullable;
 import android.view.ViewStub;
 
 import com.qxb.student.R;
-import com.qxb.student.common.basics.RefreshFragment;
+import com.qxb.student.common.basics.AbsRefreshFragment;
 import com.qxb.student.common.module.bean.Bankao;
 import com.qxb.student.common.view.recycler.ViewHolder;
 import com.qxb.student.common.view.recycler.adapter.QuickAdapter;
 import com.qxb.student.control.BankaoControl;
 
-public class BanKaoListFragment extends RefreshFragment<Bankao> {
+public class BanKaoListFragment extends AbsRefreshFragment<Bankao> {
 
     private BankaoControl bankaoControl;
 

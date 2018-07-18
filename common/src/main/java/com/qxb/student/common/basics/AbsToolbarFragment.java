@@ -11,7 +11,12 @@ import android.widget.FrameLayout;
 import com.qxb.student.common.R;
 import com.qxb.student.common.utils.SysUtils;
 
-public abstract class ToolbarFragment extends ExpandFragment {
+/**
+ * 包含toolbar的fragment
+ *
+ * @author winky
+ */
+public abstract class AbsToolbarFragment extends AbsExpandFragment {
 
     @Override
     public int bindLayout() {
@@ -21,8 +26,18 @@ public abstract class ToolbarFragment extends ExpandFragment {
     private Toolbar toolbar;
     private FrameLayout frameLayout;
 
+    /**
+     * 返回内容布局id
+     *
+     * @return layoutResId
+     */
     public abstract int bindContentView();
 
+    /**
+     * 初始化
+     *
+     * @param savedInstanceState bundle
+     */
     public abstract void initContent(@Nullable Bundle savedInstanceState);
 
     @Override
@@ -36,9 +51,15 @@ public abstract class ToolbarFragment extends ExpandFragment {
         initContent(savedInstanceState);
     }
 
+    /**
+     * 异步执行runnable
+     *
+     * @param runnable runnable
+     */
     public void postRunnable(Runnable runnable) {
-        if (frameLayout != null)
+        if (frameLayout != null) {
             frameLayout.postDelayed(runnable, 200);
+        }
     }
 
     @Override
@@ -48,8 +69,9 @@ public abstract class ToolbarFragment extends ExpandFragment {
 
     @Override
     public BaseFragment setTitle(String title) {
-        if (toolbar != null)
+        if (toolbar != null) {
             toolbar.setTitle(title);
+        }
         return super.setTitle(title);
     }
 

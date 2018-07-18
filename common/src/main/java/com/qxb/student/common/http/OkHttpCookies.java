@@ -7,12 +7,15 @@ import java.io.Serializable;
 
 import okhttp3.Cookie;
 
+/**
+ * @author winky
+ */
 public class OkHttpCookies implements Serializable {
 
     private transient final Cookie cookies;
     private transient Cookie clientCookies;
 
-    public OkHttpCookies(Cookie cookies) {
+    OkHttpCookies(Cookie cookies) {
         this.cookies = cookies;
     }
 
@@ -45,7 +48,6 @@ public class OkHttpCookies implements Serializable {
         boolean secure = in.readBoolean();
         boolean httpOnly = in.readBoolean();
         boolean hostOnly = in.readBoolean();
-        boolean persistent = in.readBoolean();
         Cookie.Builder builder = new Cookie.Builder();
         builder = builder.name(name);
         builder = builder.value(value);

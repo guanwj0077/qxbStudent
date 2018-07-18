@@ -13,6 +13,10 @@ import com.qxb.student.common.module.dao.RoomUtils;
 
 import java.util.List;
 
+/**
+ * 广告数据仓库
+ * @author winky
+ */
 public class AdvertRepository {
 
     private RoomUtils roomUtils = RoomUtils.getInstance();

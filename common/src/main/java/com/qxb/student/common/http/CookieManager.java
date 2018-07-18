@@ -2,6 +2,7 @@ package com.qxb.student.common.http;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -23,13 +24,15 @@ import okhttp3.HttpUrl;
 
 /**
  * 持久化cookies
+ *
+ * @author winky
  */
 public class CookieManager implements CookieJar {
     private static final String COOKIE_PREFS = "Cookies_Prefs";
     private final SharedPreferences cookiePrefs;
     private final HashMap<String, ConcurrentHashMap<String, Cookie>> cookies;
 
-    public CookieManager(Context context) {
+    CookieManager(Context context) {
         cookiePrefs = context.getSharedPreferences(COOKIE_PREFS, 0);
         cookies = new HashMap<>();
 
@@ -46,7 +49,9 @@ public class CookieManager implements CookieJar {
                     if (null != decodeCookie) {
                         cookies.put(entry.getKey(), new ConcurrentHashMap<String, Cookie>());
                     }
-                    cookies.get(entry.getKey()).put(name, decodeCookie);
+                    if (decodeCookie != null) {
+                        cookies.get(entry.getKey()).put(name, decodeCookie);
+                    }
                 }
             }
         }
@@ -56,26 +61,24 @@ public class CookieManager implements CookieJar {
     /**
      * 获取cookieToken
      *
-     * @param cookie
-     * @return
+     * @param cookie cookie
+     * @return str
      */
-    protected String getCookieToken(Cookie cookie) {
+    private String getCookieToken(Cookie cookie) {
         return cookie.name() + "@" + cookie.domain();
     }
 
     /**
      * 添加到持久化
      *
-     * @param url
-     * @param cookie
+     * @param url    请求url
+     * @param cookie cookie
      */
     public void add(HttpUrl url, Cookie cookie) {
         String name = getCookieToken(cookie);
-
-        //将cookies缓存到内存中，如果缓存过期，就重置此cookie
         if (!cookie.persistent()) {
             if (!cookies.containsKey(url.host())) {
-                cookies.put(url.host(), new ConcurrentHashMap<String, Cookie>());
+                cookies.put(url.host(), new ConcurrentHashMap<String, Cookie>(20));
             }
             cookies.get(url.host()).put(name, cookie);
         } else {
@@ -83,7 +86,6 @@ public class CookieManager implements CookieJar {
                 cookies.get(url.host()).remove(name);
             }
         }
-        //将cookies持久化到本地
         SharedPreferences.Editor prefsWriter = cookiePrefs.edit();
         ConcurrentHashMap hashMap = cookies.get(url.host());
         if (hashMap != null) {
@@ -97,20 +99,21 @@ public class CookieManager implements CookieJar {
     /**
      * 通过url得到存储cookie集合
      *
-     * @param url
-     * @return
+     * @param url 请求url
+     * @return cookies
      */
     public List<Cookie> get(HttpUrl url) {
         ArrayList<Cookie> ret = new ArrayList<>();
-        if (cookies.containsKey(url.host()))
+        if (cookies.containsKey(url.host())) {
             ret.addAll(cookies.get(url.host()).values());
+        }
         return ret;
     }
 
     /**
      * 清除cookies本地持久化
      *
-     * @return
+     * @return true
      */
     public boolean removeAll() {
         SharedPreferences.Editor prefsWriter = cookiePrefs.edit();
@@ -123,13 +126,13 @@ public class CookieManager implements CookieJar {
     /**
      * 获取cookie集合
      *
-     * @return
+     * @return cookies
      */
     public List<Cookie> getCookies() {
         ArrayList<Cookie> ret = new ArrayList<>();
-        for (String key : cookies.keySet())
+        for (String key : cookies.keySet()) {
             ret.addAll(cookies.get(key).values());
-
+        }
         return ret;
     }
 
@@ -139,9 +142,10 @@ public class CookieManager implements CookieJar {
      * @param cookie 要序列化的cookie
      * @return 序列化之后的string
      */
-    protected String encodeCookie(OkHttpCookies cookie) {
-        if (cookie == null)
+    private String encodeCookie(OkHttpCookies cookie) {
+        if (cookie == null) {
             return null;
+        }
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(os);
@@ -159,15 +163,15 @@ public class CookieManager implements CookieJar {
      * @param cookieString cookies string
      * @return cookie object
      */
-    protected Cookie decodeCookie(String cookieString) {
+    private Cookie decodeCookie(String cookieString) {
         byte[] bytes = hexStringToByteArray(cookieString);
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
         Cookie cookie = null;
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
             cookie = ((OkHttpCookies) objectInputStream.readObject()).getCookies();
-        } catch (IOException e) {
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException ex) {
+            ex.printStackTrace();
         }
 
         return cookie;
@@ -179,7 +183,7 @@ public class CookieManager implements CookieJar {
      * @param bytes byte array to be converted
      * @return string containing hex values
      */
-    protected String byteArrayToHexString(byte[] bytes) {
+    private String byteArrayToHexString(byte[] bytes) {
         StringBuilder sb = new StringBuilder(bytes.length * 2);
         for (byte element : bytes) {
             int v = element & 0xff;
@@ -197,18 +201,19 @@ public class CookieManager implements CookieJar {
      * @param hexString string of hex-encoded values
      * @return decoded byte array
      */
-    protected byte[] hexStringToByteArray(String hexString) {
+    private byte[] hexStringToByteArray(String hexString) {
+        final int two = 2;
         int len = hexString.length();
-        byte[] data = new byte[len / 2];
-        for (int i = 0; i < len; i += 2) {
+        byte[] data = new byte[len / two];
+        for (int i = 0; i < len; i += two) {
             data[i / 2] = (byte) ((Character.digit(hexString.charAt(i), 16) << 4) + Character.digit(hexString.charAt(i + 1), 16));
         }
         return data;
     }
 
     @Override
-    public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
-        if (cookies != null && cookies.size() > 0) {
+    public void saveFromResponse(@NonNull HttpUrl url, @NonNull List<Cookie> cookies) {
+        if (cookies.size() > 0) {
             for (Cookie item : cookies) {
                 add(url, item);
             }
@@ -218,7 +223,7 @@ public class CookieManager implements CookieJar {
     }
 
     @Override
-    public List<Cookie> loadForRequest(HttpUrl url) {
+    public List<Cookie> loadForRequest(@NonNull HttpUrl url) {
         return get(url);
     }
 }

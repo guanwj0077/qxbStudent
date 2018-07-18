@@ -13,7 +13,11 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.List;
 
-public abstract class RefreshFragment<T> extends ToolbarFragment implements IPullRefresh<T> {
+/**
+ * 下拉刷新基类
+ * @author winky
+ */
+public abstract class AbsRefreshFragment<T> extends AbsToolbarFragment implements IPullRefresh<T> {
 
     @Override
     public int bindContentView() {

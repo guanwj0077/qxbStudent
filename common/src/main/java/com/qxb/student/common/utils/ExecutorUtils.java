@@ -6,6 +6,10 @@ import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 线程池
+ * @author winky
+ */
 public class ExecutorUtils {
 
     private static final Singleton<ExecutorUtils> SINGLETON = new Singleton<ExecutorUtils>() {
@@ -35,8 +39,25 @@ public class ExecutorUtils {
                 }
             }
         };
+
         this.threadPoolExecutor = new ThreadPoolExecutor(6, 30, 30, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(4), rejectedHandler);
         this.taskQueue = new LinkedBlockingQueue<>();
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                while (flag) {
+                    Runnable task = null;
+                    try {
+                        task = taskQueue.take();
+                        if (task != null) {
+                            threadPoolExecutor.execute(task);
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
         this.threadPoolExecutor.execute(runnable);
     }
 
@@ -59,20 +80,4 @@ public class ExecutorUtils {
         flag = false;
     }
 
-    private final Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            while (flag) {
-                Runnable task = null;
-                try {
-                    task = taskQueue.take();
-                    if (task != null) {
-                        threadPoolExecutor.execute(task);
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    };
 }

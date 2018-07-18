@@ -10,14 +10,17 @@ import android.view.View;
 
 import com.qxb.student.R;
 import com.qxb.student.adapter.HomeAdapter;
-import com.qxb.student.common.basics.ExpandFragment;
-import com.qxb.student.common.utils.SysUtils;
+import com.qxb.student.common.basics.AbsExpandFragment;
 import com.qxb.student.control.HomeControl;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-public class HomeFragment extends ExpandFragment {
+/**
+ * 首页
+ * @author winky
+ */
+public class HomeFragment extends AbsExpandFragment {
 
     @Override
     public int bindLayout() {
@@ -36,7 +39,7 @@ public class HomeFragment extends ExpandFragment {
         toolbar.setTitle(getTitle());
         refreshLayout = view.findViewById(R.id.refreshLayout);
         recyclerView = view.findViewById(R.id.recyclerView);
-        ////toolbar 设置下拉刷新
+        //toolbar 设置下拉刷新
         refreshLayout.setDisableContentWhenLoading(false);
         refreshLayout.setEnableOverScrollDrag(true);
         refreshLayout.setEnableLoadMore(false);

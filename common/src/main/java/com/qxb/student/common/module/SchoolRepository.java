@@ -5,50 +5,43 @@ import android.arch.lifecycle.MutableLiveData;
 
 import com.qxb.student.common.http.HttpResponse;
 import com.qxb.student.common.http.HttpUtils;
+import com.qxb.student.common.listener.TRunnable;
 import com.qxb.student.common.module.api.SchoolApi;
 import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.School;
 import com.qxb.student.common.module.dao.RoomUtils;
+import com.qxb.student.common.utils.ExecutorUtils;
 
 import java.util.Arrays;
 import java.util.List;
 
 import io.reactivex.Observable;
 
+/**
+ * 学校数据仓库
+ *
+ * @author winky
+ * @date
+ */
 public class SchoolRepository {
 
-    private RoomUtils roomUtils = RoomUtils.getInstance();
+    private final RoomUtils roomUtils = RoomUtils.getInstance();
+    private final ExecutorUtils executorUtils = ExecutorUtils.getInstance();
 
     public LiveData<List<School>> getSchoolLiveData(String province) {
-//        School school1 = new School();
-//        school1.setSchool_name("AAAAA");
-//        school1.setCoverRealPath("");
-//        School school2 = new School();
-//        school2.setSchool_name("BBBBB");
-//        school2.setCoverRealPath("");
-//        School school3 = new School();
-//        school3.setSchool_name("CCCCC");
-//        school3.setCoverRealPath("");
-//        School school4 = new School();
-//        school4.setSchool_name("DDDDD");
-//        school4.setCoverRealPath("");
-//        School school5 = new School();
-//        school5.setSchool_name("EEEEE");
-//        school5.setCoverRealPath("");
-//        MutableLiveData liveData = new MutableLiveData<List<School>>();
-//        liveData.setValue(Arrays.asList(school1, school2, school3, school4, school5));
-//        return liveData;
-//        LiveData<List<School>> liveData = roomUtils.schoolDao().getRecommendedColleges();
-//        if (liveData.getValue() == null) {
         final MutableLiveData<List<School>> finalLiveData = new MutableLiveData<>();
-//            liveData = finalLiveData;
         Observable<ApiModel<List<School>>> observable = HttpUtils.create(SchoolApi.class).getRecommendedCollegeList(province);
         HttpUtils.getInstance().request(observable, new HttpResponse<ApiModel<List<School>>>() {
             @Override
             public void success(ApiModel<List<School>> result) {
                 if (result.getCode() == 1) {
-//                        roomUtils.schoolDao().insertColleges(result.getData());
                     finalLiveData.setValue(result.getData());
+                    executorUtils.addTask(new TRunnable<List<School>>(result.getData()) {
+                        @Override
+                        public void run(List<School> schools) {
+                            roomUtils.schoolDao().insertColleges(schools);
+                        }
+                    });
                 }
             }
 
@@ -57,7 +50,6 @@ public class SchoolRepository {
 
             }
         });
-//        }
         return finalLiveData;
     }
 }

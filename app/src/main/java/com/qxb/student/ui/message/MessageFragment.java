@@ -8,7 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.qxb.student.R;
-import com.qxb.student.common.basics.ExpandFragment;
+import com.qxb.student.common.basics.AbsExpandFragment;
 import com.qxb.student.common.view.recycler.ExtendRecyclerView;
 import com.qxb.student.common.view.recycler.ViewHolder;
 import com.qxb.student.common.view.recycler.adapter.QuickAdapter;
@@ -18,7 +18,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import java.util.Arrays;
 
 
-public class MessageFragment extends ExpandFragment {
+public class MessageFragment extends AbsExpandFragment {
 
     @Override
     public int bindLayout() {

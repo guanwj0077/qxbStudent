@@ -4,6 +4,10 @@ import android.util.Log;
 
 import com.qxb.student.common.Config;
 
+/**
+ * 日志
+ * @author winky
+ */
 public final class Logger {
 
     private static final Singleton<Logger> SINGLETON = new Singleton<Logger>() {
@@ -21,30 +25,33 @@ public final class Logger {
     }
 
     public void v(String msg) {
-        if (isDebug)
+        if (isDebug) {
             Log.v(TAG, msg);
+        }
     }
 
     public void d(String msg) {
         if (isDebug) {
-//            Log.d(TAG, msg);
             System.out.println(msg);
         }
     }
 
     public void i(String msg) {
-        if (isDebug)
+        if (isDebug) {
             Log.i(TAG, msg);
+        }
     }
 
     public void e(String msg) {
-        if (isDebug)
+        if (isDebug) {
             Log.e(TAG, msg);
+        }
 
     }
 
     public void w(String msg) {
-        if (isDebug)
+        if (isDebug) {
             Log.w(TAG, msg);
+        }
     }
 }

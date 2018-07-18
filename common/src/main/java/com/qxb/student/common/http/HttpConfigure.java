@@ -1,5 +1,6 @@
 package com.qxb.student.common.http;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -8,8 +9,8 @@ import com.qxb.student.common.utils.ContextUtils;
 
 import java.io.File;
 import java.security.SecureRandom;
-import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
@@ -26,6 +27,11 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * http初始化缓存
+ *
+ * @author winky
+ */
 public class HttpConfigure {
 
     private final HttpUrl httpUrl;
@@ -33,7 +39,7 @@ public class HttpConfigure {
     private final Retrofit retrofit;
     private final Context context;
 
-    public HttpConfigure(Context context, HttpUrl httpUrl, Call.Factory callFactory, Retrofit retrofit) {
+    HttpConfigure(Context context, HttpUrl httpUrl, Call.Factory callFactory, Retrofit retrofit) {
         this.context = context;
         this.httpUrl = httpUrl;
         this.callFactory = callFactory;
@@ -123,7 +129,7 @@ public class HttpConfigure {
             }
             if (retrofit == null) {
                 retrofit = new Retrofit.Builder()
-                        .baseUrl(httpUrl)
+                        .baseUrl(Objects.requireNonNull(httpUrl))
                         .callFactory(callFactory)
                         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create())
@@ -133,6 +139,7 @@ public class HttpConfigure {
         }
 
         private HostnameVerifier hostnameVerifier = new HostnameVerifier() {
+            @SuppressLint("BadHostnameVerifier")
             @Override
             public boolean verify(String hostname, SSLSession session) {
                 return true;
@@ -140,18 +147,19 @@ public class HttpConfigure {
         };
 
         private X509TrustManager trustManager = new X509TrustManager() {
+            @SuppressLint("TrustAllX509TrustManager")
             @Override
-            public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+            public void checkClientTrusted(X509Certificate[] chain, String authType) {
             }
 
+            @SuppressLint("TrustAllX509TrustManager")
             @Override
-            public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+            public void checkServerTrusted(X509Certificate[] chain, String authType) {
             }
 
             @Override
             public X509Certificate[] getAcceptedIssuers() {
-                X509Certificate[] x509Certificates = new X509Certificate[0];
-                return x509Certificates;
+                return new X509Certificate[0];
             }
         };
     }

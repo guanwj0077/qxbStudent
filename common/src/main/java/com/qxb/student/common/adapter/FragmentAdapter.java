@@ -1,5 +1,6 @@
 package com.qxb.student.common.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -12,7 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by winky on 2017/11/24.
+ * fragment管理
+ * @author winky
+ * @date 2017/11/24
  */
 public class FragmentAdapter extends FragmentPagerAdapter {
 
@@ -39,6 +42,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
         return fragments.get(position).getTitle();
     }
 
+    @NonNull
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         return super.instantiateItem(container, position);
