@@ -22,7 +22,10 @@ public final class Config {
      * SharedPreferences 缓存通用数据，退出不清除
      */
     public static final String SHARE_CURRENCY = "currency";
-
+    /**
+     * SharedPreferences 缓存配置数据
+     */
+    public static final String SHARE_DATA = "data";
     /**
      * SharedPreferences 缓存用户数据，退出登录需清除
      */

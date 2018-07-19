@@ -10,6 +10,8 @@ import com.qxb.student.common.module.bean.School;
 
 import java.util.List;
 
+import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
+
 /**
  * 学校数据操作
  *
@@ -31,6 +33,6 @@ public interface SchoolDao {
      *
      * @param list 学校集合
      */
-    @Insert
+    @Insert(onConflict = REPLACE)
     void insertColleges(List<School> list);
 }

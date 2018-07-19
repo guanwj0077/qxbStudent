@@ -55,8 +55,6 @@ public class HomeFragment extends AbsExpandFragment {
                 homeControl.getLiveAdvert();
                 homeControl.getSchoolLiveData();
                 homeControl.getHomeBanner();
-//                homeControl.getSchoolLiveData();
-//                homeControl.getLiveAdvert();
             }
         });
     }

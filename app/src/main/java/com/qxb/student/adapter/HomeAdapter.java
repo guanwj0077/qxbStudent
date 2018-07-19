@@ -12,6 +12,7 @@ import com.qxb.student.common.adapter.BannerAdapter;
 import com.qxb.student.common.databinding.ViewImageBinding;
 import com.qxb.student.common.module.bean.School;
 import com.qxb.student.common.module.bean.SysAd;
+import com.qxb.student.common.utils.Logger;
 import com.qxb.student.common.view.abslist.AbsListAdapter;
 import com.qxb.student.common.view.abslist.GridView;
 import com.qxb.student.common.view.bannerview.CircleFlowIndicator;
@@ -61,10 +62,10 @@ public class HomeAdapter extends NestingAdapter {
                         getBannerAdapter().addCollection(sysAds);
                         viewFlow.setAdapter(getBannerAdapter());
                         int size = sysAds.size();
-                        viewFlow.setmSideBuffer(size); // 实际图片张数，
+                        viewFlow.setSideBuffer(size);
                         flowIndicator.setCount(size);
-                        viewFlow.setSelection(size * 1000); // 设置初始位置
-                        viewFlow.startAutoFlowTimer(); // 启动自动播放
+                        viewFlow.setSelection(size * 1000);
+                        viewFlow.startAutoFlowTimer();
                     }
                 });
                 break;
@@ -92,6 +93,7 @@ public class HomeAdapter extends NestingAdapter {
                 homeControl.getSchoolLiveData().observe(fragment, new Observer<List<School>>() {
                     @Override
                     public void onChanged(@Nullable List<School> schools) {
+                        Logger.getInstance().e("onChanged threadName:" + Thread.currentThread().getName());
                         AbsListAdapter<ItemSchoolBinding, School> schoolAbsListAdapter;
                         gridView.setAdapter(schoolAbsListAdapter = new AbsListAdapter<ItemSchoolBinding, School>(fragment.getContext(), R.layout.item_school) {
                             @Override

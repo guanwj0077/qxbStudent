@@ -3,20 +3,21 @@ package com.qxb.student.common.module;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
-import com.qxb.student.common.http.HttpResponse;
 import com.qxb.student.common.http.HttpUtils;
-import com.qxb.student.common.listener.TRunnable;
 import com.qxb.student.common.module.api.SchoolApi;
 import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.School;
-import com.qxb.student.common.module.dao.HttpCacheDao;
-import com.qxb.student.common.module.dao.RoomUtils;
-import com.qxb.student.common.utils.ExecutorUtils;
 
-import java.util.Arrays;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 学校数据仓库
@@ -26,34 +27,57 @@ import io.reactivex.Observable;
  */
 public class SchoolRepository extends BaseRepository {
 
-    public LiveData<List<School>> getSchoolLiveData(String province) {
-        final MutableLiveData<List<School>> finalLiveData = new MutableLiveData<>();
-      /*  if (checkCacheTime(School.class)) {
-            Observable<ApiModel<List<School>>> observable = HttpUtils.create(SchoolApi.class).getRecommendedCollegeList(province);
-            
-            HttpUtils.getInstance().request(observable, new HttpResponse<ApiModel<List<School>>>() {
-                @Override
-                public void success(ApiModel<List<School>> result) {
-                    if (result.getCode() == 1) {
-                        finalLiveData.setValue(result.getData());
-                        addCache(School.class, result.getCode());
-                        executorUtils.addTask(new TRunnable<List<School>>(result.getData()) {
-                            @Override
-                            public void run(List<School> schools) {
-                                roomUtils.schoolDao().insertColleges(schools);
-                            }
-                        });
+    private MutableLiveData<List<School>> schoolListLiveData = new MutableLiveData<>();
+
+    public LiveData<List<School>> getSchoolLiveData() {
+        Disposable disposable = Observable.create(new ObservableOnSubscribe<List<School>>() {
+            @Override
+            public void subscribe(ObservableEmitter<List<School>> emitter) {
+                List<School> schoolList = roomUtils.schoolDao().getRecommendedColleges();
+                if (schoolList.size() == 0) {
+                    emitter.onComplete();
+                } else {
+                    emitter.onNext(schoolList);
+                    if (checkCacheTime(School.class)) {
+                        emitter.onComplete();
                     }
                 }
-
-                @Override
-                public void failed(Throwable throwable) {
-
-                }
-            });
-        } else {
-            finalLiveData.setValue(roomUtils.schoolDao().getRecommendedColleges());
-        }*/
-        return finalLiveData;
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(new Consumer<List<School>>() {
+                    @Override
+                    public void accept(List<School> schools) {
+                        schoolListLiveData.postValue(schools);
+                    }
+                })
+                .doOnComplete(new Action() {
+                    @Override
+                    public void run() {
+                        String province = "420000";
+                        Disposable disposable = HttpUtils.create(SchoolApi.class).getRecommendedCollegeList(province)
+                                .subscribeOn(Schedulers.io())
+                                .doOnNext(new Consumer<ApiModel<List<School>>>() {
+                                    @Override
+                                    public void accept(ApiModel<List<School>> listApiModel) {
+                                        addCache(School.class, listApiModel.getCacheTime());
+                                        roomUtils.schoolDao().insertColleges(listApiModel.getData());
+                                    }
+                                })
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Consumer<ApiModel<List<School>>>() {
+                                    @Override
+                                    public void accept(ApiModel<List<School>> listApiModel) {
+                                        if (listApiModel.getCode() == 1) {
+                                            schoolListLiveData.postValue(listApiModel.getData());
+                                        }
+                                    }
+                                });
+                        addDisposable(disposable);
+                    }
+                }).subscribe();
+        addDisposable(disposable);
+        return schoolListLiveData;
     }
 }

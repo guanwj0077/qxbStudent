@@ -1,14 +1,23 @@
 package com.qxb.student.common.module.bean;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
 /**
  * 系统广告
+ *
+ * @author caiZong
  */
+@Entity(tableName = "SysAd")
 public class SysAd {
+
+    @PrimaryKey(autoGenerate = true)
+    private int _id;
 
     /**
      * 状态
      */
-    private Integer status;
+    private int status;
     /**
      * 显示顺序
      */
@@ -100,6 +109,19 @@ public class SysAd {
      **/
     private String target_name;
 
+
+    public int get_id() {
+        return _id;
+    }
+
+    public void set_id(int _id) {
+        this._id = _id;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     public int getUrl_type() {
         return url_type;
     }
@@ -118,10 +140,6 @@ public class SysAd {
 
     public Integer getStatus() {
         return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
     }
 
     public String getShow_order() {

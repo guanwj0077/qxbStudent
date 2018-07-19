@@ -3,10 +3,9 @@ package com.qxb.student.common.module.dao;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
-import android.content.Context;
 
 import com.qxb.student.common.module.bean.School;
-import com.qxb.student.common.module.bean.Test;
+import com.qxb.student.common.module.bean.SysAd;
 import com.qxb.student.common.module.bean.tab.HttpCache;
 import com.qxb.student.common.utils.ContextUtils;
 import com.qxb.student.common.utils.Singleton;
@@ -16,7 +15,7 @@ import com.qxb.student.common.utils.Singleton;
  *
  * @author winky
  */
-@Database(entities = {HttpCache.class, School.class}, version = 1, exportSchema = false)
+@Database(entities = {HttpCache.class, School.class, SysAd.class}, version = 1, exportSchema = false)
 public abstract class RoomUtils extends RoomDatabase {
 
     private static final String DATABASE_NAME = "qxb.db";
@@ -46,5 +45,10 @@ public abstract class RoomUtils extends RoomDatabase {
      */
     public abstract SchoolDao schoolDao();
 
-
+    /**
+     * 获取广告操作
+     *
+     * @return SchoolDao
+     */
+    public abstract SysAdDao sysAdDao();
 }

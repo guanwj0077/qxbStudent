@@ -1,5 +1,12 @@
 package com.qxb.student.common.module.bean;
 
+import com.qxb.student.common.utils.JsonUtils;
+
+/**
+ * 接口返回基础模型
+ *
+ * @author winky
+ */
 public class ApiModel<T> {
 
     private int code;
@@ -7,6 +14,15 @@ public class ApiModel<T> {
     private String msg;
     private T data;
     private int socailMsg;
+    private long cacheTime;
+
+    public long getCacheTime() {
+        return cacheTime;
+    }
+
+    public void setCacheTime(long cacheTime) {
+        this.cacheTime = cacheTime;
+    }
 
     public int getCode() {
         return code;
@@ -48,4 +64,12 @@ public class ApiModel<T> {
         this.socailMsg = socailMsg;
     }
 
+    @Override
+    public String toString() {
+        return JsonUtils.getInstance().toJson(this);
+    }
+
+    public static ApiModel parse(String json) {
+        return JsonUtils.getInstance().toBean(json, ApiModel.class);
+    }
 }
