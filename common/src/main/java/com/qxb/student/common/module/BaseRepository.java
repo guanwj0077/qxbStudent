@@ -6,19 +6,41 @@ import android.support.annotation.NonNull;
 import com.qxb.student.common.module.bean.tab.HttpCache;
 import com.qxb.student.common.module.dao.HttpCacheDao;
 import com.qxb.student.common.module.dao.RoomUtils;
-import com.qxb.student.common.utils.ExecutorUtils;
 
-import java.util.concurrent.RunnableScheduledFuture;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 /**
  * @author winky
  * @date 2018/7/18
  */
-public class BaseRepository {
+public abstract class BaseRepository {
 
-    final RoomUtils roomUtils = RoomUtils.getInstance();
-    final ExecutorUtils executorUtils = ExecutorUtils.getInstance();
+    /**
+     * 数据库实例
+     */
+    protected volatile RoomUtils roomUtils = RoomUtils.getInstance();
+    /**
+     * 缓存rxjava链接,在页面关闭时切断
+     */
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+
+    /**
+     * 当页面关闭切断仓库所有数据链接
+     */
+    public void onCleared() {
+        compositeDisposable.clear();
+        compositeDisposable = null;
+    }
+
     private HttpCacheDao httpCacheDao = roomUtils.httpCacheDao();
+
+    /**
+     * @param disposable rxjava链接
+     */
+    public void addDisposable(Disposable disposable) {
+        compositeDisposable.add(disposable);
+    }
 
     /**
      * 检查数据缓存到期
@@ -28,7 +50,11 @@ public class BaseRepository {
      */
     public boolean checkCacheTime(@NonNull Class<?> clazz) {
         HttpCache httpCache = httpCacheDao.queryByEntity(clazz.getName());
-        if (httpCache == null || System.currentTimeMillis() >= httpCache.getTime()) {
+        if (httpCache == null) {
+            return true;
+        }
+        if (System.currentTimeMillis() >= httpCache.getTime()) {
+            httpCacheDao.delete(httpCache);
             SupportSQLiteStatement statement = roomUtils.compileStatement("delete from " + clazz.getSimpleName());
             statement.execute();
             return true;
@@ -38,27 +64,11 @@ public class BaseRepository {
     }
 
     /**
-     * 添加到缓存
+     * 添加缓存记录
      *
      * @param clazz 表实体
      */
     public void addCache(@NonNull Class<?> clazz, long cacheTime) {
         httpCacheDao.insert(new HttpCache(clazz.getName(), System.currentTimeMillis() + cacheTime));
-//        executorUtils.addTask(new HttpCacheTask(clazz, cacheTime));
-    }
-
-    class HttpCacheTask implements Runnable {
-        private final Class<?> clazz;
-        private final long time;
-
-        HttpCacheTask(Class<?> clazz, long time) {
-            this.clazz = clazz;
-            this.time = time;
-        }
-
-        @Override
-        public void run() {
-            httpCacheDao.insert(new HttpCache(clazz.getName(), System.currentTimeMillis() + time));
-        }
     }
 }

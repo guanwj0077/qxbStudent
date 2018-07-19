@@ -1,5 +1,12 @@
 package com.qxb.student.common.module.bean;
 
+import com.qxb.student.common.utils.JsonUtils;
+
+/**
+ * 接口返回基础模型
+ *
+ * @author winky
+ */
 public class ApiModel<T> {
 
     private int code;
@@ -59,13 +66,10 @@ public class ApiModel<T> {
 
     @Override
     public String toString() {
-        return "ApiModel{" +
-                "code=" + code +
-                ", total=" + total +
-                ", msg='" + msg + '\'' +
-                ", data=" + data +
-                ", socailMsg=" + socailMsg +
-                ", cacheTime=" + cacheTime +
-                '}';
+        return JsonUtils.getInstance().toJson(this);
+    }
+
+    public static ApiModel parse(String json) {
+        return JsonUtils.getInstance().toBean(json, ApiModel.class);
     }
 }

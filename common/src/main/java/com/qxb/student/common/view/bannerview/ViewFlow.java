@@ -743,7 +743,7 @@ public class ViewFlow extends AdapterView<Adapter> {
         this.timeSpan = timeSpan;
     }
 
-    public void setmSideBuffer(int mSideBuffer) {
+    public void setSideBuffer(int mSideBuffer) {
         this.mSideBuffer = mSideBuffer;
     }
 

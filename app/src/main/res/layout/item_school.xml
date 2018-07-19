@@ -3,6 +3,8 @@
 
     <data>
 
+        <import type="com.qxb.student.common.utils.BindingUtils" />
+
         <variable
             name="school"
             type="com.qxb.student.common.module.bean.School" />
