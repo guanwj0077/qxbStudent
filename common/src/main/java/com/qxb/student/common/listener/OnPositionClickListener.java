@@ -34,5 +34,5 @@ public abstract class OnPositionClickListener implements View.OnClickListener {
      * @param view     点击视图
      * @param position 点击视图在列表下标
      */
-    abstract void onPositionClick(View view, int position);
+    public abstract void onPositionClick(View view, int position);
 }

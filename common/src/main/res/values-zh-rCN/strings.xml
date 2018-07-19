@@ -19,7 +19,7 @@
     <string name="hint_login_submit">登录</string>
 
     <string name="hint_login_look">先看看</string>
-
+    <string name="login_ordinance"><Data><![CDATA[<font color="#EEEEEE"><b>登录或注册表示同意</b></font><font color="#f9ae38"><b>《求学宝用户协议》</b></font>]]></Data></string>
     <string name="hint_login_third">第三方登录</string>
     <string name="hint_tag_recommended_colleges">推荐院校</string>
     <string name="hint_sys_msg">系统通知</string>

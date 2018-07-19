@@ -16,7 +16,7 @@ public class MineData implements Parcelable{
     /**
      * name item名字
      */
-    private String name;
+    private int name;
     /**
      * isView  是否显示加粗分割线
      */
@@ -26,7 +26,7 @@ public class MineData implements Parcelable{
      */
     private boolean isShow;
 
-    public MineData(int draw_id, String name, boolean isView, boolean isShow) {
+    public MineData(int draw_id, int name, boolean isView, boolean isShow) {
         this.draw_id = draw_id;
         this.name = name;
         this.isView = isView;
@@ -38,7 +38,7 @@ public class MineData implements Parcelable{
 
     protected MineData(Parcel in) {
         draw_id = in.readInt();
-        name = in.readString();
+        name = in.readInt();
         isView = in.readByte() != 0;
         isShow = in.readByte() != 0;
     }
@@ -46,7 +46,7 @@ public class MineData implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(draw_id);
-        dest.writeString(name);
+        dest.writeInt(name);
         dest.writeByte((byte) (isView ? 1 : 0));
         dest.writeByte((byte) (isShow ? 1 : 0));
     }
@@ -76,11 +76,11 @@ public class MineData implements Parcelable{
         this.draw_id = draw_id;
     }
 
-    public String getName() {
+    public int getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(int name) {
         this.name = name;
     }
 

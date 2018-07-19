@@ -16,6 +16,7 @@
                   android:layout_height="wrap_content"
                   android:background="?attr/selectableItemBackground"
                   android:gravity="center_vertical"
+                  android:id="@+id/ll_view"
                   android:orientation="vertical"
                   android:visibility="@{mineData.show? View.VISIBLE:View.GONE}">
 
