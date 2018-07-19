@@ -11,12 +11,14 @@ import retrofit2.http.POST;
 
 /**
  * 系统商品
+ *
  * @author
  */
 public interface SysGoodsApi {
 
     /**
      * 获取商品信息
+     *
      * @param goodsCode 商品编码
      * @return
      */
@@ -24,6 +26,17 @@ public interface SysGoodsApi {
     @FormUrlEncoded
     @POST("goods/getGoodsByCode")
     Observable<ApiModel<String>> getGoodsByCode(@Field("goods_code") String goodsCode);
+
+    /**
+     * 获取商品的名称及使用说明
+     *
+     * @param goodsCode 商品编码
+     * @return
+     */
+    @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
+    @POST("goods/explain")
+    Observable<ApiModel<String>> getGoodsExplain(@Field("goods_code") String goodsCode);
 
 
 }
