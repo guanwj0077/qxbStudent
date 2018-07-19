@@ -192,5 +192,101 @@ public interface UserStudentApi {
     @POST("wish/insightFillWishTable")
     Observable<ApiModel<StudentWish>> insightFillWishTable(@Field("stu_id") String studentId, @Field("score") String score, @Field("fill_condition") String fillCondition);
 
+    /**
+     * 分享得积分
+     *
+     * @param accountId 账户id（必传）
+     * @param type      类型（必传）（app_share：分享APP article_share：伴考分享）
+     * @return
+     */
+    @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
+    @POST("integral/share")
+    Observable<ApiModel<String>> integralShare(@Field("account_id") String accountId, @Field("type") String type);
+
+    /**
+     * 我的积分详情列表
+     *
+     * @param accountId
+     * @param page
+     * @param rows
+     * @return
+     */
+    @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
+    @POST("integral/record")
+    Observable<ApiModel<String>> integralRecord(@Field("account_id") String accountId, @Field("page") String page, @Field("rows") String rows);
+
+    /**
+     * 活动码-好友激活
+     *
+     * @param accountId    账户id
+     * @param activateCode 激活码
+     * @param stuPhone     学生手机号
+     * @param appid        设备id
+     * @return
+     */
+    @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
+    @POST("student/activate")
+    Observable<ApiModel<String>> studentActivate(@Field("account_id") String accountId, @Field("activate_code") String activateCode,
+                                                 @Field("stu_phone") String stuPhone, @Field("appid") String appid);
+
+    /**
+     * 活动码-获取学生的已激活信息
+     *
+     * @param stuId
+     * @return
+     */
+    @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
+    @POST("student/activateCount")
+    Observable<ApiModel<String>> studentActivateCount(@Field("stu_id") String stuId);
+
+    /**
+     * 活动码-判断学生是否已经激活
+     *
+     * @param stuPhone 学生手机号
+     * @param appid    设备id
+     * @return
+     */
+    @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
+    @POST("student/isActivated")
+    Observable<ApiModel<String>> studentIsActivated(@Field("stu_phone") String stuPhone, @Field("appid") String appid);
+
+    /**
+     * 获取用户的当前积分,用于刷新我的页面
+     *
+     * @param accountId 账户id
+     * @return
+     */
+    @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
+    @POST("integral/student")
+    Observable<ApiModel<String>> studentIntegral(@Field("account_id") String accountId);
+
+    /**
+     * 兑换码兑积分
+     *
+     * @param accountId    账户id
+     * @param activityCode 兑换码
+     * @return
+     */
+    @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
+    @POST("integral/activitycode")
+    Observable<ApiModel<String>> activityCode(@Field("account_id") String accountId, @Field("activity_code") String activityCode);
+
+    /**
+     * 修改昵称
+     * @param studentId 学生id
+     * @param nickName 昵称
+     * @return
+     */
+    @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
+    @POST("userStudent/updateNickName")
+    Observable<ApiModel<String>> updateNickName(@Field("id") String studentId, @Field("nick_name") String nickName);
 
 }

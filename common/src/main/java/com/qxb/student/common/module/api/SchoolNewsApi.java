@@ -1,6 +1,9 @@
 package com.qxb.student.common.module.api;
 
+import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.ApiModel;
+import com.qxb.student.common.module.bean.CollegeFreedomMajorRecruit;
+import com.qxb.student.common.module.bean.School;
 import com.qxb.student.common.module.bean.SchoolNews;
 
 import java.util.List;
@@ -8,6 +11,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 /**
@@ -38,4 +42,40 @@ public interface SchoolNewsApi {
     @FormUrlEncoded
     @POST("view/school/news/detail")
     Observable<String> schoolNewsDetail(@Field("id") String newsId);
+
+    /**
+     * 招生简介（根据学校id获取符合条件的第一条自招招生简章详情，返回网页）
+     *
+     * @param schoolId 学校id
+     * @param type     为7
+     * @return
+     */
+    @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
+    @POST("view/school/freedomNews/detail")
+    Observable<String> schoolFreedomNewsDetail(@Field("school_id") String schoolId, @Field("type") String type);
+
+    /**
+     * 自招院校详情
+     *
+     * @param schoolId
+     * @param studentId
+     * @return
+     */
+    @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
+    @POST("freedomRecruit/school/getSchoolRecruitDetailById")
+    Observable<ApiModel<School>> getSchoolRecruitDetailById(@Field("school_id") String schoolId, @Field("student_id") String studentId);
+
+    /**
+     * 自招专业详情
+     *
+     * @param majorId 专业id
+     * @return
+     */
+    @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
+    @POST("freedomRecruit/school/majorDetails")
+    Observable<ApiModel<CollegeFreedomMajorRecruit>> getSchoolRecruitDetailById(@Field("id") String majorId);
+
 }
