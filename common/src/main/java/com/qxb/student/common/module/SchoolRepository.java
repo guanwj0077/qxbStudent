@@ -3,7 +3,9 @@ package com.qxb.student.common.module;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
-import com.qxb.student.common.http.HttpUtils;
+import com.qxb.student.common.http.PostApiConsumer;
+import com.qxb.student.common.http.PostConsumer;
+import com.qxb.student.common.http.SubscribeObj;
 import com.qxb.student.common.module.api.SchoolApi;
 import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.School;
@@ -11,13 +13,7 @@ import com.qxb.student.common.module.bean.School;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * 学校数据仓库
@@ -31,54 +27,21 @@ public class SchoolRepository extends BaseRepository {
     private MutableLiveData<School> schoolLiveData = new MutableLiveData<>();
 
     public LiveData<List<School>> getSchoolLiveData() {
-        Disposable disposable = Observable.create(new ObservableOnSubscribe<List<School>>() {
+        String province = "420000";
+        Observable<ApiModel<List<School>>> observable = httpUtils.convert(httpUtils.create(SchoolApi.class).getRecommendedCollegeList(province),
+                new Consumer<ApiModel<List<School>>>() {
+                    @Override
+                    public void accept(ApiModel<List<School>> listApiModel) {
+                        httpUtils.addCache(School.class, listApiModel.getCacheTime());
+                        roomUtils.schoolDao().insertColleges(listApiModel.getData());
+                    }
+                });
+        httpUtils.request(schoolListLiveData, new SubscribeObj<List<School>>() {
             @Override
-            public void subscribe(ObservableEmitter<List<School>> emitter) {
-                List<School> schoolList = roomUtils.schoolDao().getRecommendedColleges();
-                if (schoolList.size() == 0) {
-                    emitter.onComplete();
-                } else {
-                    emitter.onNext(schoolList);
-                    if (checkCacheTime(School.class)) {
-                        emitter.onComplete();
-                    }
-                }
+            protected List<School> queryLocal() {
+                return roomUtils.schoolDao().getRecommendedColleges();
             }
-        })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(new Consumer<List<School>>() {
-                    @Override
-                    public void accept(List<School> schools) {
-                        schoolListLiveData.postValue(schools);
-                    }
-                })
-                .doOnComplete(new Action() {
-                    @Override
-                    public void run() {
-                        String province = "420000";
-                        Disposable disposable = HttpUtils.create(SchoolApi.class).getRecommendedCollegeList(province)
-                                .subscribeOn(Schedulers.io())
-                                .doOnNext(new Consumer<ApiModel<List<School>>>() {
-                                    @Override
-                                    public void accept(ApiModel<List<School>> listApiModel) {
-                                        addCache(School.class, listApiModel.getCacheTime());
-                                        roomUtils.schoolDao().insertColleges(listApiModel.getData());
-                                    }
-                                })
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(new Consumer<ApiModel<List<School>>>() {
-                                    @Override
-                                    public void accept(ApiModel<List<School>> listApiModel) {
-                                        if (listApiModel.getCode() == 1) {
-                                            schoolListLiveData.postValue(listApiModel.getData());
-                                        }
-                                    }
-                                });
-                        addDisposable(disposable);
-                    }
-                }).subscribe();
-        addDisposable(disposable);
+        }, observable);
         return schoolListLiveData;
     }
 
@@ -89,7 +52,6 @@ public class SchoolRepository extends BaseRepository {
 
     @Override
     public void onCleared() {
-        super.onCleared();
         schoolListLiveData = null;
         schoolLiveData = null;
     }
