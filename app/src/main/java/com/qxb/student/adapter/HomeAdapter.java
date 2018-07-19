@@ -12,7 +12,6 @@ import com.qxb.student.common.adapter.BannerAdapter;
 import com.qxb.student.common.databinding.ViewImageBinding;
 import com.qxb.student.common.module.bean.School;
 import com.qxb.student.common.module.bean.SysAd;
-import com.qxb.student.common.utils.Logger;
 import com.qxb.student.common.view.abslist.AbsListAdapter;
 import com.qxb.student.common.view.abslist.GridView;
 import com.qxb.student.common.view.bannerview.CircleFlowIndicator;
@@ -25,6 +24,10 @@ import com.qxb.student.databinding.ItemSchoolBinding;
 
 import java.util.List;
 
+/**
+ * 适配器
+ * @author winky
+ */
 public class HomeAdapter extends NestingAdapter {
 
     private static final int BANNER = 0;
@@ -32,7 +35,7 @@ public class HomeAdapter extends NestingAdapter {
     private static final int HEAD_LINE = 2;
     private static final int LIVE = 3;
     private static final int SCHOOL = 4;
-    private static final Object object = new Object();
+    private static final Object OBJECT = new Object();
     private HomeControl homeControl;
     private Fragment fragment;
 
@@ -93,14 +96,8 @@ public class HomeAdapter extends NestingAdapter {
                 homeControl.getSchoolLiveData().observe(fragment, new Observer<List<School>>() {
                     @Override
                     public void onChanged(@Nullable List<School> schools) {
-                        Logger.getInstance().e("onChanged threadName:" + Thread.currentThread().getName());
-                        AbsListAdapter<ItemSchoolBinding, School> schoolAbsListAdapter;
-                        gridView.setAdapter(schoolAbsListAdapter = new AbsListAdapter<ItemSchoolBinding, School>(fragment.getContext(), R.layout.item_school) {
-                            @Override
-                            protected void bind(ItemSchoolBinding binding, int position, School item) {
-                                binding.setSchool(item);
-                            }
-                        });
+                        AbsListAdapter<ItemSchoolBinding, School> schoolAbsListAdapter = getSchoolAdapter();
+                        gridView.setAdapter(schoolAbsListAdapter);
                         schoolAbsListAdapter.clear();
                         schoolAbsListAdapter.addCollection(schools);
                     }
@@ -131,7 +128,7 @@ public class HomeAdapter extends NestingAdapter {
         if (schoolAdapter != null) {
             return schoolAdapter;
         }
-        synchronized (object) {
+        synchronized (OBJECT) {
             if (schoolAdapter == null) {
                 schoolAdapter = new AbsListAdapter<ItemSchoolBinding, School>(fragment.getContext(), R.layout.item_school) {
                     @Override

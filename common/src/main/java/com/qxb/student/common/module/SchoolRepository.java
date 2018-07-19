@@ -28,6 +28,7 @@ import io.reactivex.schedulers.Schedulers;
 public class SchoolRepository extends BaseRepository {
 
     private MutableLiveData<List<School>> schoolListLiveData = new MutableLiveData<>();
+    private MutableLiveData<School> schoolLiveData = new MutableLiveData<>();
 
     public LiveData<List<School>> getSchoolLiveData() {
         Disposable disposable = Observable.create(new ObservableOnSubscribe<List<School>>() {
@@ -79,5 +80,17 @@ public class SchoolRepository extends BaseRepository {
                 }).subscribe();
         addDisposable(disposable);
         return schoolListLiveData;
+    }
+
+    public LiveData<School> getSchoolById(String schoolId) {
+
+        return schoolLiveData;
+    }
+
+    @Override
+    public void onCleared() {
+        super.onCleared();
+        schoolListLiveData = null;
+        schoolLiveData = null;
     }
 }
