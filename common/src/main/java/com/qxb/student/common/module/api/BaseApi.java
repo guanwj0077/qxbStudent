@@ -3,6 +3,7 @@ package com.qxb.student.common.module.api;
 import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.AppVersion;
+import com.qxb.student.common.module.bean.School;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -33,4 +34,12 @@ public interface BaseApi {
     @FormUrlEncoded
     @POST("update/version")
     Observable<ApiModel<AppVersion>> updateVersion(@Field("client_type")String clientType, @Field("version_code")String versionCode);
+
+    /**
+     * 用户使用帮助视频地址
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("user/useHelpVideo")
+    Observable<ApiModel<String>> useHelpVideo();
 }

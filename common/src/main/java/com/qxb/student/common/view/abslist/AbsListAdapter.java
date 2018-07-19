@@ -8,14 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * copy 自融云 baseAdapter
- * Created by winky on 2018/4/9.
+ *
+ * @author winky
+ * @date 2018/4/9
  */
 
 public abstract class AbsListAdapter<Binding extends ViewDataBinding, T> extends android.widget.BaseAdapter {
@@ -23,13 +25,11 @@ public abstract class AbsListAdapter<Binding extends ViewDataBinding, T> extends
     private Context context;
     private List<T> mList;
     private int layoutId;
-    private Binding binding;
 
     public AbsListAdapter(Context context, @LayoutRes int layoutId) {
         this.context = context;
         this.mList = new ArrayList();
         this.layoutId = layoutId;
-        this.binding = DataBindingUtil.inflate(LayoutInflater.from(context), layoutId, null, false);
     }
 
     public void addCollection(Collection<T> collection) {
@@ -77,22 +77,22 @@ public abstract class AbsListAdapter<Binding extends ViewDataBinding, T> extends
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            convertView = getBinding(getItemViewType(position)).getRoot();
+        Binding binding;
+        if (convertView != null) {
+            binding = DataBindingUtil.getBinding(convertView);
+        } else {
+            binding = DataBindingUtil.inflate(LayoutInflater.from(context), layoutId, parent, false);
         }
         position = getPosition(position);
-        this.bind(getBinding(getItemViewType(position)), position, this.getItem(position));
-        return convertView;
+        this.bind(binding, position, this.getItem(position));
+        return binding.getRoot();
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        return super.getItemViewType(position);
-    }
-
-    public Binding getBinding(int viewType) {
-        return binding;
-    }
-
+    /**
+     * 数据绑定
+     * @param binding ViewDataBinding
+     * @param position position
+     * @param item 模型
+     */
     protected abstract void bind(Binding binding, int position, T item);
 }

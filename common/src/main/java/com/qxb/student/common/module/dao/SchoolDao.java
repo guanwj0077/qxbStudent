@@ -1,7 +1,5 @@
 package com.qxb.student.common.module.dao;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
@@ -23,6 +21,7 @@ public interface SchoolDao {
 
     /**
      * 首页推荐学校
+     *
      * @return 学校集合
      */
     @Query("SELECT * FROM School")
@@ -35,4 +34,13 @@ public interface SchoolDao {
      */
     @Insert(onConflict = REPLACE)
     void insertColleges(List<School> list);
+
+    /**
+     * 大学详情页
+     *
+     * @param school_id
+     * @return
+     */
+    @Query("SELECT * FROM School WHERE id=:school_id")
+    School getSchoolById(String school_id);
 }

@@ -3,6 +3,7 @@ package com.qxb.student.common.module.api;
 import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.CollegeQuestion;
+import com.qxb.student.common.module.bean.CollegeSearchHot;
 import com.qxb.student.common.module.bean.School;
 
 import java.util.List;
@@ -242,6 +243,38 @@ public interface SchoolApi {
     @POST("mettingschool/search")
     Observable<ApiModel<List<CollegeQuestion>>> mettingSchoolSearch(@Field("search_type") String searchType, @Field("school_type") String schoolType, @Field("province") String province,
                                                                     @Field("page") String page, @Field("rows") String rows);
+
+    /**
+     * 热门院校搜索
+     *
+     * @param recruitType 默认1 非必传 1,普通招生;2,自主招生
+     * @param page
+     * @param rows        默认20
+     * @return
+     */
+    @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
+    @POST("school/searchHotList")
+    Observable<ApiModel<List<CollegeSearchHot>>> searchHotSchoolList(@Field("recruit_type") String recruitType,
+                                                                     @Field("page") String page, @Field("rows") String rows);
+
+    /**
+     * 在招院校
+     *
+     * @param majorType   专业类别（1:本科 2:专科）
+     * @param majorName   专业名称
+     * @param subjectType 1：文科 2：理科
+     * @param province    省份，默认湖北省
+     * @param page
+     * @param rows        默认20
+     * @return
+     */
+    @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
+    @POST("school/recruitList")
+    Observable<ApiModel<List<School>>> schoolRecruitList(@Field("major_type") String majorType, @Field("major_name") String majorName,
+                                                                   @Field("subject_type") String subjectType, @Field("province") String province,
+                                                                   @Field("page") String page, @Field("rows") String rows);
 
 
 }

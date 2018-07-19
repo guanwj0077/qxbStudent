@@ -103,4 +103,36 @@ public interface UserApi {
     @FormUrlEncoded
     @POST("loginRecord")
     Observable<ApiModel<String>> loginRecord(@Field("account_id") String accountId);
+
+    /**
+     * 学生端三方登录接口
+     *
+     * @param type   类型 1：QQ 2：微信（必传）
+     * @param openId 三方的openID（必传）
+     * @return
+     */
+    @Headers({Config.AUTH_COMMON})
+    @FormUrlEncoded
+    @POST("third_party_login")
+    Observable<ApiModel<String>> thirdPartyLogin(@Field("type") String type, @Field("open_id") String openId);
+
+    /**
+     * 注册
+     *
+     * @param telphone  手机号（必传）
+     * @param password  密码（必传）
+     * @param pic       头像链接
+     * @param nickName  昵称
+     * @param type      1：QQ 2：微信
+     * @param open_id   三方登录open_id
+     * @param hasRegist 1:已注册（三方登录绑定的手机号已经注册） 非1：未注册
+     * @param appType   用户类型1:学生、2：老师、3：代理
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("userStudent/regist_new")
+    Observable<ApiModel<String>> registNew(@Field("telphone") String telphone, @Field("password") String password,
+                                           @Field("pic") String pic, @Field("nick_name") String nickName, @Field("type") String type,
+                                           @Field("open_id") String open_id, @Field("has_regist") String hasRegist, @Field("app_type") String appType);
+
 }

@@ -3,6 +3,7 @@ package com.qxb.student.common.module.api;
 import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.ExpertLabel;
+import com.qxb.student.common.module.bean.SysOrder;
 
 import java.util.List;
 
@@ -14,6 +15,8 @@ import retrofit2.http.POST;
 
 /**
  * 订单
+ *
+ * @author
  */
 public interface SysOrderApi {
 
@@ -93,5 +96,31 @@ public interface SysOrderApi {
     @POST("getUserCard")
     Observable<ApiModel<String>> getUserCard(@Field("account_id") String accountId);
 
+    /**
+     * 确认订单
+     *
+     * @param accountId 账户id
+     * @param goodsCode 商品编码
+     * @return
+     */
+    @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
+    @POST("goods/confirmOrder")
+    Observable<ApiModel<String>> goodsConfirmOrder(@Field("account_id") String accountId, @Field("goods_code") String goodsCode);
 
+    /**
+     * 订单列表
+     *
+     * @param accountId 账户id
+     * @param goodsName 商品名
+     * @param type      类型（1：问答 2：围观 3：线上志愿填报 4：线上自主招生 5：线下志愿填报 6： 线下自主招生）
+     * @param page
+     * @param rows      默认10
+     * @return
+     */
+    @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
+    @POST("order/orderlist")
+    Observable<ApiModel<List<SysOrder>>> orderList(@Field("account_id") String accountId, @Field("goods_name") String goodsName,
+                                                   @Field("type") String type, @Field("page") String page, @Field("rows") String rows);
 }

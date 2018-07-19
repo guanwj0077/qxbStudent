@@ -31,6 +31,14 @@ public interface PayApi {
     Observable<ApiModel<String>> pay(@Field("user_id") String userId, @Field("channel") String channel, @Field("clientIp") String clientIp,
                                      @Field("amount") String amount, @Field("currency") String currency, @Field("subject") String subject, @Field("body") String body);
 
-
+    /**
+     * 学生支付状态查询接口
+     * @param stuId 学生id
+     * @return
+     */
+    @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
+    @POST("pay/search")
+    Observable<ApiModel<String>> paySearch(@Field("stu_id") String stuId);
 
 }
