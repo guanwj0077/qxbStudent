@@ -9,7 +9,6 @@
         <activity
             android:name=".basics.NavigationActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".basics.WebActivity"
