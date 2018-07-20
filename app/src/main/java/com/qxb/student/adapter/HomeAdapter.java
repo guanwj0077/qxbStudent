@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 
 import com.qxb.student.R;
@@ -106,10 +107,12 @@ public class HomeAdapter extends NestingAdapter {
                 homeControl.getSchoolLiveData().observe(fragment, new Observer<List<School>>() {
                     @Override
                     public void onChanged(@Nullable List<School> schools) {
-                        AbsListAdapter<ItemSchoolBinding, School> schoolAbsListAdapter = getSchoolAdapter();
-                        gridView.setAdapter(schoolAbsListAdapter);
-                        schoolAbsListAdapter.clear();
-                        schoolAbsListAdapter.addCollection(schools);
+                        AbsListAdapter<ItemSchoolBinding, School> adapter = (AbsListAdapter<ItemSchoolBinding, School>) gridView.getAdapter();
+                        if (adapter == null) {
+                            gridView.setAdapter(adapter = getSchoolAdapter());
+                        }
+                        adapter.clear();
+                        adapter.addCollection(schools);
                     }
                 });
                 gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

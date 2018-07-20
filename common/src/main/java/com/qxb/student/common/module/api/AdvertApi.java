@@ -21,7 +21,6 @@ public interface AdvertApi {
      * @return
      */
     @Headers(Config.AUTH_COMMON)
-    @FormUrlEncoded
     @POST("chatRoom/liveHomeAd23")
     Observable<ApiModel<String>> getLiveHomeAd();
 }

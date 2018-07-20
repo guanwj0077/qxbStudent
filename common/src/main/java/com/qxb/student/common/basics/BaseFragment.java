@@ -31,11 +31,14 @@ public abstract class BaseFragment extends HolderFragment implements IBinding {
     private WeakReference<Fragment> weakReference = null;
     private View contentView;
     private String title;
+    @Nullable
+    private Bundle bundle;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         weakReference = new WeakReference<Fragment>(this);
+        bundle = null != getArguments() ? getArguments().getBundle(Constant.NAVIGATION_BUNDLE) : null;
     }
 
     @Nullable
@@ -49,7 +52,6 @@ public abstract class BaseFragment extends HolderFragment implements IBinding {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getBundle();
     }
 
     /**
@@ -109,11 +111,11 @@ public abstract class BaseFragment extends HolderFragment implements IBinding {
         return super.onOptionsItemSelected(item);
     }
 
-    public Bundle getBundle() {
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            bundle = bundle.getBundle(Constant.NAVIGATION_BUNDLE);
-        }
-        return bundle;
+    public String getStringExtra(String key) {
+        return bundle != null ? bundle.getString(key) : null;
+    }
+
+    public int getIntExtra(String key) {
+        return bundle != null ? bundle.getInt(key) : 0;
     }
 }

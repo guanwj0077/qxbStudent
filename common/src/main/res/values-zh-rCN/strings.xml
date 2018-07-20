@@ -32,5 +32,6 @@
     <string name="mine">我的</string>
     <string name="immediately_login">立即登录</string>
 
+    <string name="hint_describe">暂无描述</string>
 
 </resources>
