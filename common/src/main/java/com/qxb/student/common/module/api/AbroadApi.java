@@ -1,6 +1,7 @@
 package com.qxb.student.common.module.api;
 
 import com.qxb.student.common.Config;
+import com.qxb.student.common.module.bean.AbroadActive;
 import com.qxb.student.common.module.bean.AbroadAdviser;
 import com.qxb.student.common.module.bean.AbroadBaseMajor;
 import com.qxb.student.common.module.bean.AbroadEvaluate;
@@ -18,7 +19,6 @@ import com.qxb.student.common.module.bean.ExpertLabel;
 import com.qxb.student.common.module.bean.SysGoods;
 import com.qxb.student.common.module.bean.SysGroup;
 import com.qxb.student.common.module.bean.UserSchoolTeacher;
-import com.qxb.student.common.module.bean.abroadActive;
 import com.qxb.student.common.module.bean.abroadGoods;
 
 import java.util.HashMap;
@@ -587,7 +587,7 @@ public interface AbroadApi {
     @Headers(Config.CUSTOM)
     @FormUrlEncoded
     @POST("abroad/home/activity/detail")
-    Observable<ApiModel<abroadActive>> homeActivityList(@Field("rows") int rows, @Field("page") int page,
+    Observable<ApiModel<AbroadActive>> homeActivityList(@Field("rows") int rows, @Field("page") int page,
                                                         @Field("id") int id);
 
 }

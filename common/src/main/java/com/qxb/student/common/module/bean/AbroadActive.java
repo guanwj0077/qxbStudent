@@ -6,7 +6,7 @@ import java.util.List;
  * 留学活动
  * @author qianle
  */
-public class abroadActive {
+public class AbroadActive {
 
     /** 活动描述 **/
     private String describe;
