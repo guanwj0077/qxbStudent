@@ -5,29 +5,29 @@
 
         <variable
             name="scoreInfo"
-            type="com.qxb.student.common.module.bean.ScoreInfo"/>
+            type="com.qxb.student.common.module.bean.ScoreInfo" />
 
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <RelativeLayout
                 android:id="@+id/my_fraction"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
-                android:background="?attr/selectableItemBackground"
                 android:paddingLeft="@dimen/px_50">
 
                 <LinearLayout
-
                     android:id="@+id/mine_linear_fraction"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -41,9 +41,7 @@
                         android:text="@string/tv_wdcj"
                         android:textColor="#4681c4"
                         android:textSize="@dimen/px_45"
-                        android:textStyle="bold"/>
-
-
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -61,7 +59,7 @@
                         android:layout_marginTop="@dimen/px_20"
                         android:text="@string/tv_wtx"
                         android:textColor="#808080"
-                        android:textSize="@dimen/px_35"/>
+                        android:textSize="@dimen/px_35" />
 
                     <TextView
                         android:id="@+id/mine_tv_fraction"
@@ -71,7 +69,7 @@
                         android:layout_marginStart="@dimen/px_8"
                         android:layout_marginTop="@dimen/px_20"
                         android:textColor="#808080"
-                        android:textSize="@dimen/px_35"/>
+                        android:textSize="@dimen/px_35" />
                 </LinearLayout>
 
             </RelativeLayout>
@@ -79,7 +77,7 @@
             <TextView
                 android:layout_width="@dimen/px_2"
                 android:layout_height="match_parent"
-                android:background="@color/colorDivider"/>
+                android:background="@color/colorDivider" />
 
             <RelativeLayout
                 android:id="@+id/mine_qiuxuedanan"
@@ -104,14 +102,13 @@
                         android:text="@string/tv_wdqxda"
                         android:textColor="#4681c4"
                         android:textSize="@dimen/px_45"
-                        android:textStyle="bold"
-                        />
+                        android:textStyle="bold" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="2dp"
-                        android:src="@mipmap/newicon"/>
+                        android:src="@mipmap/newicon" />
                 </LinearLayout>
 
                 <TextView
@@ -123,14 +120,14 @@
                     android:layout_marginTop="@dimen/px_20"
                     android:text="@string/tv_ljwssjf"
                     android:textColor="#808080"
-                    android:textSize="@dimen/px_35"/>
+                    android:textSize="@dimen/px_35" />
             </RelativeLayout>
         </LinearLayout>
 
-      <View
-          android:layout_width="match_parent"
-          android:layout_height="@dimen/px_2"
-          android:background="@color/tv_line_color"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_2"
+            android:background="@color/tv_line_color" />
 
     </LinearLayout>
 </layout>

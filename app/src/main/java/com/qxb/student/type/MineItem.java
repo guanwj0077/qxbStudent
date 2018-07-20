@@ -1,4 +1,4 @@
-package com.qxb.student.common.module;
+package com.qxb.student.type;
 
 import com.qxb.student.common.R;
 
@@ -7,7 +7,7 @@ import com.qxb.student.common.R;
  * description:
  * @author zjk9527
  */
-public enum MineTv {
+public enum MineItem {
 
     CODE1(R.mipmap.scan_code, R.string.yqm, false, true),
     CODE2(R.mipmap.integral_icon, R.string.yhm, true, true),
@@ -27,7 +27,7 @@ public enum MineTv {
     /**
      * draw_id 图片资源
      */
-    private int draw_id;
+    private int drawId;
     /**
      * name item名字
      */
@@ -41,11 +41,15 @@ public enum MineTv {
      */
     private boolean isShow;
 
-    MineTv(int draw_id, int name, boolean isView, boolean isShow) {
-        this.draw_id = draw_id;
+    MineItem(int drawId, int name, boolean isView, boolean isShow) {
+        this.drawId = drawId;
         this.name = name;
         this.isView = isView;
         this.isShow = isShow;
+    }
+
+    public int getDrawId() {
+        return drawId;
     }
 
     public int getName() {
@@ -56,28 +60,7 @@ public enum MineTv {
         return isView;
     }
 
-
-    public void setName(int name) {
-        this.name = name;
-    }
-
-    public void setView(boolean view) {
-        isView = view;
-    }
-
     public boolean isShow() {
         return isShow;
-    }
-
-    public void setShow(boolean show) {
-        isShow = show;
-    }
-
-    public int getDraw_id() {
-        return draw_id;
-    }
-
-    public void setDraw_id(int draw_id) {
-        this.draw_id = draw_id;
     }
 }

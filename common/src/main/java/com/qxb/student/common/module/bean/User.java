@@ -1,13 +1,12 @@
 package com.qxb.student.common.module.bean;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.text.TextUtils;
 
 @Entity(tableName = "tb_user")
 public class User {
+    @Ignore
     public static final String TAG = User.class.getSimpleName();
 
     private String area;
@@ -51,7 +50,10 @@ public class User {
     private String app_showname;
     private int account_id;
     private int highschool_id;
-    private String area_code;/*招办编码*/
+    /**
+     * 招办编码
+     */
+    private String area_code;
 
     public String getArea() {
         return area;

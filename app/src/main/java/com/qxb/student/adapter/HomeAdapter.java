@@ -3,13 +3,11 @@ package com.qxb.student.adapter;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 
 import com.qxb.student.R;
@@ -21,7 +19,6 @@ import com.qxb.student.common.module.bean.School;
 import com.qxb.student.common.module.bean.SysAd;
 import com.qxb.student.common.module.bean.attr.NavAttr;
 import com.qxb.student.common.utils.NavigationUtils;
-import com.qxb.student.common.utils.UserCache;
 import com.qxb.student.common.view.abslist.AbsListAdapter;
 import com.qxb.student.common.view.abslist.GridView;
 import com.qxb.student.common.view.bannerview.CircleFlowIndicator;
@@ -107,7 +104,7 @@ public class HomeAdapter extends NestingAdapter {
                 homeControl.getSchoolLiveData().observe(fragment, new Observer<List<School>>() {
                     @Override
                     public void onChanged(@Nullable List<School> schools) {
-                        AbsListAdapter<ItemSchoolBinding, School> adapter = (AbsListAdapter<ItemSchoolBinding, School>) gridView.getAdapter();
+                        AbsListAdapter adapter = (AbsListAdapter) gridView.getAdapter();
                         if (adapter == null) {
                             gridView.setAdapter(adapter = getSchoolAdapter());
                         }

@@ -104,7 +104,7 @@ public abstract class QuickAdapter<T> extends BaseAdapter {
         return datas;
     }
 
-    protected T getItem(int position) {
+    public T getItem(int position) {
         return datas.get(position);
     }
 

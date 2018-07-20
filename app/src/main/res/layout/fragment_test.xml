@@ -1,12 +1,9 @@
 <layout>
 
-    <android.support.design.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/coordinator_Layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar"
@@ -21,61 +18,19 @@
                 app:collapsedTitleTextAppearance="@style/ToolBarTitleText"
                 app:contentScrim="@android:color/white"
                 app:expandedTitleTextAppearance="@style/transparentText"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:titleEnabled="false">
 
-                <include layout="@layout/mine_headview"/>
+                <include layout="@layout/header_mine_user" />
 
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/px_180"
-                    app:layout_collapseMode="pin"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-                    <RelativeLayout
-                        android:id="@+id/re"
-                        android:visibility="gone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        >
-                        <TextView
-                            android:id="@+id/tv"
-                            android:layout_centerHorizontal="true"
-                            android:layout_alignParentBottom="true"
-                            android:paddingBottom="@dimen/px_30"
-                            android:text="@string/mine"
-                            android:textColor="@color/colorDesc"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/px_45"/>
-                    </RelativeLayout>
-
-
-
-
-
-                </android.support.v7.widget.Toolbar>
-
+                <include
+                    layout="@layout/view_toolbar"
+                    android:visibility="gone" />
 
             </android.support.design.widget.CollapsingToolbarLayout>
 
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true"
-            android:scrollbars="none"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-                <com.qxb.student.common.view.recycler.ExtendRecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scrollbars="none"
-                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
-
-
-        </android.support.v4.widget.NestedScrollView>
+        <include layout="@layout/view_recycler" />
     </android.support.design.widget.CoordinatorLayout>
 </layout>
