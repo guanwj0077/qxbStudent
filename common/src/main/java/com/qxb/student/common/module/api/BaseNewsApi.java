@@ -2,13 +2,17 @@ package com.qxb.student.common.module.api;
 
 import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.ApiModel;
+import com.qxb.student.common.module.bean.Bankao;
 import com.qxb.student.common.module.bean.BaseNews;
+import com.qxb.student.common.module.bean.BaseNewsComment;
 import com.qxb.student.common.module.bean.NewsConnectInfo;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -71,4 +75,110 @@ public interface BaseNewsApi {
     @POST("baseNews/connectSchool")
     Observable<ApiModel<NewsConnectInfo>> connectSchool(@Field("id") String newsId, @Field("type") String type, @Field("tag") String tag,
                                                         @Field("msg_id") String msgId, @Field("receiver_type") String receiverType, @Field("receiver_id") String receiverId);
+
+    /**
+     * 伴考资讯列表
+     *
+     * @param conditionMap keyword：伴考文章标题或间接关键字
+     *                     province：考生所在省份
+     *                     channel： 频道类型 1.资讯2.备考3.报考4.大学5.专业
+     *                     stu_id：学生id
+     *                     page：当前页数
+     *                     rows：每页展示条数
+     * @return
+     */
+    @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
+    @POST("b_news/baseNewsList")
+    Observable<ApiModel<List<Bankao>>> baseNewslist(@FieldMap Map<String, Object> conditionMap);
+
+    /**
+     * 伴考资讯详情
+     *
+     * @param newsId 文字id
+     * @param stuId  学生id
+     * @return
+     */
+    @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
+    @POST("b_news/baseNewsDetail")
+    Observable<ApiModel<BaseNews>> baseNewsDetail(@Field("news_id") String newsId, @Field("stu_id") String stuId);
+
+    /**
+     * 伴考资讯评论
+     *
+     * @param newsId
+     * @param stuId
+     * @param content
+     * @return
+     */
+    @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
+    @POST("b_news/review")
+    Observable<ApiModel<String>> baseNewsReview(@Field("base_news_id") String newsId, @Field("stu_id") String stuId, @Field("content") String content);
+
+    /**
+     * 伴考资讯评论列表
+     *
+     * @param newsId
+     * @param studentId
+     * @param page
+     * @param rows      默认10
+     * @return
+     */
+    @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
+    @POST("b_news/commentList")
+    Observable<ApiModel<List<BaseNewsComment>>> getBaseNewsCommentList(@Field("base_news_id") String newsId, @Field("student_id") String studentId, @Field("page") String page, @Field("rows") String rows);
+
+    /**
+     * 伴考资讯评论取消点赞
+     *
+     * @param newsId    资讯id（必传）
+     * @param studentId 学生id（必传）
+     * @param commentId 评论id（必传）
+     * @return
+     */
+    @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
+    @POST("b_news/cancelPraise")
+    Observable<ApiModel<String>> cancelCommentPraise(@Field("base_news_id") String newsId, @Field("stu_id") String studentId, @Field("comment_id") String commentId);
+
+    /**
+     * 伴考资讯评论点赞
+     *
+     * @param newsId    资讯id（必传）
+     * @param studentId 学生id（必传）
+     * @param commentId 评论id（必传）
+     * @return
+     */
+    @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
+    @POST("b_news/praise")
+    Observable<ApiModel<String>> commentPraise(@Field("base_news_id") String newsId, @Field("stu_id") String studentId, @Field("comment_id") String commentId);
+
+    /**
+     * 伴考资讯收藏
+     *
+     * @param newsId    资讯id（必传）
+     * @param studentId 学生id（必传）
+     * @return
+     */
+    @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
+    @POST("b_news/collection")
+    Observable<ApiModel<String>> collectBaseNews(@Field("base_news_id") String newsId, @Field("stu_id") String studentId);
+
+    /**
+     * 伴考资讯取消收藏
+     *
+     * @param newsId    资讯id（必传）
+     * @param studentId 学生id（必传）
+     * @return
+     */
+    @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
+    @POST("b_news/cancelCollection")
+    Observable<ApiModel<String>> cancelCollectBaseNews(@Field("base_news_id") String newsId, @Field("stu_id") String studentId);
+
 }

@@ -61,4 +61,28 @@ public interface SysAdApi {
     @FormUrlEncoded
     @POST("sysAd/oppup")
     Observable<ApiModel<List<SysAd>>> sysAdOppup(@Field("type") String type, @Field("student_id") String studentId, @Field("province") String province);
+
+    /**
+     * 开屏广告
+     *
+     * @param province 省份编码
+     * @return
+     */
+    @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
+    @POST("sysAd/open_up_ad")
+    Observable<ApiModel<List<SysAd>>> sysAdOpenUpAd(@Field("province") String province);
+
+    /**
+     * 弹屏广告
+     *
+     * @param type     必传，pop_up_home_ad"(弹屏首页广告) pop_up_school_ad(弹屏院校库广告)
+     * @param province 不传则查全国的广告
+     * @return
+     */
+    @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
+    @POST("sysAd/new_pop_ad")
+    Observable<ApiModel<List<SysAd>>> getPopSysAd(@Field("type") String type, @Field("province") String province);
+
 }

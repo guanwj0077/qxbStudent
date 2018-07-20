@@ -10,6 +10,7 @@ import retrofit2.http.POST;
 
 /**
  * 广告接口
+ *
  * @author winky
  */
 public interface AdvertApi {
@@ -20,6 +21,7 @@ public interface AdvertApi {
      * @return
      */
     @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
     @POST("chatRoom/liveHomeAd23")
     Observable<ApiModel<String>> getLiveHomeAd();
 }
