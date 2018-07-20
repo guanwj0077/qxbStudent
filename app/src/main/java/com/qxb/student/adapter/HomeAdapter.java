@@ -18,6 +18,7 @@ import com.qxb.student.common.databinding.ViewImageBinding;
 import com.qxb.student.common.listener.MultiClickUtil;
 import com.qxb.student.common.module.bean.School;
 import com.qxb.student.common.module.bean.SysAd;
+import com.qxb.student.common.module.bean.attr.NavAttr;
 import com.qxb.student.common.utils.NavigationUtils;
 import com.qxb.student.common.utils.UserCache;
 import com.qxb.student.common.view.abslist.AbsListAdapter;
@@ -117,7 +118,11 @@ public class HomeAdapter extends NestingAdapter {
                         if (MultiClickUtil.isFastClick()) {
                             Bundle bundle = new Bundle();
                             bundle.putString(Constant.NAV_SCHOOL_ID, String.valueOf(getSchoolAdapter().getItem(i).getId()));
-                            NavigationUtils.getInstance().toNavigation(fragment.getContext(), R.navigation.nav_school);
+                            NavigationUtils.getInstance().toNavigation(fragment.getContext(), new NavAttr.Builder()
+                                    .graphRes(R.navigation.nav_school)
+                                    .navId(R.id.nav_school_index)
+                                    .params(bundle)
+                                    .build());
                         }
                     }
                 });

@@ -26,6 +26,10 @@ public class Constant {
      */
     public static final String SHARE_PHONE = "share_phone";
     /**
+     * 开启新导航的资源
+     */
+    public static final String NAVIGATION_RES_ID = "navigation_res_id";
+    /**
      * 开启新导航的id
      */
     public static final String NAVIGATION_ID = "navigation_id";

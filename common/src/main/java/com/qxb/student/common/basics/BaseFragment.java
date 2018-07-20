@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.qxb.student.common.Constant;
 import com.qxb.student.common.listener.IBinding;
 import com.qxb.student.common.utils.NavigationUtils;
 
@@ -22,6 +23,7 @@ import java.util.Objects;
 
 /**
  * fragment基类
+ *
  * @author winky
  */
 public abstract class BaseFragment extends HolderFragment implements IBinding {
@@ -47,7 +49,9 @@ public abstract class BaseFragment extends HolderFragment implements IBinding {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getBundle();
     }
+
     /**
      * 使用fragment的menu
      */
@@ -103,5 +107,13 @@ public abstract class BaseFragment extends HolderFragment implements IBinding {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public Bundle getBundle() {
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            bundle = bundle.getBundle(Constant.NAVIGATION_BUNDLE);
+        }
+        return bundle;
     }
 }
