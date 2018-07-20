@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.qxb.student.common.Constant;
 import com.qxb.student.common.listener.IBinding;
 import com.qxb.student.common.utils.NavigationUtils;
 
@@ -22,6 +23,7 @@ import java.util.Objects;
 
 /**
  * fragment基类
+ *
  * @author winky
  */
 public abstract class BaseFragment extends HolderFragment implements IBinding {
@@ -29,11 +31,14 @@ public abstract class BaseFragment extends HolderFragment implements IBinding {
     private WeakReference<Fragment> weakReference = null;
     private View contentView;
     private String title;
+    @Nullable
+    private Bundle bundle;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         weakReference = new WeakReference<Fragment>(this);
+        bundle = null != getArguments() ? getArguments().getBundle(Constant.NAVIGATION_BUNDLE) : null;
     }
 
     @Nullable
@@ -48,6 +53,7 @@ public abstract class BaseFragment extends HolderFragment implements IBinding {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
+
     /**
      * 使用fragment的menu
      */
@@ -103,5 +109,13 @@ public abstract class BaseFragment extends HolderFragment implements IBinding {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public String getStringExtra(String key) {
+        return bundle != null ? bundle.getString(key) : null;
+    }
+
+    public int getIntExtra(String key) {
+        return bundle != null ? bundle.getInt(key) : 0;
     }
 }

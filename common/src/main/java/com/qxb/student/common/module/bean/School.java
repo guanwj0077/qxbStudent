@@ -11,8 +11,6 @@ import android.arch.persistence.room.PrimaryKey;
  */
 @Entity(tableName = "School")
 public class School {
-    @Ignore
-    public static final String TAG = "School";
 
     private int attns;
     private int balance;
@@ -47,6 +45,15 @@ public class School {
     private String videoImageRealPath;
     private int web_level;
     private int web_rank;
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public int getAttns() {
         return attns;

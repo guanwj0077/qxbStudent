@@ -17,7 +17,7 @@ public final class Logger {
         }
     };
 
-    public static final boolean isDebug = true || Config.isDebug;
+    public static final boolean isDebug = true || Config.IS_DEBUG;
     private static final String TAG = "Logger";
 
     public static Logger getInstance() {

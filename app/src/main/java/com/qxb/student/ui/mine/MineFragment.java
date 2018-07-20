@@ -16,13 +16,13 @@ import com.qxb.student.common.listener.MultiClickUtil;
 import com.qxb.student.common.listener.OnPositionClickListener;
 import com.qxb.student.common.module.MineTv;
 import com.qxb.student.common.module.bean.MineData;
+import com.qxb.student.common.module.bean.attr.NavAttr;
 import com.qxb.student.common.utils.NavigationUtils;
 import com.qxb.student.common.view.recycler.ExtendRecyclerView;
 import com.qxb.student.common.view.recycler.adapter.QuickAdapter;
 import com.qxb.student.common.view.recycler.adapter.QuickBindingAdapter;
 import com.qxb.student.databinding.HeadviewMineBinding;
 import com.qxb.student.databinding.LayoutMineItemViewBinding;
-import com.qxb.student.databinding.MineHeadviewBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -152,7 +152,7 @@ public class MineFragment extends AbsExpandFragment implements View.OnClickListe
             case R.id.my_fraction:
                 //我的成绩
                 if (MultiClickUtil.isFastClick()) {
-                    NavigationUtils.getInstance().toNavigation(getContext(), R.navigation.nav_login);
+                    NavigationUtils.getInstance().toNavigation(getContext(), new NavAttr.Builder().graphRes(R.navigation.nav_login).build());
                 }
                 break;
             case R.id.mine_qiuxuedanan:
@@ -161,7 +161,7 @@ public class MineFragment extends AbsExpandFragment implements View.OnClickListe
             case R.id.img:
                 //头像
                 if (MultiClickUtil.isFastClick()) {
-                    NavigationUtils.getInstance().toNavigation(getContext(), R.navigation.nav_login);
+                    NavigationUtils.getInstance().toNavigation(getContext(), new NavAttr.Builder().graphRes(R.navigation.nav_login).build());
                 }
                 break;
             case R.id.username:

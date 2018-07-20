@@ -3,37 +3,34 @@ package com.qxb.student.common.basics;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.qxb.student.common.Config;
 import com.qxb.student.common.R;
 
-import androidx.navigation.fragment.NavHostFragment;
+import java.util.Objects;
 
 /**
  * 导航起点
+ *
  * @author winky
  */
-public class NavigationActivity extends BaseAppActivity {
+public class NavHostActivity extends BaseAppActivity {
 
-    private NavHostFragment hostFragment;
+    private NavFragment hostFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_frame);
-        int navigationId = getIntent().getIntExtra(Config.NAVIGATION_ID, 0);
-        if (navigationId == 0) {
-            throw new IllegalArgumentException("navigation_id == 0");
-        }
+        hostFragment = NavFragment.create(Objects.requireNonNull(getIntent().getExtras()));
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.fl_content, hostFragment = NavHostFragment.create(navigationId))
+                .add(R.id.fl_content, hostFragment)
                 .commit();
     }
 
 
     @Override
     public void onBackPressed() {
-        if (!NavHostFragment.findNavController(hostFragment).navigateUp()) {
+        if (!NavFragment.findNavController(hostFragment).navigateUp()) {
             finish();
         }
     }

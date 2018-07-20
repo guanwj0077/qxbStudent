@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="school"
+            type="com.qxb.student.common.module.bean.School" />
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
+
+        <ImageView
+            android:id="@+id/image1"
+            imageUrl="@{school.coverRealPath}"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_550"
+            android:background="@android:color/holo_red_light"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:id="@+id/image2"
+            roundImageUrl="@{school.logoRealPath}"
+            android:layout_width="@dimen/px_180"
+            android:layout_height="@dimen/px_180"
+            android:layout_marginStart="@dimen/px_50"
+            android:layout_marginTop="@dimen/px_460"
+            android:background="@android:color/holo_green_light" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image1"
+            android:layout_marginStart="@dimen/px_20"
+            android:layout_toEndOf="@id/image2"
+            android:orientation="vertical"
+            android:padding="@dimen/px_20">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{school.address}"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/px_40" />
+
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/flowLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px_20" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>

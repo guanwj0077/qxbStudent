@@ -17,6 +17,7 @@ public interface StudentFileApi {
 
     /**
      * 学生档案信息
+     *
      * @param stuId
      * @return
      */
@@ -25,6 +26,35 @@ public interface StudentFileApi {
     @POST("studentFile/info")
     Observable<ApiModel<String>> getStudentFileInfo(@Field("stu_id") String stuId);
 
+    /**
+     * 保存高中学校
+     *
+     * @param stuId      学生id 必传
+     * @param schoolId   高中学校id 必传
+     * @param schoolName 高中学校 必传
+     * @param province   省份编码 必传
+     * @param city       城市编码 必传
+     * @param area       地区编码 必传
+     * @return
+     */
+    @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
+    @POST("studentFile/saveHighschool")
+    Observable<ApiModel<String>> saveHighschool(@Field("stu_id") String stuId, @Field("school_id") String schoolId,
+                                                @Field("school_name") String schoolName, @Field("province") String province,
+                                                @Field("city") String city, @Field("area") String area);
+
+    /**
+     * 保存留学意向
+     *
+     * @param stuId        学生id
+     * @param targetAbroad 目标国家
+     * @return
+     */
+    @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
+    @POST("studentFile/saveHighschool")
+    Observable<ApiModel<String>> saveHighschool(@Field("stu_id") int stuId, @Field("target_abroad") String targetAbroad);
 
 
 }

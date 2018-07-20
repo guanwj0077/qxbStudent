@@ -45,8 +45,53 @@ public class SchoolRepository extends BaseRepository {
         return schoolListLiveData;
     }
 
-    public LiveData<School> getSchoolById(String schoolId) {
-
+    public LiveData<School> getSchoolById(final String schoolId) {
+        Disposable disposable = Observable.create(new ObservableOnSubscribe<School>() {
+            @Override
+            public void subscribe(ObservableEmitter<School> emitter) {
+                School school = roomUtils.schoolDao().getSchoolById(schoolId);
+                if (school == null) {
+                    emitter.onComplete();
+                } else {
+                    emitter.onNext(school);
+                }
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(new Consumer<School>() {
+                    @Override
+                    public void accept(School schools) {
+                        schoolLiveData.postValue(schools);
+                    }
+                })
+                .doOnComplete(new Action() {
+                    @Override
+                    public void run() {
+                        String province = "420000";
+                        Disposable disposable = HttpUtils.create(SchoolApi.class).getSchoolById(schoolId, province)
+                                .subscribeOn(Schedulers.io())
+                                .doOnNext(new Consumer<ApiModel<School>>() {
+                                    @Override
+                                    public void accept(ApiModel<School> apiModel) {
+                                        if (apiModel.getCode() == 1) {
+                                            roomUtils.schoolDao().insertColleges(apiModel.getData());
+                                        }
+                                    }
+                                })
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Consumer<ApiModel<School>>() {
+                                    @Override
+                                    public void accept(ApiModel<School> apiModel) {
+                                        if (apiModel.getCode() == 1) {
+                                            schoolLiveData.postValue(apiModel.getData());
+                                        }
+                                    }
+                                });
+                        addDisposable(disposable);
+                    }
+                }).subscribe();
+        addDisposable(disposable);
         return schoolLiveData;
     }
 
