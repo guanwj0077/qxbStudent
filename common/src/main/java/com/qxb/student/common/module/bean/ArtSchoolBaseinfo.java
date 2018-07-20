@@ -40,12 +40,10 @@ public class ArtSchoolBaseinfo extends School {
         return id;
     }
 
-    @Override
     public int getSchool_id() {
         return school_id;
     }
 
-    @Override
     public void setSchool_id(int school_id) {
         this.school_id = school_id;
     }

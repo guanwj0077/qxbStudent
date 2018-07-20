@@ -6,9 +6,11 @@ import com.qxb.student.common.module.bean.StuScore;
 import com.qxb.student.common.module.bean.StudentWish;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -280,13 +282,49 @@ public interface UserStudentApi {
 
     /**
      * 修改昵称
+     *
      * @param studentId 学生id
-     * @param nickName 昵称
+     * @param nickName  昵称
      * @return
      */
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("userStudent/updateNickName")
     Observable<ApiModel<String>> updateNickName(@Field("id") String studentId, @Field("nick_name") String nickName);
+
+    /**
+     * 查询用户普招院校收藏状态,返回Boolean值 true:已收藏  false：未收藏
+     *
+     * @param studentId
+     * @param schoolId
+     * @return
+     */
+    @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
+    @POST("studentAttention/query")
+    Observable<ApiModel<String>> queryStudentAttention(@Field("student_id") String studentId, @Field("school_id") String schoolId);
+
+    /**
+     * 分阶段补录信息
+     *
+     * @param conditionMap id：学生id
+     *                     step：补录步骤 1,2,3,4
+     *                     province：省份编码
+     *                     city：城市编码
+     *                     area：地区编码
+     *                     highschool_id：高中学校id
+     *                     name：学生姓名
+     *                     score：最近的分数
+     *                     subject_type：文理科 1：理科 2：文科
+     *                     sex：1：男 2：女
+     *                     years：年份
+     *                     is_plan_abroad：是否打算出国 1：是
+     *                     continent：意向留学州 1：北美洲 2：欧洲 3：大洋洲 4：亚洲 5：南美洲 6：非洲 7：不想留学
+     * @return
+     */
+    @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
+    @POST("userStudent/saveStuInfoNew")
+    Observable<ApiModel<String>> saveStuInfoNew(@FieldMap Map<String, Object> conditionMap);
 
 }

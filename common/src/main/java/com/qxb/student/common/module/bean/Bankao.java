@@ -4,15 +4,41 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Bankao implements Parcelable {
-
+    /**
+     * id
+     */
     private int id;
+    /**
+     * 图片地址
+     */
     private String img_url;
+    /**
+     * 简介
+     */
     private String intro;
+    /**
+     * 是否广告
+     */
     private int isAd;
+    /**
+     * 是否收藏  1.收藏 0未收藏
+     */
     private int is_collectioned;
+    /**
+     * 标题
+     */
     private String title;
+    /**
+     * 类型 1.资讯2.备考3.报考4.大学5.专业
+     */
     private int type;
+    /**
+     * 视频地址
+     */
     private String video_url;
+    /**
+     * 链接地址
+     */
     private String http_link;
 
     public int getId() {

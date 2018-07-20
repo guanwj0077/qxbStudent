@@ -3,6 +3,7 @@ package com.qxb.student.common.module.api;
 import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.SchoolInsight;
+import com.qxb.student.common.module.bean.ScorePart;
 
 import java.util.List;
 
@@ -52,6 +53,19 @@ public interface SchoolInsightApi {
     @POST("school/insightscore_new")
     Observable<ApiModel<String>> schoolInsightScoreGetList(@Field("student_id") String studentId, @Field("province") String province, @Field("score_type") String scoreType, @Field("score") String score,
                                                            @Field("subject_type") String subjectType, @Field("precedence") String precedence, @Field("rtime") String rtime, @Field("rcode") String rcode);
+
+    /**
+     * 获取近年位次
+     *
+     * @param score       分数
+     * @param province    省份编码
+     * @param subjectType 文理科 1文2理
+     * @return
+     */
+    @Headers(Config.AUTH_CUSTOM)
+    @FormUrlEncoded
+    @POST("stuScore/getPrecedence")
+    Observable<ApiModel<List<ScorePart>>> getPrecedenceByScore(@Field("score") String score, @Field("province") String province, @Field("subject_type") String subjectType);
 
 
 }
