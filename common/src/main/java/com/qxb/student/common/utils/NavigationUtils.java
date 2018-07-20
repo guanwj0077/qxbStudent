@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import com.qxb.student.common.Config;
+import com.qxb.student.common.Constant;
 import com.qxb.student.common.R;
 import com.qxb.student.common.basics.NavigationActivity;
 import com.qxb.student.common.basics.WebActivity;
@@ -22,6 +23,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 /**
  * 导航工具类
+ *
  * @author winky
  */
 public class NavigationUtils {
@@ -50,10 +52,11 @@ public class NavigationUtils {
 
     /**
      * 设置导航转换动画
-     * @param enterAnim enterAnim
-     * @param exitAnim exitAnim
+     *
+     * @param enterAnim    enterAnim
+     * @param exitAnim     exitAnim
      * @param popEnterAnim popEnterAnim
-     * @param popExitAnim popExitAnim
+     * @param popExitAnim  popExitAnim
      */
     public void setNavOptions(@AnimRes @AnimatorRes int enterAnim,
                               @AnimRes @AnimatorRes int exitAnim,
@@ -69,17 +72,31 @@ public class NavigationUtils {
 
     /**
      * 打开一个新的导航
-     * @param context 上下文
+     *
+     * @param context       上下文
      * @param navigationRes 导航资源
      */
     public void toNavigation(@NonNull Context context, @NavigationRes int navigationRes) {
+        toNavigation(context, navigationRes, null);
+    }
+
+    /**
+     * 打开一个新的导航
+     *
+     * @param context       上下文
+     * @param navigationRes 导航资源
+     * @param bundle        参数
+     */
+    public void toNavigation(@NonNull Context context, @NavigationRes int navigationRes, @Nullable Bundle bundle) {
         Intent intent = new Intent(context, NavigationActivity.class);
-        intent.putExtra(Config.NAVIGATION_ID, navigationRes);
+        intent.putExtra(Constant.NAVIGATION_ID, navigationRes);
+        intent.putExtra(Constant.NAVIGATION_BUNDLE, bundle);
         context.startActivity(intent);
     }
 
     /**
      * 跳转通用网页类
+     *
      * @param context 上下文
      * @param webAttr 打开网页参数
      */
@@ -91,7 +108,8 @@ public class NavigationUtils {
 
     /**
      * 导航内页码跳转
-     * @param fragment fragment
+     *
+     * @param fragment     fragment
      * @param navigationId 导航页码id
      */
     public void jump(@NonNull Fragment fragment, @IdRes int navigationId) {
@@ -100,9 +118,10 @@ public class NavigationUtils {
 
     /**
      * 导航内页码跳转，带参
-     * @param fragment fragment
+     *
+     * @param fragment     fragment
      * @param navigationId 导航页码id
-     * @param bundle 参数
+     * @param bundle       参数
      */
     public void jump(@NonNull Fragment fragment, @IdRes int navigationId, @Nullable Bundle bundle) {
         NavHostFragment.findNavController(fragment).navigate(navigationId, bundle, navOptions);
@@ -110,6 +129,7 @@ public class NavigationUtils {
 
     /**
      * 导航内回退
+     *
      * @param fragment fragment
      * @return boolean
      */

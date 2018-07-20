@@ -6,6 +6,7 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.qxb.student.common.Config;
+import com.qxb.student.common.Constant;
 import com.qxb.student.common.http.HttpResponse;
 import com.qxb.student.common.http.HttpUtils;
 import com.qxb.student.common.module.api.AdvertApi;
@@ -37,7 +38,7 @@ public class AdvertRepository extends BaseRepository {
 
 
     private static final String AD_LIVE_HOME = "ad_live_home";
-    private SharedUtils sharedUtils = SharedUtils.get(Config.SHARE_DATA);
+    private SharedUtils sharedUtils = SharedUtils.get(Constant.SHARE_FILE_DATA);
     private MutableLiveData<String> adHomeLive;
     private MutableLiveData<List<SysAd>> homeBanner;
 

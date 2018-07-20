@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.qxb.student.common.Config;
+import com.qxb.student.common.Constant;
 import com.qxb.student.common.R;
 
 import androidx.navigation.fragment.NavHostFragment;
@@ -20,7 +21,7 @@ public class NavigationActivity extends BaseAppActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_frame);
-        int navigationId = getIntent().getIntExtra(Config.NAVIGATION_ID, 0);
+        int navigationId = getIntent().getIntExtra(Constant.NAVIGATION_ID, 0);
         if (navigationId == 0) {
             throw new IllegalArgumentException("navigation_id == 0");
         }

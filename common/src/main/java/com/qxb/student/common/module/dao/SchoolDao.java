@@ -34,6 +34,13 @@ public interface SchoolDao {
      */
     @Insert(onConflict = REPLACE)
     void insertColleges(List<School> list);
+    /**
+     * 插入学校数据
+     *
+     * @param school 学校信息
+     */
+    @Insert(onConflict = REPLACE)
+    void insertColleges(School school);
 
     /**
      * 大学详情页

@@ -3,15 +3,23 @@ package com.qxb.student.adapter;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
+import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.qxb.student.R;
+import com.qxb.student.common.Constant;
 import com.qxb.student.common.adapter.BannerAdapter;
 import com.qxb.student.common.databinding.ViewImageBinding;
+import com.qxb.student.common.listener.MultiClickUtil;
 import com.qxb.student.common.module.bean.School;
 import com.qxb.student.common.module.bean.SysAd;
+import com.qxb.student.common.utils.NavigationUtils;
+import com.qxb.student.common.utils.UserCache;
 import com.qxb.student.common.view.abslist.AbsListAdapter;
 import com.qxb.student.common.view.abslist.GridView;
 import com.qxb.student.common.view.bannerview.CircleFlowIndicator;
@@ -26,6 +34,7 @@ import java.util.List;
 
 /**
  * 适配器
+ *
  * @author winky
  */
 public class HomeAdapter extends NestingAdapter {
@@ -100,6 +109,16 @@ public class HomeAdapter extends NestingAdapter {
                         gridView.setAdapter(schoolAbsListAdapter);
                         schoolAbsListAdapter.clear();
                         schoolAbsListAdapter.addCollection(schools);
+                    }
+                });
+                gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        if (MultiClickUtil.isFastClick()) {
+                            Bundle bundle = new Bundle();
+                            bundle.putString(Constant.NAV_SCHOOL_ID, String.valueOf(getSchoolAdapter().getItem(i).getId()));
+                            NavigationUtils.getInstance().toNavigation(fragment.getContext(), R.navigation.nav_school);
+                        }
                     }
                 });
                 break;

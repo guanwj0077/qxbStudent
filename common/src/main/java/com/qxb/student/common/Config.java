@@ -4,7 +4,7 @@ public final class Config {
     /**
      * 是否调试模式
      */
-    public static final boolean isDebug = false;
+    public static final boolean IS_DEBUG = false;
 
     private static final String SERVER_URL_RELEASE = "https://api.qiuxuebao.com/api/";
     private static final String SERVER_URL_DEBUG = "http://qxb.ylcplus.club:8081/qxb_api/api/";
@@ -12,30 +12,12 @@ public final class Config {
     /**
      * 服务器地址
      */
-    public static final String SERVER_URL = isDebug ? SERVER_URL_DEBUG : SERVER_URL_RELEASE;
-    /**
-     * 设计屏幕宽、高
-     */
-    public static final int[] DESIGN_SCREEN = {1080, 1920};
+    public static final String SERVER_URL = IS_DEBUG ? SERVER_URL_DEBUG : SERVER_URL_RELEASE;
 
-    /**
-     * SharedPreferences 缓存通用数据，退出不清除
-     */
-    public static final String SHARE_CURRENCY = "currency";
-    /**
-     * SharedPreferences 缓存配置数据
-     */
-    public static final String SHARE_DATA = "data";
-    /**
-     * SharedPreferences 缓存用户数据，退出登录需清除
-     */
-    public static final String SHARE_CUSTOM = "custom";
     /**
      * 即时生效换字体，是否采集textview
      */
     public static final boolean COLLECTION_TEXTVIEW = true;
-
-    public static final String NAVIGATION_ID = "navigation_id";
 
     /**
      * 定义接口请求头KEY
