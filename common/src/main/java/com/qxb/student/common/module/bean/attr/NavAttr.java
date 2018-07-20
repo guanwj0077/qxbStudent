@@ -1,6 +1,5 @@
 package com.qxb.student.common.module.bean.attr;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;

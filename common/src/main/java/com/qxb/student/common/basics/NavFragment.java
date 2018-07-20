@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.qxb.student.common.module.bean.attr.NavAttr;
-import com.qxb.student.common.utils.NavigationUtils;
 
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
