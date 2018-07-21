@@ -49,5 +49,5 @@ public interface SchoolDao {
      * @return
      */
     @Query("SELECT * FROM School WHERE id=:school_id")
-    School getSchoolById(String school_id);
+    School querySchoolById(String school_id);
 }

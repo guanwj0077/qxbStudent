@@ -6,7 +6,6 @@
         android:layout_height="match_parent">
 
         <android.support.design.widget.AppBarLayout
-            android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
@@ -15,17 +14,18 @@
             <android.support.design.widget.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/px_480"
-                app:collapsedTitleTextAppearance="@style/ToolBarTitleText"
-                app:contentScrim="@android:color/white"
+                app:collapsedTitleGravity="top|center_horizontal"
+                app:collapsedTitleTextAppearance="@style/collapsedTitleText"
+                app:contentScrim="@drawable/shape_bottom_divider"
+                app:expandedTitleGravity="top|center_horizontal"
                 app:expandedTitleTextAppearance="@style/transparentText"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:titleEnabled="false">
+                app:title="@string/main_mine"
+                app:titleEnabled="true">
 
                 <include layout="@layout/header_mine_user" />
 
-                <include
-                    layout="@layout/view_toolbar"
-                    android:visibility="gone" />
+                <include layout="@layout/view_toolbar" />
 
             </android.support.design.widget.CollapsingToolbarLayout>
 

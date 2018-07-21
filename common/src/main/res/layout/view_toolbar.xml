@@ -6,5 +6,8 @@
     android:layout_height="@dimen/px_180"
     android:background="@drawable/shape_bottom_divider"
     app:layout_collapseMode="pin"
+    app:contentInsetLeft="@dimen/px_0"
+    app:contentInsetStart="@dimen/px_0"
+    app:contentInsetRight="@dimen/px_0"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     app:titleTextAppearance="@style/TextAppearance" />

@@ -10,15 +10,15 @@ import com.qxb.student.common.basics.AbsRefreshFragment;
 import com.qxb.student.common.module.bean.Bankao;
 import com.qxb.student.common.view.recycler.ViewHolder;
 import com.qxb.student.common.view.recycler.adapter.QuickAdapter;
-import com.qxb.student.control.BankaoControl;
+import com.qxb.student.control.BanKaoControl;
 
 public class BanKaoListFragment extends AbsRefreshFragment<Bankao> {
 
-    private BankaoControl bankaoControl;
+    private BanKaoControl banKaoControl;
 
     @Override
     public void initContent(@Nullable Bundle savedInstanceState) {
-        bankaoControl = ViewModelProviders.of(this).get(BankaoControl.class);
+        banKaoControl = ViewModelProviders.of(this).get(BanKaoControl.class);
     }
 
     @Override

@@ -18,6 +18,12 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import java.util.Arrays;
 
 
+/**
+ * 消息
+ *
+ * @author winky
+ * @date 2018/07/21
+ */
 public class MessageFragment extends AbsExpandFragment {
 
     @Override
@@ -38,15 +44,10 @@ public class MessageFragment extends AbsExpandFragment {
 
         refreshLayout = view.findViewById(R.id.refreshLayout);
         recyclerView = view.findViewById(R.id.recyclerView);
-//        refreshLayout.setDisableContentWhenLoading(false);
         refreshLayout.setEnableOverScrollDrag(true);
         refreshLayout.setEnableLoadMore(false);
-//        refreshLayout.setEnableFooterFollowWhenLoadFinished(false);
         HeaderMessageBinding typeBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.header_message, null, false);
-
         recyclerView.addHeaderView(typeBinding.getRoot());
-//        View view1=View.inflate(getActivity(), R.layout.header_message, null);
-//
         recyclerView.setAdapter(adapter = new QuickAdapter<String>(android.R.layout.activity_list_item) {
             @Override
             protected void convert(ViewHolder holder, int position, String item) {

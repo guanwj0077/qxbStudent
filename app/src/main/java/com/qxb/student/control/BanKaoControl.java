@@ -4,10 +4,16 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.support.annotation.NonNull;
 
-public class BankaoControl extends AndroidViewModel {
+/**
+ * 伴考
+ *
+ * @author winky
+ * @date 2018/7/20
+ */
+public class BanKaoControl extends AndroidViewModel {
 
 
-    public BankaoControl(@NonNull Application application) {
+    public BanKaoControl(@NonNull Application application) {
         super(application);
     }
 

@@ -10,7 +10,9 @@
     <string name="main_chat">消息</string>
     <string name="main_info">伴考</string>
     <string name="main_mine">我的</string>
-
+    <string name="school_intro">简介</string>
+    <string name="school_major">专业</string>
+    <string name="school_conduct">简章</string>
     <string name="com_add">添加</string>
     <string name="hint_exit">再返回一次退出程序</string>
 

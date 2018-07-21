@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -11,7 +10,6 @@
     </data>
 
     <android.support.design.widget.CoordinatorLayout
-        android:id="@+id/coordinator_Layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/holo_blue_light">
@@ -26,18 +24,24 @@
                 android:id="@+id/collapsingToolbarLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:collapsedTitleGravity="top|center_horizontal"
                 app:collapsedTitleTextAppearance="@style/collapsedTitleText"
-                app:contentScrim="#fff2f2f2"
+                app:contentScrim="@drawable/shape_bottom_divider"
+                app:expandedTitleGravity="top"
+                app:expandedTitleMarginTop="@dimen/px_530"
+                app:expandedTitleMarginStart="@dimen/px_250"
                 app:expandedTitleTextAppearance="@style/expandedTitleText"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:title="@{school.school_name}">
+                app:scrimAnimationDuration="500"
+                app:title="@{school.school_name}"
+                app:titleEnabled="false"
+                app:toolbarId="@id/toolbar">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/colorDivider"
                     android:orientation="vertical"
-                    app:layout_collapseMode="pin"
                     app:layout_collapseParallaxMultiplier="0.7">
 
                     <include layout="@layout/header_school" />
@@ -133,9 +137,7 @@
 
                 </LinearLayout>
 
-                <include
-                    layout="@layout/view_toolbar"
-                    android:visibility="gone" />
+                <include layout="@layout/view_toolbar" />
             </android.support.design.widget.CollapsingToolbarLayout>
 
             <android.support.design.widget.TabLayout
@@ -148,6 +150,7 @@
                 android:layout_marginTop="@dimen/px_30"
                 android:background="@drawable/stroke_corners_green"
                 app:tabBackground="@drawable/selector_background_green"
+                app:tabIndicatorHeight="@dimen/px_0"
                 app:tabMode="fixed"
                 app:tabSelectedTextColor="@android:color/white"
                 app:tabTextColor="@color/colorAccent" />
@@ -158,8 +161,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            tools:ignore="PrivateResource" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>

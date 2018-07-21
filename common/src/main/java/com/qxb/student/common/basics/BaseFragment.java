@@ -2,6 +2,7 @@ package com.qxb.student.common.basics;
 
 import android.arch.lifecycle.HolderFragment;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
@@ -9,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +23,8 @@ import com.qxb.student.common.utils.NavigationUtils;
 import java.lang.ref.WeakReference;
 import java.util.Objects;
 
+import androidx.navigation.Navigation;
+
 /**
  * fragment基类
  *
@@ -31,27 +35,24 @@ public abstract class BaseFragment extends HolderFragment implements IBinding {
     private WeakReference<Fragment> weakReference = null;
     private View contentView;
     private String title;
-    @Nullable
-    private Bundle bundle;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         weakReference = new WeakReference<Fragment>(this);
-        bundle = null != getArguments() ? getArguments().getBundle(Constant.NAVIGATION_BUNDLE) : null;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        contentView = inflater.inflate(bindLayout(), container, false);
+        this.contentView = inflater.inflate(bindLayout(), container, false);
         init(contentView, savedInstanceState);
         return contentView;
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 
     /**
@@ -112,10 +113,31 @@ public abstract class BaseFragment extends HolderFragment implements IBinding {
     }
 
     public String getStringExtra(String key) {
-        return bundle != null ? bundle.getString(key) : null;
+        return getArguments() != null ? getArguments().getString(key) : null;
     }
 
     public int getIntExtra(String key) {
-        return bundle != null ? bundle.getInt(key) : 0;
+        return getArguments() != null ? getArguments().getInt(key) : 0;
     }
+
+    public boolean validate(String param) {
+        /**NavigationUtils.getInstance().goBack(getFragment());*/
+        if (TextUtils.isEmpty(param)) {
+            // TODO: 2018/7/20 跳转错误页面
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean validate(Objects objects) {
+        if (objects == null) {
+            // TODO: 2018/7/20 跳转错误页面
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
 }

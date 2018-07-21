@@ -273,8 +273,8 @@ public interface SchoolApi {
     @FormUrlEncoded
     @POST("school/recruitList")
     Observable<ApiModel<List<School>>> schoolRecruitList(@Field("major_type") String majorType, @Field("major_name") String majorName,
-                                                                   @Field("subject_type") String subjectType, @Field("province") String province,
-                                                                   @Field("page") String page, @Field("rows") String rows);
+                                                         @Field("subject_type") String subjectType, @Field("province") String province,
+                                                         @Field("page") String page, @Field("rows") String rows);
 
 
 }

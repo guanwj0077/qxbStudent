@@ -60,10 +60,15 @@
     <dimen name="px_350">350px</dimen>
     <dimen name="px_360">360px</dimen>
     <dimen name="px_400">400px</dimen>
+    <dimen name="px_420">420px</dimen>
     <dimen name="px_450">450px</dimen>
     <dimen name="px_460">460px</dimen>
     <dimen name="px_480">480px</dimen>
+    <dimen name="px_500">500px</dimen>
+    <dimen name="px_530">530px</dimen>
     <dimen name="px_550">550px</dimen>
+    <dimen name="px_570">570px</dimen>
+    <dimen name="px_580">580px</dimen>
     <dimen name="px_600">600px</dimen>
     <dimen name="px_650">650px</dimen>
     <dimen name="px_700">700px</dimen>

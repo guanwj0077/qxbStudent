@@ -8,18 +8,29 @@ import android.view.View;
 
 import com.qxb.student.R;
 import com.qxb.student.common.basics.AbsExpandFragment;
-import com.qxb.student.databinding.FragmentBankaoNewsBinding;
+import com.qxb.student.common.view.Toolbar;
+import com.qxb.student.databinding.FragmentBanKaoNewsBinding;
 
+/**
+ * 伴考
+ *
+ * @author winky
+ * @date 2018/07/21
+ */
 public class BanKaoNewsFragment extends AbsExpandFragment {
     @Override
     public int bindLayout() {
-        return R.layout.fragment_bankao_news;
+        return R.layout.fragment_ban_kao_news;
     }
 
-    private FragmentBankaoNewsBinding binding;
+    private FragmentBanKaoNewsBinding binding;
+    private Toolbar toolbar;
 
     @Override
     public void init(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setBackgroundResource(android.R.color.transparent);
         binding = DataBindingUtil.bind(view);
 
     }
@@ -27,7 +38,7 @@ public class BanKaoNewsFragment extends AbsExpandFragment {
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            
+
         }
     };
 

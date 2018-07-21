@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -15,10 +16,19 @@ import android.widget.TextView;
 
 import com.qxb.student.common.R;
 
+/**
+ * 处理toolbar固定大小后文字居中微调
+ * 注意getTitleMarginTop增加间距为了搭配CollapsingToolbarLayout折叠后样式
+ *
+ * @author winky
+ * @date 2018/7/21
+ */
 public class Toolbar extends android.support.v7.widget.Toolbar {
 
-    private final int VIEW_PADDING_TOP = 38;
-    private final int TITLE_PADDING_TOP = 20;
+    /**
+     * 上间距
+     */
+    private final int VIEW_PADDING_TOP = 40;
     private TextView mTitleTextView;
 
     public Toolbar(Context context) {
@@ -42,7 +52,6 @@ public class Toolbar extends android.support.v7.widget.Toolbar {
         if (titleTextAppearance != 0) {
             setTitleTextAppearance(context, titleTextAppearance);
         }
-        setContentInsetsAbsolute(0, 0);
         setPadding(0, VIEW_PADDING_TOP, 0, 0);
         a.recycle();
         post(new Runnable() {
@@ -53,6 +62,11 @@ public class Toolbar extends android.support.v7.widget.Toolbar {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
     }
 
     @Override
@@ -72,8 +86,6 @@ public class Toolbar extends android.support.v7.widget.Toolbar {
                 mTitleTextView = new TextView(context);
                 mTitleTextView.setSingleLine();
                 mTitleTextView.setEllipsize(TextUtils.TruncateAt.END);
-                mTitleTextView.setPadding(0, TITLE_PADDING_TOP, 0, 0);
-//                mTitleTextView.setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.holo_red_light));
             }
             if (mTitleTextView.getParent() != this) {
                 addCenterView(mTitleTextView);
@@ -84,6 +96,11 @@ public class Toolbar extends android.support.v7.widget.Toolbar {
         if (mTitleTextView != null) {
             mTitleTextView.setText(title);
         }
+    }
+
+    @Override
+    public int getTitleMarginTop() {
+        return super.getTitleMarginTop() + VIEW_PADDING_TOP;
     }
 
     private void addCenterView(View v) {
@@ -102,6 +119,7 @@ public class Toolbar extends android.support.v7.widget.Toolbar {
     @Override
     public LayoutParams generateLayoutParams(AttributeSet attrs) {
         LayoutParams lp = new LayoutParams(getContext(), attrs);
+
         lp.gravity = Gravity.CENTER_HORIZONTAL;
         return lp;
     }

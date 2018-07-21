@@ -43,7 +43,6 @@ public abstract class AbsToolbarFragment extends AbsExpandFragment {
     @Override
     public void init(@NonNull View view, @Nullable Bundle savedInstanceState) {
         toolbar = view.findViewById(R.id.toolbar);
-        toolbar.setPadding(0, SysUtils.getInstance().getStatusHeight(), 0, 0);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.arrow_left_black);
         frameLayout = view.findViewById(R.id.fl_content);

@@ -45,8 +45,22 @@ public class SchoolRepository extends BaseRepository {
         return schoolListLiveData;
     }
 
-    public LiveData<School> getSchoolById(String schoolId) {
-
+    public LiveData<School> getSchoolById(final String schoolId) {
+        String studId = "26";
+        Observable<ApiModel<School>> observable = httpUtils.convert(httpUtils.create(SchoolApi.class).getSchoolById(schoolId, studId),
+                new Consumer<ApiModel<School>>() {
+                    @Override
+                    public void accept(ApiModel<School> apiModel) {
+                        httpUtils.addCache(School.class, apiModel.getCacheTime());
+                        roomUtils.schoolDao().insertColleges(apiModel.getData());
+                    }
+                });
+        httpUtils.request(schoolLiveData, new SubscribeObj<School>() {
+            @Override
+            protected School queryLocal() {
+                return roomUtils.schoolDao().querySchoolById(schoolId);
+            }
+        }, observable);
         return schoolLiveData;
     }
 
