@@ -63,6 +63,7 @@
     <dimen name="px_420">420px</dimen>
     <dimen name="px_450">450px</dimen>
     <dimen name="px_460">460px</dimen>
+    <dimen name="px_470">470px</dimen>
     <dimen name="px_480">480px</dimen>
     <dimen name="px_500">500px</dimen>
     <dimen name="px_530">530px</dimen>

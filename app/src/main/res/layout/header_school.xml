@@ -18,7 +18,6 @@
             imageUrl="@{school.coverRealPath}"
             android:layout_width="match_parent"
             android:layout_height="@dimen/px_550"
-            android:background="@android:color/holo_red_light"
             android:scaleType="fitXY" />
 
         <ImageView
@@ -27,8 +26,7 @@
             android:layout_width="@dimen/px_180"
             android:layout_height="@dimen/px_180"
             android:layout_marginStart="@dimen/px_50"
-            android:layout_marginTop="@dimen/px_460"
-            android:background="@android:color/holo_green_light" />
+            android:layout_marginTop="@dimen/px_470" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,9 +42,18 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:text="@{school.school_name}"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/px_40" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:text="@{school.address}"
                 android:textColor="@android:color/darker_gray"
-                android:textSize="@dimen/px_40" />
+                android:textSize="@dimen/px_35" />
 
             <com.zhy.view.flowlayout.TagFlowLayout
                 android:id="@+id/flowLayout"

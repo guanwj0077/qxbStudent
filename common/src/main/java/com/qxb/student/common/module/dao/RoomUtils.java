@@ -6,6 +6,7 @@ import android.arch.persistence.room.RoomDatabase;
 
 import com.qxb.student.common.module.bean.School;
 import com.qxb.student.common.module.bean.SysAd;
+import com.qxb.student.common.module.bean.User;
 import com.qxb.student.common.module.bean.tab.HttpCache;
 import com.qxb.student.common.utils.ContextUtils;
 import com.qxb.student.common.utils.Singleton;
@@ -15,7 +16,14 @@ import com.qxb.student.common.utils.Singleton;
  *
  * @author winky
  */
-@Database(entities = {HttpCache.class, School.class, SysAd.class}, version = 1, exportSchema = false)
+@Database(
+        version = 1,
+        exportSchema = false,
+        entities = {
+                HttpCache.class,
+                User.class,
+                School.class,
+                SysAd.class})
 public abstract class RoomUtils extends RoomDatabase {
 
     private static final String DATABASE_NAME = "qxb.db";
@@ -51,4 +59,10 @@ public abstract class RoomUtils extends RoomDatabase {
      * @return SchoolDao
      */
     public abstract SysAdDao sysAdDao();
+
+    /**
+     * 获取用户操作
+     * @return UserDao
+     */
+    public abstract UserDao userDao();
 }

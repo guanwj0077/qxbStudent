@@ -1,5 +1,9 @@
 package com.qxb.student.common;
 
+import com.qxb.student.common.module.bean.School;
+import com.qxb.student.common.module.bean.SysAd;
+import com.qxb.student.common.module.bean.tab.HttpCache;
+
 /**
  * created on: 2018/7/19 15:28
  * description:
@@ -29,4 +33,5 @@ public class Constant {
      * 跳转学校id
      */
     public static final String NAV_SCHOOL_ID = "nav_school_id";
+
 }

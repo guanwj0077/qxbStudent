@@ -10,6 +10,10 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
+/**
+ * 用户资料
+ * @author caiZong
+ */
 public interface UserApi {
 
     /**

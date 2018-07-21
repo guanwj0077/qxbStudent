@@ -1,5 +1,7 @@
 package com.qxb.student.ui.mine;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,11 +25,14 @@ import com.qxb.student.common.Config;
 import com.qxb.student.common.Constant;
 import com.qxb.student.common.basics.AbsExpandFragment;
 import com.qxb.student.common.listener.MultiClickUtil;
+import com.qxb.student.common.module.bean.User;
 import com.qxb.student.common.utils.CommonUtils;
+import com.qxb.student.common.utils.NavigationUtils;
 import com.qxb.student.common.utils.SharedUtils;
 import com.qxb.student.common.utils.dialog.ToastUtils;
 import com.qxb.student.common.view.ClearEditText;
 import com.qxb.student.common.view.InputMethodRelativeLayout;
+import com.qxb.student.control.LoginControl;
 
 import java.util.prefs.Preferences;
 
@@ -41,6 +46,7 @@ public class LoginFragment extends AbsExpandFragment {
     private TextView tv_protocol;
     private RelativeLayout re;
     private String phone, password;
+    private LoginControl loginControl;
 
     @Override
     public int bindLayout() {
@@ -49,6 +55,7 @@ public class LoginFragment extends AbsExpandFragment {
 
     @Override
     public void init(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        loginControl = ViewModelProviders.of(getFragment()).get(LoginControl.class);
         ed_phone = findViewById(R.id.ed_phone);
         ed_psw = findViewById(R.id.ed_psw);
         checkBox = findViewById(R.id.checkBox);
@@ -91,19 +98,24 @@ public class LoginFragment extends AbsExpandFragment {
                         //登录
                         phone = ed_phone.getText().toString().trim();
                         password = ed_psw.getText().toString().trim();
-                        if(TextUtils.isEmpty(phone)){
-                            ToastUtils.toast(getActivity(),getString(R.string.yhmbnwk));
+                        if (TextUtils.isEmpty(phone)) {
+                            ToastUtils.toast(getActivity(), getString(R.string.yhmbnwk));
                             return;
-                        }else if (CommonUtils.rightPhone(phone)){
-                            ToastUtils.toast(getActivity(),getString(R.string.qsrzqdyhm));
+                        } /*else if (CommonUtils.rightPhone(phone)) {
+                            ToastUtils.toast(getActivity(), getString(R.string.qsrzqdyhm));
                             return;
-                        }
-                        if (TextUtils.isEmpty(password)){
-                            ToastUtils.toast(getActivity(),getString(R.string.mmgsbzq));
+                        }*/
+                        if (TextUtils.isEmpty(password)) {
+                            ToastUtils.toast(getActivity(), getString(R.string.mmgsbzq));
                             return;
                         }
                         hideInputMethod(getActivity());
-
+                        loginControl.login(phone, password).observe(LoginFragment.this, new Observer<User>() {
+                            @Override
+                            public void onChanged(@Nullable User user) {
+                                NavigationUtils.getInstance().goBack(getFragment());
+                            }
+                        });
                         break;
                     case R.id.look:
                         //去看看

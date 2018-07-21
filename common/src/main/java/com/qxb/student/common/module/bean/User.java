@@ -4,7 +4,12 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity(tableName = "tb_user")
+/**
+ * 用户信息
+ *
+ * @author winky
+ */
+@Entity(tableName = "User")
 public class User {
     @Ignore
     public static final String TAG = User.class.getSimpleName();
@@ -14,6 +19,7 @@ public class User {
     private String city;
     private String city_name;
     private int gaokaofen;
+    @PrimaryKey
     private int id;
     private int login_number;
     private long login_time;
@@ -24,12 +30,18 @@ public class User {
     private String password;
     private String pic;
     private String picRealPath;
-    /*省份编码*/
+    /**
+     * 省份编码
+     */
     private String province;
-    /*省份名称*/
+    /**
+     * 省份名称
+     */
     private String province_name;
     private String baominghao;
-    /*高中学校名*/
+    /**
+     * 高中学校名
+     */
     private String highschool_name;
     private String ticketno;
     private String address;
@@ -37,7 +49,6 @@ public class User {
     private String sex;
     private int status;
     private String subject;
-    @PrimaryKey
     private String telphone;
     private String tonken;
     private int total;

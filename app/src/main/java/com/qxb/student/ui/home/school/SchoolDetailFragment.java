@@ -46,24 +46,25 @@ public class SchoolDetailFragment extends AbsExpandFragment {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.arrow_left_black);
-//        toolbar.setBackgroundResource(android.R.color.transparent);
+        toolbar.setBackgroundResource(android.R.color.transparent);
+
         SchoolControl schoolControl = ViewModelProviders.of(getFragment()).get(SchoolControl.class);
         String schoolId = getStringExtra(Constant.NAV_SCHOOL_ID);
         if (validate(schoolId)) {
             return;
         }
         binding = DataBindingUtil.bind(view);
-        binding.appBarLayout.setExpanded(true);
         binding.viewPager.setAdapter(new FragmentAdapter(getChildFragmentManager(), Arrays.asList(
                 new SchoolIntroFragment().setTitle(getString(R.string.school_intro)),
                 new SchoolRecruitMajorFragment().setTitle(getString(R.string.school_major))
         )));
+//        binding.tabLayout.setupWithViewPager(binding.viewPager);
         binding.viewPager.setCurrentItem(0);
-        binding.tabLayout.setupWithViewPager(binding.viewPager);
         schoolControl.getSchoolById(schoolId).observe(this, new Observer<School>() {
             @Override
             public void onChanged(@Nullable School school) {
                 binding.setSchool(school);
+                binding.includeHeader.setSchool(school);
                 toolbar.setTitle(school.getSchool_name());
             }
         });

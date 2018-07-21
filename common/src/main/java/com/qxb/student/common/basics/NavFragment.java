@@ -73,8 +73,10 @@ public class NavFragment extends Fragment implements NavHost {
             if (navId != 0) {
                 navGraph.setStartDestination(navId);
             }
-            NavDestination destination = navGraph.findNode(navId);
-            destination.setDefaultArguments(navAttr.getBundle());
+            NavDestination destination = navGraph.findNode(navGraph.getStartDestination());
+            if (destination != null && navAttr.getBundle() != null) {
+                destination.setDefaultArguments(navAttr.getBundle());
+            }
             mNavController.setGraph(navGraph);
         } else {
             mNavController.setMetadataGraph();
