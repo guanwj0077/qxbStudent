@@ -7,9 +7,12 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.qxb.student.R;
+import com.qxb.student.common.adapter.FragmentAdapter;
 import com.qxb.student.common.basics.AbsExpandFragment;
 import com.qxb.student.common.view.Toolbar;
 import com.qxb.student.databinding.FragmentBanKaoNewsBinding;
+
+import java.util.Arrays;
 
 /**
  * 伴考
@@ -23,6 +26,7 @@ public class BanKaoNewsFragment extends AbsExpandFragment {
         return R.layout.fragment_ban_kao_news;
     }
 
+    @Nullable
     private FragmentBanKaoNewsBinding binding;
     private Toolbar toolbar;
 
@@ -32,6 +36,14 @@ public class BanKaoNewsFragment extends AbsExpandFragment {
         setSupportActionBar(toolbar);
         toolbar.setBackgroundResource(android.R.color.transparent);
         binding = DataBindingUtil.bind(view);
+        binding.viewPager.setAdapter(new FragmentAdapter(getChildFragmentManager(), Arrays.asList(
+                new BanKaoListFragment().setTitle("123"),
+                new BanKaoListFragment().setTitle("456"),
+                new BanKaoListFragment().setTitle("789"),
+                new BanKaoListFragment().setTitle("aaa"),
+                new BanKaoListFragment().setTitle("bbb")
+        )));
+        binding.tabLayout.setupWithViewPager(binding.viewPager, false);
 
     }
 

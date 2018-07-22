@@ -42,6 +42,7 @@ public class MineFragment extends AbsExpandFragment {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setBackgroundResource(android.R.color.transparent);
+        toolbar.setTitle(getString(R.string.main_mine));
         ExtendRecyclerView recyclerView = findViewById(R.id.recyclerView);
         headerMineBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.header_mine, null, false);
         findViewById(R.id.img).setOnClickListener(clickListener);

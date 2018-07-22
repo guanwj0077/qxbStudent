@@ -4,6 +4,7 @@ import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.User;
 import com.qxb.student.common.utils.Encrypt;
 import com.qxb.student.common.utils.Logger;
+import com.qxb.student.common.utils.UserCache;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -39,11 +40,11 @@ public class AuthInterceptor implements Interceptor {
         }
         if (request.method().equals(POST)) {
             if (Config.CUSTOM.equals(request.header(Config.AUTH))) {
-//                User user = UserCache.getInstance().getUser();
-//                if (user != null) {
-                builder.addHeader(AUTHORIZATION, custom(null));
-                handle(builder, request.body(), null);
-//                }
+                User user = UserCache.getInstance().getUser();
+                if (user != null) {
+                    builder.addHeader(AUTHORIZATION, custom(null));
+                    handle(builder, request.body(), null);
+                }
             } else if (Config.COMMON.equals(request.header(Config.AUTH))) {
                 builder.addHeader(AUTHORIZATION, Config.AUTH_COMMON_SECRET);
 

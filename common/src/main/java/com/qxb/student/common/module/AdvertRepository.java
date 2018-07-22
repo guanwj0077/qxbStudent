@@ -4,7 +4,6 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.qxb.student.common.Constant;
-import com.qxb.student.common.http.PostApiConsumer;
 import com.qxb.student.common.http.SubscribeObj;
 import com.qxb.student.common.module.api.AdvertApi;
 import com.qxb.student.common.module.api.SysAdApi;
@@ -34,16 +33,16 @@ public class AdvertRepository extends BaseRepository {
     public LiveData<String> getLiveHomeAd() {
         ApiModel apiModel = ApiModel.parse((String) sharedUtils.get(AD_LIVE_HOME, ""));
         if (apiModel == null || apiModel.getCacheTime() < System.currentTimeMillis()) {
-            Disposable disposable = httpUtils.convert(httpUtils.create(AdvertApi.class).getLiveHomeAd(),
-                    new Consumer<ApiModel<String>>() {
-                        @Override
-                        public void accept(ApiModel<String> apiModel) {
-                            if (apiModel.getCode() == 1) {
-                                apiModel.setCacheTime(apiModel.getCacheTime() * 1000 + System.currentTimeMillis());
-                                sharedUtils.put(AD_LIVE_HOME, apiModel.toString());
-                            }
-                        }
-                    }).subscribe(new PostApiConsumer<>(adHomeLive));
+            Disposable disposable = httpUtils.convert(httpUtils.create(AdvertApi.class).getLiveHomeAd()).subscribe(new Consumer<ApiModel<String>>() {
+                @Override
+                public void accept(ApiModel<String> apiModel) {
+                    if (apiModel.getCode() == 1) {
+                        apiModel.setCacheTime(apiModel.getCacheTime() * 1000 + System.currentTimeMillis());
+                        sharedUtils.put(AD_LIVE_HOME, apiModel.toString());
+                        adHomeLive.postValue(apiModel.getData());
+                    }
+                }
+            });
             httpUtils.addDisposable(disposable);
         } else {
             adHomeLive.setValue(apiModel.getData().toString());

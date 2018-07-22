@@ -85,24 +85,34 @@ public class HttpUtils {
     public <T> void request(MutableLiveData<T> mutableLiveData, SubscribeObj<T> obj, Observable<ApiModel<T>> observable) {
         Disposable disposable = Observable.create(obj)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(new PostConsumer<>(mutableLiveData))
+                .observeOn(Schedulers.io())
+//                .doOnNext(new PostConsumer<>(mutableLiveData))
                 .doOnComplete(new HttpResponse<>(observable, mutableLiveData)).subscribe();
         addDisposable(disposable);
     }
 
+    public <T> Observable<ApiModel<T>> convert(Observable<ApiModel<T>> observable) {
+        return this.convert(observable, new Consumer<ApiModel<T>>() {
+            @Override
+            public void accept(ApiModel<T> apiModel) {
+
+            }
+        });
+    }
+
     /**
      * 请求转换
+     *
      * @param observable 网络请求
-     * @param async 异步执行，处理本地数据
-     * @param <T> 数据模型
+     * @param async      异步执行，处理本地数据
+     * @param <T>        数据模型
      * @return observable
      */
-    public <T> Observable<ApiModel<T>> convert(Observable<ApiModel<T>> observable, Consumer<ApiModel<T>> async) {
+    public <T> Observable<ApiModel<T>> convert(Observable<ApiModel<T>> observable, @NonNull Consumer<ApiModel<T>> async) {
         return observable
                 .subscribeOn(Schedulers.io())
                 .doOnNext(async)
-                .observeOn(AndroidSchedulers.mainThread());
+                .observeOn(Schedulers.io());
     }
 
     /**

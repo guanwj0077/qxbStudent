@@ -11,6 +11,7 @@ import io.reactivex.functions.Consumer;
 
 /**
  * 执行网络请求
+ * @author winky
  */
 public class HttpResponse<T> implements Action {
 
@@ -24,6 +25,6 @@ public class HttpResponse<T> implements Action {
 
     @Override
     public void run() {
-        Disposable disposable = observable.subscribe(new PostApiConsumer<>(mutableLiveData));
+        HttpUtils.getInstance().addDisposable(observable.subscribe(new PostApiConsumer<>(mutableLiveData)));
     }
 }

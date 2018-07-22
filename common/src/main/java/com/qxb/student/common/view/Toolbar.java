@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
@@ -62,6 +63,38 @@ public class Toolbar extends android.support.v7.widget.Toolbar {
                 }
             }
         });
+
+        AppBarLayout appBarLayout = getAppBarLayout();
+        if (appBarLayout != null) {
+            appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+                @Override
+                public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
+                    if (mTitleTextView != null) {
+                        mTitleTextView.setVisibility(i > -300 ? View.GONE : View.VISIBLE);
+                    }
+                }
+            });
+        }
+    }
+
+    private AppBarLayout getAppBarLayout() {
+        AppBarLayout appBarLayout = null;
+        View view = (View) getParent();
+        if (view == null) {
+            return null;
+        }
+        while (true) {
+            if (view instanceof AppBarLayout) {
+                appBarLayout = (AppBarLayout) view;
+                break;
+            } else {
+                view = (View) view.getParent();
+                if (view == null) {
+                    break;
+                }
+            }
+        }
+        return appBarLayout;
     }
 
     @Override
