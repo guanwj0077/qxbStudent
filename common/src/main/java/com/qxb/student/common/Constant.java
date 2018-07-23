@@ -1,9 +1,5 @@
 package com.qxb.student.common;
 
-import com.qxb.student.common.module.bean.School;
-import com.qxb.student.common.module.bean.SysAd;
-import com.qxb.student.common.module.bean.tab.HttpCache;
-
 /**
  * created on: 2018/7/19 15:28
  * description:
@@ -28,6 +24,22 @@ public class Constant {
      * share  为数据存取用
      * intent 为传值用
      */
+
+    public static final String WEN_KE="文科";
+    public static final String LIKE="理科";
+    public static final String YISHU_WENKE="艺术文科";
+    public static final String YISHU_LIKE="艺术理科";
+    public static final String MAN="男";
+    public static final String WOMEN="女";
+
+    public static final int ZERO=0;
+    public static final int ONE=1;
+    public static final int TWO=2;
+    public static final int THREE=3;
+    public static final int FOUR=4;
+
+
+
     public static final String SHARE_PHONE = "share_phone";
     /**
      * 跳转学校id

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context=".ui.LoginCorrelation.TwoPolishingFragment">
+
+    <include layout="@layout/view_toolbar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_70"
+            android:layout_marginRight="@dimen/px_70"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px_110"
+                android:text="@string/ndgdcj"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/px_40"/>
+
+            <com.qxb.student.common.view.ClearEditText
+                android:id="@+id/ed_fs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px_40"
+                android:background="@drawable/blxx_one_bg"
+                android:digits="0123456789"
+                android:gravity="center_vertical|left"
+                android:hint="@string/djtxzhouycdcj"
+                android:inputType="number"
+                android:maxLength="3"
+                android:padding="@dimen/px_40"
+                android:textColor="@android:color/black"
+                android:textColorHint="#808080"
+                android:textSize="@dimen/px_40"
+                android:windowSoftInputMode="adjustResize"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px_70"
+                android:text="@string/nbkdkms"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/px_40"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px_40"
+                android:orientation="horizontal">
+
+                <CheckedTextView
+                    android:id="@+id/check_tv1"
+                    style="@style/radioBtn"
+                    android:layout_marginEnd="@dimen/px_15"
+                    android:layout_marginStart="@dimen/px_15"
+                    android:checked="true"
+                    android:text="@string/wenke"
+                    android:textAlignment="center"
+                    />
+
+                <CheckedTextView
+                    android:id="@+id/check_tv2"
+                    style="@style/radioBtn"
+                    android:layout_marginEnd="@dimen/px_15"
+                    android:layout_marginStart="@dimen/px_15"
+                    android:text="@string/like"
+                    android:textAlignment="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px_25"
+                android:orientation="horizontal">
+
+
+                <CheckedTextView
+                    android:id="@+id/check_tv3"
+                    style="@style/radioBtn"
+                    android:layout_marginEnd="@dimen/px_15"
+                    android:layout_marginStart="@dimen/px_15"
+                    android:text="@string/yswk"
+                    android:textAlignment="center"/>
+
+                <CheckedTextView
+                    android:id="@+id/check_tv4"
+                    style="@style/radioBtn"
+                    android:layout_marginEnd="@dimen/px_15"
+                    android:layout_marginStart="@dimen/px_15"
+                    android:text="@string/yslk"
+                    android:textAlignment="center"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/btn_result"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px_120"
+                android:layout_marginLeft="@dimen/px_50"
+                android:layout_marginRight="@dimen/px_50"
+                android:layout_marginTop="@dimen/px_240"
+                android:background="@drawable/blxx_ine_button_bg"
+                android:gravity="center"
+                android:text="@string/next"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/px_45"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

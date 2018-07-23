@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="img_show_select" type="id">false</item>
+    <item name="check_tv1" type="id"/>
+    <item name="check_tv2" type="id"/>
+    <item name="check_tv3" type="id"/>
+    <item name="check_tv4" type="id"/>
+
+
+</resources>

@@ -8,4 +8,20 @@
     <string name="yhmbnwk">用户名不能为空！</string>
     <string name="mmgsbzq">密码格式不正确！</string>
     <string name="qsrzqdyhm">请输入正确的用户名!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hfnyfz">接下来可能会花费您1分钟时间，我们\n需要了解一下您的基本情况。</string>
+    <string name="djtxxm">点击填写姓名</string>
+    <string name="nxzzngzxjdl">您现在哪个高中就读呢？</string>
+    <string name="ndzsxm">您的真实姓名？</string>
+    <string name="next">Next</string>
+    <string name="ndgdcj">您大概的成绩？</string>
+    <string name="djtxzhouycdcj">点击填写最近一次考试的分数</string>
+    <string name="nbkdkms">您的报考科目是？</string>
+    <string name="wenke">文科</string>
+    <string name="like">理科</string>
+    <string name="yswk">艺术文科</string>
+    <string name="yslk">艺术理科</string>
+    <string name="ninshi">您是？</string>
 </resources>

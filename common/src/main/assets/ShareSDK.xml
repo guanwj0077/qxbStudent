@@ -119,11 +119,13 @@
 		Enable="true" />
 
 	<!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
+	<!--AppId="1105228887"
+		AppKey="oQCUUz65kiTTIXdG"-->
 	<QQ
 		Id="1"
 		SortId="1"
-		AppId="1105228887"
-		AppKey="oQCUUz65kiTTIXdG"
+		AppId="101427838"
+		AppKey="3dd6894f58041da5fb666a659a288765"
 		ShareByAppClient="true"
 		Enable="true" />
 

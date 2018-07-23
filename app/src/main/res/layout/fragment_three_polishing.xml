@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="vertical"
+             tools:context=".ui.LoginCorrelation.ThreePolishingFragment">
+
+    <include layout="@layout/view_toolbar"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/px_70"
+            android:layout_marginRight="@dimen/px_70">
+            <TextView
+                android:layout_marginTop="@dimen/px_70"
+                android:textSize="@dimen/px_40"
+                android:textColor="@android:color/black"
+                android:text="@string/ninshi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <RadioGroup
+                android:id="@+id/rg"
+                android:layout_marginTop="@dimen/px_50"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/girl"
+                    android:checked="true"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/checked_girl"/>
+                <RadioButton
+                    android:id="@+id/boy"
+                    android:button="@null"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/checked_boy"/>
+
+            </RadioGroup>
+            <LinearLayout
+                android:layout_marginTop="@dimen/px_15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="萌妹子"
+                    android:gravity="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/px_40"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="真汉子"
+                    android:gravity="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/px_40"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginTop="@dimen/px_80"
+                android:textSize="@dimen/px_40"
+                android:textColor="@android:color/black"
+                android:text="预计在哪一年参加高考？"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px_40"
+                android:orientation="horizontal">
+
+                <CheckedTextView
+                    android:id="@id/check_tv1"
+                    style="@style/radioBtn"
+
+                    android:checked="true"
+                    android:layout_marginEnd="@dimen/px_15"
+                    android:layout_marginStart="@dimen/px_15"
+                    android:textAlignment="center"
+                    />
+
+                <CheckedTextView
+                    android:id="@id/check_tv2"
+                    style="@style/radioBtn"
+                    android:layout_marginEnd="@dimen/px_15"
+                    android:layout_marginStart="@dimen/px_15"
+                    android:textAlignment="center" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px_30"
+                android:orientation="horizontal">
+
+
+                <CheckedTextView
+                    android:id="@id/check_tv3"
+                    style="@style/radioBtn"
+                    android:layout_marginEnd="@dimen/px_15"
+                    android:layout_marginStart="@dimen/px_15"
+                    android:textAlignment="center" />
+
+                <CheckedTextView
+                    android:id="@id/check_tv4"
+                    style="@style/radioBtn"
+                    android:layout_marginEnd="@dimen/px_15"
+                    android:layout_marginStart="@dimen/px_15"
+                    android:textAlignment="center" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/btn_result"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px_120"
+                android:layout_marginLeft="@dimen/px_50"
+                android:layout_marginRight="@dimen/px_50"
+                android:layout_marginTop="@dimen/px_240"
+                android:background="@drawable/blxx_ine_button_bg"
+                android:gravity="center"
+                android:text="@string/next"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/px_45"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

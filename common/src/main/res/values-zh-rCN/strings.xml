@@ -10,9 +10,7 @@
     <string name="main_chat">消息</string>
     <string name="main_info">伴考</string>
     <string name="main_mine">我的</string>
-    <string name="school_intro">简介</string>
-    <string name="school_major">专业</string>
-    <string name="school_conduct">简章</string>
+
     <string name="com_add">添加</string>
     <string name="hint_exit">再返回一次退出程序</string>
 
@@ -33,6 +31,36 @@
 
     <string name="mine">我的</string>
     <string name="immediately_login">立即登录</string>
+    <string name="select_college">请选择高中</string>
+    <string name="msg_tip">提示信息</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    <string name="prompt">提示</string>
+    <string name="zhuce_judge">请填写真实信息，填写后不可修改</string>
+
+    <string name="tv_ljwssjf">立即完善得积分</string>
+    <string name="tv_wdqxda">我的求学档案</string>
+    <string name="tv_wtx">未填写</string>
+    <string name="tv_wdcj">我的成绩</string>
+    <string name="qkankan">去看看</string>
+    <string name="yhmbnwk">用户名不能为空！</string>
+    <string name="mmgsbzq">密码格式不正确！</string>
+    <string name="qsrzqdyhm">请输入正确的用户名!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hfnyfz">接下来可能会花费您1分钟时间，我们\n需要了解一下您的基本情况。</string>
+    <string name="djtxxm">点击填写姓名</string>
+    <string name="nxzzngzxjdl">您现在哪个高中就读呢？</string>
+    <string name="ndzsxm">您的真实姓名？</string>
+    <string name="next">Next</string>
+    <string name="ndgdcj">您大概的成绩？</string>
+    <string name="djtxzhouycdcj">点击填写最近一次考试的分数</string>
+    <string name="nbkdkms">您的报考科目是？</string>
+    <string name="wenke">文科</string>
+    <string name="like">理科</string>
+    <string name="yswk">艺术文科</string>
+    <string name="yslk">艺术理科</string>
 
     <string name="hint_not_describe">暂无描述</string>
 
@@ -50,5 +78,14 @@
     <string name="bzyfk">帮助与反馈</string>
     <string name="gywm">关于我们</string>
     <string name="yqhylkmd">邀请好友，立刻免单</string>
+    <string name="school_intro">简介</string>
+    <string name="school_major">专业</string>
 
+
+
+    <string name="userid_found">用户信息已存在，正在跳转登录操作…</string>
+    <string name="logining">使用%s帐号登录中…</string>
+    <string name="auth_cancel">授权操作已取消</string>
+    <string name="auth_error">授权操作遇到错误，请阅读Logcat输出</string>
+    <string name="auth_complete">授权成功，正在跳转登录操作…</string>
 </resources>

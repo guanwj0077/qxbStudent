@@ -1,5 +1,7 @@
 package com.qxb.student.ui.mine;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,13 +13,16 @@ import android.widget.Toast;
 import com.qxb.student.R;
 import com.qxb.student.common.basics.AbsExpandFragment;
 import com.qxb.student.common.listener.MultiClickUtil;
+import com.qxb.student.common.module.bean.User;
 import com.qxb.student.common.module.bean.attr.NavAttr;
 import com.qxb.student.common.utils.NavigationUtils;
+import com.qxb.student.common.utils.UserCache;
 import com.qxb.student.common.view.Toolbar;
 import com.qxb.student.common.view.recycler.ExtendRecyclerView;
 import com.qxb.student.common.view.recycler.ViewHolder;
 import com.qxb.student.common.view.recycler.adapter.QuickAdapter;
 import com.qxb.student.common.view.recycler.listener.OnItemClickListener;
+import com.qxb.student.control.LoginControl;
 import com.qxb.student.databinding.HeaderMineBinding;
 import com.qxb.student.type.MineItem;
 
@@ -31,7 +36,8 @@ public class MineFragment extends AbsExpandFragment {
     private QuickAdapter<MineItem> adapter;
     private HeaderMineBinding headerMineBinding;
     private Toolbar toolbar;
-
+    private LoginControl mLoginControl;
+    private User mUser;
     @Override
     public int bindLayout() {
         return R.layout.fragment_test;
@@ -62,6 +68,19 @@ public class MineFragment extends AbsExpandFragment {
         };
         recyclerView.setAdapter(adapter);
         adapter.setItemClickListener(itemClickListener);
+        mLoginControl= ViewModelProviders.of(getActivity()).get(LoginControl.class);
+        if ( mLoginControl.getUserLiveData()!=null){
+        mLoginControl.getUserLiveData().observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(@Nullable User user) {
+                showUserData();
+            }
+        });}
+    }
+
+
+
+    private void showUserData() {
     }
 
     private OnItemClickListener itemClickListener = new OnItemClickListener() {

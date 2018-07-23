@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import com.qxb.student.common.Constant;
 import com.qxb.student.common.listener.IBinding;
 import com.qxb.student.common.utils.NavigationUtils;
+import com.qxb.student.common.utils.dialog.DialogUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.Objects;
@@ -35,7 +36,7 @@ public abstract class BaseFragment extends HolderFragment implements IBinding {
     private WeakReference<Fragment> weakReference = null;
     private View contentView;
     private String title;
-
+    public DialogUtils mWaitingDialog;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -47,6 +48,7 @@ public abstract class BaseFragment extends HolderFragment implements IBinding {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.contentView = inflater.inflate(bindLayout(), container, false);
         init(contentView, savedInstanceState);
+        mWaitingDialog = new DialogUtils(getActivity());
         return contentView;
     }
 
@@ -139,5 +141,17 @@ public abstract class BaseFragment extends HolderFragment implements IBinding {
         }
     }
 
+    public void showWaitingDialog() {
+        if (mWaitingDialog == null) {
+            mWaitingDialog = new DialogUtils(getActivity());
+        }
+        mWaitingDialog.show();
+        mWaitingDialog.title.setVisibility(View.GONE);
+    }
 
+    public void dissWaitingDialog() {
+        if (mWaitingDialog != null) {
+            mWaitingDialog.dismiss();
+        }
+    }
 }

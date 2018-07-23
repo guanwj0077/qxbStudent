@@ -46,6 +46,9 @@ public class UserCache {
         weakReference.clear();
         weakReference = null;
     }
+   // public int getUserInfoCondition()
+
+
 
 
 }

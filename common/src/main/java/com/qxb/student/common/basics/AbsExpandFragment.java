@@ -9,8 +9,6 @@ import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-import static android.content.Context.INPUT_METHOD_SERVICE;
-
 /**
  * 预留扩展
  *

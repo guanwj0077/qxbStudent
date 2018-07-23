@@ -4,13 +4,12 @@ import android.annotation.SuppressLint;
 import android.support.v4.app.FragmentManager;
 
 /**
- * author: zjk9527
  * created on: 2018/7/12 17:54
  * description:
+ * @author Administrator
  */
 public class DialogManager {
     private LoadingFragment loadingDialogFragment;
-    //用来控制是否显示dialog
     private boolean isShowing = false;
 
     public DialogManager(){
