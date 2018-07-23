@@ -86,7 +86,7 @@ public class HttpUtils {
         Disposable disposable = Observable.create(obj)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
-//                .doOnNext(new PostConsumer<>(mutableLiveData))
+                .doOnNext(new PostConsumer<>(mutableLiveData))
                 .doOnComplete(new HttpResponse<>(observable, mutableLiveData)).subscribe();
         addDisposable(disposable);
     }
