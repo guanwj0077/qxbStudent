@@ -36,4 +36,19 @@
 
     <string name="hint_not_describe">暂无描述</string>
 
+
+    <string name="yqm">邀请码</string>
+    <string name="yhm">优惠码</string>
+    <string name="wdsc">我的收藏</string>
+    <string name="bmddx">报名的大学</string>
+    <string name="wddd">我的订单</string>
+    <string name="wdzyb">我的志愿表</string>
+    <string name="wdzxk">我的助学卡</string>
+    <string name="rjgx">软件更新</string>
+    <string name="ywtzkf">有问题找客服</string>
+    <string name="sybz">使用帮助</string>
+    <string name="bzyfk">帮助与反馈</string>
+    <string name="gywm">关于我们</string>
+    <string name="yqhylkmd">邀请好友，立刻免单</string>
+
 </resources>
