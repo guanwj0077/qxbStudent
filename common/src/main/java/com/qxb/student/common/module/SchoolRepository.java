@@ -3,12 +3,16 @@ package com.qxb.student.common.module;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
+import com.qxb.student.common.Config;
 import com.qxb.student.common.http.PostApiConsumer;
 import com.qxb.student.common.http.PostConsumer;
 import com.qxb.student.common.http.SubscribeObj;
 import com.qxb.student.common.module.api.SchoolApi;
+import com.qxb.student.common.module.api.SchoolNewsApi;
 import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.School;
+import com.qxb.student.common.module.bean.SchoolNews;
+import com.qxb.student.common.module.bean.SchoolVideo;
 
 import java.util.List;
 
@@ -25,6 +29,8 @@ public class SchoolRepository extends BaseRepository {
 
     private MutableLiveData<List<School>> schoolListLiveData = new MutableLiveData<>();
     private MutableLiveData<School> schoolLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<SchoolVideo>> schoolVideoLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<SchoolNews>> schoolNewsLiveData = new MutableLiveData<>();
 
     public LiveData<List<School>> getSchoolLiveData() {
         String province = "420000";
@@ -62,6 +68,32 @@ public class SchoolRepository extends BaseRepository {
             }
         }, observable);
         return schoolLiveData;
+    }
+
+    public LiveData<List<SchoolVideo>> getSchoolVideoList(String schoolId, String rows, String page) {
+        httpUtils.convert(httpUtils.create(SchoolApi.class).schoolVideoList(schoolId, rows, page),
+                new Consumer<ApiModel<List<SchoolVideo>>>() {
+                    @Override
+                    public void accept(ApiModel<List<SchoolVideo>> apiModel) {
+                        if (apiModel.getCode() == Config.HTTP_SUCCESS) {
+                            schoolVideoLiveData.postValue(apiModel.getData());
+                        }
+                    }
+                }).subscribe();
+        return schoolVideoLiveData;
+    }
+
+    public LiveData<List<SchoolNews>> getSchoolNews(String schoolId, String type, String title, String page) {
+        httpUtils.convert(httpUtils.create(SchoolNewsApi.class).getSchoolNewslist(schoolId, type, title, page),
+                new Consumer<ApiModel<List<SchoolNews>>>() {
+                    @Override
+                    public void accept(ApiModel<List<SchoolNews>> apiModel) {
+                        if (apiModel.getCode() == Config.HTTP_SUCCESS) {
+                            schoolNewsLiveData.postValue(apiModel.getData());
+                        }
+                    }
+                }).subscribe();
+        return schoolNewsLiveData;
     }
 
     @Override

@@ -20,7 +20,7 @@ public class SchoolNews{
     private int type;
     
 	/** 创建时间 */
-    private Date create_time;
+    private long create_time;
     
 	/** 排序 */
     private int order;
@@ -116,23 +116,27 @@ public class SchoolNews{
 	public void setType(int type) {
 		this.type = type;
 	}
-	/**
-	 * 获取创建时间
-	 */
-	public Date getCreate_time() {
-		return create_time;
-	}
-	
+
 	public String getCreate_timeString() {
 		return create_timeString;
 	}
 
-	/**
-	 * 设置创建时间
-	 */
-	public void setCreate_time(Date create_time) {
+	public long getCreate_time() {
+		return create_time;
+	}
+
+	public void setCreate_time(long create_time) {
 		this.create_time = create_time;
 	}
+
+	public void setCreate_timeString(String create_timeString) {
+		this.create_timeString = create_timeString;
+	}
+
+	public void setImageRealPath(String imageRealPath) {
+		this.imageRealPath = imageRealPath;
+	}
+
 	/**
 	 * 获取排序
 	 */

@@ -10,9 +10,13 @@
     <string name="main_chat">消息</string>
     <string name="main_info">伴考</string>
     <string name="main_mine">我的</string>
+    <string name="school_major">录取</string>
     <string name="school_intro">简介</string>
-    <string name="school_major">专业</string>
-    <string name="school_conduct">简章</string>
+    <string name="school_conduct">招生简章</string>
+    <string name="school_summary">学校简介</string>
+    <string name="school_fee_scholarship">学费与奖金</string>
+    <string name="school_life">校园生活</string>
+
     <string name="com_add">添加</string>
     <string name="hint_exit">再返回一次退出程序</string>
 
@@ -28,8 +32,10 @@
     <string name="hint_push_msg">推送通知</string>
     <string name="hint_no_msg">暂无消息</string>
     <string name="hint_consultation">咨询</string>
-    <string name="hint_sign_up">报名</string>
+    <string name="hint_sign_up">预报名</string>
+    <string name="hint_sign_on">已报名</string>
     <string name="hint_concern">关注</string>
+    <string name="hint_look_more">查看更多</string>
 
     <string name="mine">我的</string>
     <string name="immediately_login">立即登录</string>

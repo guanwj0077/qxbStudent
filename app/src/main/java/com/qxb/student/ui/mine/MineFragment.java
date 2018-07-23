@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
@@ -41,8 +42,8 @@ public class MineFragment extends AbsExpandFragment {
     public void init(@NonNull View view, @Nullable Bundle savedInstanceState) {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setBackgroundResource(android.R.color.transparent);
         toolbar.setTitle(getString(R.string.main_mine));
+        toolbar.setAppBarLayout((AppBarLayout) findViewById(R.id.appBarLayout), true);
         ExtendRecyclerView recyclerView = findViewById(R.id.recyclerView);
         headerMineBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.header_mine, null, false);
         findViewById(R.id.img).setOnClickListener(clickListener);

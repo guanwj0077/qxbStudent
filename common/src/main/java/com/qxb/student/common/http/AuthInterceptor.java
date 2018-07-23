@@ -62,18 +62,21 @@ public class AuthInterceptor implements Interceptor {
         Response response = chain.proceed(builder.build());
         if (Logger.isDebug) {
             ResponseBody responseBody = response.body();
-            BufferedSource source = responseBody.source();
-            source.request(responseBody.contentLength());
-            Buffer buffer = source.buffer();
-            String responseBodyString = buffer.clone().readString(Charset.forName("UTF-8"));
-            logger.d("HttpResponse:" + responseBodyString);
+            if (responseBody.contentLength() > 0) {
+                BufferedSource source = responseBody.source();
+                source.request(responseBody.contentLength());
+                Buffer buffer = source.buffer();
+                String responseBodyString = buffer.clone().readString(Charset.forName("UTF-8"));
+                logger.d("HttpResponse:" + responseBodyString);
+            }
         }
         return response;
     }
 
     private void handle(Request.Builder builder, RequestBody body, User user) {
         try {
-            String loginName = "13343426551";//user.getTelphone();
+            //user.getTelphone();
+            String loginName = "13343426551";
             String timeTemp = String.valueOf(System.currentTimeMillis());
             /*密钥*/
             String secretKey = Encrypt.getReverseString(timeTemp + loginName);

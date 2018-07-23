@@ -31,7 +31,7 @@ public interface SchoolNewsApi {
      */
     @FormUrlEncoded
     @POST("school/newslist")
-    Observable<ApiModel<List<SchoolNews>>> getSchoolNewslist(@Field("school_id") String schoolId, @Field("type") String type, @Field("title") String title, @Field("page") String page, @Field("rows") String rows);
+    Observable<ApiModel<List<SchoolNews>>> getSchoolNewslist(@Field("school_id") String schoolId, @Field("type") String type, @Field("title") String title, @Field("page") String page);
 
     /**
      * 根据id查询院校招生简章、资讯详情,返回网页

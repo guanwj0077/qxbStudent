@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="com.qxb.student.R" />
+
         <variable
             name="school"
             type="com.qxb.student.common.module.bean.School" />
@@ -15,6 +17,7 @@
         android:background="@android:color/holo_blue_light">
 
         <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white">
@@ -26,12 +29,11 @@
                 app:collapsedTitleGravity="top|center_horizontal"
                 app:collapsedTitleTextAppearance="@style/collapsedTitleText"
                 app:contentScrim="@drawable/shape_bottom_divider"
-                app:expandedTitleGravity="top"
                 app:expandedTitleMarginStart="@dimen/px_250"
                 app:expandedTitleMarginTop="@dimen/px_530"
                 app:expandedTitleTextAppearance="@style/expandedTitleText"
+                app:scrimAnimationDuration="0"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:scrimAnimationDuration="500"
                 app:titleEnabled="false"
                 app:toolbarId="@id/toolbar">
 
@@ -98,7 +100,7 @@
                                 android:gravity="center"
                                 android:paddingBottom="@dimen/px_40"
                                 android:paddingTop="@dimen/px_40"
-                                android:text="@string/hint_sign_up" />
+                                android:text="@{school.is_reg ? R.string.hint_sign_on : R.string.hint_sign_up}" />
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -130,57 +132,64 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:drawablePadding="@dimen/px_30"
-                                android:drawableStart="@mipmap/sch_detail_gz"
+                                android:drawableStart="@{school.is_att ? @drawable/sch_detail_gzn : @drawable/sch_detail_gz}"
                                 android:text="@string/hint_concern" />
                         </FrameLayout>
                     </LinearLayout>
+
+                    <include
+                        android:id="@+id/include_video"
+                        layout="@layout/header_school_video" />
 
                 </LinearLayout>
 
                 <include layout="@layout/view_toolbar" />
             </android.support.design.widget.CollapsingToolbarLayout>
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tabLayout"
+            <RadioGroup
+                android:id="@+id/radioGroup"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/px_100"
-                android:layout_marginBottom="@dimen/px_30"
-                android:layout_marginEnd="@dimen/px_60"
-                android:layout_marginStart="@dimen/px_60"
-                android:layout_marginTop="@dimen/px_30"
-                android:background="@drawable/stroke_corners_green"
-                android:padding="@dimen/px_4"
-                app:tabBackground="@drawable/selector_background_green"
-                app:tabIndicatorHeight="@dimen/px_0"
-                app:tabMode="fixed"
-                app:tabPadding="@dimen/px_4"
-                app:tabSelectedTextColor="@android:color/white"
-                app:tabTextColor="@color/colorAccent">
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/px_20"
+                android:layout_marginEnd="@dimen/px_50"
+                android:layout_marginStart="@dimen/px_50"
+                android:layout_marginTop="@dimen/px_20"
+                android:orientation="horizontal">
 
-                <android.support.design.widget.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <RadioButton
+                    android:id="@+id/radioButton1"
+                    style="@style/NavigationItem.School"
+                    android:background="@drawable/school_radio_left"
+                    android:text="@string/school_major" />
 
-                    android:text="1111111"/>
+                <RadioButton
+                    android:id="@+id/radioButton2"
+                    style="@style/NavigationItem.School"
+                    android:background="@drawable/school_radio_middle"
+                    android:text="@string/school_intro" />
 
-                <android.support.design.widget.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="222222222"/>
-                <android.support.design.widget.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="333333"/>
+                <RadioButton
+                    android:id="@+id/radioButton3"
+                    style="@style/NavigationItem.School"
+                    android:background="@drawable/school_radio_right"
+                    android:text="@string/school_conduct" />
+            </RadioGroup>
 
-            </android.support.design.widget.TabLayout>
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewPager"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fillViewport="true"
             android:scrollbars="none"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none" />
+        </android.support.v4.widget.NestedScrollView>
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>

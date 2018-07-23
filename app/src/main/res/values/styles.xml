@@ -1,6 +1,8 @@
 <resources>
-    <style name="Main"/>
-    <style name="Main.NavigationItem">
+
+    <style name="NavigationItem" />
+
+    <style name="NavigationItem.Main">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
@@ -8,7 +10,19 @@
         <item name="android:paddingTop">@dimen/px_8</item>
         <item name="android:paddingBottom">@dimen/px_8</item>
         <item name="android:gravity">center</item>
-        <item name="android:textColor">@drawable/selector_text_green</item>
+        <item name="android:textColor">@drawable/selector_text_green_gray</item>
         <item name="android:textSize">@dimen/px_30</item>
+    </style>
+
+    <style name="NavigationItem.School">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:button">@null</item>
+        <item name="android:paddingTop">@dimen/px_20</item>
+        <item name="android:paddingBottom">@dimen/px_20</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@drawable/selector_text_green_white</item>
+        <item name="android:textSize">@dimen/px_40</item>
     </style>
 </resources>

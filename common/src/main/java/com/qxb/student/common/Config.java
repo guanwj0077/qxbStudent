@@ -61,4 +61,12 @@ public final class Config {
      * 关闭活动带回一个确认的状态码
      */
     public static final int ACT_CONFIRM = 1003;
+    /**
+     * 后台返回成功响应CODE
+     */
+    public static final int HTTP_SUCCESS = 1;
+    /**
+     * 根据id查询院校招生简章、资讯详情,返回网页
+     */
+    public static final String SCHOOL_NEW_DETAIL = SERVER_URL + "view/school/news/detail?id=";
 }
