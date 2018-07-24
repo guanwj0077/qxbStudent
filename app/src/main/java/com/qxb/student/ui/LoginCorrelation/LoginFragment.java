@@ -2,19 +2,16 @@ package com.qxb.student.ui.LoginCorrelation;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.UiThread;
 import android.text.Editable;
 import android.text.Html;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -36,8 +33,6 @@ import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.User;
 import com.qxb.student.common.module.bean.attr.NavAttr;
 import com.qxb.student.common.utils.CommonUtils;
-import com.qxb.student.common.utils.Encrypt;
-import com.qxb.student.common.utils.JsonUtils;
 import com.qxb.student.common.utils.NavigationUtils;
 import com.qxb.student.common.utils.SharedUtils;
 import com.qxb.student.common.utils.dialog.ToastUtils;
@@ -130,14 +125,14 @@ public class LoginFragment extends AbsExpandFragment implements Handler.Callback
                     case R.id.tv_register:
                         Bundle bundle=new Bundle();
                         bundle.putString(Constant.PURPOSE,Constant.USER_REGISTER);
-                        NavigationUtils.getInstance().toNavigation(getActivity(),new NavAttr.Builder().graphRes(R.navigation.register).params(bundle).build());
+                        NavigationUtils.getInstance().toNavigation(getActivity(),new NavAttr.Builder().graphRes(R.navigation.nav_register).params(bundle).build());
                         //注册
                         break;
                     case R.id.forget_pwd:
                         //忘记密码
                         Bundle bundle1=new Bundle();
                         bundle1.putString(Constant.PURPOSE,Constant.USER_PASSWORD);
-                        NavigationUtils.getInstance().toNavigation(getActivity(),new NavAttr.Builder().graphRes(R.navigation.register).params(bundle1).build());
+                        NavigationUtils.getInstance().toNavigation(getActivity(),new NavAttr.Builder().graphRes(R.navigation.nav_register).params(bundle1).build());
                         break;
                     case R.id.iv_qq:
                         authorize(new QQ());

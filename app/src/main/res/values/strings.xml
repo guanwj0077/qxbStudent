@@ -27,4 +27,5 @@
     <string name="next_cn">下一步</string>
     <string name="yyzhanghaoqdl"><Data><![CDATA[<font color="#3a3f39"><b>已有账号请</b></font><font color="#00bd9f"><b>登录</b></font>]]></Data></string>
     <string name="black">返回</string>
+    <string name="fsyzm">发送验证码</string>
 </resources>

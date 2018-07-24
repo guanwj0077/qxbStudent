@@ -5,6 +5,8 @@ import android.arch.lifecycle.MutableLiveData;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.qxb.student.common.Config;
+import com.qxb.student.common.module.api.SmsApi;
 import com.qxb.student.common.module.api.UserApi;
 import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.User;
@@ -22,7 +24,9 @@ import io.reactivex.functions.Consumer;
 public class UserRepository extends BaseRepository {
 
     private MutableLiveData<User> userMutableLiveData = new MutableLiveData<>();
-    private MutableLiveData<ApiModel<String>>thirdLoginLiveData=new  MutableLiveData<>();
+    private MutableLiveData<ApiModel<String>> thirdLoginLiveData = new MutableLiveData<>();
+    private MutableLiveData<ApiModel<JSONObject>> sendCodeLiveData = new MutableLiveData<>();
+    private MutableLiveData<ApiModel<JSONObject>> checkCodeLiveData = new MutableLiveData<>();
 
     public LiveData<User> login(final String account, String password) {
         Disposable disposable = httpUtils.convert(httpUtils.create(UserApi.class).login(account, password),
@@ -44,12 +48,33 @@ public class UserRepository extends BaseRepository {
                 new Consumer<ApiModel<String>>() {
                     @Override
                     public void accept(ApiModel<String> userApiModel) {
-
-
+                        thirdLoginLiveData.postValue(userApiModel);
                     }
                 }).subscribe();
         httpUtils.addDisposable(disposable);
         return thirdLoginLiveData;
+    }
+
+    public LiveData<ApiModel<JSONObject>> sendCode(String phone, String type) {
+        Disposable disposable = httpUtils.convert(httpUtils.create(SmsApi.class).CreateCode(phone, type), new Consumer<ApiModel<JSONObject>>() {
+            @Override
+            public void accept(ApiModel<JSONObject> stringApiModel) {
+                sendCodeLiveData.postValue(stringApiModel);
+            }
+        }).subscribe();
+        httpUtils.addDisposable(disposable);
+        return sendCodeLiveData;
+    }
+
+    public LiveData<ApiModel<JSONObject>>checkCode(String phone, String code){
+        Disposable disposable=httpUtils.convert(httpUtils.create(SmsApi.class).vaildCode(phone, code), new Consumer<ApiModel<JSONObject>>() {
+            @Override
+            public void accept(ApiModel<JSONObject> stringApiModel) throws Exception {
+                checkCodeLiveData.postValue(stringApiModel);
+            }
+        }).subscribe();
+        httpUtils.addDisposable(disposable);
+        return checkCodeLiveData;
     }
 
 

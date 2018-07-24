@@ -42,8 +42,8 @@ public class AuthInterceptor implements Interceptor {
             if (Config.CUSTOM.equals(request.header(Config.AUTH))) {
                 User user = UserCache.getInstance().getUser();
                 if (user != null) {
-                    builder.addHeader(AUTHORIZATION, custom(null));
-                    handle(builder, request.body(), null);
+                    builder.addHeader(AUTHORIZATION, custom(user));
+                    handle(builder, request.body(), user);
                 }
             } else if (Config.COMMON.equals(request.header(Config.AUTH))) {
                 builder.addHeader(AUTHORIZATION, Config.AUTH_COMMON_SECRET);

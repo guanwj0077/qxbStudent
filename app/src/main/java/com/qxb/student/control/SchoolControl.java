@@ -80,7 +80,7 @@ public class SchoolControl extends AndroidViewModel {
                 binding.viewPager.setAdapter(new FragmentAdapter(fragment.getChildFragmentManager(), Arrays.asList(
                         new SchoolRecruitMajorFragment().setTitle(fragment.getString(R.string.school_major)),
                         new SchoolIntroFragment().setTitle(fragment.getString(R.string.school_intro)),
-                        new SchoolConductFragment().setTitle(fragment.getString(R.string.school_conduct))
+                       new SchoolConductFragment().setTitle(fragment.getString(R.string.school_conduct))
                 )));
             }
         });

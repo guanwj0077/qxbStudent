@@ -172,7 +172,7 @@
                     android:id="@+id/radioButton3"
                     style="@style/NavigationItem.RecomSchool"
                     android:background="@drawable/school_radio_right"
-                    android:text="@string/school_conduct" />
+                    />
             </RadioGroup>
 
         </android.support.design.widget.AppBarLayout>
