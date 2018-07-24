@@ -1,16 +1,12 @@
 package com.qxb.student.common.view.recycler.adapter;
 
-import android.content.Context;
-import android.databinding.ViewDataBinding;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.qxb.student.common.R;
 import com.qxb.student.common.view.abslist.AbsAdapter;
-import com.qxb.student.common.view.abslist.AbsListAdapter;
 import com.qxb.student.common.view.recycler.ViewHolder;
 import com.qxb.student.common.view.recycler.bean.ExpandableEntity;
 
@@ -49,12 +45,18 @@ public abstract class ExpandableAdapter<G, C> extends NestingAdapter {
                 parentConvert(holder, position, data.get(position).getGroupData());
                 break;
             case CHILD:
-                holder.setAdapter(R.id.listView, new AbsAdapter<C>(holder.itemView.getContext(), childRes, data.get(position).getChildDatas()) {
-                    @Override
-                    protected void bindView(View view, int position, C item) {
-                        childConvert(view, position, item);
-                    }
-                });
+
+                C childData = data.get(position).getChildDatas();
+                if (childData instanceof List) {
+                    holder.setAdapter(R.id.listView, new AbsAdapter<C>(holder.itemView.getContext(), childRes, (List<C>) childData) {
+                        @Override
+                        protected void bindView(View view, int position, C item) {
+                            childConvert(view, position, item);
+                        }
+                    });
+                } else {
+                    childConvert(LayoutInflater.from(holder.itemView.getContext()).inflate(childRes, null), position, childData);
+                }
                 break;
             default:
                 break;
