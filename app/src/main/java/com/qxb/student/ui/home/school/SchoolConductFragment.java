@@ -34,11 +34,21 @@ import java.util.Objects;
  */
 public class SchoolConductFragment extends AbsExpandFragment {
 
-    private SmartRefreshLayout refreshLayout;
+    private static final String SCHOOL_ID = "schoolId";
 
+    private SmartRefreshLayout refreshLayout;
+    private String schoolId;
     private SchoolControl schoolControl;
     private int pageIndex = 1;
     private QuickAdapter<SchoolNews> adapter;
+
+    public static SchoolConductFragment getInstance(String schoolId) {
+        SchoolConductFragment fragment = new SchoolConductFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(SCHOOL_ID, schoolId);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @Override
     public int bindLayout() {
@@ -47,10 +57,11 @@ public class SchoolConductFragment extends AbsExpandFragment {
 
     @Override
     public void init(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        schoolId = getArguments() != null ? getArguments().getString(SCHOOL_ID) : null;
         refreshLayout = findViewById(R.id.refreshLayout);
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         schoolControl = ViewModelProviders.of(getActivity()).get(SchoolControl.class);
-        schoolControl.getSchoolNews(pageIndex).observe(this, new Observer<List<SchoolNews>>() {
+        schoolControl.getSchoolNews(schoolId, pageIndex).observe(this, new Observer<List<SchoolNews>>() {
             @Override
             public void onChanged(@Nullable List<SchoolNews> schoolNews) {
                 adapter.addAll(schoolNews);
@@ -64,15 +75,15 @@ public class SchoolConductFragment extends AbsExpandFragment {
         this.refreshLayout.setDisableContentWhenLoading(false);
         this.refreshLayout.setEnableOverScrollDrag(false);
         this.refreshLayout.setEnableRefresh(false);
-        this.refreshLayout.setEnableFooterFollowWhenLoadFinished(true);
+        this.refreshLayout.setEnableFooterFollowWhenLoadFinished(false);
         this.refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshlayout) {
                 pageIndex++;
-                schoolControl.getSchoolNews(pageIndex);
+                schoolControl.getSchoolNews(schoolId, pageIndex);
             }
         });
-        adapter = new QuickAdapter<SchoolNews>(R.layout.item_text_arrow) {
+        adapter = new QuickAdapter<SchoolNews>(R.layout.item_text_arrow_right) {
             @Override
             protected void convert(ViewHolder holder, int position, SchoolNews item) {
                 holder.setText(R.id.text1, item.getTitle());

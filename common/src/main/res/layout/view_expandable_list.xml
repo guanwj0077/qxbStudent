@@ -2,11 +2,10 @@
 <ExpandableListView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/expandableListView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:childDivider="@color/colorDivider"
     android:divider="@drawable/list_divider"
-    android:dividerHeight="@dimen/px_1"
+    android:dividerHeight="@dimen/px_10"
     android:fadingEdge="none"
     android:fadingEdgeLength="@dimen/px_0"
-    android:groupIndicator="@null"
-    android:overScrollMode="never" />
+    android:groupIndicator="@null" />

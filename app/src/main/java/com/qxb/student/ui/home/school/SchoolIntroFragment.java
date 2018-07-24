@@ -1,5 +1,6 @@
 package com.qxb.student.ui.home.school;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -32,7 +33,7 @@ public class SchoolIntroFragment extends AbsExpandFragment {
 
     @Override
     public void init(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        ExpandableListView listView = view.findViewById(R.id.expandableListView);
+        final ExpandableListView listView = view.findViewById(R.id.expandableListView);
         adapter = new ExpandableAdapter<String, String>(getContext(), R.layout.item_text_arrow, R.layout.item_text_desc) {
             @Override
             public void bindGroupView(View view, int position, boolean isExpanded, String item) {
@@ -47,13 +48,16 @@ public class SchoolIntroFragment extends AbsExpandFragment {
         };
         listView.setAdapter(adapter);
         SchoolControl schoolControl = ViewModelProviders.of(getActivity()).get(SchoolControl.class);
-        SchoolDetail schoolDetail = schoolControl.getSchoolLiveData().getValue();
-        adapter.setData(Arrays.asList(
-                new ExpandableEntity<>(getString(R.string.school_summary), schoolDetail.getRemark()),
-                new ExpandableEntity<>(getString(R.string.school_fee_scholarship), schoolDetail.getFees_bonuses()),
-                new ExpandableEntity<>(getString(R.string.school_life), schoolDetail.getGraduates_employment())
-        ));
-        listView.expandGroup(0);
-
+        schoolControl.getSchoolLiveData().observe(this, new Observer<SchoolDetail>() {
+            @Override
+            public void onChanged(@Nullable SchoolDetail schoolDetail) {
+                adapter.setData(Arrays.asList(
+                        new ExpandableEntity<>(getString(R.string.school_summary), schoolDetail.getRemark()),
+                        new ExpandableEntity<>(getString(R.string.school_fee_scholarship), schoolDetail.getFees_bonuses()),
+                        new ExpandableEntity<>(getString(R.string.school_life), schoolDetail.getGraduates_employment())
+                ));
+                listView.expandGroup(0);
+            }
+        });
     }
 }
