@@ -15,7 +15,7 @@ import com.qxb.student.common.Constant;
 import com.qxb.student.common.adapter.BannerAdapter;
 import com.qxb.student.common.databinding.ViewImageBinding;
 import com.qxb.student.common.listener.MultiClickUtil;
-import com.qxb.student.common.module.bean.School;
+import com.qxb.student.common.module.bean.RecomSchool;
 import com.qxb.student.common.module.bean.SysAd;
 import com.qxb.student.common.module.bean.attr.NavAttr;
 import com.qxb.student.common.utils.NavigationUtils;
@@ -101,15 +101,15 @@ public class HomeAdapter extends NestingAdapter {
                 holder.setImageResource(R.id.tag_image, R.mipmap.yuan_xiao_hot);
                 holder.setText(R.id.tag_text, R.string.hint_tag_recommended_colleges);
                 final GridView gridView = holder.getView(R.id.gridView);
-                homeControl.getSchoolLiveData().observe(fragment, new Observer<List<School>>() {
+                homeControl.getSchoolLiveData().observe(fragment, new Observer<List<RecomSchool>>() {
                     @Override
-                    public void onChanged(@Nullable List<School> schools) {
+                    public void onChanged(@Nullable List<RecomSchool> recomSchools) {
                         AbsListAdapter adapter = (AbsListAdapter) gridView.getAdapter();
                         if (adapter == null) {
                             gridView.setAdapter(adapter = getSchoolAdapter());
                         }
                         adapter.clear();
-                        adapter.addCollection(schools);
+                        adapter.addCollection(recomSchools);
                     }
                 });
                 gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -146,17 +146,17 @@ public class HomeAdapter extends NestingAdapter {
         return bannerAdapter;
     }
 
-    private volatile AbsListAdapter<ItemSchoolBinding, School> schoolAdapter;
+    private volatile AbsListAdapter<ItemSchoolBinding, RecomSchool> schoolAdapter;
 
-    private AbsListAdapter<ItemSchoolBinding, School> getSchoolAdapter() {
+    private AbsListAdapter<ItemSchoolBinding, RecomSchool> getSchoolAdapter() {
         if (schoolAdapter != null) {
             return schoolAdapter;
         }
         synchronized (OBJECT) {
             if (schoolAdapter == null) {
-                schoolAdapter = new AbsListAdapter<ItemSchoolBinding, School>(fragment.getContext(), R.layout.item_school) {
+                schoolAdapter = new AbsListAdapter<ItemSchoolBinding, RecomSchool>(fragment.getContext(), R.layout.item_school) {
                     @Override
-                    protected void bind(ItemSchoolBinding binding, int position, School item) {
+                    protected void bind(ItemSchoolBinding binding, int position, RecomSchool item) {
                         binding.setSchool(item);
                     }
                 };

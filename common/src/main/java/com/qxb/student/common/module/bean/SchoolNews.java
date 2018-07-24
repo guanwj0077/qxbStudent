@@ -1,7 +1,5 @@
 package com.qxb.student.common.module.bean;
 
-import java.util.Date;
-
 public class SchoolNews{
 	/** id */
     private int id;

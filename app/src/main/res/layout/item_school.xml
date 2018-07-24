@@ -7,7 +7,7 @@
 
         <variable
             name="school"
-            type="com.qxb.student.common.module.bean.School" />
+            type="com.qxb.student.common.module.bean.RecomSchool" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

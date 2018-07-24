@@ -4,7 +4,8 @@ import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 
-import com.qxb.student.common.module.bean.School;
+import com.qxb.student.common.module.bean.RecomSchool;
+import com.qxb.student.common.module.bean.SchoolDetail;
 import com.qxb.student.common.module.bean.SysAd;
 import com.qxb.student.common.module.bean.User;
 import com.qxb.student.common.module.bean.tab.HttpCache;
@@ -22,7 +23,8 @@ import com.qxb.student.common.utils.Singleton;
         entities = {
                 HttpCache.class,
                 User.class,
-                School.class,
+                RecomSchool.class,
+                SchoolDetail.class,
                 SysAd.class})
 public abstract class RoomUtils extends RoomDatabase {
 
@@ -47,16 +49,21 @@ public abstract class RoomUtils extends RoomDatabase {
     public abstract HttpCacheDao httpCacheDao();
 
     /**
-     * 获取学校操作
+     * 推荐院校
      *
-     * @return SchoolDao
+     * @return RecomSchoolDao
      */
-    public abstract SchoolDao schoolDao();
+    public abstract RecomSchoolDao schoolDao();
+
+    /**
+     * 院校详情
+     */
+    public abstract SchoolDetailDao schoolDetailDao();
 
     /**
      * 获取广告操作
      *
-     * @return SchoolDao
+     * @return RecomSchoolDao
      */
     public abstract SysAdDao sysAdDao();
 

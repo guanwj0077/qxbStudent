@@ -3,7 +3,7 @@ package com.qxb.student.common.module.api;
 import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.CollegeFreedomMajorRecruit;
-import com.qxb.student.common.module.bean.School;
+import com.qxb.student.common.module.bean.RecomSchool;
 import com.qxb.student.common.module.bean.SchoolNews;
 
 import java.util.List;
@@ -65,7 +65,7 @@ public interface SchoolNewsApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("freedomRecruit/school/getSchoolRecruitDetailById")
-    Observable<ApiModel<School>> getSchoolRecruitDetailById(@Field("school_id") String schoolId, @Field("student_id") String studentId);
+    Observable<ApiModel<RecomSchool>> getSchoolRecruitDetailById(@Field("school_id") String schoolId, @Field("student_id") String studentId);
 
     /**
      * 自招专业详情

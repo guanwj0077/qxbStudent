@@ -8,7 +8,7 @@
 
         <variable
             name="school"
-            type="com.qxb.student.common.module.bean.School" />
+            type="com.qxb.student.common.module.bean.SchoolDetail" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -158,19 +158,19 @@
 
                 <RadioButton
                     android:id="@+id/radioButton1"
-                    style="@style/NavigationItem.School"
+                    style="@style/NavigationItem.RecomSchool"
                     android:background="@drawable/school_radio_left"
                     android:text="@string/school_major" />
 
                 <RadioButton
                     android:id="@+id/radioButton2"
-                    style="@style/NavigationItem.School"
+                    style="@style/NavigationItem.RecomSchool"
                     android:background="@drawable/school_radio_middle"
                     android:text="@string/school_intro" />
 
                 <RadioButton
                     android:id="@+id/radioButton3"
-                    style="@style/NavigationItem.School"
+                    style="@style/NavigationItem.RecomSchool"
                     android:background="@drawable/school_radio_right"
                     android:text="@string/school_conduct" />
             </RadioGroup>

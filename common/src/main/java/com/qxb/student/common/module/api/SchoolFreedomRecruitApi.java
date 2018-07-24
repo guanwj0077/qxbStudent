@@ -6,8 +6,7 @@ import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.Award;
 import com.qxb.student.common.module.bean.BaseSubjectCategory;
 import com.qxb.student.common.module.bean.CollegeFreedomMajorRecruit;
-import com.qxb.student.common.module.bean.CollegeSearchHot;
-import com.qxb.student.common.module.bean.School;
+import com.qxb.student.common.module.bean.RecomSchool;
 
 import java.util.List;
 
@@ -50,9 +49,9 @@ public interface SchoolFreedomRecruitApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("freedomRecruit/school/list")
-    Observable<ApiModel<List<School>>> freedomRecruitSchoolList(@Field("school_name") String schoolName, @Field("province") String province,
-                                                                @Field("category_code") String categoryCode, @Field("student_province") String studentProvince,
-                                                                @Field("subject_type") String subjectType, @Field("page") String page, @Field("rows") String rows);
+    Observable<ApiModel<List<RecomSchool>>> freedomRecruitSchoolList(@Field("school_name") String schoolName, @Field("province") String province,
+                                                                     @Field("category_code") String categoryCode, @Field("student_province") String studentProvince,
+                                                                     @Field("subject_type") String subjectType, @Field("page") String page, @Field("rows") String rows);
 
     /**
      * 自招-通过专业搜索获取在招专业的院校
@@ -97,8 +96,8 @@ public interface SchoolFreedomRecruitApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("freedomRecruit/collegeRecommendation/getSchoolList")
-    Observable<ApiModel<List<School>>> recommendSchoolList(@Field("award_code") String awardCode, @Field("province") String province, @Field("ccode") String cCode,
-                                                           @Field("subject_type") String subjectType);
+    Observable<ApiModel<List<RecomSchool>>> recommendSchoolList(@Field("award_code") String awardCode, @Field("province") String province, @Field("ccode") String cCode,
+                                                                @Field("subject_type") String subjectType);
 
     /**
      * 自招-院校推荐-意向专业查询

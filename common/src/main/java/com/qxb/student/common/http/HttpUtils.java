@@ -5,16 +5,12 @@ import android.arch.persistence.db.SupportSQLiteStatement;
 import android.support.annotation.NonNull;
 
 import com.qxb.student.common.module.bean.ApiModel;
-import com.qxb.student.common.module.bean.School;
 import com.qxb.student.common.module.bean.tab.HttpCache;
 import com.qxb.student.common.module.dao.HttpCacheDao;
 import com.qxb.student.common.module.dao.RoomUtils;
 import com.qxb.student.common.utils.Singleton;
 
-import java.util.List;
-
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;

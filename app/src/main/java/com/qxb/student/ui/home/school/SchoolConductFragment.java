@@ -35,7 +35,6 @@ import java.util.Objects;
 public class SchoolConductFragment extends AbsExpandFragment {
 
     private SmartRefreshLayout refreshLayout;
-    private RecyclerView recyclerView;
 
     private SchoolControl schoolControl;
     private int pageIndex = 1;
@@ -49,7 +48,7 @@ public class SchoolConductFragment extends AbsExpandFragment {
     @Override
     public void init(@NonNull View view, @Nullable Bundle savedInstanceState) {
         refreshLayout = findViewById(R.id.refreshLayout);
-        recyclerView = findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
         schoolControl = ViewModelProviders.of(getActivity()).get(SchoolControl.class);
         schoolControl.getSchoolNews(pageIndex).observe(this, new Observer<List<SchoolNews>>() {
             @Override

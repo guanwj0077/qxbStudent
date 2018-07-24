@@ -41,7 +41,7 @@
                 imageUrl="@{video1.imageRealPath}"
                 radius="@dimen/px_20"
                 android:layout_width="@dimen/px_350"
-                android:layout_height="@dimen/px_230"
+                android:layout_height="@dimen/px_190"
                 android:contentDescription="@string/hint_not_describe"
                 android:scaleType="fitXY" />
 
@@ -57,7 +57,7 @@
                 android:maxLines="1"
                 android:text="@{video1.school_name}"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/px_50" />
+                android:textSize="@dimen/px_40" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -71,7 +71,7 @@
                 android:maxLines="1"
                 android:text="@{video1.profess_name}"
                 android:textColor="@color/colorDesc"
-                android:textSize="@dimen/px_40" />
+                android:textSize="@dimen/px_30" />
         </RelativeLayout>
 
         <View
@@ -96,7 +96,7 @@
                 imageUrl="@{video2.imageRealPath}"
                 radius="@dimen/px_20"
                 android:layout_width="@dimen/px_350"
-                android:layout_height="@dimen/px_230"
+                android:layout_height="@dimen/px_190"
                 android:contentDescription="@string/hint_not_describe"
                 android:scaleType="fitXY" />
 
@@ -112,7 +112,7 @@
                 android:maxLines="1"
                 android:text="@{video2.school_name}"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/px_50" />
+                android:textSize="@dimen/px_40" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -126,7 +126,7 @@
                 android:maxLines="1"
                 android:text="@{video2.profess_name}"
                 android:textColor="@color/colorDesc"
-                android:textSize="@dimen/px_40" />
+                android:textSize="@dimen/px_30" />
         </RelativeLayout>
 
         <View

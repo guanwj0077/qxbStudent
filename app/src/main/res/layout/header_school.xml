@@ -5,7 +5,7 @@
 
         <variable
             name="school"
-            type="com.qxb.student.common.module.bean.School" />
+            type="com.qxb.student.common.module.bean.SchoolDetail" />
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -44,7 +44,7 @@
                 android:maxLines="1"
                 android:text="@{school.school_name}"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/px_40" />
+                android:textSize="@dimen/px_45" />
 
             <TextView
                 android:layout_width="wrap_content"

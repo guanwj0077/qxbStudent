@@ -5,7 +5,7 @@ package com.qxb.student.common.module.bean;
  *
  * @author
  */
-public class ArtSchoolBaseinfo extends School {
+public class ArtSchoolBaseinfo extends RecomSchool {
 
     private int id;
 

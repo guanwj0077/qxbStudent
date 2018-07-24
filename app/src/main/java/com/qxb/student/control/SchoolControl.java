@@ -15,7 +15,7 @@ import android.widget.RadioGroup;
 import com.qxb.student.R;
 import com.qxb.student.common.adapter.FragmentAdapter;
 import com.qxb.student.common.module.SchoolRepository;
-import com.qxb.student.common.module.bean.School;
+import com.qxb.student.common.module.bean.SchoolDetail;
 import com.qxb.student.common.module.bean.SchoolNews;
 import com.qxb.student.common.module.bean.SchoolVideo;
 import com.qxb.student.common.view.Toolbar;
@@ -44,9 +44,8 @@ public class SchoolControl extends AndroidViewModel {
     private FragmentSchoolBinding binding;
     private SchoolRepository schoolRepository = new SchoolRepository();
 
-    private MutableLiveData<String> schoolIdLiveData = new MutableLiveData<>();
+    private MutableLiveData<SchoolDetail> schoolLiveData = new MutableLiveData<>();
     private LiveData<List<SchoolNews>> schoolNewsLiveData;
-
 
     @Override
     protected void onCleared() {
@@ -62,7 +61,6 @@ public class SchoolControl extends AndroidViewModel {
     public void init(SchoolDetailFragment schoolDetailFragment, View view, String schoolId) {
         this.fragment = schoolDetailFragment;
         this.binding = DataBindingUtil.bind(view);
-        this.schoolIdLiveData.setValue(schoolId);
         final Toolbar toolbar = view.findViewById(R.id.toolbar);
         fragment.setSupportActionBar(toolbar);
         toolbar.setAppBarLayout(binding.appBarLayout);
@@ -70,14 +68,15 @@ public class SchoolControl extends AndroidViewModel {
         binding.radioGroup.setOnCheckedChangeListener(checkedChangeListener);
         binding.radioGroup.check(binding.radioGroup.getChildAt(0).getId());
         binding.viewPager.setCurrentItem(0);
-        schoolRepository.getSchoolById(schoolId).observe(fragment, new Observer<School>() {
+        schoolRepository.getSchoolById(schoolId).observe(fragment, new Observer<SchoolDetail>() {
             @Override
-            public void onChanged(@Nullable School school) {
-                binding.setSchool(school);
-                binding.includeHeader.setSchool(school);
-                if (school != null) {
-                    toolbar.setTitle(school.getSchool_name());
+            public void onChanged(@Nullable SchoolDetail schoolDetail) {
+                binding.setSchool(schoolDetail);
+                binding.includeHeader.setSchool(schoolDetail);
+                if (schoolDetail != null) {
+                    toolbar.setTitle(schoolDetail.getSchool_name());
                 }
+                schoolLiveData.setValue(schoolDetail);
                 binding.viewPager.setAdapter(new FragmentAdapter(fragment.getChildFragmentManager(), Arrays.asList(
                         new SchoolRecruitMajorFragment().setTitle(fragment.getString(R.string.school_major)),
                         new SchoolIntroFragment().setTitle(fragment.getString(R.string.school_intro)),
@@ -88,17 +87,16 @@ public class SchoolControl extends AndroidViewModel {
         schoolRepository.getSchoolVideoList(schoolId, "3", "1").observe(fragment, new Observer<List<SchoolVideo>>() {
             @Override
             public void onChanged(@Nullable List<SchoolVideo> schoolVideos) {
-                if (schoolVideos.size() > 0) {
-                    binding.includeVideo.setVideo1(schoolVideos.get(0));
-                    binding.includeVideo.setVideo2(schoolVideos.get(1));
-                    binding.includeVideo.setVideoSize(schoolVideos.size());
-                }
+                int size = schoolVideos.size();
+                binding.includeVideo.setVideo1(size > 0 ? schoolVideos.get(0) : null);
+                binding.includeVideo.setVideo2(size > 1 ? schoolVideos.get(1) : null);
+                binding.includeVideo.setVideoSize(size);
             }
         });
     }
 
     public LiveData<List<SchoolNews>> getSchoolNews(int page) {
-        return schoolRepository.getSchoolNews(schoolIdLiveData.getValue(), "3", "", String.valueOf(page));
+        return schoolRepository.getSchoolNews(String.valueOf(schoolLiveData.getValue().getId()), "3", "", String.valueOf(page));
     }
 
     private RadioGroup.OnCheckedChangeListener checkedChangeListener = new RadioGroup.OnCheckedChangeListener() {
@@ -127,4 +125,8 @@ public class SchoolControl extends AndroidViewModel {
 
         }
     };
+
+    public MutableLiveData<SchoolDetail> getSchoolLiveData() {
+        return schoolLiveData;
+    }
 }

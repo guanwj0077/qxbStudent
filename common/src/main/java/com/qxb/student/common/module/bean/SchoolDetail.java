@@ -1,23 +1,27 @@
 package com.qxb.student.common.module.bean;
 
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 /**
- * 学校信息实体
- *
  * @author winky
+ * @date 2018/7/24
  */
-@Entity(tableName = "School")
-public class School {
+@Entity(tableName = "SchoolDetail")
+public class SchoolDetail {
 
+    private String address;
+    private String area;
     private int attns;
     private int balance;
+    private String city;
+    private String code;
     private String coverRealPath;
     private int danzhao;
     private int degree;
+    private String fees_bonuses;
     private String front_cover;
+    private String graduates_employment;
     private int has_jz;
     @PrimaryKey
     private int id;
@@ -36,6 +40,7 @@ public class School {
     private String remark;
     private int rownum;
     private String school_name;
+    private String school_rank;
     private String share_url;
     private int status;
     private int stipend;
@@ -45,7 +50,6 @@ public class School {
     private String videoImageRealPath;
     private int web_level;
     private int web_rank;
-    private String address;
 
     public String getAddress() {
         return address;
@@ -53,6 +57,14 @@ public class School {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
     }
 
     public int getAttns() {
@@ -69,6 +81,22 @@ public class School {
 
     public void setBalance(int balance) {
         this.balance = balance;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getCoverRealPath() {
@@ -95,12 +123,28 @@ public class School {
         this.degree = degree;
     }
 
+    public String getFees_bonuses() {
+        return fees_bonuses;
+    }
+
+    public void setFees_bonuses(String fees_bonuses) {
+        this.fees_bonuses = fees_bonuses;
+    }
+
     public String getFront_cover() {
         return front_cover;
     }
 
     public void setFront_cover(String front_cover) {
         this.front_cover = front_cover;
+    }
+
+    public String getGraduates_employment() {
+        return graduates_employment;
+    }
+
+    public void setGraduates_employment(String graduates_employment) {
+        this.graduates_employment = graduates_employment;
     }
 
     public int getHas_jz() {
@@ -237,6 +281,14 @@ public class School {
 
     public void setSchool_name(String school_name) {
         this.school_name = school_name;
+    }
+
+    public String getSchool_rank() {
+        return school_rank;
+    }
+
+    public void setSchool_rank(String school_rank) {
+        this.school_rank = school_rank;
     }
 
     public String getShare_url() {

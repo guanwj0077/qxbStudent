@@ -4,13 +4,12 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.qxb.student.common.Config;
-import com.qxb.student.common.http.PostApiConsumer;
-import com.qxb.student.common.http.PostConsumer;
 import com.qxb.student.common.http.SubscribeObj;
 import com.qxb.student.common.module.api.SchoolApi;
 import com.qxb.student.common.module.api.SchoolNewsApi;
 import com.qxb.student.common.module.bean.ApiModel;
-import com.qxb.student.common.module.bean.School;
+import com.qxb.student.common.module.bean.RecomSchool;
+import com.qxb.student.common.module.bean.SchoolDetail;
 import com.qxb.student.common.module.bean.SchoolNews;
 import com.qxb.student.common.module.bean.SchoolVideo;
 
@@ -27,44 +26,43 @@ import io.reactivex.functions.Consumer;
  */
 public class SchoolRepository extends BaseRepository {
 
-    private MutableLiveData<List<School>> schoolListLiveData = new MutableLiveData<>();
-    private MutableLiveData<School> schoolLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<RecomSchool>> schoolListLiveData = new MutableLiveData<>();
+    private MutableLiveData<SchoolDetail> schoolLiveData = new MutableLiveData<>();
     private MutableLiveData<List<SchoolVideo>> schoolVideoLiveData = new MutableLiveData<>();
     private MutableLiveData<List<SchoolNews>> schoolNewsLiveData = new MutableLiveData<>();
 
-    public LiveData<List<School>> getSchoolLiveData() {
+    public LiveData<List<RecomSchool>> getSchoolLiveData() {
         String province = "420000";
-        Observable<ApiModel<List<School>>> observable = httpUtils.convert(httpUtils.create(SchoolApi.class).getRecommendedCollegeList(province),
-                new Consumer<ApiModel<List<School>>>() {
+        Observable<ApiModel<List<RecomSchool>>> observable = httpUtils.convert(httpUtils.create(SchoolApi.class).getRecommendedCollegeList(province),
+                new Consumer<ApiModel<List<RecomSchool>>>() {
                     @Override
-                    public void accept(ApiModel<List<School>> listApiModel) {
-                        httpUtils.addCache(School.class, listApiModel.getCacheTime());
+                    public void accept(ApiModel<List<RecomSchool>> listApiModel) {
+                        httpUtils.addCache(RecomSchool.class, listApiModel.getCacheTime());
                         roomUtils.schoolDao().insertColleges(listApiModel.getData());
                     }
                 });
-        httpUtils.request(schoolListLiveData, new SubscribeObj<List<School>>() {
+        httpUtils.request(schoolListLiveData, new SubscribeObj<List<RecomSchool>>() {
             @Override
-            protected List<School> queryLocal() {
+            protected List<RecomSchool> queryLocal() {
                 return roomUtils.schoolDao().getRecommendedColleges();
             }
         }, observable);
         return schoolListLiveData;
     }
 
-    public LiveData<School> getSchoolById(final String schoolId) {
+    public LiveData<SchoolDetail> getSchoolById(final String schoolId) {
         String studId = "26";
-        Observable<ApiModel<School>> observable = httpUtils.convert(httpUtils.create(SchoolApi.class).getSchoolById(schoolId, studId),
-                new Consumer<ApiModel<School>>() {
+        Observable<ApiModel<SchoolDetail>> observable = httpUtils.convert(httpUtils.create(SchoolApi.class).getSchoolById(schoolId, studId),
+                new Consumer<ApiModel<SchoolDetail>>() {
                     @Override
-                    public void accept(ApiModel<School> apiModel) {
-                        httpUtils.addCache(School.class, apiModel.getCacheTime());
-                        roomUtils.schoolDao().insertColleges(apiModel.getData());
+                    public void accept(ApiModel<SchoolDetail> apiModel) {
+                        roomUtils.schoolDetailDao().insertColleges(apiModel.getData());
                     }
                 });
-        httpUtils.request(schoolLiveData, new SubscribeObj<School>() {
+        httpUtils.request(schoolLiveData, new SubscribeObj<SchoolDetail>() {
             @Override
-            protected School queryLocal() {
-                return roomUtils.schoolDao().querySchoolById(schoolId);
+            protected SchoolDetail queryLocal() {
+                return roomUtils.schoolDetailDao().querySchoolById(schoolId);
             }
         }, observable);
         return schoolLiveData;

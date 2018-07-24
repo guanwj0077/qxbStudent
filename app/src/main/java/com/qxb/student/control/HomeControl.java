@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 
 import com.qxb.student.common.module.AdvertRepository;
 import com.qxb.student.common.module.SchoolRepository;
-import com.qxb.student.common.module.bean.School;
+import com.qxb.student.common.module.bean.RecomSchool;
 import com.qxb.student.common.module.bean.SysAd;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class HomeControl extends AndroidViewModel {
         super(application);
     }
 
-    public LiveData<List<School>> getSchoolLiveData() {
+    public LiveData<List<RecomSchool>> getSchoolLiveData() {
         return schoolRepository.getSchoolLiveData();
     }
 

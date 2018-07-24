@@ -3,7 +3,6 @@ package com.qxb.student.common.module.api;
 import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.AppVersion;
-import com.qxb.student.common.module.bean.School;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
