@@ -212,14 +212,13 @@ public class GlideUtils {
      * @param context
      * @param path
      * @param imageView
-     * @param roundradius 圆角大小（>0）
+     * @param roundRadius 圆角大小（>0）
      */
-    @SuppressWarnings("unchecked")
-    public void LoadContextRoundBitmap(Context context, String path, ImageView imageView, int roundradius) {
-        if (roundradius < 0) {
+    public void LoadContextRoundBitmap(Context context, String path, ImageView imageView, int roundRadius) {
+        if (roundRadius < 0) {
             Glide.with(context).load(path).bitmapTransform(new GlideRoundTransform(context)).into(imageView);
         } else {
-            Glide.with(context).load(path).bitmapTransform(new GlideRoundTransform(context, roundradius)).into(imageView);
+            Glide.with(context).load(path).bitmapTransform(new GlideRoundTransform(context, roundRadius)).into(imageView);
         }
     }
 

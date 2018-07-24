@@ -14,31 +14,31 @@
 
         <RadioButton
             android:id="@+id/radioButton1"
-            style="@style/Main.NavigationItem"
+            style="@style/NavigationItem.Main"
             android:checked="true"
             android:drawableTop="@drawable/a_menu_main"
             android:text="@string/main_home" />
 
         <RadioButton
             android:id="@+id/radioButton2"
-            style="@style/Main.NavigationItem"
+            style="@style/NavigationItem.Main"
             android:drawableTop="@drawable/a_menu_msg"
             android:text="@string/main_chat" />
 
         <RadioButton
             android:id="@+id/radioButton3"
-            style="@style/Main.NavigationItem"
+            style="@style/NavigationItem.Main"
             android:text="" />
 
         <RadioButton
             android:id="@+id/radioButton4"
-            style="@style/Main.NavigationItem"
+            style="@style/NavigationItem.Main"
             android:drawableTop="@drawable/a_menu_find"
             android:text="@string/main_info" />
 
         <RadioButton
             android:id="@+id/radioButton5"
-            style="@style/Main.NavigationItem"
+            style="@style/NavigationItem.Main"
             android:drawableTop="@drawable/a_menu_mine"
             android:text="@string/main_mine" />
 

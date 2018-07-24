@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="video1"
+            type="com.qxb.student.common.module.bean.SchoolVideo" />
+
+        <variable
+            name="video2"
+            type="com.qxb.student.common.module.bean.SchoolVideo" />
+
+        <variable
+            name="videoSize"
+            type="Integer" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:layout_marginBottom="@dimen/px_20"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingBottom="@dimen/px_20"
+            android:paddingEnd="@dimen/px_50"
+            android:paddingStart="@dimen/px_50"
+            android:paddingTop="@dimen/px_20"
+            android:visibility="@{video1 == null ? View.GONE : View.VISIBLE}">
+
+            <ImageView
+                android:id="@+id/image1"
+                imageUrl="@{video1.imageRealPath}"
+                radius="@dimen/px_20"
+                android:layout_width="@dimen/px_350"
+                android:layout_height="@dimen/px_230"
+                android:scaleType="fitXY"
+                android:contentDescription="@string/hint_not_describe" />
+
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/px_30"
+                android:layout_marginStart="@dimen/px_30"
+                android:layout_marginTop="@dimen/px_20"
+                android:layout_toEndOf="@id/image1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{video1.school_name}"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/px_50" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text1"
+                android:layout_marginEnd="@dimen/px_30"
+                android:layout_marginStart="@dimen/px_30"
+                android:layout_marginTop="@dimen/px_20"
+                android:layout_toEndOf="@id/image1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{video1.profess_name}"
+                android:textColor="@color/colorDesc"
+                android:textSize="@dimen/px_40" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_2"
+            android:background="@color/colorDivider" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingBottom="@dimen/px_20"
+            android:paddingEnd="@dimen/px_50"
+            android:paddingStart="@dimen/px_50"
+            android:paddingTop="@dimen/px_20"
+            android:visibility="@{video2 == null ? View.GONE : View.VISIBLE}">
+
+            <ImageView
+                android:id="@+id/image2"
+                imageUrl="@{video2.imageRealPath}"
+                radius="@dimen/px_20"
+                android:layout_width="@dimen/px_350"
+                android:layout_height="@dimen/px_230"
+                android:scaleType="fitXY"
+                android:contentDescription="@string/hint_not_describe" />
+
+            <TextView
+                android:id="@+id/text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/px_30"
+                android:layout_marginStart="@dimen/px_30"
+                android:layout_marginTop="@dimen/px_20"
+                android:layout_toEndOf="@id/image2"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{video2.school_name}"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/px_50" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text2"
+                android:layout_marginEnd="@dimen/px_30"
+                android:layout_marginStart="@dimen/px_30"
+                android:layout_marginTop="@dimen/px_20"
+                android:layout_toEndOf="@id/image2"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{video2.profess_name}"
+                android:textColor="@color/colorDesc"
+                android:textSize="@dimen/px_40" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_2"
+            android:background="@color/colorDivider" />
+
+        <TextView
+            android:id="@+id/text3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:paddingBottom="@dimen/px_30"
+            android:paddingTop="@dimen/px_30"
+            android:text="@string/hint_look_more"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="@dimen/px_50"
+            android:visibility="@{videoSize>2 ? View.VISIBLE:View.GONE }" />
+
+    </LinearLayout>
+</layout>

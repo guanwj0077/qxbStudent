@@ -1,11 +1,17 @@
 package com.qxb.student.common.utils;
 
 import android.databinding.BindingAdapter;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
+import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.qxb.student.common.R;
 
 /**
  * Databinding框架绑定事件
+ *
  * @author winky
  */
 public class BindingUtils {
@@ -25,4 +31,8 @@ public class BindingUtils {
         GlideUtils.getInstance().LoadContextRes(imageView.getContext(), resId, imageView);
     }
 
+    @BindingAdapter({"imageUrl", "radius"})
+    public static void imageUrl(ImageView imageView, String imageUrl, int radius) {
+        GlideUtils.getInstance().LoadContextRoundBitmap(imageView.getContext(), imageUrl, imageView, radius);
+    }
 }

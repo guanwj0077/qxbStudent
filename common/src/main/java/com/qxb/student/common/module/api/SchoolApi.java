@@ -5,6 +5,7 @@ import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.CollegeQuestion;
 import com.qxb.student.common.module.bean.CollegeSearchHot;
 import com.qxb.student.common.module.bean.School;
+import com.qxb.student.common.module.bean.SchoolVideo;
 
 import java.util.List;
 
@@ -277,4 +278,15 @@ public interface SchoolApi {
                                                          @Field("page") String page, @Field("rows") String rows);
 
 
+    /**
+     * 获取学校视频列表
+     * @param schoolId 学校id
+     * @param rows 一页加载条数
+     * @param page 页码
+     * @return
+     */
+    @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
+    @POST("article/schoolvideo/list")
+    Observable<ApiModel<List<SchoolVideo>>> schoolVideoList(@Field("school_id") String schoolId, @Field("rows") String rows, @Field("page") String page);
 }

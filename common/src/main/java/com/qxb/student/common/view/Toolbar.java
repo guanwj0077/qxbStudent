@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.qxb.student.common.R;
+import com.qxb.student.common.utils.Logger;
 
 /**
  * 处理toolbar固定大小后文字居中微调
@@ -63,38 +64,27 @@ public class Toolbar extends android.support.v7.widget.Toolbar {
                 }
             }
         });
+    }
 
-        AppBarLayout appBarLayout = getAppBarLayout();
+    public void setAppBarLayout(AppBarLayout appBarLayout) {
+        this.setAppBarLayout(appBarLayout, false);
+    }
+
+    public void setAppBarLayout(AppBarLayout appBarLayout, final boolean noNavIcon) {
+        setBackgroundResource(android.R.color.transparent);
         if (appBarLayout != null) {
             appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
                 @Override
                 public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
                     if (mTitleTextView != null) {
-                        mTitleTextView.setVisibility(i > -300 ? View.GONE : View.VISIBLE);
+                        mTitleTextView.setVisibility(i > 400 - appBarLayout.getHeight() ? View.GONE : View.VISIBLE);
+                    }
+                    if (!noNavIcon) {
+                        setNavigationIcon(i > 400 - appBarLayout.getHeight() ? R.drawable.arrow_left_white : R.drawable.arrow_left_black);
                     }
                 }
             });
         }
-    }
-
-    private AppBarLayout getAppBarLayout() {
-        AppBarLayout appBarLayout = null;
-        View view = (View) getParent();
-        if (view == null) {
-            return null;
-        }
-        while (true) {
-            if (view instanceof AppBarLayout) {
-                appBarLayout = (AppBarLayout) view;
-                break;
-            } else {
-                view = (View) view.getParent();
-                if (view == null) {
-                    break;
-                }
-            }
-        }
-        return appBarLayout;
     }
 
     @Override
