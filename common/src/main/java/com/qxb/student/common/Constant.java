@@ -39,6 +39,10 @@ public class Constant {
     public static final int FOUR=4;
 
 
+    public static final String PURPOSE = "purpose";
+    public static final String USER_REGISTER = "user_register";
+    public static final String USER_PASSWORD = "user_password";
+
 
     public static final String SHARE_PHONE = "share_phone";
     /**

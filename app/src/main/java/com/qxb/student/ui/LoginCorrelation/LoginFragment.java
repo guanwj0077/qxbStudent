@@ -2,6 +2,7 @@ package com.qxb.student.ui.LoginCorrelation;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -33,6 +34,7 @@ import com.qxb.student.common.basics.AbsExpandFragment;
 import com.qxb.student.common.listener.MultiClickUtil;
 import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.User;
+import com.qxb.student.common.module.bean.attr.NavAttr;
 import com.qxb.student.common.utils.CommonUtils;
 import com.qxb.student.common.utils.Encrypt;
 import com.qxb.student.common.utils.JsonUtils;
@@ -118,30 +120,24 @@ public class LoginFragment extends AbsExpandFragment implements Handler.Callback
                         //登录
                         phone = ed_phone.getText().toString().replaceAll(" ", "");
                         password = ed_psw.getText().toString().trim();
-                        if (TextUtils.isEmpty(phone)) {
-                            ToastUtils.toast(getActivity(), getString(R.string.yhmbnwk));
-                            return;
-                        } /*else if (CommonUtils.rightPhone(phone)) {
-                            ToastUtils.toast(getActivity(), getString(R.string.qsrzqdyhm));
-                            return;
-                        }*/
-                        if (TextUtils.isEmpty(password)) {
-                            ToastUtils.toast(getActivity(), getString(R.string.mmgsbzq));
-                            return;
-                        }
                         hideInputMethod(getActivity());
                         showWaitingDialog();
                         GoLogin(phone, password);
-
                         break;
                     case R.id.look:
                         //去看看
                         break;
                     case R.id.tv_register:
+                        Bundle bundle=new Bundle();
+                        bundle.putString(Constant.PURPOSE,Constant.USER_REGISTER);
+                        NavigationUtils.getInstance().toNavigation(getActivity(),new NavAttr.Builder().graphRes(R.navigation.register).params(bundle).build());
                         //注册
                         break;
                     case R.id.forget_pwd:
                         //忘记密码
+                        Bundle bundle1=new Bundle();
+                        bundle1.putString(Constant.PURPOSE,Constant.USER_PASSWORD);
+                        NavigationUtils.getInstance().toNavigation(getActivity(),new NavAttr.Builder().graphRes(R.navigation.register).params(bundle1).build());
                         break;
                     case R.id.iv_qq:
                         authorize(new QQ());
@@ -156,11 +152,20 @@ public class LoginFragment extends AbsExpandFragment implements Handler.Callback
         }
     };
 
-    private void GoLogin(String phone, String password) {
+    private void GoLogin(final String phone, String password) {
+        if (TextUtils.isEmpty(phone)) {
+            ToastUtils.toast(getActivity(), getString(R.string.yhmbnwk));
+            return;
+        }
+        if (TextUtils.isEmpty(password)) {
+            ToastUtils.toast(getActivity(), getString(R.string.mmgsbzq));
+            return;
+        }
         loginControl.login(phone, password).observe(LoginFragment.this, new Observer<User>() {
             @Override
             public void onChanged(@Nullable User user) {
                 dissWaitingDialog();
+                SharedUtils.get().put(Constant.SHARE_FILE_CURRENCY,phone);
                 getActivity().finish();
                 //NavigationUtils.getInstance().goBack(getFragment());
             }

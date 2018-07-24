@@ -20,19 +20,13 @@ public abstract class AbsExpandFragment extends BaseFragment {
      * 隐藏软键盘
      */
     protected final void hideInputMethod(final Activity activity) {
-      if(activity!=null){
-          activity.runOnUiThread(new Runnable() {
-              @Override
-              public void run() {
-                  InputMethodManager mInputKeyBoard = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-                  if (activity.getCurrentFocus() != null) {
-                      mInputKeyBoard.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-                      activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-                  }
-              }
-          });
-      }
-      }
+        if (activity != null) {
+            InputMethodManager mInputKeyBoard = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            mInputKeyBoard.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        }
+    }
 
     private boolean isKeyboardShown(View rootView) {
         final int softKeyboardHeight = 100;
