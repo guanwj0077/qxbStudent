@@ -67,6 +67,11 @@ public class SchoolControl extends AndroidViewModel {
         binding.viewPager.addOnPageChangeListener(pageChangeListener);
         binding.radioGroup.setOnCheckedChangeListener(checkedChangeListener);
         binding.radioGroup.check(binding.radioGroup.getChildAt(0).getId());
+        binding.viewPager.setAdapter(new FragmentAdapter(fragment.getChildFragmentManager(), Arrays.asList(
+                new SchoolRecruitMajorFragment().setTitle(fragment.getString(R.string.school_major)),
+                new SchoolIntroFragment().setTitle(fragment.getString(R.string.school_intro)),
+                SchoolConductFragment.getInstance(schoolId).setTitle(fragment.getString(R.string.school_conduct))
+        )));
         binding.viewPager.setCurrentItem(0);
         schoolRepository.getSchoolById(schoolId).observe(fragment, new Observer<SchoolDetail>() {
             @Override
@@ -77,11 +82,6 @@ public class SchoolControl extends AndroidViewModel {
                     toolbar.setTitle(schoolDetail.getSchool_name());
                 }
                 schoolLiveData.setValue(schoolDetail);
-                binding.viewPager.setAdapter(new FragmentAdapter(fragment.getChildFragmentManager(), Arrays.asList(
-                        new SchoolRecruitMajorFragment().setTitle(fragment.getString(R.string.school_major)),
-                        new SchoolIntroFragment().setTitle(fragment.getString(R.string.school_intro)),
-                        new SchoolConductFragment().setTitle(fragment.getString(R.string.school_conduct))
-                )));
             }
         });
         schoolRepository.getSchoolVideoList(schoolId, "3", "1").observe(fragment, new Observer<List<SchoolVideo>>() {
@@ -95,8 +95,8 @@ public class SchoolControl extends AndroidViewModel {
         });
     }
 
-    public LiveData<List<SchoolNews>> getSchoolNews(int page) {
-        return schoolRepository.getSchoolNews(String.valueOf(schoolLiveData.getValue().getId()), "3", "", String.valueOf(page));
+    public LiveData<List<SchoolNews>> getSchoolNews(String schoolId, int page) {
+        return schoolRepository.getSchoolNews(schoolId, "3", "", String.valueOf(page));
     }
 
     private RadioGroup.OnCheckedChangeListener checkedChangeListener = new RadioGroup.OnCheckedChangeListener() {

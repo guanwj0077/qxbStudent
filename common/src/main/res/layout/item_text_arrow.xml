@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorDivider"
-    android:paddingBottom="@dimen/px_30"
+    android:paddingBottom="@dimen/px_35"
     android:paddingEnd="@dimen/px_50"
     android:paddingStart="@dimen/px_50"
-    android:paddingTop="@dimen/px_30">
+    android:paddingTop="@dimen/px_35">
 
     <TextView
         android:id="@+id/text1"
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/px_150"
         android:textColor="@android:color/black"
-        android:textSize="@dimen/px_40" />
+        android:textSize="@dimen/px_45" />
 
     <ImageView
         android:id="@+id/image1"

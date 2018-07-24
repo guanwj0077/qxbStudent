@@ -4,7 +4,8 @@
     android:id="@+id/refreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#444444"
+    android:background="@color/colorDivider"
+    android:paddingTop="@dimen/px_20"
     app:srlAccentColor="@android:color/white"
     app:srlEnablePreviewInEditMode="true"
     app:srlPrimaryColor="#444444">
