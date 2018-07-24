@@ -6,7 +6,11 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-public class ExtendRecyclerAdapter extends RecyclerView.Adapter {
+/**
+ * 可设置头部及脚部
+ * @author winky
+ */
+public class HeaderRecyclerAdapter extends RecyclerView.Adapter {
 
     public static final int SHOW_HEADER = 1;
     public static final int SHOW_FOOTER = 2;
@@ -14,7 +18,7 @@ public class ExtendRecyclerAdapter extends RecyclerView.Adapter {
     private ArrayList<View> footerView;
     private RecyclerView.Adapter adapter;
 
-    public ExtendRecyclerAdapter(ArrayList<View> headViews, ArrayList<View> footerView, RecyclerView.Adapter adapter) {
+    public HeaderRecyclerAdapter(ArrayList<View> headViews, ArrayList<View> footerView, RecyclerView.Adapter adapter) {
         if (headViews == null) {
             this.headViews = new ArrayList<>();
         } else {

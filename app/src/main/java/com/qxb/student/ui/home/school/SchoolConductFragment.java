@@ -50,7 +50,7 @@ public class SchoolConductFragment extends AbsExpandFragment {
     public void init(@NonNull View view, @Nullable Bundle savedInstanceState) {
         refreshLayout = findViewById(R.id.refreshLayout);
         recyclerView = findViewById(R.id.recyclerView);
-        schoolControl = ViewModelProviders.of(this).get(SchoolControl.class);
+        schoolControl = ViewModelProviders.of(getActivity()).get(SchoolControl.class);
         schoolControl.getSchoolNews(pageIndex).observe(this, new Observer<List<SchoolNews>>() {
             @Override
             public void onChanged(@Nullable List<SchoolNews> schoolNews) {

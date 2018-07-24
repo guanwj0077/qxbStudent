@@ -1,8 +1,6 @@
 package com.qxb.student.common.module.bean;
 
 
-import java.util.Date;
-
 /**
  * @author
  */
@@ -17,15 +15,15 @@ public class RcChatRoom {
     /**
      * 创建时间
      */
-    private Date create_time;
+    private long create_time;
     /**
      * 直播开启时间
      */
-    private Date live_start_time;
+    private long live_start_time;
     /**
      * 直播结束时间
      */
-    private Date live_end_time;
+    private long live_end_time;
     /**
      * 直播主题
      */
@@ -258,27 +256,27 @@ public class RcChatRoom {
         return status;
     }
 
-    public void setCreate_time(Date create_time) {
+    public void setCreate_time(long create_time) {
         this.create_time = create_time;
     }
 
-    public Date getCreate_time() {
+    public long getCreate_time() {
         return create_time;
     }
 
-    public void setLive_start_time(Date live_start_time) {
+    public void setLive_start_time(long live_start_time) {
         this.live_start_time = live_start_time;
     }
 
-    public Date getLive_start_time() {
+    public long getLive_start_time() {
         return live_start_time;
     }
 
-    public void setLive_end_time(Date live_end_time) {
+    public void setLive_end_time(long live_end_time) {
         this.live_end_time = live_end_time;
     }
 
-    public Date getLive_end_time() {
+    public long getLive_end_time() {
         return live_end_time;
     }
 

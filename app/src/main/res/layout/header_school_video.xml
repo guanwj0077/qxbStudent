@@ -22,7 +22,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:layout_marginBottom="@dimen/px_20"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -43,8 +42,8 @@
                 radius="@dimen/px_20"
                 android:layout_width="@dimen/px_350"
                 android:layout_height="@dimen/px_230"
-                android:scaleType="fitXY"
-                android:contentDescription="@string/hint_not_describe" />
+                android:contentDescription="@string/hint_not_describe"
+                android:scaleType="fitXY" />
 
             <TextView
                 android:id="@+id/text1"
@@ -98,8 +97,8 @@
                 radius="@dimen/px_20"
                 android:layout_width="@dimen/px_350"
                 android:layout_height="@dimen/px_230"
-                android:scaleType="fitXY"
-                android:contentDescription="@string/hint_not_describe" />
+                android:contentDescription="@string/hint_not_describe"
+                android:scaleType="fitXY" />
 
             <TextView
                 android:id="@+id/text2"
@@ -150,5 +149,9 @@
             android:textSize="@dimen/px_50"
             android:visibility="@{videoSize>2 ? View.VISIBLE:View.GONE }" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_20"
+            android:background="@color/colorDivider" />
     </LinearLayout>
 </layout>

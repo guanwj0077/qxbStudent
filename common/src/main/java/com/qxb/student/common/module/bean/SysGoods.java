@@ -24,9 +24,9 @@ public class SysGoods{
 	private double price_origin;//原价
 	private double price_sell;//售价
 	private double price_ratio;//折扣
-	private Date start_time;//开始时间
-	private Date end_time;//结束时间
-	private Date create_time;//创建时间
+	private long start_time;//开始时间
+	private long end_time;//结束时间
+	private long create_time;//创建时间
 	private String create_user;//创建人
 	private String success_notice;//成功提示
 	
@@ -193,27 +193,27 @@ public class SysGoods{
 		this.price_ratio = price_ratio;
 	}
 
-	public Date getStart_time() {
+	public long getStart_time() {
 		return start_time;
 	}
 
-	public void setStart_time(Date start_time) {
+	public void setStart_time(long start_time) {
 		this.start_time = start_time;
 	}
 
-	public Date getEnd_time() {
+	public long getEnd_time() {
 		return end_time;
 	}
 
-	public void setEnd_time(Date end_time) {
+	public void setEnd_time(long end_time) {
 		this.end_time = end_time;
 	}
 
-	public Date getCreate_time() {
+	public long getCreate_time() {
 		return create_time;
 	}
 
-	public void setCreate_time(Date create_time) {
+	public void setCreate_time(long create_time) {
 		this.create_time = create_time;
 	}
 

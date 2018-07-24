@@ -19,7 +19,7 @@ import com.qxb.student.common.module.bean.attr.NavAttr;
 import com.qxb.student.common.utils.NavigationUtils;
 import com.qxb.student.common.utils.UserCache;
 import com.qxb.student.common.view.Toolbar;
-import com.qxb.student.common.view.recycler.ExtendRecyclerView;
+import com.qxb.student.common.view.recycler.HeaderRecyclerView;
 import com.qxb.student.common.view.recycler.ViewHolder;
 import com.qxb.student.common.view.recycler.adapter.QuickAdapter;
 import com.qxb.student.common.view.recycler.listener.OnItemClickListener;
@@ -50,7 +50,7 @@ public class MineFragment extends AbsExpandFragment {
         setSupportActionBar(toolbar);
         toolbar.setTitle(getString(R.string.main_mine));
         toolbar.setAppBarLayout((AppBarLayout) findViewById(R.id.appBarLayout), true);
-        ExtendRecyclerView recyclerView = findViewById(R.id.recyclerView);
+        HeaderRecyclerView recyclerView = findViewById(R.id.recyclerView);
         headerMineBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.header_mine, null, false);
         findViewById(R.id.img).setOnClickListener(clickListener);
         findViewById(R.id.username).setOnClickListener(clickListener);

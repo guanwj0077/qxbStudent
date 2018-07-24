@@ -29,8 +29,9 @@ public class SchoolDetailFragment extends AbsExpandFragment {
         if (validate(schoolId)) {
             return;
         }
-        SchoolControl schoolControl = ViewModelProviders.of(getFragment()).get(SchoolControl.class);
+        SchoolControl schoolControl = ViewModelProviders.of(getActivity()).get(SchoolControl.class);
         schoolControl.init(this, view,schoolId);
+
     }
 
     @Override

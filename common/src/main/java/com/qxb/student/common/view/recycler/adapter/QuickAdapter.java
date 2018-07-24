@@ -48,6 +48,12 @@ public abstract class QuickAdapter<T> extends BaseAdapter {
         convert(holder, position, datas.get(position));
     }
 
+    /**
+     * item转换
+     * @param holder 控件
+     * @param position 下标
+     * @param item 数据对象
+     */
     protected abstract void convert(ViewHolder holder, int position, T item);
 
     /**

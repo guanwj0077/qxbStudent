@@ -6,18 +6,18 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.qxb.student.common.view.recycler.adapter.ExtendRecyclerAdapter;
+import com.qxb.student.common.view.recycler.adapter.HeaderRecyclerAdapter;
 
 import java.util.ArrayList;
 
-public class ExtendRecyclerView extends RecyclerView {
+public class HeaderRecyclerView extends RecyclerView {
 
     private ArrayList<View> headerViews = new ArrayList<>();
     private ArrayList<View> footerViews = new ArrayList<>();
 
     private Adapter adapter;
 
-    public ExtendRecyclerView(Context context, @Nullable AttributeSet attrs) {
+    public HeaderRecyclerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
@@ -25,8 +25,8 @@ public class ExtendRecyclerView extends RecyclerView {
         headerViews.add(v);
         // Wrap the adapter if it wasn't already wrapped.
         if (adapter != null) {
-            if (!(adapter instanceof ExtendRecyclerAdapter)) {
-                adapter = new ExtendRecyclerAdapter(headerViews, footerViews, adapter);
+            if (!(adapter instanceof HeaderRecyclerAdapter)) {
+                adapter = new HeaderRecyclerAdapter(headerViews, footerViews, adapter);
             }
         }
     }
@@ -35,8 +35,8 @@ public class ExtendRecyclerView extends RecyclerView {
         footerViews.add(v);
         // Wrap the adapter if it wasn't already wrapped.
         if (adapter != null) {
-            if (!(adapter instanceof ExtendRecyclerAdapter)) {
-                adapter = new ExtendRecyclerAdapter(headerViews, footerViews, adapter);
+            if (!(adapter instanceof HeaderRecyclerAdapter)) {
+                adapter = new HeaderRecyclerAdapter(headerViews, footerViews, adapter);
             }
         }
     }
@@ -44,7 +44,7 @@ public class ExtendRecyclerView extends RecyclerView {
     @Override
     public void setAdapter(Adapter adapter) {
         if (headerViews.size() > 0 || footerViews.size() > 0) {
-            adapter = new ExtendRecyclerAdapter(headerViews, footerViews, adapter);
+            adapter = new HeaderRecyclerAdapter(headerViews, footerViews, adapter);
         }
         super.setAdapter(adapter);
     }

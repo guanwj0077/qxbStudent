@@ -8,11 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 /**
  * copy 自融云 baseAdapter
  *
@@ -20,79 +15,38 @@ import java.util.List;
  * @date 2018/4/9
  */
 
-public abstract class AbsListAdapter<Binding extends ViewDataBinding, T> extends android.widget.BaseAdapter {
-
-    private Context context;
-    private List<T> mList;
-    private int layoutId;
+public abstract class AbsListAdapter<Binding extends ViewDataBinding, T> extends AbsAdapter<T> {
+    private Binding binding;
 
     public AbsListAdapter(Context context, @LayoutRes int layoutId) {
-        this.context = context;
-        this.mList = new ArrayList();
-        this.layoutId = layoutId;
-    }
-
-    public void addCollection(Collection<T> collection) {
-        this.mList.addAll(collection);
-    }
-
-    public void add(T t) {
-        this.mList.add(t);
-    }
-
-    public void add(T t, int position) {
-        this.mList.add(position, t);
-    }
-
-    public void remove(int position) {
-        this.mList.remove(position);
-    }
-
-    public int getPosition(int position) {
-        return position;
-    }
-
-    public void removeAll() {
-        this.mList.clear();
-    }
-
-    public void clear() {
-        this.mList.clear();
+        super(context, layoutId);
     }
 
     @Override
-    public int getCount() {
-        return this.mList == null ? 0 : this.mList.size();
-    }
-
-    @Override
-    public T getItem(int position) {
-        return this.mList == null ? null : (position >= this.mList.size() ? null : this.mList.get(position));
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return 0;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        Binding binding;
-        if (convertView != null) {
-            binding = DataBindingUtil.getBinding(convertView);
-        } else {
-            binding = DataBindingUtil.inflate(LayoutInflater.from(context), layoutId, parent, false);
-        }
+    protected void bindView(View view, int position, T item) {
         position = getPosition(position);
         this.bind(binding, position, this.getItem(position));
+    }
+
+    @Override
+    public View newView(Context context, int position, ViewGroup parent) {
+        binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), getLayoutId(), parent, false);
         return binding.getRoot();
     }
 
     /**
      * 数据绑定
-     * @param binding ViewDataBinding
+     *
+     * @param binding  ViewDataBinding
      * @param position position
-     * @param item 模型
+     * @param item     模型
      */
     protected abstract void bind(Binding binding, int position, T item);
+
+    public void recovery() {
+        if (binding != null) {
+            binding.unbind();
+            binding = null;
+        }
+    }
 }

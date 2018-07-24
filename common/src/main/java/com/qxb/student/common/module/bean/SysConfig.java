@@ -1,7 +1,5 @@
 package com.qxb.student.common.module.bean;
 
-import java.util.Date;
-
 
 /**
  * 系统配置
@@ -23,7 +21,7 @@ public class SysConfig {
 	/**描述*/
 	private String descr;
 	/**创建时间*/
-	private Date create_time;
+	private long create_time;
 	
 	
 	public Integer getStatus() {
@@ -68,10 +66,10 @@ public class SysConfig {
 	public void setDescr(String descr) {
 		this.descr = descr;
 	}
-	public Date getCreate_time() {
+	public long getCreate_time() {
 		return create_time;
 	}
-	public void setCreate_time(Date create_time) {
+	public void setCreate_time(long create_time) {
 		this.create_time = create_time;
 	}
 

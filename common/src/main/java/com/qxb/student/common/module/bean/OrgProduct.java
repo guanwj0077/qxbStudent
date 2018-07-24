@@ -1,7 +1,5 @@
 package com.qxb.student.common.module.bean;
 
-import java.util.Date;
-
 public class OrgProduct {
     private String title;
     private String image;
@@ -12,8 +10,8 @@ public class OrgProduct {
     private int status;
     private String publish_time;
     private String remark;
-    private Date create_time;
-    private Date update_time;
+    private long create_time;
+    private long uplong_time;
     private int show_order;
     private int scan_num;
     private int regist_num;
@@ -105,20 +103,20 @@ public class OrgProduct {
         this.remark = remark;
     }
 
-    public Date getCreate_time() {
+    public long getCreate_time() {
         return this.create_time;
     }
 
-    public void setCreate_time(Date create_time) {
+    public void setCreate_time(long create_time) {
         this.create_time = create_time;
     }
 
-    public Date getUpdate_time() {
-        return this.update_time;
+    public long getUplong_time() {
+        return this.uplong_time;
     }
 
-    public void setUpdate_time(Date update_time) {
-        this.update_time = update_time;
+    public void setUplong_time(long uplong_time) {
+        this.uplong_time = uplong_time;
     }
 
     public int getShow_order() {

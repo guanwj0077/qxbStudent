@@ -1,7 +1,5 @@
 package com.qxb.student.common.module.bean;
 
-import java.util.Date;
-
 public class StuScore {
 
     /**
@@ -42,7 +40,7 @@ public class StuScore {
 
     private String msg;
     private String descr;
-    private Date create_time;
+    private long create_time;
 
     public int getStu_id() {
         return stu_id;
@@ -116,11 +114,11 @@ public class StuScore {
         this.descr = descr;
     }
 
-    public Date getCreate_time() {
+    public long getCreate_time() {
         return create_time;
     }
 
-    public void setCreate_time(Date create_time) {
+    public void setCreate_time(long create_time) {
         this.create_time = create_time;
     }
 

@@ -1,5 +1,6 @@
 package com.qxb.student.common.view.recycler.adapter;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.LayoutRes;
 import android.util.SparseArray;
 
@@ -24,6 +25,7 @@ public abstract class MultiItemAdapter<T extends MultiItemEntity> extends QuickA
         return layouts.get(viewType);
     }
 
+    @SuppressLint("UseSparseArrays")
     public void addItemType(int type, @LayoutRes int layoutResId) {
         if (layouts == null) {
             layouts = new SparseArray<>();
@@ -34,7 +36,7 @@ public abstract class MultiItemAdapter<T extends MultiItemEntity> extends QuickA
     @Override
     public int getItemViewType(int position) {
         T item = getItem(position);
-        if (item instanceof MultiItemEntity) {
+        if (item != null) {
             return item.getItemType();
         }
         return 0;

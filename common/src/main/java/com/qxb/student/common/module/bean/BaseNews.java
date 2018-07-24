@@ -3,7 +3,6 @@ package com.qxb.student.common.module.bean;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
-import java.util.Date;
 @Entity(tableName = "tb_base_news")
 public class BaseNews{
 	/** id */
@@ -28,7 +27,7 @@ public class BaseNews{
 	private String content;
 
 	/** 创建时间 */
-	private Date create_time;
+	private long create_time;
 
 	private String create_timeString;
 
@@ -71,7 +70,7 @@ public class BaseNews{
 	/**	视频地址	*/
 	private String video_url;
 	/** 是否更新创建时间  */
-	private int updateTime;
+	private int uplongTime;
 	/*频道 1.资讯2.备考3.报考4.大学5.专业*/
 	private int channel;
 	/*是否收藏*/
@@ -193,7 +192,7 @@ public class BaseNews{
 	/**
 	 * 获取创建时间
 	 */
-	public Date getCreate_time() {
+	public long getCreate_time() {
 		return create_time;
 	}
 
@@ -207,7 +206,7 @@ public class BaseNews{
 	/**
 	 * 设置创建时间
 	 */
-	public void setCreate_time(Date create_time) {
+	public void setCreate_time(long create_time) {
 		this.create_time = create_time;
 	}
 
@@ -353,12 +352,12 @@ public class BaseNews{
 		this.video_url = video_url;
 	}
 
-	public int getUpdateTime() {
-		return updateTime;
+	public int getUplongTime() {
+		return uplongTime;
 	}
 
-	public void setUpdateTime(int updateTime) {
-		this.updateTime = updateTime;
+	public void setUplongTime(int uplongTime) {
+		this.uplongTime = uplongTime;
 	}
 
 	public void setImageRealPath(String imageRealPath) {

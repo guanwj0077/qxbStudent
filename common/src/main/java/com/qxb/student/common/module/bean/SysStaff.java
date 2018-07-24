@@ -1,7 +1,5 @@
 package com.qxb.student.common.module.bean;
 
-import java.util.Date;
-
 /**
  * 员工信息实体类
  *
@@ -76,7 +74,7 @@ public class SysStaff {
     /**
      * 创建时间
      */
-    private Date create_time;
+    private long create_time;
     /**
      * 排序
      */
@@ -289,11 +287,11 @@ public class SysStaff {
         this.remark = remark;
     }
 
-    public Date getCreate_time() {
+    public long getCreate_time() {
         return create_time;
     }
 
-    public void setCreate_time(Date create_time) {
+    public void setCreate_time(long create_time) {
         this.create_time = create_time;
     }
 

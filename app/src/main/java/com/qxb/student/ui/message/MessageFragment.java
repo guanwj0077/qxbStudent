@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.qxb.student.R;
 import com.qxb.student.common.basics.AbsExpandFragment;
-import com.qxb.student.common.view.recycler.ExtendRecyclerView;
+import com.qxb.student.common.view.recycler.HeaderRecyclerView;
 import com.qxb.student.common.view.recycler.ViewHolder;
 import com.qxb.student.common.view.recycler.adapter.QuickAdapter;
 import com.qxb.student.databinding.HeaderMessageBinding;
@@ -33,7 +33,7 @@ public class MessageFragment extends AbsExpandFragment {
 
     private Toolbar toolbar;
     private SmartRefreshLayout refreshLayout;
-    private ExtendRecyclerView recyclerView;
+    private HeaderRecyclerView recyclerView;
     private QuickAdapter<String> adapter;
 
     @Override

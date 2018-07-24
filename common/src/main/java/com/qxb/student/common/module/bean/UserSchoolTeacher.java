@@ -1,7 +1,5 @@
 package com.qxb.student.common.module.bean;
 
-import java.util.Date;
-
 public class UserSchoolTeacher {
 
     /**
@@ -52,12 +50,12 @@ public class UserSchoolTeacher {
     /**
      * 创建时间
      */
-    private Date create_time;
+    private long create_time;
 
     /**
      * 登录时间
      */
-    private Date login_time;
+    private long login_time;
 
     /**
      * 登录次数
@@ -241,7 +239,7 @@ public class UserSchoolTeacher {
     /**
      * 获取创建时间
      */
-    public Date getCreate_time() {
+    public long getCreate_time() {
         return create_time;
     }
 
@@ -252,14 +250,14 @@ public class UserSchoolTeacher {
     /**
      * 设置创建时间
      */
-    public void setCreate_time(Date create_time) {
+    public void setCreate_time(long create_time) {
         this.create_time = create_time;
     }
 
     /**
      * 设置登录时间
      */
-    public void setLogin_time(Date login_time) {
+    public void setLogin_time(long login_time) {
         this.login_time = login_time;
     }
 

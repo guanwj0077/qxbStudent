@@ -1,7 +1,5 @@
 package com.qxb.student.common.module.bean;
 
-import java.util.Date;
-
 /**
  * 收藏实体类
  * @author
@@ -27,7 +25,7 @@ public class SysCollection {
     /**
      * 收藏时间
      **/
-    private Date create_time;
+    private long create_time;
     /**
      * 学生姓名
      **/
@@ -109,11 +107,11 @@ public class SysCollection {
         this.stu_id = stu_id;
     }
 
-    public Date getCreate_time() {
+    public long getCreate_time() {
         return create_time;
     }
 
-    public void setCreate_time(Date create_time) {
+    public void setCreate_time(long create_time) {
         this.create_time = create_time;
     }
 

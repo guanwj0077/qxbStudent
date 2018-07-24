@@ -1,7 +1,5 @@
 package com.qxb.student.common.module.bean;
 
-import java.util.Date;
-
 /**
  * 学生志愿实体类
  * @author
@@ -31,9 +29,9 @@ public class StudentWish{
 	/**状态**/
 	private int status;
 	/**创建时间**/
-	private Date create_time;
+	private long create_time;
 	/**更新时间**/
-	private Date update_time;
+	private long uplong_time;
 	/**省份中文名称**/
 	private String province_name;
 	/**学生姓名*/
@@ -146,20 +144,20 @@ public class StudentWish{
 		this.status = status;
 	}
 
-	public Date getCreate_time() {
+	public long getCreate_time() {
 		return create_time;
 	}
 
-	public void setCreate_time(Date create_time) {
+	public void setCreate_time(long create_time) {
 		this.create_time = create_time;
 	}
 
-	public Date getUpdate_time() {
-		return update_time;
+	public long getUplong_time() {
+		return uplong_time;
 	}
 
-	public void setUpdate_time(Date update_time) {
-		this.update_time = update_time;
+	public void setUplong_time(long uplong_time) {
+		this.uplong_time = uplong_time;
 	}
 
 	public String getTitle() {

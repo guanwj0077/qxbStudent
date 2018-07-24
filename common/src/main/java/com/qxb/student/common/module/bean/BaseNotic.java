@@ -1,7 +1,5 @@
 package com.qxb.student.common.module.bean;
 
-import java.util.Date;
-
 public class BaseNotic {
     /**
      * id
@@ -21,7 +19,7 @@ public class BaseNotic {
     /**
      * 创建时间
      */
-    private Date create_time;
+    private long create_time;
 
     /**
      * 创建人
@@ -120,7 +118,7 @@ public class BaseNotic {
     /**
      * 获取创建时间
      */
-    public Date getCreate_time() {
+    public long getCreate_time() {
         return create_time;
     }
 
@@ -131,7 +129,7 @@ public class BaseNotic {
     /**
      * 设置创建时间
      */
-    public void setCreate_time(Date create_time) {
+    public void setCreate_time(long create_time) {
         this.create_time = create_time;
     }
 
