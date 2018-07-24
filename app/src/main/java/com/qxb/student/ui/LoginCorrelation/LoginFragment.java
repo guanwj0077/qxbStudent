@@ -25,8 +25,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.mob.tools.utils.UIHandler;
 import com.qxb.student.R;
 import com.qxb.student.common.Constant;
@@ -128,16 +126,16 @@ public class LoginFragment extends AbsExpandFragment implements Handler.Callback
                         //去看看
                         break;
                     case R.id.tv_register:
-                        Bundle bundle=new Bundle();
-                        bundle.putString(Constant.PURPOSE,Constant.USER_REGISTER);
-                        NavigationUtils.getInstance().toNavigation(getActivity(),new NavAttr.Builder().graphRes(R.navigation.register).params(bundle).build());
+                        Bundle bundle = new Bundle();
+                        bundle.putString(Constant.PURPOSE, Constant.USER_REGISTER);
+                        NavigationUtils.getInstance().toNavigation(getActivity(), new NavAttr.Builder().graphRes(R.navigation.register).params(bundle).build());
                         //注册
                         break;
                     case R.id.forget_pwd:
                         //忘记密码
-                        Bundle bundle1=new Bundle();
-                        bundle1.putString(Constant.PURPOSE,Constant.USER_PASSWORD);
-                        NavigationUtils.getInstance().toNavigation(getActivity(),new NavAttr.Builder().graphRes(R.navigation.register).params(bundle1).build());
+                        Bundle bundle1 = new Bundle();
+                        bundle1.putString(Constant.PURPOSE, Constant.USER_PASSWORD);
+                        NavigationUtils.getInstance().toNavigation(getActivity(), new NavAttr.Builder().graphRes(R.navigation.register).params(bundle1).build());
                         break;
                     case R.id.iv_qq:
                         authorize(new QQ());
@@ -165,7 +163,7 @@ public class LoginFragment extends AbsExpandFragment implements Handler.Callback
             @Override
             public void onChanged(@Nullable User user) {
                 dissWaitingDialog();
-                SharedUtils.get().put(Constant.SHARE_FILE_CURRENCY,phone);
+                SharedUtils.get().put(Constant.SHARE_FILE_CURRENCY, phone);
                 getActivity().finish();
                 //NavigationUtils.getInstance().goBack(getFragment());
             }
@@ -279,6 +277,8 @@ public class LoginFragment extends AbsExpandFragment implements Handler.Callback
                 /*授权成功，正在跳转登录操作…*/
                 Toast.makeText(getActivity(), R.string.auth_complete, Toast.LENGTH_SHORT).show();
 
+                break;
+            default:
                 break;
         }
         return false;

@@ -2,6 +2,7 @@ package com.qxb.student.common;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.qxb.student.common.http.AuthInterceptor;
+import com.qxb.student.common.http.JsonConverterFactory;
 import com.qxb.student.common.module.TestApi;
 import com.qxb.student.common.module.bean.ApiModel;
 
@@ -11,7 +12,6 @@ import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -26,7 +26,7 @@ public class ExampleUnitTest {
                 .baseUrl("https://api.qiuxuebao.com/api/")
                 .callFactory(new OkHttpClient.Builder().addInterceptor(new AuthInterceptor()).build())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(new JsonConverterFactory())
                 .build();
 
 //        SchoolApi schoolApi = retrofit.create(SchoolApi.class);
@@ -56,7 +56,7 @@ public class ExampleUnitTest {
         observable.subscribe(new Consumer<ApiModel<String>>() {
             @Override
             public void accept(ApiModel<String> apiModel) throws Exception {
-                System.out.println(apiModel.getData());
+                System.out.println(apiModel.toString());
             }
         });
 
