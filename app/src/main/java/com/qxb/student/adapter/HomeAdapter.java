@@ -19,7 +19,7 @@ import com.qxb.student.common.module.bean.RecomSchool;
 import com.qxb.student.common.module.bean.SysAd;
 import com.qxb.student.common.module.bean.attr.NavAttr;
 import com.qxb.student.common.utils.NavigationUtils;
-import com.qxb.student.common.view.abslist.AbsListAdapter;
+import com.qxb.student.common.view.abslist.adapter.AbsListAdapter;
 import com.qxb.student.common.view.abslist.GridView;
 import com.qxb.student.common.view.bannerview.CircleFlowIndicator;
 import com.qxb.student.common.view.bannerview.ViewFlow;

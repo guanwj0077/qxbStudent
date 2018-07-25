@@ -68,7 +68,7 @@ public class SchoolConductFragment extends AbsExpandFragment {
                 if (Objects.requireNonNull(schoolNews).size() < Config.PAGE_SIZE) {
                     refreshLayout.finishLoadMoreWithNoMoreData();
                 } else {
-                    refreshLayout.finishLoadMore(500);
+                    refreshLayout.finishLoadMore();
                 }
             }
         });
