@@ -29,6 +29,7 @@ import com.qxb.student.common.Constant;
 import com.qxb.student.common.basics.AbsExpandFragment;
 import com.qxb.student.common.listener.MultiClickUtil;
 import com.qxb.student.common.module.bean.ApiModel;
+import com.qxb.student.common.module.bean.LRegister;
 import com.qxb.student.common.module.bean.attr.NavAttr;
 import com.qxb.student.common.utils.CommonUtils;
 import com.qxb.student.common.utils.NavigationUtils;
@@ -131,8 +132,11 @@ public class ResetPasswordCodeFragment extends AbsExpandFragment {
                 dissWaitingDialog();
                 if (jsonObjectApiModel.getCode()==Constant.ONE){
                     Bundle bundle=new Bundle();
-                    bundle.putString(Constant.PURPOSE,phone);
-                    bundle.putString(Constant.PURPOSE_ONE,code);
+                    LRegister lRegister=new LRegister();
+                    lRegister.setTitle(purpose);
+                    lRegister.setPhone(phone);
+                    lRegister.setSmsCode(code);
+                    bundle.putParcelable(Constant.PURPOSE,lRegister);
                     NavigationUtils.getInstance().toNavigation(getActivity(),new NavAttr.Builder().graphRes(R.navigation.nav_password).params(bundle).build());
 
                 }else{
