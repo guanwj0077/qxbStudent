@@ -14,6 +14,7 @@ import android.widget.RadioGroup;
 
 import com.qxb.student.R;
 import com.qxb.student.common.adapter.FragmentAdapter;
+import com.qxb.student.common.adapter.SchoolTagAdapter;
 import com.qxb.student.common.module.SchoolRepository;
 import com.qxb.student.common.module.bean.SchoolDetail;
 import com.qxb.student.common.module.bean.SchoolNews;
@@ -24,6 +25,8 @@ import com.qxb.student.ui.home.school.SchoolConductFragment;
 import com.qxb.student.ui.home.school.SchoolDetailFragment;
 import com.qxb.student.ui.home.school.SchoolIntroFragment;
 import com.qxb.student.ui.home.school.SchoolRecruitMajorFragment;
+import com.zhy.view.flowlayout.FlowLayout;
+import com.zhy.view.flowlayout.TagAdapter;
 
 import java.util.Arrays;
 import java.util.List;
@@ -42,9 +45,10 @@ public class SchoolControl extends AndroidViewModel {
 
     private SchoolDetailFragment fragment;
     private FragmentSchoolBinding binding;
+    private TagAdapter<String> tagAdapter;
     private SchoolRepository schoolRepository = new SchoolRepository();
 
-    private MutableLiveData<SchoolDetail> schoolLiveData = new MutableLiveData<>();
+    private LiveData<SchoolDetail> schoolLiveData;
     private LiveData<List<SchoolNews>> schoolNewsLiveData;
 
     @Override
@@ -73,7 +77,8 @@ public class SchoolControl extends AndroidViewModel {
                 SchoolConductFragment.getInstance(schoolId).setTitle(fragment.getString(R.string.school_conduct))
         )));
         binding.viewPager.setCurrentItem(0);
-        schoolRepository.getSchoolById(schoolId).observe(fragment, new Observer<SchoolDetail>() {
+        schoolLiveData = schoolRepository.getSchoolById(schoolId);
+        schoolLiveData.observe(fragment, new Observer<SchoolDetail>() {
             @Override
             public void onChanged(@Nullable SchoolDetail schoolDetail) {
                 binding.setSchool(schoolDetail);
@@ -81,7 +86,9 @@ public class SchoolControl extends AndroidViewModel {
                 if (schoolDetail != null) {
                     toolbar.setTitle(schoolDetail.getSchool_name());
                 }
-                schoolLiveData.setValue(schoolDetail);
+                //  211,研究生院,卓越计划
+                String[] tags = schoolDetail != null ? schoolDetail.getTag().replaceAll("，", ",").replaceAll("；", ",").replaceAll(";", ",").replaceAll(" ", ",").split(",") : new String[0];
+                binding.includeHeader.flowLayout.setAdapter(new SchoolTagAdapter(Arrays.asList(tags)));
             }
         });
         schoolRepository.getSchoolVideoList(schoolId, "3", "1").observe(fragment, new Observer<List<SchoolVideo>>() {
@@ -126,7 +133,7 @@ public class SchoolControl extends AndroidViewModel {
         }
     };
 
-    public MutableLiveData<SchoolDetail> getSchoolLiveData() {
+    public LiveData<SchoolDetail> getSchoolLiveData() {
         return schoolLiveData;
     }
 }

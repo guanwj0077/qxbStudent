@@ -1,7 +1,7 @@
 package com.qxb.student.common.utils;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.util.TypeUtils;
 
 import java.util.List;
 
@@ -22,30 +22,36 @@ public class JsonUtils {
         return SINGLETON.get();
     }
 
-    private volatile Gson gson = new Gson();
+    private JsonUtils() {
+        TypeUtils.compatibleWithJavaBean = true;
+    }
 
     /**
      * 将json字符串转换成java对象
      *
-     * @param json json
-     * @param cls  模型
-     * @return object
+     * @param json
+     * @param cls
+     * @return
      */
     public <T> T toBean(String json, Class<T> cls) {
-        return gson.fromJson(json, cls);
+        try {
+            return JSON.parseObject(json, cls);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
      * 将json字符串转换成java List对象
      *
-     * @param json json
-     * @param cls  模型
-     * @return List<Class>
+     * @param json
+     * @param cls
+     * @return
      */
     public <T> List<T> toList(String json, Class<T> cls) {
         try {
-            return gson.fromJson(json, new TypeToken<List<T>>() {
-            }.getType());
+            return JSON.parseArray(json, cls);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -55,15 +61,16 @@ public class JsonUtils {
     /**
      * 将bean对象转化成json字符串
      *
-     * @param obj object
-     * @return json
+     * @param obj
+     * @return
      */
     public String toJson(Object obj) {
         try {
-            return gson.toJson(obj);
+            return JSON.toJSONString(obj);
         } catch (Exception e) {
             e.printStackTrace();
             return "";
         }
     }
+
 }

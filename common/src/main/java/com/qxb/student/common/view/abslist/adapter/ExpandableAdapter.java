@@ -1,4 +1,4 @@
-package com.qxb.student.common.view.abslist;
+package com.qxb.student.common.view.abslist.adapter;
 
 import android.content.Context;
 import android.support.annotation.IdRes;

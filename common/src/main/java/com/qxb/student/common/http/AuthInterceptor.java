@@ -9,6 +9,7 @@ import com.qxb.student.common.utils.UserCache;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
+import okhttp3.Cache;
 import okhttp3.FormBody;
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -47,18 +48,20 @@ public class AuthInterceptor implements Interceptor {
                 }
             } else if (Config.COMMON.equals(request.header(Config.AUTH))) {
                 builder.addHeader(AUTHORIZATION, Config.AUTH_COMMON_SECRET);
-
-                Buffer buffer = new Buffer();
-                request.body().writeTo(buffer);
-                byte[] buff = new byte[(int) buffer.size()];
-                buffer.inputStream().read(buff);
-                String params = new String(buff, "UTF-8");
-                logger.d("params:" + params);
+                if (Logger.isDebug) {
+                    Buffer buffer = new Buffer();
+                    request.body().writeTo(buffer);
+                    byte[] buff = new byte[(int) buffer.size()];
+                    buffer.inputStream().read(buff);
+                    String params = new String(buff, "UTF-8");
+                    logger.d("params:" + params);
+                }
             }
             //删除自定义的认证头标记
             builder.removeHeader(Config.AUTH);
             builder.addHeader(APP_SRC, getAppSrc());
         }
+
         Response response = chain.proceed(builder.build());
         if (Logger.isDebug) {
             ResponseBody responseBody = response.body();

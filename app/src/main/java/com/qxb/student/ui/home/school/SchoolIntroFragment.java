@@ -11,7 +11,7 @@ import android.widget.ExpandableListView;
 import com.qxb.student.R;
 import com.qxb.student.common.basics.AbsExpandFragment;
 import com.qxb.student.common.module.bean.SchoolDetail;
-import com.qxb.student.common.view.abslist.ExpandableAdapter;
+import com.qxb.student.common.view.abslist.adapter.ExpandableAdapter;
 import com.qxb.student.common.view.abslist.bean.ExpandableEntity;
 import com.qxb.student.control.SchoolControl;
 

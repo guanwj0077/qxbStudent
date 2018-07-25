@@ -22,7 +22,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="@{videoSize ==0 ? View.GONE : View.VISIBLE}">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -82,7 +83,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
+            android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
             android:paddingBottom="@dimen/px_20"

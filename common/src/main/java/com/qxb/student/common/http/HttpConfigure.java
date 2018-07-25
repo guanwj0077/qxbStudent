@@ -25,7 +25,6 @@ import okhttp3.CookieJar;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * http初始化缓存
@@ -132,7 +131,7 @@ public class HttpConfigure {
                         .baseUrl(Objects.requireNonNull(httpUrl))
                         .callFactory(callFactory)
                         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                        .addConverterFactory(GsonConverterFactory.create())
+                        .addConverterFactory(new JsonConverterFactory())
                         .build();
             }
             return new HttpConfigure(context, httpUrl, callFactory, retrofit);
