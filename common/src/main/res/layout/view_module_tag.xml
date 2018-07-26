@@ -18,7 +18,7 @@
         android:id="@+id/tag_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/px_16"
+        android:layout_marginStart="@dimen/px_16"
         android:padding="@dimen/px_16"
         android:textColor="@android:color/black"
         android:textSize="@dimen/px_40" />

@@ -5,4 +5,5 @@
     android:layout_height="wrap_content"
     android:divider="@drawable/list_divider_padd_gray"
     android:dividerHeight="@dimen/px_1"
-    android:listSelector="?attr/selectableItemBackground" />
+    android:scrollbars="none"
+    android:listSelector="?android:attr/selectableItemBackground" />

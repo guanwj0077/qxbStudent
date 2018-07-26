@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingEnd="@dimen/px_40"
+    android:paddingStart="@dimen/px_40">
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:paddingBottom="@dimen/px_15"
+        android:paddingTop="@dimen/px_15"
+        android:textColor="@android:color/darker_gray" />
+
+    <View
+        android:layout_width="@dimen/px_2"
+        android:layout_height="match_parent"
+        android:background="@color/colorDivider" />
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:paddingBottom="@dimen/px_15"
+        android:paddingTop="@dimen/px_15"
+        android:textColor="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/text3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:paddingBottom="@dimen/px_15"
+        android:paddingTop="@dimen/px_15"
+        android:textColor="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/text4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:paddingBottom="@dimen/px_15"
+        android:paddingTop="@dimen/px_15"
+        android:textColor="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/text5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:paddingBottom="@dimen/px_15"
+        android:paddingTop="@dimen/px_15"
+        android:textColor="@android:color/darker_gray" />
+</LinearLayout>

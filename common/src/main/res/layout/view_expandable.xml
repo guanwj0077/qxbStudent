@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qxb.student.common.view.abslist.ExpandableListView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/expandableListView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:childDivider="@android:color/white"
+    android:divider="@drawable/list_divider"
+    android:dividerHeight="@dimen/px_2"
+    android:fadingEdge="none"
+    android:fadingEdgeLength="@dimen/px_0"
+    android:groupIndicator="@null"
+    android:scrollbars="none" />

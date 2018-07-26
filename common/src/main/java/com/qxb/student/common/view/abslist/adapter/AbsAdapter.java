@@ -1,11 +1,15 @@
 package com.qxb.student.common.view.abslist.adapter;
 
 import android.content.Context;
+import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.qxb.student.common.R;
 import com.qxb.student.common.view.recycler.ViewHolder;
 
 import java.util.ArrayList;
@@ -117,6 +121,14 @@ public abstract class AbsAdapter<T> extends android.widget.BaseAdapter {
      * @return
      */
     public View newView(Context context, int position, ViewGroup parent) {
-        return LayoutInflater.from(context).inflate(layoutId, parent);
+        return LayoutInflater.from(context).inflate(layoutId, null);
+    }
+
+    public void setVisibility(View view, @IdRes int id, boolean visibility) {
+        view.findViewById(id).setVisibility(visibility ? View.VISIBLE : View.GONE);
+    }
+
+    public void setText(View view, @IdRes int id, String charSequence) {
+        ((TextView) view.findViewById(id)).setText(charSequence);
     }
 }

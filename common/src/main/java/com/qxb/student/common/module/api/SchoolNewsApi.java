@@ -26,7 +26,6 @@ public interface SchoolNewsApi {
      * @param type     3 普通高校招生简章 7 自主招生简章 8 自主招生院校资讯
      * @param title    问题标题
      * @param page
-     * @param rows     默认20
      * @return
      */
     @FormUrlEncoded

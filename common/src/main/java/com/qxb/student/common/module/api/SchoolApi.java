@@ -4,13 +4,16 @@ import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.CollegeQuestion;
 import com.qxb.student.common.module.bean.CollegeSearchHot;
+import com.qxb.student.common.module.bean.MajorSubject;
 import com.qxb.student.common.module.bean.RecomSchool;
 import com.qxb.student.common.module.bean.SchoolDetail;
 import com.qxb.student.common.module.bean.SchoolVideo;
+import com.qxb.student.common.module.bean.ScoreSubject;
 
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
@@ -72,6 +75,28 @@ public interface SchoolApi {
     @FormUrlEncoded
     @POST("school/getSchoolById")
     Observable<ApiModel<SchoolDetail>> getSchoolById(@Field("school_id") String school_id, @Field("student_id") String student_id);
+
+    /**
+     * 学校分数线
+     * @param schoolId
+     * @param province
+     * @return
+     */
+    @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
+    @POST("school/scorelist_new")
+    Call<ApiModel<List<ScoreSubject>>> getSchoolScore(@Field("school_id") String schoolId, @Field("province") String province);
+
+    /**
+     * 学校在招专业
+     * @param schoolId
+     * @param province
+     * @return
+     */
+    @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
+    @POST("school/recruitMajorList_new")
+    Call<ApiModel<List<MajorSubject>>> getSchoolRecruitMajor(@Field("school_id") String schoolId, @Field("province") String province);
 
     /**
      * 获取每个省份大学的个数

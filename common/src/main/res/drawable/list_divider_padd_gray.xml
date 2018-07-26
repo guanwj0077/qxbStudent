@@ -3,12 +3,12 @@
     <item>
         <shape>
             <solid android:color="@android:color/transparent" />
-            <padding android:left="@dimen/px_25" />
+            <padding android:left="@dimen/px_40" />
         </shape>
     </item>
     <item>
         <shape>
-            <solid android:color="@color/colorTheme" />
+            <solid android:color="@android:color/darker_gray" />
         </shape>
     </item>
 </layer-list>

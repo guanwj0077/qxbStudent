@@ -64,11 +64,15 @@ public class SchoolConductFragment extends AbsExpandFragment {
         schoolControl.getSchoolNews(schoolId, pageIndex).observe(this, new Observer<List<SchoolNews>>() {
             @Override
             public void onChanged(@Nullable List<SchoolNews> schoolNews) {
-                adapter.addAll(schoolNews);
-                if (Objects.requireNonNull(schoolNews).size() < Config.PAGE_SIZE) {
-                    refreshLayout.finishLoadMoreWithNoMoreData();
+                if (schoolNews != null) {
+                    adapter.addAll(schoolNews);
+                    if (schoolNews.size() < Config.PAGE_SIZE) {
+                        refreshLayout.setEnableLoadMore(false);
+                    } else {
+                        refreshLayout.finishLoadMore();
+                    }
                 } else {
-                    refreshLayout.finishLoadMore();
+                    refreshLayout.setEnableLoadMore(false);
                 }
             }
         });

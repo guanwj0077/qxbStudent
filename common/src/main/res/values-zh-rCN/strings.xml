@@ -16,6 +16,11 @@
     <string name="school_summary">学校简介</string>
     <string name="school_fee_scholarship">学费与奖金</string>
     <string name="school_life">校园生活</string>
+    <string name="school_line_year">年份</string>
+    <string name="school_line_avg">平均分</string>
+    <string name="school_line_top">最高分</string>
+    <string name="school_line_min">最低分</string>
+    <string name="school_line_control">控制线</string>
     <string name="hint_sign_up">预报名</string>
     <string name="hint_sign_on">已报名</string>
     <string name="hint_concern">关注</string>
@@ -45,7 +50,8 @@
     <string name="cancel">取消</string>
     <string name="prompt">提示</string>
     <string name="zhuce_judge">请填写真实信息，填写后不可修改</string>
-
+    <string name="hint_school_bat">点击切换招生批次</string>
+    <string name="hint_school_recruit">招生计划</string>
     <string name="tv_ljwssjf">立即完善得积分</string>
     <string name="tv_wdqxda">我的求学档案</string>
     <string name="tv_wtx">未填写</string>
@@ -74,7 +80,7 @@
     <string name="yslk">艺术理科</string>
 
     <string name="hint_not_describe">暂无描述</string>
-
+    <string name="hint_not_data">暂无数据</string>
 
     <string name="yqm">邀请码</string>
     <string name="yhm">优惠码</string>
@@ -98,4 +104,7 @@
     <string name="auth_complete">授权成功，正在跳转登录操作…</string>
     <string name="user_register">新用户注册</string>
     <string name="user_password">找回密码</string>
+
+
+    <string name="combine_plan">%1$d年招生计划%2$s人</string>
 </resources>

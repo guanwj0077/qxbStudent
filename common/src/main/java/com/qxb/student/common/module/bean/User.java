@@ -3,6 +3,9 @@ package com.qxb.student.common.module.bean;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.text.TextUtils;
+
+import com.qxb.student.common.Constant;
 
 /**
  * 用户信息
@@ -11,8 +14,6 @@ import android.arch.persistence.room.PrimaryKey;
  */
 @Entity(tableName = "User")
 public class User {
-    @Ignore
-    public static final String TAG = User.class.getSimpleName();
 
     private String area;
     private String area_name;
@@ -260,6 +261,14 @@ public class User {
 
     public String getSubject() {
         return subject;
+    }
+
+    public int getSubjectType() {
+        return Constant.WEN_KE.equals(subject) ? 1 : 2;
+    }
+
+    public boolean isLiberalArt() {
+        return Constant.WEN_KE.equals(subject);
     }
 
     public void setSubject(String subject) {

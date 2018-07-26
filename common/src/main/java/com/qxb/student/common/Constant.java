@@ -24,19 +24,19 @@ public class Constant {
      * share  为数据存取用
      * intent 为传值用
      */
+    public static final String DEFAULT_PROVINCE = "湖北省";
+    public static final String WEN_KE = "文科";
+    public static final String LIKE = "理科";
+    public static final String YISHU_WENKE = "艺术文科";
+    public static final String YISHU_LIKE = "艺术理科";
+    public static final String MAN = "男";
+    public static final String WOMEN = "女";
 
-    public static final String WEN_KE="文科";
-    public static final String LIKE="理科";
-    public static final String YISHU_WENKE="艺术文科";
-    public static final String YISHU_LIKE="艺术理科";
-    public static final String MAN="男";
-    public static final String WOMEN="女";
-
-    public static final int ZERO=0;
-    public static final int ONE=1;
-    public static final int TWO=2;
-    public static final int THREE=3;
-    public static final int FOUR=4;
+    public static final int ZERO = 0;
+    public static final int ONE = 1;
+    public static final int TWO = 2;
+    public static final int THREE = 3;
+    public static final int FOUR = 4;
 
 
     public static final String PURPOSE = "purpose";
@@ -49,5 +49,5 @@ public class Constant {
      * 跳转学校id
      */
     public static final String NAV_SCHOOL_ID = "nav_school_id";
-
+    public static final String NAV_SCHOOL_BAT = "nav_school_bat";
 }

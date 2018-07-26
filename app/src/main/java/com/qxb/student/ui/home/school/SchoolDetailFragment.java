@@ -30,8 +30,7 @@ public class SchoolDetailFragment extends AbsExpandFragment {
             return;
         }
         SchoolControl schoolControl = ViewModelProviders.of(getActivity()).get(SchoolControl.class);
-        schoolControl.init(this, view,schoolId);
-
+        schoolControl.init(this, view, schoolId, getIntExtra(Constant.NAV_SCHOOL_BAT));
     }
 
     @Override

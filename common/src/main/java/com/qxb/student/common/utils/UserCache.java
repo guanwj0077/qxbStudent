@@ -1,9 +1,10 @@
 package com.qxb.student.common.utils;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
+
 import com.qxb.student.common.module.bean.User;
 import com.qxb.student.common.module.dao.RoomUtils;
-
-import java.lang.ref.WeakReference;
 
 /**
  * 登录用户对象缓存
@@ -23,32 +24,72 @@ public class UserCache {
         return SINGLETON.get();
     }
 
-    private static volatile WeakReference<User> weakReference = null;
+    private UserCache() {
+        getUserLiveData();
+    }
 
-    public User getUser() {
-        if (weakReference == null) {
+    private volatile MutableLiveData<User> userLiveData = new MutableLiveData<>();
+    private final Object OBJECT = new Object();
 
-        } else {
-            User user = weakReference.get();
-            if (user == null) {
+    public void update(User user) {
+        userLiveData.setValue(user);
+    }
+
+    public LiveData<User> getUserLiveData() {
+        if (userLiveData.getValue() != null) {
+            return userLiveData;
+        }
+        synchronized (OBJECT) {
+            if (userLiveData.getValue() == null) {
                 ExecutorUtils.getInstance().addTask(new Runnable() {
                     @Override
                     public void run() {
-                        User user1 = RoomUtils.getInstance().userDao().query();
+                        User user = RoomUtils.getInstance().userDao().query();
+                        if (user != null) {
+                            userLiveData.postValue(user);
+                        }
                     }
                 });
             }
         }
-        return weakReference.get();
+        return userLiveData;
+    }
+
+    public User getUser() {
+        User user = userLiveData.getValue();
+        if (user != null) {
+            return user;
+        }
+        synchronized (OBJECT) {
+            user = userLiveData.getValue();
+            if (user == null) {
+                getUserLiveData();
+            }
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return userLiveData.getValue();
+    }
+
+    public String getUserId() {
+        return String.valueOf(getUser().getId());
+    }
+
+    public String getAccountId() {
+        return String.valueOf(getUser().getAccount_id());
+    }
+
+    public String getProvince() {
+        return getUser() == null ? "420000" : getUser().getProvince();
     }
 
     public void recovery() {
-        weakReference.clear();
-        weakReference = null;
+        userLiveData = null;
     }
-   // public int getUserInfoCondition()
-
-
+    // public int getUserInfoCondition()
 
 
 }

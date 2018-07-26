@@ -6,5 +6,8 @@
     <fragment
         android:id="@+id/nav_school_index"
         android:name="com.qxb.student.ui.home.school.SchoolDetailFragment" />
+    <fragment
+        android:id="@+id/nav_school_major"
+        android:name="com.qxb.student.ui.home.school.SchoolMajorDetailFragment" />
 
 </navigation>

@@ -29,36 +29,9 @@ public class ExampleUnitTest {
                 .addConverterFactory(new JsonConverterFactory())
                 .build();
 
-//        SchoolApi schoolApi = retrofit.create(SchoolApi.class);
-//        Observable<ApiModel<List<RecomSchool>>> observable = schoolApi.getRecommendedColleges("26","42000");
-//        observable
-////                .subscribeOn(Schedulers.io())
-//                .doOnSubscribe(new Consumer<Disposable>() {
-//                    @Override
-//                    public void accept(Disposable disposable) throws Exception {
-//                    }
-//                })
-////                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Consumer<ApiModel<List<RecomSchool>>>() {
-//                    @Override
-//                    public void accept(ApiModel<List<RecomSchool>> t) throws Exception {
-//                        System.out.println("success:" + t.toString());
-//                    }
-//                }, new Consumer<Throwable>() {
-//                    @Override
-//                    public void accept(Throwable throwable) throws Exception {
-//                        System.out.println(throwable.getMessage());
-//                    }
-//                });
-
         TestApi testApi = retrofit.create(TestApi.class);
-        Observable<ApiModel<String>> observable = testApi.getSchoolById("236", "26");
-        observable.subscribe(new Consumer<ApiModel<String>>() {
-            @Override
-            public void accept(ApiModel<String> apiModel) throws Exception {
-                System.out.println(apiModel.toString());
-            }
-        });
+        Observable<ApiModel<String>> observable = testApi.getSchoolScore("274", "420000");
+        observable.subscribe();
 
     }
 }

@@ -26,7 +26,7 @@ import java.util.Arrays;
 public class SchoolIntroFragment extends AbsExpandFragment {
     @Override
     public int bindLayout() {
-        return R.layout.view_expandable_list;
+        return R.layout.item_expandable;
     }
 
     private ExpandableAdapter<String, String> adapter;

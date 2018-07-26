@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_20"
+        android:background="@color/colorDivider" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:paddingBottom="@dimen/px_30"
+        android:paddingEnd="@dimen/px_50"
+        android:paddingStart="@dimen/px_50"
+        android:paddingTop="@dimen/px_30">
+
+        <com.qxb.student.common.view.text.ScaleTextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/icon_green_bg"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/px_30" />
+
+        <ImageView
+            android:id="@+id/image1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/hint_not_describe"
+            app:srcCompat="@drawable/arrow_bottom_gray" />
+
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/px_30"
+            android:layout_marginStart="@dimen/px_30"
+            android:layout_toStartOf="@id/image1"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/px_40" />
+
+        <TextView
+            android:id="@+id/text3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/px_20"
+            android:layout_toEndOf="@id/text1"
+            android:layout_toStartOf="@id/text2"
+            android:textColor="@color/colorDesc"
+            android:textSize="@dimen/px_45" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_2"
+        android:background="@color/colorDivider" />
+</LinearLayout>

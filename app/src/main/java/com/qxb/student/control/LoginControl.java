@@ -35,10 +35,6 @@ public class LoginControl extends AndroidViewModel {
         return userRepository.ThirdLogin(type, open_id);
     }
 
-    public LiveData<User> getUserLiveData() {
-        return mUserLiveData;
-    }
-
     @Override
     protected void onCleared() {
         super.onCleared();

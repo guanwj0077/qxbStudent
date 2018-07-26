@@ -9,14 +9,17 @@ import com.qxb.student.common.R;
  */
 public enum MineItem {
 
+    /**
+     * 我的页面功能菜单
+     */
     CODE1(R.mipmap.scan_code, R.string.yqm, false, true),
     CODE2(R.mipmap.integral_icon, R.string.yhm, true, true),
     CODE3(R.mipmap.icon_wgzdxx, R.string.wdsc, false, true),
     CODE4(R.mipmap.icon_wdjdxx, R.string.bmddx, true, true),
     CODE5(R.mipmap.my_order, R.string.wddd, false, true),
     CODE6(R.mipmap.wdzy, R.string.wdzyb, true, true),
-    CODE7(R.mipmap.icon_wdzxk, R.string.wdzxk, false, false),
-    CODE8(R.mipmap.icon_rjgx, R.string.rjgx, false, false),
+    CODE7(R.mipmap.icon_wdzxk, R.string.wdzxk, false, true),
+    CODE8(R.mipmap.icon_rjgx, R.string.rjgx, false, true),
     CODE9(R.mipmap.icon_kefu, R.string.ywtzkf, false, true),
     CODE10(R.mipmap.icon_help, R.string.sybz, false, true),
     CODE11(R.mipmap.fankui1, R.string.bzyfk, false, true),

@@ -44,6 +44,10 @@ public abstract class ExpandableAdapter<P, C> extends BaseExpandableListAdapter 
         this.data.addAll(data);
     }
 
+    public void clear() {
+        this.data.clear();
+    }
+
     @Override
     public int getGroupCount() {
         return data.size();
@@ -124,6 +128,10 @@ public abstract class ExpandableAdapter<P, C> extends BaseExpandableListAdapter 
     @Override
     public boolean isChildSelectable(int i, int i1) {
         return true;
+    }
+
+    public void setVisibility(View view, @IdRes int id, boolean visibility) {
+        view.findViewById(id).setVisibility(visibility ? View.VISIBLE : View.GONE);
     }
 
     public void setArrowExpanded(View view, @IdRes int id, boolean isExpanded) {

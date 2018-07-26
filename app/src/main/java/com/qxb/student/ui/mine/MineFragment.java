@@ -37,8 +37,7 @@ public class MineFragment extends AbsExpandFragment {
     private QuickAdapter<MineItem> adapter;
     private HeaderMineBinding headerMineBinding;
     private Toolbar toolbar;
-    private LoginControl mLoginControl;
-    private User mUser;
+
     @Override
     public int bindLayout() {
         return R.layout.fragment_test;
@@ -69,16 +68,13 @@ public class MineFragment extends AbsExpandFragment {
         };
         recyclerView.setAdapter(adapter);
         adapter.setItemClickListener(itemClickListener);
-        mLoginControl= ViewModelProviders.of(getActivity()).get(LoginControl.class);
-        if ( mLoginControl.getUserLiveData()!=null){
-        mLoginControl.getUserLiveData().observe(this, new Observer<User>() {
+        UserCache.getInstance().getUserLiveData().observe(this, new Observer<User>() {
             @Override
             public void onChanged(@Nullable User user) {
                 showUserData();
             }
-        });}
+        });
     }
-
 
 
     private void showUserData() {

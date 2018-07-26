@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.qxb.student.common.module.api.UserApi;
 import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.User;
+import com.qxb.student.common.utils.UserCache;
 
 
 import io.reactivex.disposables.Disposable;
@@ -22,7 +23,7 @@ import io.reactivex.functions.Consumer;
 public class UserRepository extends BaseRepository {
 
     private MutableLiveData<User> userMutableLiveData = new MutableLiveData<>();
-    private MutableLiveData<ApiModel<String>>thirdLoginLiveData=new  MutableLiveData<>();
+    private MutableLiveData<ApiModel<String>> thirdLoginLiveData = new MutableLiveData<>();
 
     public LiveData<User> login(final String account, String password) {
         Disposable disposable = httpUtils.convert(httpUtils.create(UserApi.class).login(account, password),
@@ -32,6 +33,7 @@ public class UserRepository extends BaseRepository {
                         if (apiModel.getCode() == 1) {
                             userMutableLiveData.postValue(apiModel.getData());
                             roomUtils.userDao().insert(apiModel.getData());
+                            UserCache.getInstance().update(apiModel.getData());
                         }
                     }
                 }).subscribe();

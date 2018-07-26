@@ -19,7 +19,7 @@ public abstract class TRunnable<T> implements Runnable {
 
     /**
      * 待处理
-     * @param t 事件对象
+     * @param item 事件对象
      */
-    public abstract void run(T t);
+    public abstract void run(T item);
 }

@@ -17,6 +17,10 @@ import com.qxb.student.ui.mine.MineFragment;
 
 import java.util.Arrays;
 
+/**
+ * app宿主
+ * @author winky
+ */
 public class MainActivity extends BaseAppActivity {
 
     private ViewPager viewPager;

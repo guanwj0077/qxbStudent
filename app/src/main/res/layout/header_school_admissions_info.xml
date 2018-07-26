@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:paddingBottom="@dimen/px_10"
+    android:paddingEnd="@dimen/px_50"
+    android:paddingStart="@dimen/px_50">
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:drawablePadding="@dimen/px_5"
+        android:drawableStart="@mipmap/xiangxia"
+        android:paddingBottom="@dimen/px_10"
+        android:paddingTop="@dimen/px_10"
+        android:text="@string/hint_school_bat"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/px_30" />
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/text1"
+        android:background="@drawable/stroke_corners_gray"
+        android:clickable="true"
+        android:drawableEnd="@mipmap/down"
+        android:layout_marginEnd="@dimen/px_10"
+        android:drawablePadding="@dimen/px_10"
+        android:focusable="true"
+        android:padding="@dimen/px_10"
+        android:textColor="@color/colorDesc"
+        android:textSize="@dimen/px_35" />
+
+    <TextView
+        android:id="@+id/text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/text1"
+        android:drawablePadding="@dimen/px_20"
+        android:drawableStart="@mipmap/icon_znxx_location"
+        android:paddingBottom="@dimen/px_10"
+        android:paddingTop="@dimen/px_10"
+        android:text="湖北省：文科"
+        android:textColor="@color/colorDesc"
+        android:textSize="@dimen/px_45" />
+</RelativeLayout>

@@ -17,6 +17,17 @@ public interface TestApi {
 
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
-    @POST("school/getSchoolById")
-    Observable<ApiModel<String>> getSchoolById(@Field("school_id") String school_id, @Field("student_id") String student_id);
+    @POST("school/scorelist_new")
+    Observable<ApiModel<String>> getSchoolScore(@Field("school_id") String schoolId, @Field("province") String province);
+
+    /**
+     * 学校在招专业
+     * @param schoolId
+     * @param province
+     * @return
+     */
+    @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
+    @POST("school/recruitMajorList_new")
+    Observable<ApiModel<String>> getSchoolRecruitMajor(@Field("school_id") String schoolId, @Field("province") String province);
 }
