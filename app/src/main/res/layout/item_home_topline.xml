@@ -14,6 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:contentDescription="@string/hint_not_describe"
         android:src="@mipmap/qiu_xue_tou_tiao" />
 
     <ViewFlipper
@@ -21,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/px_10"
-        android:layout_toRightOf="@id/tag"
+        android:layout_toEndOf="@id/tag"
         android:autoStart="true"
         android:background="#fff"
         android:flipInterval="5000"

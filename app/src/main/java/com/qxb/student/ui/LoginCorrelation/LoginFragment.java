@@ -130,14 +130,14 @@ public class LoginFragment extends AbsExpandFragment implements Handler.Callback
                     case R.id.tv_register:
                         Bundle bundle=new Bundle();
                         bundle.putString(Constant.PURPOSE,Constant.USER_REGISTER);
-                        NavigationUtils.getInstance().toNavigation(getActivity(),new NavAttr.Builder().graphRes(R.navigation.register).params(bundle).build());
+                        NavigationUtils.getInstance().toNavigation(getActivity(),new NavAttr.Builder().graphRes(R.navigation.nav_register).params(bundle).build());
                         //注册
                         break;
                     case R.id.forget_pwd:
                         //忘记密码
                         Bundle bundle1=new Bundle();
                         bundle1.putString(Constant.PURPOSE,Constant.USER_PASSWORD);
-                        NavigationUtils.getInstance().toNavigation(getActivity(),new NavAttr.Builder().graphRes(R.navigation.register).params(bundle1).build());
+                        NavigationUtils.getInstance().toNavigation(getActivity(),new NavAttr.Builder().graphRes(R.navigation.nav_register).params(bundle1).build());
                         break;
                     case R.id.iv_qq:
                         authorize(new QQ());

@@ -21,6 +21,9 @@
     <string name="school_line_top">最高分</string>
     <string name="school_line_min">最低分</string>
     <string name="school_line_control">控制线</string>
+    <string name="hint_school_bat">点击切换招生批次</string>
+    <string name="hint_school_recruit">招生计划</string>
+
     <string name="hint_sign_up">预报名</string>
     <string name="hint_sign_on">已报名</string>
     <string name="hint_concern">关注</string>
@@ -77,9 +80,9 @@
     <string name="like">理科</string>
     <string name="yswk">艺术文科</string>
     <string name="yslk">艺术理科</string>
-
+    <string name="code_send_success">验证码已成功发送</string>
     <string name="hint_not_describe">暂无描述</string>
-
+    <string name="hint_not_data">暂无数据</string>
 
     <string name="yqm">邀请码</string>
     <string name="yhm">优惠码</string>
@@ -119,4 +122,6 @@
     <string name="please_input_card_number">请输入序列号</string>
 
     <string name="please_input_pwd_confirm">请确认密码</string>
+
+    <string name="combine_plan">%1$d年招生计划%2$s人</string>
 </resources>

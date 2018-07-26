@@ -75,7 +75,7 @@ public class UserCache {
     }
 
     public String getUserId() {
-        return String.valueOf(getUser().getId());
+        return String.valueOf(getUser() == null ? "" : getUser().getId());
     }
 
     public String getAccountId() {

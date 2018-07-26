@@ -29,9 +29,8 @@ public class ExampleUnitTest {
                 .addConverterFactory(new JsonConverterFactory())
                 .build();
 
-        TestApi testApi = retrofit.create(TestApi.class);
-        Observable<ApiModel<String>> observable = testApi.getSchoolScore("274", "420000");
-        observable.subscribe();
+        TestApi testApi=retrofit.create(TestApi.class);
+        testApi.getSchoolRecruitMajor("77").subscribe();
 
     }
 }

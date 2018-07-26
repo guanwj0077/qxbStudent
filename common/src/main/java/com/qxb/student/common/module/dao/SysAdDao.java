@@ -26,7 +26,7 @@ public interface SysAdDao {
      * @return 广告集合
      */
     @Query("SELECT * FROM SysAd WHERE type=:type")
-    List<SysAd> getHomeBanner(String type);
+    List<SysAd> getAdByType(String type);
 
     /**
      * 插入广告

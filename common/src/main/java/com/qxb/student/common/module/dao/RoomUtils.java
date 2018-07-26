@@ -4,6 +4,7 @@ import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 
+import com.qxb.student.common.module.bean.FunctionItem;
 import com.qxb.student.common.module.bean.RecomSchool;
 import com.qxb.student.common.module.bean.SchoolDetail;
 import com.qxb.student.common.module.bean.SysAd;
@@ -25,7 +26,8 @@ import com.qxb.student.common.utils.Singleton;
                 User.class,
                 RecomSchool.class,
                 SchoolDetail.class,
-                SysAd.class})
+                SysAd.class,
+                FunctionItem.class})
 public abstract class RoomUtils extends RoomDatabase {
 
     private static final String DATABASE_NAME = "qxb.db";
@@ -69,7 +71,13 @@ public abstract class RoomUtils extends RoomDatabase {
 
     /**
      * 获取用户操作
+     *
      * @return UserDao
      */
     public abstract UserDao userDao();
+
+    /**
+     * 获取首页功能列表
+     */
+    public abstract FunctionItemDao functionItemDao();
 }

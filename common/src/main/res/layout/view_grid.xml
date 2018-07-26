@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qxb.student.common.view.abslist.GridView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gridView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/px_10"
+    android:layout_marginStart="@dimen/px_10"
+    android:horizontalSpacing="@dimen/px_6"
+    android:numColumns="4"
+    android:paddingLeft="@dimen/px_16"
+    android:paddingRight="@dimen/px_16"
+    android:scrollbars="none"
+    android:stretchMode="columnWidth"
+    android:verticalSpacing="@dimen/px_6" />

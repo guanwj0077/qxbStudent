@@ -9,12 +9,15 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import com.qxb.student.R;
 import com.qxb.student.common.Constant;
 import com.qxb.student.common.adapter.BannerAdapter;
 import com.qxb.student.common.databinding.ViewImageBinding;
 import com.qxb.student.common.listener.MultiClickUtil;
+import com.qxb.student.common.module.bean.FunctionItem;
 import com.qxb.student.common.module.bean.RecomSchool;
 import com.qxb.student.common.module.bean.SysAd;
 import com.qxb.student.common.module.bean.attr.NavAttr;
@@ -47,14 +50,57 @@ public class HomeAdapter extends NestingAdapter {
     private HomeControl homeControl;
     private Fragment fragment;
 
+    private FunctionViewPagerAdapter functionViewPagerAdapter;
+    private ViewFlipper viewFlipper;
+
     public HomeAdapter(Fragment fragment) {
         this.fragment = fragment;
         homeControl = ViewModelProviders.of(fragment).get(HomeControl.class);
         addItemType(BANNER, R.layout.view_banner);
         addItemType(FUNCTION, R.layout.item_home_function);
-        addItemType(HEAD_LINE, R.layout.item_home_headline);
+        addItemType(HEAD_LINE, R.layout.item_home_topline);
         addItemType(LIVE, R.layout.item_home_live);
         addItemType(SCHOOL, R.layout.item_home_school_list);
+
+        homeControl.getIndexFunctions().observe(fragment, new Observer<List<FunctionItem>>() {
+            @Override
+            public void onChanged(@Nullable List<FunctionItem> functionItems) {
+                if (functionViewPagerAdapter != null && functionItems != null) {
+                    functionViewPagerAdapter.setData(functionItems);
+                }
+            }
+        });
+        homeControl.getTopLines().observe(fragment, new Observer<List<SysAd>>() {
+            @Override
+            public void onChanged(@Nullable List<SysAd> sysAds) {
+                if (sysAds != null) {
+                    int page = (int) Math.ceil(sysAds.size() / 2.0);
+                    for (int i = 0; i < page; i++) {
+                        topLineView(byPosition(sysAds, i * 2), byPosition(sysAds, i * 2 + 1));
+                    }
+                }
+            }
+        });
+    }
+
+    private SysAd byPosition(List<SysAd> sysAdList, int i) {
+        if (i < sysAdList.size()) {
+            return sysAdList.get(i);
+        }
+        return null;
+    }
+
+    private void topLineView(SysAd homeAd1, SysAd homeAd2) {
+        if (viewFlipper != null) {
+            View view = View.inflate(fragment.getContext(), R.layout.item_home_topline_child, null);
+            TextView textView1 = view.findViewById(R.id.text1);
+            TextView textView2 = view.findViewById(R.id.text2);
+            if (homeAd1 != null)
+                textView1.setText(homeAd1.getTitle());
+            if (homeAd2 != null)
+                textView2.setText(homeAd2.getTitle());
+            viewFlipper.addView(view);
+        }
     }
 
     @Override
@@ -81,10 +127,10 @@ public class HomeAdapter extends NestingAdapter {
                 });
                 break;
             case FUNCTION:
-
+                functionViewPagerAdapter = new FunctionViewPagerAdapter(fragment.getContext(), holder.getConvertView());
                 break;
             case HEAD_LINE:
-
+                viewFlipper = holder.getView(R.id.marqueeFlipper);
                 break;
             case LIVE:
                 final ItemHomeLiveBinding binding = DataBindingUtil.bind(holder.itemView);

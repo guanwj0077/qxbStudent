@@ -2,11 +2,13 @@ package com.qxb.student.common.module.api;
 
 import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.ApiModel;
+import com.qxb.student.common.module.bean.FunctionItem;
 import com.qxb.student.common.module.bean.SysAd;
 
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
@@ -85,4 +87,23 @@ public interface SysAdApi {
     @POST("sysAd/new_pop_ad")
     Observable<ApiModel<List<SysAd>>> getPopSysAd(@Field("type") String type, @Field("province") String province);
 
+    /**
+     * 直播首页广告 2.3 新版本 新图片
+     *
+     * @return
+     */
+    @Headers(Config.AUTH_COMMON)
+    @POST("chatRoom/liveHomeAd23")
+    Observable<ApiModel<String>> getLiveHomeAd();
+
+    /**
+     * 首页功能
+     *
+     * @param androidVersion 安卓app版本
+     * @return
+     */
+    @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
+    @POST("sysconfig/getIndexFunction")
+    Observable<ApiModel<List<FunctionItem>>> getIndexFunctions(@Field("androidVersion") String androidVersion);
 }
