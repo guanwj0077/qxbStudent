@@ -50,8 +50,7 @@
     <string name="cancel">取消</string>
     <string name="prompt">提示</string>
     <string name="zhuce_judge">请填写真实信息，填写后不可修改</string>
-    <string name="hint_school_bat">点击切换招生批次</string>
-    <string name="hint_school_recruit">招生计划</string>
+
     <string name="tv_ljwssjf">立即完善得积分</string>
     <string name="tv_wdqxda">我的求学档案</string>
     <string name="tv_wtx">未填写</string>
@@ -80,7 +79,7 @@
     <string name="yslk">艺术理科</string>
 
     <string name="hint_not_describe">暂无描述</string>
-    <string name="hint_not_data">暂无数据</string>
+
 
     <string name="yqm">邀请码</string>
     <string name="yhm">优惠码</string>
@@ -104,7 +103,20 @@
     <string name="auth_complete">授权成功，正在跳转登录操作…</string>
     <string name="user_register">新用户注册</string>
     <string name="user_password">找回密码</string>
+    <string name="code_send_down">%1$s秒后重新发送</string>
+
+    <string name="phone_must_not_be_empty">手机号码不能为空</string>
+    <string name="phone_must_be_right">请输入正确的手机号码</string>
+    <string name="code_must_be_right">请输入正确的验证码</string>
+    <string name="pwd_must_be_length5">密码长度不少于5位</string>
+    <string name="pwd_confirm_must_be_same">两次输入密码必须一致</string>
+    <string name="save_password_success">密码已成功修改</string>
+    <string name="reg_success">恭喜您已注册成功</string>
+    <string name="please_pick_area">您还没有选择地区</string>
 
 
-    <string name="combine_plan">%1$d年招生计划%2$s人</string>
+    <string name="please_input_pwd">请输入密码</string>
+    <string name="please_input_card_number">请输入序列号</string>
+
+    <string name="please_input_pwd_confirm">请确认密码</string>
 </resources>

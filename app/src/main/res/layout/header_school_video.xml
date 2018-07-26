@@ -145,7 +145,6 @@
             android:gravity="center"
             android:paddingBottom="@dimen/px_30"
             android:paddingTop="@dimen/px_30"
-            android:text="@string/hint_look_more"
             android:textColor="@android:color/darker_gray"
             android:textSize="@dimen/px_50"
             android:visibility="@{videoSize>2 ? View.VISIBLE:View.GONE }" />

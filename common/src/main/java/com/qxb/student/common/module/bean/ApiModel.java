@@ -16,6 +16,18 @@ public class ApiModel<T> {
     private int socailMsg;
     private long cacheTime;
 
+    public ApiModel() {
+    }
+
+    public ApiModel(int code, int total, String msg, T data, int socailMsg, long cacheTime) {
+        this.code = code;
+        this.total = total;
+        this.msg = msg;
+        this.data = data;
+        this.socailMsg = socailMsg;
+        this.cacheTime = cacheTime;
+    }
+
     public long getCacheTime() {
         return cacheTime;
     }

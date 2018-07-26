@@ -128,16 +128,16 @@ public class LoginFragment extends AbsExpandFragment implements Handler.Callback
                         //去看看
                         break;
                     case R.id.tv_register:
-                        Bundle bundle = new Bundle();
-                        bundle.putString(Constant.PURPOSE, Constant.USER_REGISTER);
-                        NavigationUtils.getInstance().toNavigation(getActivity(), new NavAttr.Builder().graphRes(R.navigation.register).params(bundle).build());
+                        Bundle bundle=new Bundle();
+                        bundle.putString(Constant.PURPOSE,Constant.USER_REGISTER);
+                        NavigationUtils.getInstance().toNavigation(getActivity(),new NavAttr.Builder().graphRes(R.navigation.register).params(bundle).build());
                         //注册
                         break;
                     case R.id.forget_pwd:
                         //忘记密码
-                        Bundle bundle1 = new Bundle();
-                        bundle1.putString(Constant.PURPOSE, Constant.USER_PASSWORD);
-                        NavigationUtils.getInstance().toNavigation(getActivity(), new NavAttr.Builder().graphRes(R.navigation.register).params(bundle1).build());
+                        Bundle bundle1=new Bundle();
+                        bundle1.putString(Constant.PURPOSE,Constant.USER_PASSWORD);
+                        NavigationUtils.getInstance().toNavigation(getActivity(),new NavAttr.Builder().graphRes(R.navigation.register).params(bundle1).build());
                         break;
                     case R.id.iv_qq:
                         authorize(new QQ());
@@ -165,7 +165,7 @@ public class LoginFragment extends AbsExpandFragment implements Handler.Callback
             @Override
             public void onChanged(@Nullable User user) {
                 dissWaitingDialog();
-                SharedUtils.get().put(Constant.SHARE_FILE_CURRENCY, phone);
+                SharedUtils.get().put(Constant.SHARE_FILE_CURRENCY,phone);
                 getActivity().finish();
                 //NavigationUtils.getInstance().goBack(getFragment());
             }
@@ -190,16 +190,12 @@ public class LoginFragment extends AbsExpandFragment implements Handler.Callback
 
     }
 
-    /**
-     * 发送登陆信息
-     *
-     * @param userId
-     * @param userInfo
-     */
+    //发送登陆信息
     private void login(String userId, HashMap<String, Object> userInfo) {
         Message msg = new Message();
         msg.what = MSG_LOGIN;
         UIHandler.sendMessage(msg, this);
+
     }
 
     private TextWatcher editTextonClick = new TextWatcher() {
@@ -256,10 +252,10 @@ public class LoginFragment extends AbsExpandFragment implements Handler.Callback
     public boolean handleMessage(Message message) {
         switch (message.what) {
             case MSG_USERID_FOUND:
-                /**用户信息已存在，正在跳转登录操作…*/
+                /*用户信息已存在，正在跳转登录操作…*/
                 break;
             case MSG_LOGIN:
-                /**使用%s帐号登录中…*/
+                /*使用%s帐号登录中…*/
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -268,23 +264,21 @@ public class LoginFragment extends AbsExpandFragment implements Handler.Callback
                 }, 1000);
                 break;
             case MSG_AUTH_CANCEL: {
-                /**授权操作已取消*/
+                /*授权操作已取消*/
                 dissWaitingDialog();
                 Toast.makeText(getActivity(), R.string.auth_cancel, Toast.LENGTH_SHORT).show();
             }
             break;
             case MSG_AUTH_ERROR: {
                 dissWaitingDialog();
-                /**授权操作遇到错误，请阅读Logcat输出*/
+                /*授权操作遇到错误，请阅读Logcat输出*/
                 Toast.makeText(getActivity(), R.string.auth_error, Toast.LENGTH_SHORT).show();
             }
             break;
             case MSG_AUTH_COMPLETE:
-                /**授权成功，正在跳转登录操作…*/
+                /*授权成功，正在跳转登录操作…*/
                 Toast.makeText(getActivity(), R.string.auth_complete, Toast.LENGTH_SHORT).show();
 
-                break;
-            default:
                 break;
         }
         return false;

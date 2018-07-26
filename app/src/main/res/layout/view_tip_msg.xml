@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/ly_tip"
+              android:layout_width="fill_parent"
+              android:layout_height="30.0dip"
+              android:alpha="0.6"
+              android:background="@color/colorAccent"
+              android:orientation="horizontal"
+              android:visibility="gone">
+
+    <TextView
+        android:id="@+id/tv_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="30.0dip"
+        android:gravity="center_horizontal"
+        android:text="@string/msg_tip"
+        android:textColor="@android:color/white"
+        android:textSize="14.0sp"/>
+</LinearLayout>

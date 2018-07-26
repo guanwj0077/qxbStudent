@@ -7,6 +7,7 @@ public final class Config {
     public static final boolean IS_DEBUG = false;
 
     private static final String SERVER_URL_RELEASE = "https://api.qiuxuebao.com/api/";
+    //private static final String SERVER_URL_RELEASE = "http://172.16.100.135:8080/qxb_api/api/";
     private static final String SERVER_URL_DEBUG = "http://qxb.ylcplus.club:8081/qxb_api/api/";
 
     /**

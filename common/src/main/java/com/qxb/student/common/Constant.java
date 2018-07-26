@@ -40,6 +40,7 @@ public class Constant {
 
 
     public static final String PURPOSE = "purpose";
+    public static final String PURPOSE_ONE = "purpose_one";
     public static final String USER_REGISTER = "user_register";
     public static final String USER_PASSWORD = "user_password";
 
