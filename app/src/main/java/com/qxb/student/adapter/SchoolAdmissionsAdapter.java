@@ -183,38 +183,39 @@ public class SchoolAdmissionsAdapter extends NestingAdapter {
         scoreAdapter.notifyDataSetChanged();
         majorAdapter.notifyDataSetChanged();
         //数据加载完成后，不再执行以下逻辑
-        if (scoreSize > 0 && majorSize > 0 && admissionLiveData != null) {
-            textView.setText(BenZhuanBatchType.getNameByBat(admission.getBatch()));
-            SparseArray<Admission> array = admissionLiveData.getValue();
-            List<Admission> admissionList = new ArrayList<>(array.size());
-            for (int i = 0; i < array.size(); i++) {
-                admissionList.add(array.valueAt(i));
-            }
-            admissionLiveData.removeObservers(fragment);
-            admissionLiveData = null;
-            popupWindow.setAdapter(new AbsAdapter<Admission>(fragment.getContext(), R.layout.view_text, admissionList) {
-                @Override
-                protected void bindView(View view, int position, Admission item) {
-                    setText(view, R.id.text1, BenZhuanBatchType.getNameByBat(item.getBatch()));
-                    view.setOnClickListener(new OnPositionClickListener(position) {
-                        @Override
-                        public void onPositionClick(View view, int position) {
-                            popupWindow.dismiss();
-                            Admission admission = getItem(position);
-                            textView.setText(BenZhuanBatchType.getNameByBat(admission.getBatch()));
-                            refreshUI(admission);
-                        }
-                    });
-                }
-            });
-            popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                @Override
-                public void onDismiss() {
-                    BindingUtils.setTextDrawable(textView, R.mipmap.down);
-                }
-            });
+        if (admissionLiveData != null) {
             schoolControl.dissWaitingDialog();
+            if (scoreSize > 0 && majorSize > 0) {
+                SparseArray<Admission> array = admissionLiveData.getValue();
+                List<Admission> admissionList = new ArrayList<>(array.size());
+                for (int i = 0; i < array.size(); i++) {
+                    admissionList.add(array.valueAt(i));
+                }
+                admissionLiveData.removeObservers(fragment);
+                admissionLiveData = null;
+                popupWindow.setAdapter(new AbsAdapter<Admission>(fragment.getContext(), R.layout.view_text, admissionList) {
+                    @Override
+                    protected void bindView(View view, int position, Admission item) {
+                        setText(view, R.id.text1, BenZhuanBatchType.getNameByBat(item.getBatch()));
+                        view.setOnClickListener(new OnPositionClickListener(position) {
+                            @Override
+                            public void onPositionClick(View view, int position) {
+                                popupWindow.dismiss();
+                                refreshUI(getItem(position));
+                            }
+                        });
+                    }
+                });
+
+                popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        BindingUtils.setTextDrawable(textView, R.mipmap.down);
+                    }
+                });
+            }
         }
+        textView.setText(BenZhuanBatchType.getNameByBat(admission.getBatch()));
     }
 
     private SparseArray<Admission> loadAdmissions() {
