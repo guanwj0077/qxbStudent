@@ -9,10 +9,12 @@ import android.view.View;
 import com.qxb.student.R;
 import com.qxb.student.common.adapter.FragmentAdapter;
 import com.qxb.student.common.basics.AbsExpandFragment;
+import com.qxb.student.common.basics.BaseFragment;
 import com.qxb.student.common.view.Toolbar;
 import com.qxb.student.databinding.FragmentBanKaoNewsBinding;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 伴考
@@ -36,15 +38,14 @@ public class BanKaoNewsFragment extends AbsExpandFragment {
         setSupportActionBar(toolbar);
         toolbar.setBackgroundResource(android.R.color.transparent);
         binding = DataBindingUtil.bind(view);
-        binding.viewPager.setAdapter(new FragmentAdapter(getChildFragmentManager(), Arrays.asList(
-                new BanKaoListFragment().setTitle("123"),
-                new BanKaoListFragment().setTitle("456"),
-                new BanKaoListFragment().setTitle("789"),
-                new BanKaoListFragment().setTitle("aaa"),
-                new BanKaoListFragment().setTitle("bbb")
-        )));
+        String[] types = getResources().getStringArray(R.array.type);
+        int[] titles = getResources().getIntArray(R.array.bankao_title);
+        List<BaseFragment> fragmentList = new ArrayList<>(5);
+        for (int i = 0; i < 5; i++) {
+            fragmentList.add(BanKaoListFragment.create(types[i]).setTitle(getString(titles[i])));
+        }
+        binding.viewPager.setAdapter(new FragmentAdapter(getChildFragmentManager(), fragmentList));
         binding.tabLayout.setupWithViewPager(binding.viewPager, false);
-
     }
 
     private View.OnClickListener clickListener = new View.OnClickListener() {

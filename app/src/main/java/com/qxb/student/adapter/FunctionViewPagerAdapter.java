@@ -9,13 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.qxb.student.R;
 import com.qxb.student.common.listener.MultiClickUtil;
 import com.qxb.student.common.module.bean.FunctionItem;
+import com.qxb.student.common.view.abslist.GridView;
 import com.qxb.student.common.view.abslist.adapter.AbsListAdapter;
 import com.qxb.student.common.view.pager.ViewPagerWrapContent;
 import com.qxb.student.databinding.ItemFunctionItemBinding;
@@ -31,13 +30,13 @@ import java.util.List;
 public class FunctionViewPagerAdapter extends PagerAdapter {
 
     private static final int PAGE_SIZE = 10;//grid分页显示数量
-    private List<GridView> gridViews = new ArrayList<>();
+    private List<GridView> gridViews = new ArrayList<>(2);
     private Context context;
     private List<FunctionItem> functionItems = null;
     private View[] indicators;
 
     private LayoutInflater inflater;
-    private ViewPagerWrapContent viewPager;
+    private ViewPager viewPager;
     private LinearLayout indicatorLayout;
 
     FunctionViewPagerAdapter(Context context, View view) {

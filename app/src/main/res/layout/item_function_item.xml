@@ -11,19 +11,21 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="?android:attr/selectableItemBackground"
         android:gravity="center"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/image"
             roundImageUrl="@{function.pic}"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/px_120"
+            android:layout_height="@dimen/px_120"
+            android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/px_10"
             android:layout_marginLeft="@dimen/px_20"
             android:layout_marginRight="@dimen/px_20"
             android:layout_marginTop="@dimen/px_20"
+            android:contentDescription="@string/hint_not_describe"
             android:scaleType="fitXY" />
 
         <TextView

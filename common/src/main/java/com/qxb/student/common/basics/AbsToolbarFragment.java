@@ -19,7 +19,7 @@ import com.qxb.student.common.utils.SysUtils;
 public abstract class AbsToolbarFragment extends AbsExpandFragment {
 
     @Override
-    public int bindLayout() {
+    public final int bindLayout() {
         return R.layout.fragment_toolbar;
     }
 

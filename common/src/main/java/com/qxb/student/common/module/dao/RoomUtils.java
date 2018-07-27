@@ -4,6 +4,7 @@ import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 
+import com.qxb.student.common.module.bean.Bankao;
 import com.qxb.student.common.module.bean.FunctionItem;
 import com.qxb.student.common.module.bean.RecomSchool;
 import com.qxb.student.common.module.bean.SchoolDetail;
@@ -27,7 +28,8 @@ import com.qxb.student.common.utils.Singleton;
                 RecomSchool.class,
                 SchoolDetail.class,
                 SysAd.class,
-                FunctionItem.class})
+                FunctionItem.class,
+                Bankao.class})
 public abstract class RoomUtils extends RoomDatabase {
 
     private static final String DATABASE_NAME = "qxb.db";
@@ -45,15 +47,11 @@ public abstract class RoomUtils extends RoomDatabase {
 
     /**
      * 请求缓存记录
-     *
-     * @return HttpCacheDao
      */
     public abstract HttpCacheDao httpCacheDao();
 
     /**
      * 推荐院校
-     *
-     * @return RecomSchoolDao
      */
     public abstract RecomSchoolDao schoolDao();
 
@@ -64,15 +62,11 @@ public abstract class RoomUtils extends RoomDatabase {
 
     /**
      * 获取广告操作
-     *
-     * @return RecomSchoolDao
      */
     public abstract SysAdDao sysAdDao();
 
     /**
      * 获取用户操作
-     *
-     * @return UserDao
      */
     public abstract UserDao userDao();
 
@@ -80,4 +74,9 @@ public abstract class RoomUtils extends RoomDatabase {
      * 获取首页功能列表
      */
     public abstract FunctionItemDao functionItemDao();
+
+    /**
+     * 伴考
+     */
+    public abstract BankaoDao bankaoDao();
 }

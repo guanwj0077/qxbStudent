@@ -123,5 +123,12 @@
 
     <string name="please_input_pwd_confirm">请确认密码</string>
 
+    <string name="hint_bankao_zixun">资讯</string>
+    <string name="hint_bankao_beikao">备考</string>
+    <string name="hint_bankao_baokao">报考</string>
+    <string name="hint_bankao_daxue">大学</string>
+    <string name="hint_bankao_zhuanye">专业</string>
+
+
     <string name="combine_plan">%1$d年招生计划%2$s人</string>
 </resources>

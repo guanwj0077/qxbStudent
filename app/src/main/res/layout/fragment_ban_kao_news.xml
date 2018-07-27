@@ -6,79 +6,53 @@
 
     </data>
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/refreshLayout"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#444444"
-        app:srlAccentColor="@android:color/white"
-        app:srlEnablePreviewInEditMode="true"
-        app:srlPrimaryColor="#444444">
+        android:layout_height="match_parent">
 
-        <com.scwang.smartrefresh.layout.header.ClassicsHeader
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
 
-        <android.support.design.widget.CoordinatorLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.design.widget.AppBarLayout
+            <android.support.design.widget.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:toolbarId="@id/toolbar">
 
-                <android.support.design.widget.CollapsingToolbarLayout
+                <ImageView
+                    android:id="@+id/detail_image"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                    app:toolbarId="@id/toolbar">
+                    android:layout_height="@dimen/px_580"
+                    android:contentDescription="@string/hint_not_describe"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/bk_dt2x"
+                    app:layout_collapseMode="pin" />
 
-                    <ImageView
-                        android:id="@+id/detail_image"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/px_580"
-                        android:contentDescription="@string/hint_not_describe"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/bk_dt2x"
-                        app:layout_collapseMode="pin" />
+                <include layout="@layout/view_toolbar" />
 
-                    <include layout="@layout/view_toolbar" />
+            </android.support.design.widget.CollapsingToolbarLayout>
 
-                </android.support.design.widget.CollapsingToolbarLayout>
-
-                <android.support.design.widget.TabLayout
-                    android:id="@+id/tabLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/white"
-                    app:tabIndicatorColor="#01ba9b"
-                    app:tabIndicatorHeight="2dp"
-                    app:tabMode="scrollable"
-                    app:tabSelectedTextColor="#01ba9b"
-                    app:tabTextColor="#525252" />
-
-            </android.support.design.widget.AppBarLayout>
-
-
-            <android.support.v4.widget.NestedScrollView
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true"
-                android:scrollbars="none"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                app:tabIndicatorColor="#01ba9b"
+                app:tabIndicatorHeight="2dp"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="#01ba9b"
+                app:tabTextColor="#525252" />
 
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/viewPager"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scrollbars="none" />
-            </android.support.v4.widget.NestedScrollView>
+        </android.support.design.widget.AppBarLayout>
 
-        </android.support.design.widget.CoordinatorLayout>
-
-        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    </android.support.design.widget.CoordinatorLayout>
 
 </layout>

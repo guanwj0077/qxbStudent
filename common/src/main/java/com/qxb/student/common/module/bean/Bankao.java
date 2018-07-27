@@ -1,12 +1,16 @@
 package com.qxb.student.common.module.bean;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+@Entity(tableName = "Bankao")
 public class Bankao implements Parcelable {
     /**
      * id
      */
+    @PrimaryKey
     private int id;
     /**
      * 图片地址

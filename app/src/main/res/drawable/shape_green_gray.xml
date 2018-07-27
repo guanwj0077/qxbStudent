@@ -3,13 +3,13 @@
     <item android:state_selected="true">
         <shape android:shape="oval">
             <solid android:color="#01BE9F" />
-            <size android:width="@dimen/px_6" android:height="@dimen/px_6" />
+            <size android:width="@dimen/px_12" android:height="@dimen/px_12" />
         </shape>
     </item>
     <item android:state_selected="false">
         <shape android:shape="oval">
             <solid android:color="#eeeeee" />
-            <size android:width="@dimen/px_6" android:height="@dimen/px_6" />
+            <size android:width="@dimen/px_12" android:height="@dimen/px_12" />
         </shape>
     </item>
 </selector>

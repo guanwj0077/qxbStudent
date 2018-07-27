@@ -44,8 +44,8 @@ public class SchoolRepository extends BaseRepository {
     private MutableLiveData<List<ScoreBat>> scoreLiveData=new MutableLiveData<>();
 
     public LiveData<List<RecomSchool>> getSchoolLiveData() {
-        String province = "420000";
-        Observable<ApiModel<List<RecomSchool>>> observable = httpUtils.convert(httpUtils.create(SchoolApi.class).getRecommendedCollegeList(province),
+        Observable<ApiModel<List<RecomSchool>>> observable = httpUtils.convert(httpUtils.create(SchoolApi.class)
+                        .getRecommendedCollegeList(UserCache.getInstance().getProvince()),
                 new Consumer<ApiModel<List<RecomSchool>>>() {
                     @Override
                     public void accept(ApiModel<List<RecomSchool>> listApiModel) {
@@ -63,8 +63,8 @@ public class SchoolRepository extends BaseRepository {
     }
 
     public LiveData<SchoolDetail> getSchoolById(final String schoolId) {
-        String studId = "26";
-        Observable<ApiModel<SchoolDetail>> observable = httpUtils.convert(httpUtils.create(SchoolApi.class).getSchoolById(schoolId, studId),
+        Observable<ApiModel<SchoolDetail>> observable = httpUtils.convert(httpUtils.create(SchoolApi.class)
+                        .getSchoolById(schoolId, UserCache.getInstance().getUserId()),
                 new Consumer<ApiModel<SchoolDetail>>() {
                     @Override
                     public void accept(ApiModel<SchoolDetail> apiModel) {

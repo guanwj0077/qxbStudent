@@ -2,21 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/colorDivider"
     android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/px_20">
 
     <com.qxb.student.common.view.pager.ViewPagerWrapContent
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@android:color/white" />
 
     <LinearLayout
         android:id="@+id/functionIndicator"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/px_20"
-        android:layout_marginTop="@dimen/px_20"
-        android:background="@android:color/transparent"
-        android:gravity="center_vertical"
+        android:paddingTop="@dimen/px_20"
+        android:paddingBottom="@dimen/px_20"
+        android:background="@android:color/white"
+        android:gravity="center"
         android:orientation="horizontal" />
+
 </LinearLayout>

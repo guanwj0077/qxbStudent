@@ -14,23 +14,31 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import java.util.List;
 
 /**
- * 下拉刷新基类
+ * 没有标题的下拉刷新页面
+ *
  * @author winky
+ * @date 2018/7/27
  */
-public abstract class AbsRefreshFragment<T> extends AbsToolbarFragment implements IPullRefresh<T> {
+public abstract class AbsNoTitleRefreshFragment<T> extends AbsExpandFragment implements IPullRefresh<T> {
+    @Override
+    public final int bindLayout() {
+        return R.layout.fragment_refresh;
+    }
 
     @Override
-    public final int bindContentView() {
-        return R.layout.fragment_refresh;
+    public final void init(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        delegate.init((SmartRefreshLayout) view.findViewById(R.id.refreshLayout), (RecyclerView) view.findViewById(R.id.recyclerView));
+        initContent(savedInstanceState);
     }
 
     private final PullRefreshDelegate delegate = new PullRefreshDelegate(this);
 
-    @Override
-    public void init(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.init(view, savedInstanceState);
-        delegate.init((SmartRefreshLayout) view.findViewById(R.id.refreshLayout), (RecyclerView) view.findViewById(R.id.recyclerView));
-    }
+    /**
+     * 初始化
+     *
+     * @param savedInstanceState bundle
+     */
+    public abstract void initContent(@Nullable Bundle savedInstanceState);
 
     @Override
     public void refreshData(List<T> data, int count) {

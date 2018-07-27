@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -90,7 +91,7 @@ public interface BaseNewsApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("b_news/baseNewsList")
-    Observable<ApiModel<List<Bankao>>> baseNewslist(@FieldMap Map<String, Object> conditionMap);
+    Call<ApiModel<List<Bankao>>> baseNewslist(@FieldMap Map<String, String> conditionMap);
 
     /**
      * 伴考资讯详情

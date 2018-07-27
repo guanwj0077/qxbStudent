@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--目前用于伴考type区分-->
+    <string-array name="type">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    <!--伴考item标题-->
+    <integer-array name="bankao_title">
+        <item>@string/hint_bankao_zixun</item>
+        <item>@string/hint_bankao_beikao</item>
+        <item>@string/hint_bankao_baokao</item>
+        <item>@string/hint_bankao_daxue</item>
+        <item>@string/hint_bankao_zhuanye</item>
+    </integer-array>
+</resources>
