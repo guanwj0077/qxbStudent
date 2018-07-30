@@ -7,34 +7,34 @@
     android:padding="@dimen/px_30">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="@dimen/px_140"
-        android:layout_height="@dimen/px_140"
+        android:id="@+id/image1"
+        android:layout_width="@dimen/px_180"
+        android:layout_height="@dimen/px_180"
         android:layout_centerVertical="true"
         android:layout_marginEnd="@dimen/px_20"
         android:contentDescription="@string/hint_not_describe"
-        android:scaleType="centerCrop" />
+        android:scaleType="fitXY"/>
 
     <TextView
-        android:id="@+id/tv_title"
+        android:id="@+id/text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/px_15"
-        android:layout_toEndOf="@+id/imageView"
+        android:layout_toEndOf="@+id/image1"
         android:ellipsize="end"
         android:maxLines="2"
         android:textColor="@android:color/black"
-        android:textSize="@dimen/px_30" />
+        android:textSize="@dimen/px_40" />
 
     <TextView
-        android:id="@+id/tv_summary"
+        android:id="@+id/text2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_title"
+        android:layout_below="@+id/text1"
         android:layout_marginTop="@dimen/px_12"
-        android:layout_toEndOf="@+id/imageView"
+        android:layout_toEndOf="@+id/image1"
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/colorDesc"
-        android:textSize="@dimen/px_25" />
+        android:textSize="@dimen/px_35" />
 </RelativeLayout>

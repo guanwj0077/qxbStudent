@@ -49,8 +49,8 @@ public class SchoolRepository extends BaseRepository {
                 new Consumer<ApiModel<List<RecomSchool>>>() {
                     @Override
                     public void accept(ApiModel<List<RecomSchool>> listApiModel) {
-                        httpUtils.addCache(RecomSchool.class, listApiModel.getCacheTime());
-                        roomUtils.schoolDao().insertColleges(listApiModel.getData());
+//                        httpUtils.addCache(RecomSchool.class, listApiModel.getCacheTime());
+//                        roomUtils.schoolDao().insertColleges(listApiModel.getData());
                     }
                 });
         httpUtils.request(schoolListLiveData, new SubscribeObj<List<RecomSchool>>() {

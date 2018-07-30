@@ -5,10 +5,12 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.ViewStub;
+import android.widget.ImageView;
 
 import com.qxb.student.R;
 import com.qxb.student.common.basics.AbsNoTitleRefreshFragment;
 import com.qxb.student.common.module.bean.Bankao;
+import com.qxb.student.common.utils.GlideUtils;
 import com.qxb.student.common.view.recycler.ViewHolder;
 import com.qxb.student.common.view.recycler.adapter.QuickAdapter;
 import com.qxb.student.control.BanKaoControl;
@@ -47,7 +49,7 @@ public class BanKaoListFragment extends AbsNoTitleRefreshFragment<Bankao> {
         banKaoControl.getBankaoListByType(type, String.valueOf(pageIndex)).observe(this, new Observer<List<Bankao>>() {
             @Override
             public void onChanged(@Nullable List<Bankao> bankaos) {
-                refreshData(bankaos, bankaos.size());
+                refreshData(bankaos, bankaos != null ? bankaos.size() : 0);
             }
         });
     }
@@ -57,7 +59,9 @@ public class BanKaoListFragment extends AbsNoTitleRefreshFragment<Bankao> {
         return new QuickAdapter<Bankao>(R.layout.item_bankao_news) {
             @Override
             protected void convert(ViewHolder holder, int position, Bankao item) {
-
+                GlideUtils.getInstance().LoadSupportv4FragmentRoundBitmap(getFragment(), item.getImg_url(), (ImageView) holder.getView(R.id.image1), 10);
+                holder.setText(R.id.text1, item.getTitle());
+                holder.setText(R.id.text2, item.getIntro());
             }
         };
     }

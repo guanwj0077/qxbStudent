@@ -31,7 +31,7 @@ public abstract class AbsNoTitleRefreshFragment<T> extends AbsExpandFragment imp
         initContent(savedInstanceState);
     }
 
-    private final PullRefreshDelegate delegate = new PullRefreshDelegate(this);
+    private final PullRefreshDelegate<T> delegate = new PullRefreshDelegate<>(this);
 
     /**
      * 初始化

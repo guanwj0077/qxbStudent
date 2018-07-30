@@ -24,6 +24,7 @@ import okhttp3.Call;
 import okhttp3.CookieJar;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
+import okhttp3.internal.Internal;
 import retrofit2.Retrofit;
 
 /**
@@ -63,27 +64,9 @@ public class HttpConfigure {
 
     public static class Builder {
         private HttpUrl httpUrl;
-        private Call.Factory callFactory;
-        private Retrofit retrofit;
-        private CookieJar cookieJar;
 
         public Builder baseUrl(String url) {
             httpUrl = HttpUrl.parse(url);
-            return this;
-        }
-
-        public Builder callFactory(Call.Factory callFactory) {
-            this.callFactory = callFactory;
-            return this;
-        }
-
-        public Builder retrofit(Retrofit retrofit) {
-            this.retrofit = retrofit;
-            return this;
-        }
-
-        public Builder cookieJar(CookieJar cookieJar) {
-            this.cookieJar = cookieJar;
             return this;
         }
 
@@ -95,46 +78,37 @@ public class HttpConfigure {
             if (httpUrl == null) {
                 httpUrl = HttpUrl.parse(Config.SERVER_URL);
             }
-            if (callFactory == null) {
-                if (cookieJar == null) {
-                    cookieJar = new CookieManager(context);
-                }
-                try {
-                    File cacheDirectory = new File(context.getCacheDir().getAbsolutePath(), "cache");
-                    Cache cache = new Cache(cacheDirectory, 10 * 1024 * 1024);
-                    SSLContext sslContext = SSLContext.getInstance("SSL");
-                    sslContext.init(null, new TrustManager[]{trustManager}, new SecureRandom());
-                    callFactory = new OkHttpClient.Builder()
-                            //设置一个自动管理cookies的管理器
-                            .cookieJar(cookieJar)
-                            //设置套接字工厂
-                            .sslSocketFactory(sslContext.getSocketFactory(), trustManager)
-                            //设置计算机验证
-                            .hostnameVerifier(hostnameVerifier)
-                            //添加日志拦截器
-                            .addInterceptor(new AuthInterceptor())
-                            //添加网络连接器
-                            //.addNetworkInterceptor(new CookiesInterceptor(MyApplication.getInstance().getApplicationContext()))
-                            //设置请求读写的超时时间
-                            .connectTimeout(30, TimeUnit.SECONDS)
-                            .writeTimeout(30, TimeUnit.SECONDS)
-                            .readTimeout(30, TimeUnit.SECONDS)
-                            .cache(cache)
-                            .build();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    callFactory = new OkHttpClient();
-                }
+            OkHttpClient okHttpClient;
+            try {
+                SSLContext sslContext = SSLContext.getInstance("SSL");
+                sslContext.init(null, new TrustManager[]{trustManager}, new SecureRandom());
+                OkHttpClient.Builder builder = new OkHttpClient.Builder()
+                        //设置一个自动管理cookies的管理器
+                        .cookieJar(new CookieManager(context))
+                        //设置套接字工厂
+                        .sslSocketFactory(sslContext.getSocketFactory(), trustManager)
+                        //设置计算机验证
+                        .hostnameVerifier(hostnameVerifier)
+                        .addNetworkInterceptor(new AuthInterceptor())
+                        .addInterceptor(new CacheInterceptor())
+                        //设置请求读写的超时时间
+                        .connectTimeout(30, TimeUnit.SECONDS)
+                        .writeTimeout(30, TimeUnit.SECONDS)
+                        .readTimeout(30, TimeUnit.SECONDS);
+                Internal.instance.setCache(builder, new HttpCache());
+                okHttpClient = builder.build();
+            } catch (Exception e) {
+                e.printStackTrace();
+                okHttpClient = new OkHttpClient();
             }
-            if (retrofit == null) {
-                retrofit = new Retrofit.Builder()
-                        .baseUrl(Objects.requireNonNull(httpUrl))
-                        .callFactory(callFactory)
-                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                        .addConverterFactory(new JsonConverterFactory())
-                        .build();
-            }
-            return new HttpConfigure(context, httpUrl, callFactory, retrofit);
+
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(Objects.requireNonNull(httpUrl))
+                    .callFactory(okHttpClient)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .addConverterFactory(new JsonConverterFactory())
+                    .build();
+            return new HttpConfigure(context, httpUrl, okHttpClient, retrofit);
         }
 
         private HostnameVerifier hostnameVerifier = new HostnameVerifier() {

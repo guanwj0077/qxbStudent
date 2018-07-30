@@ -1,14 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">QiuXueBao</string>
+    <string name="app_name">求学宝</string>
 
-    <string name="title_login">Login</string>
+    <string name="title_login">登录</string>
+    <string name="title_register">注册</string>
+    <string name="title_forget_pwd">忘记密码</string>
 
-    <string name="main_home">Home</string>
-    <string name="main_chat">Message</string>
-    <string name="main_info">BanKao</string>
-    <string name="main_mine">Me</string>
+    <string name="main_home">首页</string>
+    <string name="main_chat">消息</string>
+    <string name="main_info">伴考</string>
+    <string name="main_mine">我的</string>
+    <string name="school_major">录取</string>
+    <string name="school_intro">简介</string>
+    <string name="school_conduct">招生简章</string>
+    <string name="school_summary">学校简介</string>
+    <string name="school_fee_scholarship">学费与奖金</string>
+    <string name="school_life">校园生活</string>
+    <string name="school_line_year">年份</string>
+    <string name="school_line_avg">平均分</string>
+    <string name="school_line_top">最高分</string>
+    <string name="school_line_min">最低分</string>
+    <string name="school_line_control">控制线</string>
+    <string name="hint_school_bat">点击切换招生批次</string>
+    <string name="hint_school_recruit">招生计划</string>
 
-    <string name="com_add">Add</string>
+    <string name="hint_sign_up">预报名</string>
+    <string name="hint_sign_on">已报名</string>
+    <string name="hint_concern">关注</string>
+    <string name="hint_look_more">查看更多</string>
+    <string name="com_add">添加</string>
+    <string name="hint_exit">再返回一次退出程序</string>
 
-    <string name="hint_exit">Return an exit program</string>
+    <string name="hint_login_phone">请输入手机号码</string>
+    <string name="hint_login_pwd">请输入密码</string>
+    <string name="hint_login_verify">请输入验证码</string>
+    <string name="hint_login_submit">登录</string>
+
+    <string name="hint_login_look">先看看</string>
+    <string name="login_ordinance"><Data><![CDATA[<font color="#EEEEEE"><b>登录或注册表示同意</b></font><font color="#f9ae38"><b>《求学宝用户协议》</b></font>]]></Data></string>
+    <string name="hint_login_third">第三方登录</string>
+    <string name="hint_tag_recommended_colleges">推荐院校</string>
+    <string name="hint_sys_msg">系统通知</string>
+    <string name="hint_push_msg">推送通知</string>
+    <string name="hint_no_msg">暂无消息</string>
+    <string name="hint_consultation">咨询</string>
+
+    <string name="mine">我的</string>
+    <string name="immediately_login">立即登录</string>
+    <string name="select_college">请选择高中</string>
+    <string name="msg_tip">提示信息</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    <string name="prompt">提示</string>
+    <string name="zhuce_judge">请填写真实信息，填写后不可修改</string>
+
+    <string name="tv_ljwssjf">立即完善得积分</string>
+    <string name="tv_wdqxda">我的求学档案</string>
+    <string name="tv_wtx">未填写</string>
+    <string name="tv_wdcj">我的成绩</string>
+    <string name="qkankan">去看看</string>
+    <string name="yhmbnwk">用户名不能为空！</string>
+    <string name="sjhmbnwk">手机不能为空！</string>
+
+    <string name="mmgsbzq">密码格式不正确！</string>
+    <string name="qsrzqdyhm">请输入正确的用户名!</string>
+    <string name="qsrzqdsjhm">请输入正确的手机号码!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hfnyfz">接下来可能会花费您1分钟时间，我们\n需要了解一下您的基本情况。</string>
+    <string name="djtxxm">点击填写姓名</string>
+    <string name="nxzzngzxjdl">您现在哪个高中就读呢？</string>
+    <string name="ndzsxm">您的真实姓名？</string>
+    <string name="next">Next</string>
+    <string name="ndgdcj">您大概的成绩？</string>
+    <string name="djtxzhouycdcj">点击填写最近一次考试的分数</string>
+    <string name="nbkdkms">您的报考科目是？</string>
+    <string name="wenke">文科</string>
+    <string name="like">理科</string>
+    <string name="yswk">艺术文科</string>
+    <string name="yslk">艺术理科</string>
+    <string name="code_send_success">验证码已成功发送</string>
+    <string name="hint_not_describe">暂无描述</string>
+    <string name="hint_not_data">暂无数据</string>
+
+    <string name="yqm">邀请码</string>
+    <string name="yhm">优惠码</string>
+    <string name="wdsc">我的收藏</string>
+    <string name="bmddx">报名的大学</string>
+    <string name="wddd">我的订单</string>
+    <string name="wdzyb">我的志愿表</string>
+    <string name="wdzxk">我的助学卡</string>
+    <string name="rjgx">软件更新</string>
+    <string name="ywtzkf">有问题找客服</string>
+    <string name="sybz">使用帮助</string>
+    <string name="bzyfk">帮助与反馈</string>
+    <string name="gywm">关于我们</string>
+    <string name="yqhylkmd">邀请好友，立刻免单</string>
+
+
+    <string name="userid_found">用户信息已存在，正在跳转登录操作…</string>
+    <string name="logining">使用%s帐号登录中…</string>
+    <string name="auth_cancel">授权操作已取消</string>
+    <string name="auth_error">授权操作遇到错误，请阅读Logcat输出</string>
+    <string name="auth_complete">授权成功，正在跳转登录操作…</string>
+    <string name="user_register">新用户注册</string>
+    <string name="user_password">找回密码</string>
+    <string name="code_send_down">%1$s秒后重新发送</string>
+
+    <string name="phone_must_not_be_empty">手机号码不能为空</string>
+    <string name="phone_must_be_right">请输入正确的手机号码</string>
+    <string name="code_must_be_right">请输入正确的验证码</string>
+    <string name="pwd_must_be_length5">密码长度不少于5位</string>
+    <string name="pwd_confirm_must_be_same">两次输入密码必须一致</string>
+    <string name="save_password_success">密码已成功修改</string>
+    <string name="reg_success">恭喜您已注册成功</string>
+    <string name="please_pick_area">您还没有选择地区</string>
+
+
+    <string name="please_input_pwd">请输入密码</string>
+    <string name="please_input_card_number">请输入序列号</string>
+
+    <string name="please_input_pwd_confirm">请确认密码</string>
+
+    <string name="hint_bankao_zixun">资讯</string>
+    <string name="hint_bankao_beikao">备考</string>
+    <string name="hint_bankao_baokao">报考</string>
+    <string name="hint_bankao_daxue">大学</string>
+    <string name="hint_bankao_zhuanye">专业</string>
+    <string name="hint_bankao_edit">我要评论(不得超过200字)</string>
+
+    <string name="hint_send">发送</string>
+
+    <string name="combine_plan">%1$d年招生计划%2$s人</string>
 </resources>

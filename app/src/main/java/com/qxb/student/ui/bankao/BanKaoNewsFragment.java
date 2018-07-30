@@ -39,10 +39,10 @@ public class BanKaoNewsFragment extends AbsExpandFragment {
         toolbar.setBackgroundResource(android.R.color.transparent);
         binding = DataBindingUtil.bind(view);
         String[] types = getResources().getStringArray(R.array.type);
-        int[] titles = getResources().getIntArray(R.array.bankao_title);
+        String[] titles = getResources().getStringArray(R.array.bankao_title);
         List<BaseFragment> fragmentList = new ArrayList<>(5);
         for (int i = 0; i < 5; i++) {
-            fragmentList.add(BanKaoListFragment.create(types[i]).setTitle(getString(titles[i])));
+            fragmentList.add(BanKaoListFragment.create(types[i]).setTitle(titles[i]));
         }
         binding.viewPager.setAdapter(new FragmentAdapter(getChildFragmentManager(), fragmentList));
         binding.tabLayout.setupWithViewPager(binding.viewPager, false);

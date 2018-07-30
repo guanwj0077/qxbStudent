@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:childDivider="@android:color/white"
-    android:divider="@drawable/list_divider"
+    android:divider="@drawable/list_divider_35"
     android:dividerHeight="@dimen/px_2"
     android:fadingEdge="none"
     android:fadingEdgeLength="@dimen/px_0"

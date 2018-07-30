@@ -105,6 +105,6 @@ public class SchoolConductFragment extends AbsExpandFragment {
             }
         });
         recyclerView.setAdapter(adapter);
-        recyclerView.addItemDecoration(new SimpleDecoration(getContext(), R.drawable.list_divider));
+        recyclerView.addItemDecoration(new SimpleDecoration(getContext(), R.drawable.list_divider_35));
     }
 }

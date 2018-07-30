@@ -103,7 +103,7 @@ public interface BaseNewsApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("b_news/baseNewsDetail")
-    Observable<ApiModel<BaseNews>> baseNewsDetail(@Field("news_id") String newsId, @Field("stu_id") String stuId);
+    Call<ApiModel<BaseNews>> baseNewsDetail(@Field("news_id") String newsId, @Field("stu_id") String stuId);
 
     /**
      * 伴考资讯评论

@@ -4,7 +4,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewStub;
 
+import com.qxb.student.common.R;
 import com.qxb.student.common.view.recycler.adapter.QuickAdapter;
+import com.qxb.student.common.view.recycler.decoration.SimpleDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -30,7 +32,7 @@ public class PullRefreshDelegate<T> {
     private int pageIndex = 1;
     private QuickAdapter<T> adapter;
 
-    private IPullRefresh pullRefresh;
+    private IPullRefresh<T> pullRefresh;
 
     public PullRefreshDelegate(IPullRefresh pullRefresh) {
         this.pullRefresh = pullRefresh;
@@ -40,6 +42,7 @@ public class PullRefreshDelegate<T> {
         this.refreshLayout = refreshLayout;
         this.recyclerView = recyclerView;
         this.recyclerView.setAdapter(this.adapter = pullRefresh.initAdapter());
+        this.recyclerView.addItemDecoration(new SimpleDecoration(recyclerView.getContext(), R.drawable.list_divider_1));
         this.refreshLayout.setDisableContentWhenLoading(false);
         this.refreshLayout.setEnableOverScrollDrag(true);
         this.refreshLayout.setEnableFooterFollowWhenLoadFinished(false);

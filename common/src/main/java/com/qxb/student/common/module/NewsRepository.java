@@ -8,6 +8,7 @@ import com.qxb.student.common.Config;
 import com.qxb.student.common.module.api.BaseNewsApi;
 import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.Bankao;
+import com.qxb.student.common.module.bean.BaseNews;
 import com.qxb.student.common.utils.ExecutorUtils;
 import com.qxb.student.common.utils.UserCache;
 
@@ -25,6 +26,7 @@ import retrofit2.Call;
 public class NewsRepository extends BaseRepository {
 
     private MutableLiveData<List<Bankao>> bankaoLiveData = new MutableLiveData<>();
+    private MutableLiveData<BaseNews> newsLiveData = new MutableLiveData<>();
 
     public LiveData<List<Bankao>> getBankaoList(final String keyWord, final String channel, final String page) {
         ExecutorUtils.getInstance().addTask(new Runnable() {
@@ -47,9 +49,9 @@ public class NewsRepository extends BaseRepository {
                     ApiModel<List<Bankao>> apiModel = call.execute().body();
                     if ((apiModel != null ? apiModel.getCode() : 0) == Config.HTTP_SUCCESS) {
                         bankaoLiveData.postValue(apiModel.getData());
-                        if (readCache) {
-                            roomUtils.bankaoDao().insert(apiModel.getData());
-                        }
+//                        if (readCache) {
+//                            roomUtils.bankaoDao().insert(apiModel.getData());
+//                        }
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -57,5 +59,23 @@ public class NewsRepository extends BaseRepository {
             }
         });
         return bankaoLiveData;
+    }
+
+    public LiveData<BaseNews> getBankaoDetail(final String bankaoId) {
+        ExecutorUtils.getInstance().addTask(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Call<ApiModel<BaseNews>> call = httpUtils.create(BaseNewsApi.class).baseNewsDetail(bankaoId, UserCache.getInstance().getUserId());
+                    ApiModel<BaseNews> apiModel = call.execute().body();
+                    if ((apiModel != null ? apiModel.getCode() : 0) == Config.HTTP_SUCCESS) {
+                        newsLiveData.postValue(apiModel.getData());
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        return newsLiveData;
     }
 }

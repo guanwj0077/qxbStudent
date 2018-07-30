@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 
 import com.qxb.student.common.module.NewsRepository;
 import com.qxb.student.common.module.bean.Bankao;
+import com.qxb.student.common.module.bean.BaseNews;
 
 import java.util.List;
 
@@ -36,5 +37,9 @@ public class BanKaoControl extends AndroidViewModel {
 
     public LiveData<List<Bankao>> getBankaoListByKeyWord(String keyWord, String page) {
         return newsRepository.getBankaoList(keyWord, "", page);
+    }
+
+    public LiveData<BaseNews> getBankaoDetail(String bankaoId) {
+        return newsRepository.getBankaoDetail(bankaoId);
     }
 }
