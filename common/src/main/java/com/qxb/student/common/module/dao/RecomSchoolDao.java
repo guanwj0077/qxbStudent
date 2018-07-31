@@ -1,5 +1,6 @@
 package com.qxb.student.common.module.dao;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
@@ -25,7 +26,7 @@ public interface RecomSchoolDao {
      * @return 学校集合
      */
     @Query("SELECT * FROM RecomSchool")
-    List<RecomSchool> getRecommendedColleges();
+    LiveData<List<RecomSchool>> getRecommendedColleges();
 
     /**
      * 学校列表数据

@@ -7,7 +7,6 @@ import com.qxb.student.common.module.bean.SysAd;
 
 import java.util.List;
 
-import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -38,7 +37,7 @@ public interface SysAdApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("sysAd/list")
-    Observable<ApiModel<List<SysAd>>> getSysAdList(@Field("type") String type, @Field("province") String province, @Field("student_id") String studentId);
+    Call<ApiModel<List<SysAd>>> getSysAdList(@Field("type") String type, @Field("province") String province, @Field("student_id") String studentId);
 
     /**
      * 首页banner
@@ -49,7 +48,7 @@ public interface SysAdApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("sysAd/new_banner")
-    Observable<ApiModel<List<SysAd>>> getHomeBanner(@Field("province") String province);
+    Call<ApiModel<List<SysAd>>> getHomeBanner(@Field("province") String province);
 
     /**
      * 弹屏广告
@@ -62,7 +61,7 @@ public interface SysAdApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("sysAd/oppup")
-    Observable<ApiModel<List<SysAd>>> sysAdOppup(@Field("type") String type, @Field("student_id") String studentId, @Field("province") String province);
+    Call<ApiModel<List<SysAd>>> sysAdOppup(@Field("type") String type, @Field("student_id") String studentId, @Field("province") String province);
 
     /**
      * 开屏广告
@@ -73,7 +72,7 @@ public interface SysAdApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("sysAd/open_up_ad")
-    Observable<ApiModel<List<SysAd>>> sysAdOpenUpAd(@Field("province") String province);
+    Call<ApiModel<List<SysAd>>> sysAdOpenUpAd(@Field("province") String province);
 
     /**
      * 弹屏广告
@@ -85,7 +84,7 @@ public interface SysAdApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("sysAd/new_pop_ad")
-    Observable<ApiModel<List<SysAd>>> getPopSysAd(@Field("type") String type, @Field("province") String province);
+    Call<ApiModel<List<SysAd>>> getPopSysAd(@Field("type") String type, @Field("province") String province);
 
     /**
      * 直播首页广告 2.3 新版本 新图片
@@ -94,7 +93,7 @@ public interface SysAdApi {
      */
     @Headers(Config.AUTH_COMMON)
     @POST("chatRoom/liveHomeAd23")
-    Observable<ApiModel<String>> getLiveHomeAd();
+    Call<ApiModel<String>> getLiveHomeAd();
 
     /**
      * 首页功能
@@ -105,5 +104,5 @@ public interface SysAdApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("sysconfig/getIndexFunction")
-    Observable<ApiModel<List<FunctionItem>>> getIndexFunctions(@Field("androidVersion") String androidVersion);
+    Call<ApiModel<List<FunctionItem>>> getIndexFunctions(@Field("androidVersion") String androidVersion);
 }

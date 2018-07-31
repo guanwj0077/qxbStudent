@@ -5,9 +5,9 @@ import android.content.Context;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.qxb.student.common.Config;
+import com.qxb.student.common.http.cache.HttpCache;
 import com.qxb.student.common.utils.ContextUtils;
 
-import java.io.File;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 import java.util.Objects;
@@ -19,9 +19,7 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import okhttp3.Cache;
 import okhttp3.Call;
-import okhttp3.CookieJar;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.internal.Internal;
@@ -95,7 +93,7 @@ public class HttpConfigure {
                         .connectTimeout(30, TimeUnit.SECONDS)
                         .writeTimeout(30, TimeUnit.SECONDS)
                         .readTimeout(30, TimeUnit.SECONDS);
-                Internal.instance.setCache(builder, new HttpCache());
+                Internal.instance.setCache(builder, new HttpCache(context));
                 okHttpClient = builder.build();
             } catch (Exception e) {
                 e.printStackTrace();

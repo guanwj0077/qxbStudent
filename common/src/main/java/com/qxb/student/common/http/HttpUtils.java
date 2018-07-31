@@ -3,18 +3,18 @@ package com.qxb.student.common.http;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.persistence.db.SupportSQLiteStatement;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
+import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.tab.HttpCache;
 import com.qxb.student.common.module.dao.HttpCacheDao;
 import com.qxb.student.common.module.dao.RoomUtils;
 import com.qxb.student.common.utils.Singleton;
 
-import io.reactivex.Observable;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
+import java.io.IOException;
+
+import retrofit2.Call;
 
 public class HttpUtils {
 
@@ -47,68 +47,9 @@ public class HttpUtils {
      */
     private static final HttpCacheDao httpCacheDao = roomUtils.httpCacheDao();
 
-    /**
-     * 缓存rxjava链接,在页面关闭时切断
-     */
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
-
-    /**
-     * 当页面关闭切断仓库所有数据链接
-     */
-    public void onCleared() {
-        compositeDisposable.clear();
-    }
-
-    /**
-     * @param disposable rxjava链接
-     */
-    public void addDisposable(Disposable disposable) {
-        compositeDisposable.add(disposable);
-    }
 
     public <T> T create(Class<T> clazz) {
         return httpConfigure.getRetrofit().create(clazz);
-    }
-
-    /**
-     * 数据处理
-     *
-     * @param <T>             数据模型
-     * @param mutableLiveData liveData
-     * @param obj             异步执行，查询本地库判断是否需要请求网络数据
-     * @param observable      网络请求
-     */
-    public <T> void request(MutableLiveData<T> mutableLiveData, SubscribeObj<T> obj, Observable<ApiModel<T>> observable) {
-        Disposable disposable = Observable.create(obj)
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .doOnNext(new PostConsumer<>(mutableLiveData))
-                .doOnComplete(new HttpResponse<>(observable, mutableLiveData)).subscribe();
-        addDisposable(disposable);
-    }
-
-    public <T> Observable<ApiModel<T>> convert(Observable<ApiModel<T>> observable) {
-        return this.convert(observable, new Consumer<ApiModel<T>>() {
-            @Override
-            public void accept(ApiModel<T> apiModel) {
-
-            }
-        });
-    }
-
-    /**
-     * 请求转换
-     *
-     * @param observable 网络请求
-     * @param async      异步执行，处理本地数据
-     * @param <T>        数据模型
-     * @return observable
-     */
-    public <T> Observable<ApiModel<T>> convert(Observable<ApiModel<T>> observable, @NonNull Consumer<ApiModel<T>> async) {
-        return observable
-                .subscribeOn(Schedulers.io())
-                .doOnNext(async)
-                .observeOn(Schedulers.io());
     }
 
     /**

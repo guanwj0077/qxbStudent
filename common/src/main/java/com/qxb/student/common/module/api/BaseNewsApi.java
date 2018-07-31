@@ -10,7 +10,6 @@ import com.qxb.student.common.module.bean.NewsConnectInfo;
 import java.util.List;
 import java.util.Map;
 
-import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
@@ -32,7 +31,7 @@ public interface BaseNewsApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("base/newsDetail")
-    Observable<ApiModel<BaseNews>> newsDetail(@Field("id") String newsId);
+    Call<ApiModel<BaseNews>> newsDetail(@Field("id") String newsId);
 
     /**
      * 系统新闻列表
@@ -48,7 +47,7 @@ public interface BaseNewsApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("base/newslist")
-    Observable<ApiModel<List<BaseNews>>> newslist(@Field("type") String type, @Field("province") String province, @Field("title") String title, @Field("student_id") String studentId, @Field("page") String page, @Field("rows") String rows);
+    Call<ApiModel<List<BaseNews>>> newslist(@Field("type") String type, @Field("province") String province, @Field("title") String title, @Field("student_id") String studentId, @Field("page") String page, @Field("rows") String rows);
 
     /**
      * 根据id查询系统新闻的详情,返回网页
@@ -58,7 +57,7 @@ public interface BaseNewsApi {
      */
     @FormUrlEncoded
     @POST("view/news/detail")
-    Observable<String> viewNewsDetail(@Field("id") String newsId);
+    Call<String> viewNewsDetail(@Field("id") String newsId);
 
     /**
      * 根据伴考ID获取学校信息
@@ -74,7 +73,7 @@ public interface BaseNewsApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("baseNews/connectSchool")
-    Observable<ApiModel<NewsConnectInfo>> connectSchool(@Field("id") String newsId, @Field("type") String type, @Field("tag") String tag,
+    Call<ApiModel<NewsConnectInfo>> connectSchool(@Field("id") String newsId, @Field("type") String type, @Field("tag") String tag,
                                                         @Field("msg_id") String msgId, @Field("receiver_type") String receiverType, @Field("receiver_id") String receiverId);
 
     /**
@@ -116,7 +115,7 @@ public interface BaseNewsApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("b_news/review")
-    Observable<ApiModel<String>> baseNewsReview(@Field("base_news_id") String newsId, @Field("stu_id") String stuId, @Field("content") String content);
+    Call<ApiModel<String>> baseNewsReview(@Field("base_news_id") String newsId, @Field("stu_id") String stuId, @Field("content") String content);
 
     /**
      * 伴考资讯评论列表
@@ -130,7 +129,7 @@ public interface BaseNewsApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("b_news/commentList")
-    Observable<ApiModel<List<BaseNewsComment>>> getBaseNewsCommentList(@Field("base_news_id") String newsId, @Field("student_id") String studentId, @Field("page") String page, @Field("rows") String rows);
+    Call<ApiModel<List<BaseNewsComment>>> getBaseNewsCommentList(@Field("base_news_id") String newsId, @Field("student_id") String studentId, @Field("page") String page, @Field("rows") String rows);
 
     /**
      * 伴考资讯评论取消点赞
@@ -143,7 +142,7 @@ public interface BaseNewsApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("b_news/cancelPraise")
-    Observable<ApiModel<String>> cancelCommentPraise(@Field("base_news_id") String newsId, @Field("stu_id") String studentId, @Field("comment_id") String commentId);
+    Call<ApiModel<String>> cancelCommentPraise(@Field("base_news_id") String newsId, @Field("stu_id") String studentId, @Field("comment_id") String commentId);
 
     /**
      * 伴考资讯评论点赞
@@ -156,7 +155,7 @@ public interface BaseNewsApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("b_news/praise")
-    Observable<ApiModel<String>> commentPraise(@Field("base_news_id") String newsId, @Field("stu_id") String studentId, @Field("comment_id") String commentId);
+    Call<ApiModel<String>> commentPraise(@Field("base_news_id") String newsId, @Field("stu_id") String studentId, @Field("comment_id") String commentId);
 
     /**
      * 伴考资讯收藏
@@ -168,7 +167,7 @@ public interface BaseNewsApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("b_news/collection")
-    Observable<ApiModel<String>> collectBaseNews(@Field("base_news_id") String newsId, @Field("stu_id") String studentId);
+    Call<ApiModel<String>> collectBaseNews(@Field("base_news_id") String newsId, @Field("stu_id") String studentId);
 
     /**
      * 伴考资讯取消收藏
@@ -180,6 +179,6 @@ public interface BaseNewsApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("b_news/cancelCollection")
-    Observable<ApiModel<String>> cancelCollectBaseNews(@Field("base_news_id") String newsId, @Field("stu_id") String studentId);
+    Call<ApiModel<String>> cancelCollectBaseNews(@Field("base_news_id") String newsId, @Field("stu_id") String studentId);
 
 }

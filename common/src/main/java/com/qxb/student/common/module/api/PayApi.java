@@ -3,7 +3,7 @@ package com.qxb.student.common.module.api;
 import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.ApiModel;
 
-import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
@@ -28,8 +28,8 @@ public interface PayApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("pay")
-    Observable<ApiModel<String>> pay(@Field("user_id") String userId, @Field("channel") String channel, @Field("clientIp") String clientIp,
-                                     @Field("amount") String amount, @Field("currency") String currency, @Field("subject") String subject, @Field("body") String body);
+    Call<ApiModel<String>> pay(@Field("user_id") String userId, @Field("channel") String channel, @Field("clientIp") String clientIp,
+                               @Field("amount") String amount, @Field("currency") String currency, @Field("subject") String subject, @Field("body") String body);
 
     /**
      * 学生支付状态查询接口
@@ -39,6 +39,6 @@ public interface PayApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("pay/search")
-    Observable<ApiModel<String>> paySearch(@Field("stu_id") String stuId);
+    Call<ApiModel<String>> paySearch(@Field("stu_id") String stuId);
 
 }

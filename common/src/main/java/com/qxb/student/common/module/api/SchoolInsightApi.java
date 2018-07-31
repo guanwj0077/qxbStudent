@@ -7,7 +7,7 @@ import com.qxb.student.common.module.bean.ScorePart;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
@@ -33,7 +33,7 @@ public interface SchoolInsightApi {
      */
     @FormUrlEncoded
     @POST("school/listbyids_new")
-    Observable<ApiModel<List<SchoolInsight>>> schoolInsightGetList(@Field("ids") String ids, @Field("province") String province, @Field("sprovince") String sprovince, @Field("profess") String profess, @Field("page") String page, @Field("rows") String rows);
+    Call<ApiModel<List<SchoolInsight>>> schoolInsightGetList(@Field("ids") String ids, @Field("province") String province, @Field("sprovince") String sprovince, @Field("profess") String profess, @Field("page") String page, @Field("rows") String rows);
 
     /**
      * 智能选校获取学校ID列表(新接口)
@@ -51,7 +51,7 @@ public interface SchoolInsightApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("school/insightscore_new")
-    Observable<ApiModel<String>> schoolInsightScoreGetList(@Field("student_id") String studentId, @Field("province") String province, @Field("score_type") String scoreType, @Field("score") String score,
+    Call<ApiModel<String>> schoolInsightScoreGetList(@Field("student_id") String studentId, @Field("province") String province, @Field("score_type") String scoreType, @Field("score") String score,
                                                            @Field("subject_type") String subjectType, @Field("precedence") String precedence, @Field("rtime") String rtime, @Field("rcode") String rcode);
 
     /**
@@ -65,7 +65,7 @@ public interface SchoolInsightApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("stuScore/getPrecedence")
-    Observable<ApiModel<List<ScorePart>>> getPrecedenceByScore(@Field("score") String score, @Field("province") String province, @Field("subject_type") String subjectType);
+    Call<ApiModel<List<ScorePart>>> getPrecedenceByScore(@Field("score") String score, @Field("province") String province, @Field("subject_type") String subjectType);
 
 
 }

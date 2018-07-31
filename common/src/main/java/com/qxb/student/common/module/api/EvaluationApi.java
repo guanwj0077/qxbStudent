@@ -6,7 +6,7 @@ import com.qxb.student.common.module.bean.BaseEvaluationResult;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
@@ -26,7 +26,7 @@ public interface EvaluationApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("evaluation/getlist")
-    Observable<ApiModel<List<String>>> getEvaluationList(@Field("type") String type);
+    Call<ApiModel<List<String>>> getEvaluationList(@Field("type") String type);
 
     /**
      * 测评-获取霍兰德测评答题结果
@@ -39,7 +39,7 @@ public interface EvaluationApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("evaluation/getResultHolland")
-    Observable<ApiModel<String>> getResultHolland(@Field("userid") String studentId, @Field("username") String username, @Field("result") String result);
+    Call<ApiModel<String>> getResultHolland(@Field("userid") String studentId, @Field("username") String username, @Field("result") String result);
 
     /**
      * 测评-获取答题结果
@@ -53,7 +53,7 @@ public interface EvaluationApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("evaluation/getResult")
-    Observable<ApiModel<BaseEvaluationResult>> getResult(@Field("userid") String studentId, @Field("username") String username, @Field("result") String result, @Field("type") String type);
+    Call<ApiModel<BaseEvaluationResult>> getResult(@Field("userid") String studentId, @Field("username") String username, @Field("result") String result, @Field("type") String type);
 
     /**
      * 测评-获取答题结果新接口（去掉 type本专科 、去掉职业推荐）
@@ -66,7 +66,7 @@ public interface EvaluationApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("evaluation/getResultNew")
-    Observable<ApiModel<BaseEvaluationResult>> getResultNew(@Field("userid") String studentId, @Field("username") String username, @Field("result") String result);
+    Call<ApiModel<BaseEvaluationResult>> getResultNew(@Field("userid") String studentId, @Field("username") String username, @Field("result") String result);
 
     /**
      * 测评-获取专业
@@ -79,7 +79,7 @@ public interface EvaluationApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("evaluation/getCareer")
-    Observable<ApiModel<String>> getCareer(@Field("stu_id") String studentId, @Field("type") String type);
+    Call<ApiModel<String>> getCareer(@Field("stu_id") String studentId, @Field("type") String type);
 
 
 }

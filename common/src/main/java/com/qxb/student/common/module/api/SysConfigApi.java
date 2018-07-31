@@ -6,7 +6,7 @@ import com.qxb.student.common.module.bean.SysConfig;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
@@ -27,7 +27,7 @@ public interface SysConfigApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("sysconfig/getSysConfigList")
-    Observable<ApiModel<List<SysConfig>>> getSysConfigList(@Field("type") String type, @Field("p_code") String pCode);
+    Call<ApiModel<List<SysConfig>>> getSysConfigList(@Field("type") String type, @Field("p_code") String pCode);
 
     /**
      * 获取客户端高考分输入控制配置
@@ -37,7 +37,7 @@ public interface SysConfigApi {
      */
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded    @POST("sysconfig/getGaokaoInputConfig")
-    Observable<ApiModel<List<SysConfig>>> getGaokaoInputConfig(@Field("id") String id, @Field("province") String province);
+    Call<ApiModel<List<SysConfig>>> getGaokaoInputConfig(@Field("id") String id, @Field("province") String province);
 
 
 

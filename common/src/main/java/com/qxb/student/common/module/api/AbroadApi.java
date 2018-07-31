@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -48,7 +48,7 @@ public interface AbroadApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("abroad/order/orderDetail")
-    Observable<ApiModel<AbroadOrder>> orderDetail(@Field("orderId") int orderId, @Field("accountId") int accountId);
+    Call<ApiModel<AbroadOrder>> orderDetail(@Field("orderId") int orderId, @Field("accountId") int accountId);
 
 
     /**
@@ -59,7 +59,7 @@ public interface AbroadApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("abroad/order/labelList")
-    Observable<ApiModel<ExpertLabel>> labelList(@Field("accountId") int accountId);
+    Call<ApiModel<ExpertLabel>> labelList(@Field("accountId") int accountId);
 
 
 
@@ -74,7 +74,7 @@ public interface AbroadApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("abroad/news/getList")
-    Observable<ApiModel<AbroadNews>> newsList(@Field("rows") int rows, @Field("page") int page,@Field("news_type") int newsType, @Field("keyword") String keyword);
+    Call<ApiModel<AbroadNews>> newsList(@Field("rows") int rows, @Field("page") int page,@Field("news_type") int newsType, @Field("keyword") String keyword);
 
 
     /**
@@ -84,7 +84,7 @@ public interface AbroadApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("abroad/news/cycleimg")
-    Observable<ApiModel<String>> cycleimg();
+    Call<ApiModel<String>> cycleimg();
 
 
     /**
@@ -96,7 +96,7 @@ public interface AbroadApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("abroad/news/getDetial")
-    Observable<ApiModel<AbroadNewsDetial>> newsDetial(@Field("id") int id, @Field("news_type") int newsType);
+    Call<ApiModel<AbroadNewsDetial>> newsDetial(@Field("id") int id, @Field("news_type") int newsType);
 
     /**
      *  首页  留学资讯
@@ -107,7 +107,7 @@ public interface AbroadApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("abroad/news/getTopList")
-    Observable<ApiModel<List<AbroadNews>>> newsTopList(@Field("rows") int rows, @Field("page") int page);
+    Call<ApiModel<List<AbroadNews>>> newsTopList(@Field("rows") int rows, @Field("page") int page);
 
 
     /**
@@ -116,7 +116,7 @@ public interface AbroadApi {
      */
     @FormUrlEncoded
     @POST("abroad/country/list")
-    Observable<ApiModel<BaseCodeName>> countryList();
+    Call<ApiModel<BaseCodeName>> countryList();
 
 
     /**
@@ -133,7 +133,7 @@ public interface AbroadApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("abroad/school/list")
-    Observable<ApiModel<ExpertLabel>> schoolList(@FieldMap HashMap<String,Object> map);
+    Call<ApiModel<ExpertLabel>> schoolList(@FieldMap HashMap<String,Object> map);
 
     /**
      * 院校首页-通过school_id查询
@@ -144,7 +144,7 @@ public interface AbroadApi {
     @Headers(Config.CUSTOM)
     @FormUrlEncoded
     @POST("abroad/school/detail")
-    Observable<ApiModel<AbroadSchool>> schoolDetail(@Field("school_id")int schoolId, @Field("student_id") int studentId);
+    Call<ApiModel<AbroadSchool>> schoolDetail(@Field("school_id")int schoolId, @Field("student_id") int studentId);
 
 
     /**
@@ -155,7 +155,7 @@ public interface AbroadApi {
     @Headers(Config.COMMON)
     @FormUrlEncoded
     @POST("abroad/school/introduce")
-    Observable<ApiModel<AbroadSchool>> schoolIntroduce(@Field("id")int schoolId);
+    Call<ApiModel<AbroadSchool>> schoolIntroduce(@Field("id")int schoolId);
 
 
     /**
@@ -168,7 +168,7 @@ public interface AbroadApi {
     @Headers(Config.COMMON)
     @FormUrlEncoded
     @POST("abroad/school/teacherList")
-    Observable<ApiModel<Map<String,Object>>> teacherList(@Field("school_id")int schoolId);
+    Call<ApiModel<Map<String,Object>>> teacherList(@Field("school_id")int schoolId);
 
 
     /**
@@ -178,7 +178,7 @@ public interface AbroadApi {
     @Headers(Config.COMMON)
     @FormUrlEncoded
     @POST("abroad/rank/config")
-    Observable<ApiModel<AbroadSchool>> rankConfig();
+    Call<ApiModel<AbroadSchool>> rankConfig();
 
 
     /**
@@ -193,7 +193,7 @@ public interface AbroadApi {
     @Headers(Config.COMMON)
     @FormUrlEncoded
     @POST("abroad/rank/list")
-    Observable<ApiModel<AbroadSchoolRank>> schoolRankList(@Field("rows") int rows, @Field("page") int page, @Field("type") int type, @Field("obj") String obj);
+    Call<ApiModel<AbroadSchoolRank>> schoolRankList(@Field("rows") int rows, @Field("page") int page, @Field("type") int type, @Field("obj") String obj);
 
     /**
      * 专业 排行榜
@@ -207,7 +207,7 @@ public interface AbroadApi {
     @Headers(Config.COMMON)
     @FormUrlEncoded
     @POST("abroad/rank/list")
-    Observable<ApiModel<AbroadMajorRank>> majorRankList(@Field("rows") int rows, @Field("page") int page, @Field("type") int type, @Field("obj") String obj);
+    Call<ApiModel<AbroadMajorRank>> majorRankList(@Field("rows") int rows, @Field("page") int page, @Field("type") int type, @Field("obj") String obj);
 
 
     /**
@@ -225,7 +225,7 @@ public interface AbroadApi {
     @Headers(Config.COMMON)
     @FormUrlEncoded
     @POST("abroad/schoolMajor/list")
-    Observable<ApiModel<List<AbroadSchoolMajor>>> majorList(@Field("rows") int rows, @Field("page") int page,
+    Call<ApiModel<List<AbroadSchoolMajor>>> majorList(@Field("rows") int rows, @Field("page") int page,
                                                             @Field("school_id") int schoolId, @Field("name") int name,
                                                             @Field("course_type") int courseType, @Field("base_major_code") int baseMajorCode);
 
@@ -236,7 +236,7 @@ public interface AbroadApi {
     @Headers(Config.COMMON)
     @FormUrlEncoded
     @POST("abroad/baseMajor/list")
-    Observable<ApiModel<List<AbroadBaseMajor>>> baseMajorList();
+    Call<ApiModel<List<AbroadBaseMajor>>> baseMajorList();
 
 
     /**
@@ -250,7 +250,7 @@ public interface AbroadApi {
     @Headers(Config.COMMON)
     @FormUrlEncoded
     @POST("abroad/major/list")
-    Observable<ApiModel<List<AbroadBaseMajor>>> majorList(@Field("rows") int rows, @Field("page") int page,
+    Call<ApiModel<List<AbroadBaseMajor>>> majorList(@Field("rows") int rows, @Field("page") int page,
                                                                 @Field("name") String name,@Field("parent_code") String parentCode);
 
 
@@ -265,7 +265,7 @@ public interface AbroadApi {
     @Headers(Config.COMMON)
     @FormUrlEncoded
     @POST("abroad/recruitSchool/list")
-    Observable<ApiModel<List<AbroadSchool>>> recruitSchoolList(@Field("rows") int rows, @Field("page") int page,
+    Call<ApiModel<List<AbroadSchool>>> recruitSchoolList(@Field("rows") int rows, @Field("page") int page,
                                                                 @Field("major_code") String majorCode,@Field("course_type") int courseType);
 
     /**
@@ -276,7 +276,7 @@ public interface AbroadApi {
     @Headers(Config.COMMON)
     @FormUrlEncoded
     @POST("abroad/school/course")
-    Observable<ApiModel<String>> courseType(@Field("school_id") int schoolId);
+    Call<ApiModel<String>> courseType(@Field("school_id") int schoolId);
 
     /**
      * 留学院校申请接口
@@ -295,7 +295,7 @@ public interface AbroadApi {
     @Headers(Config.CUSTOM)
     @FormUrlEncoded
     @POST("abroad/studentApply/save")
-    Observable<ApiModel> studentApply(@FieldMap HashMap<String,Object> map);
+    Call<ApiModel> studentApply(@FieldMap HashMap<String,Object> map);
 
 
     /**
@@ -305,7 +305,7 @@ public interface AbroadApi {
     @Headers(Config.COMMON)
     @FormUrlEncoded
     @POST("abroad/school/listIndex")
-    Observable<ApiModel<List<AbroadSchool>>> abroadHomeAdList();
+    Call<ApiModel<List<AbroadSchool>>> abroadHomeAdList();
 
 
     /**
@@ -315,7 +315,7 @@ public interface AbroadApi {
     @Headers(Config.COMMON)
     @FormUrlEncoded
     @POST("abroad/activeCollege/list")
-    Observable<ApiModel<List<AbroadSchool>>> collegeList();
+    Call<ApiModel<List<AbroadSchool>>> collegeList();
 
 
     /**
@@ -328,7 +328,7 @@ public interface AbroadApi {
     @Headers(Config.COMMON)
     @FormUrlEncoded
     @POST("abroad/foreignTeacher/list")
-    Observable<ApiModel<List<UserSchoolTeacher>>> teacherList(@Field("rows") int rows, @Field("page") int page,
+    Call<ApiModel<List<UserSchoolTeacher>>> teacherList(@Field("rows") int rows, @Field("page") int page,
                                                               @Field("school_name") int schoolName);
 
     /**
@@ -346,7 +346,7 @@ public interface AbroadApi {
     @Headers(Config.COMMON)
     @FormUrlEncoded
     @POST("abroad/adviser/getList")
-    Observable<ApiModel<List<AbroadAdviser>>> adviserList(@Field("rows") int rows, @Field("page") int page,
+    Call<ApiModel<List<AbroadAdviser>>> adviserList(@Field("rows") int rows, @Field("page") int page,
                                                           @Field("serve_area") String serveArea, @Field("serve_type") int serveType,
                                                           @Field("province") String province, @Field("type") int type,
                                                           @Field("keyword") String keyword);
@@ -366,7 +366,7 @@ public interface AbroadApi {
     @Headers(Config.COMMON)
     @FormUrlEncoded
     @POST("abroad/adviser/getList")
-    Observable<ApiModel<List<SysGroup>>> adviserGroupList(@Field("rows") int rows, @Field("page") int page,
+    Call<ApiModel<List<SysGroup>>> adviserGroupList(@Field("rows") int rows, @Field("page") int page,
                                                      @Field("serve_area") String serveArea, @Field("serve_type") int serveType,
                                                      @Field("province") String province, @Field("type") int type,
                                                      @Field("keyword") String keyword);
@@ -381,7 +381,7 @@ public interface AbroadApi {
     @Headers(Config.CUSTOM)
     @FormUrlEncoded
     @POST("abroad/adviser/getDetail")
-    Observable<ApiModel<AbroadAdviser>> adviserDetail(@Field("id") int id, @Field("type") int type,
+    Call<ApiModel<AbroadAdviser>> adviserDetail(@Field("id") int id, @Field("type") int type,
                                                       @Field("stu_id") int stuId);
 
     /**
@@ -396,7 +396,7 @@ public interface AbroadApi {
     @Headers(Config.CUSTOM)
     @FormUrlEncoded
     @POST("abroad/adviser/getEvaluate")
-    Observable<ApiModel<Map<String,Object>>> adviserEvaluate(@Field("rows") int rows, @Field("page") int page,
+    Call<ApiModel<Map<String,Object>>> adviserEvaluate(@Field("rows") int rows, @Field("page") int page,
                                                              @Field("account_id") int accountId);
     /**
      * 关注留学顾问
@@ -410,7 +410,7 @@ public interface AbroadApi {
     @Headers(Config.CUSTOM)
     @FormUrlEncoded
     @POST("abroad/adviser/toAttention")
-    Observable<ApiModel> attentionAdviser(@Field("stu_id") int stuId, @Field("adviser_id") int adviserId,
+    Call<ApiModel> attentionAdviser(@Field("stu_id") int stuId, @Field("adviser_id") int adviserId,
                                           @Field("type") int type,@Field("name") String name,
                                           @Field("group_id") int groupId);
 
@@ -426,7 +426,7 @@ public interface AbroadApi {
     @Headers(Config.CUSTOM)
     @FormUrlEncoded
     @POST("abroad/adviser/cancelAttention")
-    Observable<ApiModel> cancelAttentionAdviser(@Field("stu_id") int stuId,@Field("type") int type,
+    Call<ApiModel> cancelAttentionAdviser(@Field("stu_id") int stuId,@Field("type") int type,
                                                 @Field("adviser_id") int adviserId,@Field("group_id") int groupId);
 
     /**
@@ -438,7 +438,7 @@ public interface AbroadApi {
     @Headers(Config.CUSTOM)
     @FormUrlEncoded
     @POST("abroad/adviser/getGroupDetail")
-    Observable<ApiModel<SysGroup>> getGroupDetail(@Field("group_id") int groupId,@Field("stu_id") int stuId);
+    Call<ApiModel<SysGroup>> getGroupDetail(@Field("group_id") int groupId,@Field("stu_id") int stuId);
 
 
     /**
@@ -451,7 +451,7 @@ public interface AbroadApi {
     @Headers(Config.CUSTOM)
     @FormUrlEncoded
     @POST("abroad/adviser/caseList")
-    Observable<ApiModel<List<AbroadGroupCase>>> caseList(@Field("rows") int rows, @Field("page") int page,
+    Call<ApiModel<List<AbroadGroupCase>>> caseList(@Field("rows") int rows, @Field("page") int page,
                                                          @Field("group_id") int groupId);
 
     /**
@@ -465,7 +465,7 @@ public interface AbroadApi {
     @Headers(Config.CUSTOM)
     @FormUrlEncoded
     @POST("abroad/adviser/getServiceList")
-    Observable<ApiModel<List<SysGoods>>> getServiceList(@Field("rows") int rows, @Field("page") int page,
+    Call<ApiModel<List<SysGoods>>> getServiceList(@Field("rows") int rows, @Field("page") int page,
                                         @Field("id") int id,@Field("type") int type);
 
 
@@ -493,7 +493,7 @@ public interface AbroadApi {
     @Headers(Config.CUSTOM)
     @FormUrlEncoded
     @POST("abroad/adviser/getLabel")
-    Observable<ApiModel<String>> getLabel(@Field("account_id") int accountId);
+    Call<ApiModel<String>> getLabel(@Field("account_id") int accountId);
 
     /**
      * 留学服务列表搜索接口
@@ -508,7 +508,7 @@ public interface AbroadApi {
     @Headers(Config.CUSTOM)
     @FormUrlEncoded
     @POST("abroad/service/list")
-    Observable<ApiModel<List<SysGoods>>> abroadServiceList(@Field("rows") int rows, @Field("page") int page,
+    Call<ApiModel<List<SysGoods>>> abroadServiceList(@Field("rows") int rows, @Field("page") int page,
                                                            @Field("type") int type, @Field("serve_area") String serveArea,
                                                            @Field("product_code") String productCode, @Field("title") String title);
 
@@ -521,7 +521,7 @@ public interface AbroadApi {
     @Headers(Config.CUSTOM)
     @FormUrlEncoded
     @POST("abroad/service/detail")
-    Observable<ApiModel<List<abroadGoods>>> abroadServiceDetail(@Field("goods_code") String code);
+    Call<ApiModel<List<abroadGoods>>> abroadServiceDetail(@Field("goods_code") String code);
 
 
     /**
@@ -534,7 +534,7 @@ public interface AbroadApi {
     @Headers(Config.CUSTOM)
     @FormUrlEncoded
     @POST("abroad/service/goods/comment")
-    Observable<ApiModel<List<AbroadEvaluate>>> goodsComment(@Field("rows") int rows, @Field("page") int page,
+    Call<ApiModel<List<AbroadEvaluate>>> goodsComment(@Field("rows") int rows, @Field("page") int page,
                                                             @Field("goods_code") String code);
 
     /**
@@ -549,7 +549,7 @@ public interface AbroadApi {
     @Headers(Config.CUSTOM)
     @FormUrlEncoded
     @POST("abroad/service/createOrder")
-    Observable<ApiModel<String>> goodsComment(@Field("account_id") int accountId, @Field("adviser_id") int adviserId,
+    Call<ApiModel<String>> goodsComment(@Field("account_id") int accountId, @Field("adviser_id") int adviserId,
                                                             @Field("type") int type,@Field("goods_code") String code,
                                                             @Field("product_code") String productCode);
 
@@ -564,7 +564,7 @@ public interface AbroadApi {
     @Headers(Config.COMMON)
     @FormUrlEncoded
     @POST("abroad/home/activity/list")
-    Observable<ApiModel<Map<String,Object>>> homeActivityList(@Field("top") String top);
+    Call<ApiModel<Map<String,Object>>> homeActivityList(@Field("top") String top);
 
     /**
      * 留学活动列表
@@ -575,7 +575,7 @@ public interface AbroadApi {
     @Headers(Config.COMMON)
     @FormUrlEncoded
     @POST("abroad/home/activity/list")
-    Observable<ApiModel<Map<String,Object>>> homeActivityList();
+    Call<ApiModel<Map<String,Object>>> homeActivityList();
 
     /**
      * 留学活动详情
@@ -587,7 +587,7 @@ public interface AbroadApi {
     @Headers(Config.CUSTOM)
     @FormUrlEncoded
     @POST("abroad/home/activity/detail")
-    Observable<ApiModel<AbroadActive>> homeActivityList(@Field("rows") int rows, @Field("page") int page,
+    Call<ApiModel<AbroadActive>> homeActivityList(@Field("rows") int rows, @Field("page") int page,
                                                         @Field("id") int id);
 
 }

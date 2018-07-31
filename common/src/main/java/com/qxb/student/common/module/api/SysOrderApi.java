@@ -7,7 +7,7 @@ import com.qxb.student.common.module.bean.SysOrder;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
@@ -30,7 +30,7 @@ public interface SysOrderApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("abroad/order/orderDetail")
-    Observable<ApiModel<String>> abroadOrderDetail(@Field("orderId") String orderId, @Field("accountId") String accountId);
+    Call<ApiModel<String>> abroadOrderDetail(@Field("orderId") String orderId, @Field("accountId") String accountId);
 
     /**
      * 问专家-删除订单
@@ -41,7 +41,7 @@ public interface SysOrderApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("expert/deleteOrder")
-    Observable<ApiModel<String>> expertDeleteOrder(@Field("order_id") String orderId);
+    Call<ApiModel<String>> expertDeleteOrder(@Field("order_id") String orderId);
 
     /**
      * 评价订单（用于留学订单）
@@ -56,7 +56,7 @@ public interface SysOrderApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("order/evaluate")
-    Observable<ApiModel<String>> evaluateOrder(@Field("orderId") String orderId, @Field("accountId") String accountId, @Field("content") String content, @Field("labels") String labels, @Field("score") String score);
+    Call<ApiModel<String>> evaluateOrder(@Field("orderId") String orderId, @Field("accountId") String accountId, @Field("content") String content, @Field("labels") String labels, @Field("score") String score);
 
     /**
      * 评价标签列表
@@ -67,7 +67,7 @@ public interface SysOrderApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("abroad/order/labelList")
-    Observable<ApiModel<List<ExpertLabel>>> abroadOrderLabelList(@Field("accountId") String accountId);
+    Call<ApiModel<List<ExpertLabel>>> abroadOrderLabelList(@Field("accountId") String accountId);
 
     /**
      * 创建订单
@@ -83,7 +83,7 @@ public interface SysOrderApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("pay/createOrder")
-    Observable<ApiModel<String>> payCreateOrder(@Field("account_id") String accountId, @Field("channel") String channel, @Field("goods_code") String goodsCode, @Field("pay_way") String payWay, @Field("integral") String integral, @Field("order_id") String orderId);
+    Call<ApiModel<String>> payCreateOrder(@Field("account_id") String accountId, @Field("channel") String channel, @Field("goods_code") String goodsCode, @Field("pay_way") String payWay, @Field("integral") String integral, @Field("order_id") String orderId);
 
     /**
      * 查询学生用户激活卡信息
@@ -94,7 +94,7 @@ public interface SysOrderApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("getUserCard")
-    Observable<ApiModel<String>> getUserCard(@Field("account_id") String accountId);
+    Call<ApiModel<String>> getUserCard(@Field("account_id") String accountId);
 
     /**
      * 确认订单
@@ -106,7 +106,7 @@ public interface SysOrderApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("goods/confirmOrder")
-    Observable<ApiModel<String>> goodsConfirmOrder(@Field("account_id") String accountId, @Field("goods_code") String goodsCode);
+    Call<ApiModel<String>> goodsConfirmOrder(@Field("account_id") String accountId, @Field("goods_code") String goodsCode);
 
     /**
      * 订单列表
@@ -121,6 +121,6 @@ public interface SysOrderApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("order/orderlist")
-    Observable<ApiModel<List<SysOrder>>> orderList(@Field("account_id") String accountId, @Field("goods_name") String goodsName,
+    Call<ApiModel<List<SysOrder>>> orderList(@Field("account_id") String accountId, @Field("goods_name") String goodsName,
                                                    @Field("type") String type, @Field("page") String page, @Field("rows") String rows);
 }

@@ -2,6 +2,8 @@ package com.qxb.student.common.module.api;
 
 import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.ApiModel;
+import com.qxb.student.common.module.bean.BaseHighSchool;
+import com.qxb.student.common.module.bean.CollegeMajorRecruit;
 import com.qxb.student.common.module.bean.CollegeQuestion;
 import com.qxb.student.common.module.bean.CollegeSearchHot;
 import com.qxb.student.common.module.bean.MajorSubject;
@@ -12,7 +14,6 @@ import com.qxb.student.common.module.bean.ScoreSubject;
 
 import java.util.List;
 
-import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -30,7 +31,30 @@ public interface SchoolApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("school/listIndex")
-    Observable<ApiModel<List<RecomSchool>>> getRecommendedCollegeList(@Field("province") String provinceCode);
+    Call<ApiModel<List<RecomSchool>>> getRecommendedCollegeList(@Field("province") String provinceCode);
+
+    /**
+     * 获取志愿信息
+     * @param id 学校专业信息
+     * @param stuId
+     * @param province 招生省份
+     * @return
+     */
+    @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded    @POST("school/getSchoolProfessNew")
+    Call<ApiModel<CollegeMajorRecruit>> getSchoolProfessNew(@Field("id") String id, @Field("stu_id") String stuId, @Field("province") String province);
+
+    /**
+     * 根据省市区获得高中学校列表
+     * @param province 省份编码
+     * @param city 城市编码
+     * @param area 地区编码
+     * @return
+     */
+    @Headers(Config.AUTH_COMMON)
+    @FormUrlEncoded
+    @POST("base/highschoollistByCode")
+    Call<ApiModel<List<BaseHighSchool>>> highschoollistByCode(@Field("province") String province, @Field("city") String city, @Field("area") String area);
 
     /**
      * 查询学校列表
@@ -49,7 +73,7 @@ public interface SchoolApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("school/list")
-    Observable<ApiModel<List<RecomSchool>>> getSchoolList(@Field("rows") String rows, @Field("page") String page, @Field("school_name") String schoolName,
+    Call<ApiModel<List<RecomSchool>>> getSchoolList(@Field("rows") String rows, @Field("page") String page, @Field("school_name") String schoolName,
                                                           @Field("province") String province, @Field("city") String city, @Field("tag") String tag,
                                                           @Field("type") String type, @Field("stipend") String stipend, @Field("status") String status);
 
@@ -62,7 +86,7 @@ public interface SchoolApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("school/searchSchool")
-    Observable<ApiModel<List<RecomSchool>>> getSearchSchool(@Field("school_name") String schoolName);
+    Call<ApiModel<List<RecomSchool>>> getSearchSchool(@Field("school_name") String schoolName);
 
     /**
      * 大学详情页
@@ -74,7 +98,7 @@ public interface SchoolApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("school/getSchoolById")
-    Observable<ApiModel<SchoolDetail>> getSchoolById(@Field("school_id") String school_id, @Field("student_id") String student_id);
+    Call<ApiModel<SchoolDetail>> getSchoolById(@Field("school_id") String school_id, @Field("student_id") String student_id);
 
     /**
      * 学校分数线
@@ -106,7 +130,7 @@ public interface SchoolApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("school/provincelist")
-    Observable<ApiModel<String>> provinceList();
+    Call<ApiModel<String>> provinceList();
 
     /**
      * 通过专业查询学校
@@ -122,7 +146,7 @@ public interface SchoolApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("school/listbyprofess")
-    Observable<ApiModel<List<RecomSchool>>> getSchoolListByProfess(@Field("student_id") String studentId, @Field("profess") String profess, @Field("subject_type") String subjectType,
+    Call<ApiModel<List<RecomSchool>>> getSchoolListByProfess(@Field("student_id") String studentId, @Field("profess") String profess, @Field("subject_type") String subjectType,
                                                                    @Field("province") String province, @Field("page") String page, @Field("rows") String rows);
 
 
@@ -136,7 +160,7 @@ public interface SchoolApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("school/hotlist")
-    Observable<ApiModel<List<RecomSchool>>> getHotCollegeList(@Field("page") String page, @Field("rows") String rows);
+    Call<ApiModel<List<RecomSchool>>> getHotCollegeList(@Field("page") String page, @Field("rows") String rows);
 
     /**
      * 获取预报名活动院校列表，分省显示
@@ -148,7 +172,7 @@ public interface SchoolApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("school/signUpList")
-    Observable<ApiModel<List<RecomSchool>>> getSchoolSignUpList(@Field("student_id") String studentId, @Field("province") String province);
+    Call<ApiModel<List<RecomSchool>>> getSchoolSignUpList(@Field("student_id") String studentId, @Field("province") String province);
 
     /**
      * 获取预报名的banner图片
@@ -157,7 +181,7 @@ public interface SchoolApi {
      */
     @FormUrlEncoded
     @POST("school/signUpList")
-    Observable<ApiModel<String>> getSchoolSignUpBanner();
+    Call<ApiModel<String>> getSchoolSignUpBanner();
 
     /**
      * 我的收藏(关注)学校列表
@@ -170,7 +194,7 @@ public interface SchoolApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("school/attlist")
-    Observable<ApiModel<List<RecomSchool>>> getSchoolAttList(@Field("student_id") String studentId, @Field("page") String page, @Field("rows") String rows);
+    Call<ApiModel<List<RecomSchool>>> getSchoolAttList(@Field("student_id") String studentId, @Field("page") String page, @Field("rows") String rows);
 
     /**
      * 我的预报名(登记)学校列表
@@ -183,7 +207,7 @@ public interface SchoolApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("school/reglist")
-    Observable<ApiModel<List<RecomSchool>>> getSchoolRegList(@Field("student_id") String studentId, @Field("page") String page, @Field("rows") String rows);
+    Call<ApiModel<List<RecomSchool>>> getSchoolRegList(@Field("student_id") String studentId, @Field("page") String page, @Field("rows") String rows);
 
     /**
      * 院校库条件(院校库页面信息，包含院校库标签，批次，省份，本省置顶)
@@ -194,7 +218,7 @@ public interface SchoolApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("schoolLibPage")
-    Observable<ApiModel<String>> schoolLibPage(@Field("province") String province);
+    Call<ApiModel<String>> schoolLibPage(@Field("province") String province);
 
     /**
      * 查询学校列表
@@ -212,7 +236,7 @@ public interface SchoolApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("school/search")
-    Observable<ApiModel<List<RecomSchool>>> schoolSearch(@Field("school_name") String schoolName, @Field("province") String province,
+    Call<ApiModel<List<RecomSchool>>> schoolSearch(@Field("school_name") String schoolName, @Field("province") String province,
                                                          @Field("tag") String tag, @Field("status") String status,
                                                          @Field("category_code") String categoryCode, @Field("rprovince") String rProvince,
                                                          @Field("bat") String bat, @Field("subject_type") String subjectType);
@@ -226,7 +250,7 @@ public interface SchoolApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("school/tag")
-    Observable<ApiModel<String>> schoolTag(@Field("tag_code") String tag_code);
+    Call<ApiModel<String>> schoolTag(@Field("tag_code") String tag_code);
 
     /**
      * 大学常见问题列表
@@ -241,7 +265,7 @@ public interface SchoolApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("school/questionList")
-    Observable<ApiModel<List<CollegeQuestion>>> schoolQuestionList(@Field("school_id") String schoolId, @Field("enroll_type") String enrollType, @Field("title") String title,
+    Call<ApiModel<List<CollegeQuestion>>> schoolQuestionList(@Field("school_id") String schoolId, @Field("enroll_type") String enrollType, @Field("title") String title,
                                                                    @Field("page") String page, @Field("rows") String rows);
 
     /**
@@ -253,7 +277,7 @@ public interface SchoolApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("school/questionDetail")
-    Observable<ApiModel<CollegeQuestion>> schoolQuestionDetail(@Field("id") String questionId);
+    Call<ApiModel<CollegeQuestion>> schoolQuestionDetail(@Field("id") String questionId);
 
     /**
      * 手机咨询会-查询参会院校
@@ -268,7 +292,7 @@ public interface SchoolApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("mettingschool/search")
-    Observable<ApiModel<List<CollegeQuestion>>> mettingSchoolSearch(@Field("search_type") String searchType, @Field("school_type") String schoolType, @Field("province") String province,
+    Call<ApiModel<List<CollegeQuestion>>> mettingSchoolSearch(@Field("search_type") String searchType, @Field("school_type") String schoolType, @Field("province") String province,
                                                                     @Field("page") String page, @Field("rows") String rows);
 
     /**
@@ -282,7 +306,7 @@ public interface SchoolApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("school/searchHotList")
-    Observable<ApiModel<List<CollegeSearchHot>>> searchHotSchoolList(@Field("recruit_type") String recruitType,
+    Call<ApiModel<List<CollegeSearchHot>>> searchHotSchoolList(@Field("recruit_type") String recruitType,
                                                                      @Field("page") String page, @Field("rows") String rows);
 
     /**
@@ -299,7 +323,7 @@ public interface SchoolApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("school/recruitList")
-    Observable<ApiModel<List<RecomSchool>>> schoolRecruitList(@Field("major_type") String majorType, @Field("major_name") String majorName,
+    Call<ApiModel<List<RecomSchool>>> schoolRecruitList(@Field("major_type") String majorType, @Field("major_name") String majorName,
                                                               @Field("subject_type") String subjectType, @Field("province") String province,
                                                               @Field("page") String page, @Field("rows") String rows);
 
@@ -314,5 +338,5 @@ public interface SchoolApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("article/schoolvideo/list")
-    Observable<ApiModel<List<SchoolVideo>>> schoolVideoList(@Field("school_id") String schoolId, @Field("rows") String rows, @Field("page") String page);
+    Call<ApiModel<List<SchoolVideo>>> schoolVideoList(@Field("school_id") String schoolId, @Field("rows") String rows, @Field("page") String page);
 }

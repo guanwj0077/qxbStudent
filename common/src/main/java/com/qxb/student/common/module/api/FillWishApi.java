@@ -2,11 +2,8 @@ package com.qxb.student.common.module.api;
 
 import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.ApiModel;
-import com.qxb.student.common.module.bean.SysAd;
 
-import java.util.List;
-
-import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
@@ -26,7 +23,7 @@ public interface FillWishApi {
      */
     @FormUrlEncoded
     @POST("wish/askSpecial")
-    Observable<ApiModel<String>> wishAskSpecial();
+    Call<ApiModel<String>> wishAskSpecial();
 
     /**
      * 一键填报志愿检查是否付费
@@ -36,5 +33,5 @@ public interface FillWishApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("wish/isBuy")
-    Observable<ApiModel<String>> isBuyFillWish(@Field("account_id") String accountId);
+    Call<ApiModel<String>> isBuyFillWish(@Field("account_id") String accountId);
 }

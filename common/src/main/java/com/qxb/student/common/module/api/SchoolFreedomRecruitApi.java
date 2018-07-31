@@ -10,7 +10,7 @@ import com.qxb.student.common.module.bean.RecomSchool;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
@@ -32,7 +32,7 @@ public interface SchoolFreedomRecruitApi {
 
     @FormUrlEncoded
     @POST("freedomRecruit/video")
-    Observable<ApiModel<String>> freedomRecruitVideo();
+    Call<ApiModel<String>> freedomRecruitVideo();
 
     /**
      * 自招-自招院校库
@@ -49,7 +49,7 @@ public interface SchoolFreedomRecruitApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("freedomRecruit/school/list")
-    Observable<ApiModel<List<RecomSchool>>> freedomRecruitSchoolList(@Field("school_name") String schoolName, @Field("province") String province,
+    Call<ApiModel<List<RecomSchool>>> freedomRecruitSchoolList(@Field("school_name") String schoolName, @Field("province") String province,
                                                                      @Field("category_code") String categoryCode, @Field("student_province") String studentProvince,
                                                                      @Field("subject_type") String subjectType, @Field("page") String page, @Field("rows") String rows);
 
@@ -67,7 +67,7 @@ public interface SchoolFreedomRecruitApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("freedomRecruit/searchSchoolByMajor")
-    Observable<ApiModel<List<CollegeFreedomMajorRecruit>>> searchSchoolByMajor(@Field("province") String province, @Field("category_code") String categoryCode, @Field("major_name") String majorName,
+    Call<ApiModel<List<CollegeFreedomMajorRecruit>>> searchSchoolByMajor(@Field("province") String province, @Field("category_code") String categoryCode, @Field("major_name") String majorName,
                                                                                @Field("subject_type") String subjectType, @Field("page") String page, @Field("rows") String rows);
 
     /**
@@ -81,7 +81,7 @@ public interface SchoolFreedomRecruitApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("school/majorList_new")
-    Observable<ApiModel<String>> schoolMajorListNew(@Field("province") String province, @Field("school_id") String school_id,
+    Call<ApiModel<String>> schoolMajorListNew(@Field("province") String province, @Field("school_id") String school_id,
                                                     @Field("subject_type") String subjectType);
 
     /**
@@ -96,7 +96,7 @@ public interface SchoolFreedomRecruitApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("freedomRecruit/collegeRecommendation/getSchoolList")
-    Observable<ApiModel<List<RecomSchool>>> recommendSchoolList(@Field("award_code") String awardCode, @Field("province") String province, @Field("ccode") String cCode,
+    Call<ApiModel<List<RecomSchool>>> recommendSchoolList(@Field("award_code") String awardCode, @Field("province") String province, @Field("ccode") String cCode,
                                                                 @Field("subject_type") String subjectType);
 
     /**
@@ -110,7 +110,7 @@ public interface SchoolFreedomRecruitApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("freedomRecruit/collegeRecommendation/getSubjectList")
-    Observable<ApiModel<BaseSubjectCategory>> recommendMajorList(@Field("ccode") String cCode, @Field("province") String province,
+    Call<ApiModel<BaseSubjectCategory>> recommendMajorList(@Field("ccode") String cCode, @Field("province") String province,
                                                                  @Field("subject_type") String subjectType);
 
     /**
@@ -124,7 +124,7 @@ public interface SchoolFreedomRecruitApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("freedomRecruit/collegeRecommendation/getAwardList")
-    Observable<ApiModel<Award>> getAwardList(@Field("award_code") String awardCode, @Field("province") String province,
+    Call<ApiModel<Award>> getAwardList(@Field("award_code") String awardCode, @Field("province") String province,
                                              @Field("subject_type") String subjectType);
 
     /**
@@ -137,6 +137,6 @@ public interface SchoolFreedomRecruitApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("freedomRecruit/ad_freedom_list")
-    Observable<ApiModel<List<AdFreedom>>> adFreedomList(@Field("type") String type, @Field("id") String id);
+    Call<ApiModel<List<AdFreedom>>> adFreedomList(@Field("type") String type, @Field("id") String id);
 
 }

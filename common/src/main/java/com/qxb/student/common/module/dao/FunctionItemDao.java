@@ -1,5 +1,6 @@
 package com.qxb.student.common.module.dao;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
@@ -21,7 +22,7 @@ public interface FunctionItemDao {
      * 首页功能
      */
     @Query("SELECT * FROM FunctionItem")
-    List<FunctionItem> getIndexFunctions();
+    LiveData<List<FunctionItem>> getIndexFunctions();
 
     /**
      * 学校列表数据

@@ -1,5 +1,7 @@
 package com.qxb.student.common;
 
+import okhttp3.MediaType;
+
 public final class Config {
     /**
      * 是否调试模式
@@ -66,6 +68,11 @@ public final class Config {
      * 后台返回成功响应CODE
      */
     public static final int HTTP_SUCCESS = 1;
+    /**
+     * http请求数据类型
+     */
+    public static final MediaType MEDIA_TYPE = MediaType.parse("application/json; charset=UTF-8");
+
     /**
      * 根据id查询院校招生简章、资讯详情,返回网页
      */

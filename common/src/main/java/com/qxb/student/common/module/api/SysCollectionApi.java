@@ -6,7 +6,7 @@ import com.qxb.student.common.module.bean.SysCollection;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
@@ -31,7 +31,7 @@ public interface SysCollectionApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("collection/list")
-    Observable<ApiModel<List<SysCollection>>> collectionList(@Field("stu_id") String stuId, @Field("item_type") String itemType, @Field("page") String page, @Field("rows") String rows);
+    Call<ApiModel<List<SysCollection>>> collectionList(@Field("stu_id") String stuId, @Field("item_type") String itemType, @Field("page") String page, @Field("rows") String rows);
 
     /**
      * 收藏
@@ -45,7 +45,7 @@ public interface SysCollectionApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("collection/add")
-    Observable<ApiModel<String>> collectionAdd(@Field("stu_id") String stuId, @Field("item_id") String itemId, @Field("item_type") String itemType, @Field("item_name") String itemName);
+    Call<ApiModel<String>> collectionAdd(@Field("stu_id") String stuId, @Field("item_id") String itemId, @Field("item_type") String itemType, @Field("item_name") String itemName);
 
     /**
      * 取消收藏
@@ -58,7 +58,7 @@ public interface SysCollectionApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("collection/cancel")
-    Observable<ApiModel<String>> collectionCancel(@Field("stu_id") String stuId, @Field("item_id") String itemId, @Field("item_type") String itemType);
+    Call<ApiModel<String>> collectionCancel(@Field("stu_id") String stuId, @Field("item_id") String itemId, @Field("item_type") String itemType);
 
     /***
      * 新版收藏列表接口
@@ -73,6 +73,6 @@ public interface SysCollectionApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("collection/newList")
-    Observable<ApiModel<List<SysCollection>>> collectionNewList(@Field("type") String type, @Field("subType") String subType, @Field("stuId") String stuId, @Field("page") String page, @Field("rows") String rows);
+    Call<ApiModel<List<SysCollection>>> collectionNewList(@Field("type") String type, @Field("subType") String subType, @Field("stuId") String stuId, @Field("page") String page, @Field("rows") String rows);
 
 }

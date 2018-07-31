@@ -6,7 +6,7 @@ import com.qxb.student.common.module.bean.SysCareer;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
@@ -26,7 +26,7 @@ public interface SysCareerApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("sysCareer/getList")
-    Observable<ApiModel<List<SysCareer>>> sysCareerList(@Field("depth") String depth);
+    Call<ApiModel<List<SysCareer>>> sysCareerList(@Field("depth") String depth);
 
 
 

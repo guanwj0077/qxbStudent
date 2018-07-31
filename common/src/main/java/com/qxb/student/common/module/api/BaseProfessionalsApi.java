@@ -7,7 +7,7 @@ import com.qxb.student.common.module.bean.BaseSubjectCategory;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
@@ -28,7 +28,7 @@ public interface BaseProfessionalsApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("baseProfessionals/getProfesById")
-    Observable<ApiModel<List<BaseSubjectCategory>>> getProfesById(@Field("id") String id, @Field("stu_id") String stuId);
+    Call<ApiModel<List<BaseSubjectCategory>>> getProfesById(@Field("id") String id, @Field("stu_id") String stuId);
 
     /**
      * 获取专业列表
@@ -43,7 +43,7 @@ public interface BaseProfessionalsApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("baseProfessionals/listForApi")
-    Observable<ApiModel<List<BaseSubjectCategory>>> getProfesList(@Field("type") String type, @Field("name") String name, @Field("category_code") String categoryCode,
+    Call<ApiModel<List<BaseSubjectCategory>>> getProfesList(@Field("type") String type, @Field("name") String name, @Field("category_code") String categoryCode,
                                                                   @Field("rows") String rows, @Field("page") String page);
 
     /**
@@ -55,7 +55,7 @@ public interface BaseProfessionalsApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("major/tag")
-    Observable<ApiModel<String>> majorTag(@Field("tag_code") String tag_code);
+    Call<ApiModel<String>> majorTag(@Field("tag_code") String tag_code);
 
     /**
      * 专业搜索
@@ -71,7 +71,7 @@ public interface BaseProfessionalsApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("major/search")
-    Observable<ApiModel<String>> majorSearch(@Field("province") String province, @Field("category_code") String categoryCode,
+    Call<ApiModel<String>> majorSearch(@Field("province") String province, @Field("category_code") String categoryCode,
                                              @Field("major_name") String majorName, @Field("subject_type") String subjectType,
                                              @Field("page") String page, @Field("rows") String rows);
 
@@ -87,7 +87,7 @@ public interface BaseProfessionalsApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("baseProfessionals/getProfesByName")
-    Observable<ApiModel<List<BaseProfessionals>>> getProfesByName(@Field("stu_id") String stuId, @Field("major_type") String majorType,
+    Call<ApiModel<List<BaseProfessionals>>> getProfesByName(@Field("stu_id") String stuId, @Field("major_type") String majorType,
                                                                   @Field("major_name") String majorName, @Field("category_code") String categoryCode);
 
 }

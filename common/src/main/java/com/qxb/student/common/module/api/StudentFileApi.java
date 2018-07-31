@@ -3,7 +3,7 @@ package com.qxb.student.common.module.api;
 import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.ApiModel;
 
-import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
@@ -24,7 +24,7 @@ public interface StudentFileApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("studentFile/info")
-    Observable<ApiModel<String>> getStudentFileInfo(@Field("stu_id") String stuId);
+    Call<ApiModel<String>> getStudentFileInfo(@Field("stu_id") String stuId);
 
     /**
      * 保存高中学校
@@ -40,7 +40,7 @@ public interface StudentFileApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("studentFile/saveHighschool")
-    Observable<ApiModel<String>> saveHighschool(@Field("stu_id") String stuId, @Field("school_id") String schoolId,
+    Call<ApiModel<String>> saveHighschool(@Field("stu_id") String stuId, @Field("school_id") String schoolId,
                                                 @Field("school_name") String schoolName, @Field("province") String province,
                                                 @Field("city") String city, @Field("area") String area);
 
@@ -54,7 +54,7 @@ public interface StudentFileApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("studentFile/saveHighschool")
-    Observable<ApiModel<String>> saveHighschool(@Field("stu_id") int stuId, @Field("target_abroad") String targetAbroad);
+    Call<ApiModel<String>> saveHighschool(@Field("stu_id") int stuId, @Field("target_abroad") String targetAbroad);
 
 
 }

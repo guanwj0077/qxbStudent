@@ -8,7 +8,7 @@ import com.qxb.student.common.module.bean.SchoolNews;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
@@ -30,7 +30,7 @@ public interface SchoolNewsApi {
      */
     @FormUrlEncoded
     @POST("school/newslist")
-    Observable<ApiModel<List<SchoolNews>>> getSchoolNewslist(@Field("school_id") String schoolId, @Field("type") String type, @Field("title") String title, @Field("page") String page);
+    Call<ApiModel<List<SchoolNews>>> getSchoolNewslist(@Field("school_id") String schoolId, @Field("type") String type, @Field("title") String title, @Field("page") String page);
 
     /**
      * 根据id查询院校招生简章、资讯详情,返回网页
@@ -40,7 +40,7 @@ public interface SchoolNewsApi {
      */
     @FormUrlEncoded
     @POST("view/school/news/detail")
-    Observable<String> schoolNewsDetail(@Field("id") String newsId);
+    Call<String> schoolNewsDetail(@Field("id") String newsId);
 
     /**
      * 招生简介（根据学校id获取符合条件的第一条自招招生简章详情，返回网页）
@@ -52,7 +52,7 @@ public interface SchoolNewsApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("view/school/freedomNews/detail")
-    Observable<String> schoolFreedomNewsDetail(@Field("school_id") String schoolId, @Field("type") String type);
+    Call<String> schoolFreedomNewsDetail(@Field("school_id") String schoolId, @Field("type") String type);
 
     /**
      * 自招院校详情
@@ -64,7 +64,7 @@ public interface SchoolNewsApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("freedomRecruit/school/getSchoolRecruitDetailById")
-    Observable<ApiModel<RecomSchool>> getSchoolRecruitDetailById(@Field("school_id") String schoolId, @Field("student_id") String studentId);
+    Call<ApiModel<RecomSchool>> getSchoolRecruitDetailById(@Field("school_id") String schoolId, @Field("student_id") String studentId);
 
     /**
      * 自招专业详情
@@ -75,6 +75,6 @@ public interface SchoolNewsApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("freedomRecruit/school/majorDetails")
-    Observable<ApiModel<CollegeFreedomMajorRecruit>> getSchoolRecruitDetailById(@Field("id") String majorId);
+    Call<ApiModel<CollegeFreedomMajorRecruit>> getSchoolRecruitDetailById(@Field("id") String majorId);
 
 }

@@ -1,5 +1,7 @@
 package com.qxb.student.common.module.dao;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
@@ -26,7 +28,7 @@ public interface SysAdDao {
      * @return 广告集合
      */
     @Query("SELECT * FROM SysAd WHERE type=:type")
-    List<SysAd> getAdByType(String type);
+    LiveData<List<SysAd>> getAdByType(String type);
 
     /**
      * 插入广告

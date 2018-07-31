@@ -1,5 +1,6 @@
 package com.qxb.student.common.module.dao;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
@@ -31,5 +32,5 @@ public interface SchoolDetailDao {
      * @return
      */
     @Query("SELECT * FROM SchoolDetail WHERE id=:school_id")
-    SchoolDetail querySchoolById(String school_id);
+    LiveData<SchoolDetail> querySchoolById(String school_id);
 }

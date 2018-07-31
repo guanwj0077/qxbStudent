@@ -8,7 +8,7 @@ import com.qxb.student.common.module.bean.StudentWish;
 import java.util.List;
 import java.util.Map;
 
-import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -31,7 +31,7 @@ public interface UserStudentApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("userStudent/saveBaomingTicket")
-    Observable<ApiModel<String>> saveBaomingTicket(@Field("id") String stuId, @Field("ticketno") String ticketno, @Field("baominghao") String baominghao);
+    Call<ApiModel<String>> saveBaomingTicket(@Field("id") String stuId, @Field("ticketno") String ticketno, @Field("baominghao") String baominghao);
 
     /**
      * 修改保存文理科目
@@ -43,7 +43,7 @@ public interface UserStudentApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("userStudent/saveSubject")
-    Observable<ApiModel<String>> saveSubject(@Field("id") String stuId, @Field("sub") String subject);
+    Call<ApiModel<String>> saveSubject(@Field("id") String stuId, @Field("sub") String subject);
 
     /**
      * 修改地区高中
@@ -58,7 +58,7 @@ public interface UserStudentApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("userStudent/saveArea")
-    Observable<ApiModel<String>> saveArea(@Field("id") String stuId, @Field("province") String province, @Field("city") String city, @Field("area") String area, @Field("highschoolId") String highschoolId);
+    Call<ApiModel<String>> saveArea(@Field("id") String stuId, @Field("province") String province, @Field("city") String city, @Field("area") String area, @Field("highschoolId") String highschoolId);
 
     /**
      * 普通院校新增预报名
@@ -70,7 +70,7 @@ public interface UserStudentApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("studentRegistration/save")
-    Observable<ApiModel<String>> saveStudentRegistration(@Field("student_id") String studentId, @Field("school_id") String schoolId);
+    Call<ApiModel<String>> saveStudentRegistration(@Field("student_id") String studentId, @Field("school_id") String schoolId);
 
     /**
      * 单招登记
@@ -83,7 +83,7 @@ public interface UserStudentApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("collegeStuRelation/save")
-    Observable<ApiModel<String>> saveCollegeStuRelation(@Field("stu_id") String studentId, @Field("school_id") String schoolId, @Field("relation_type") String relationType);
+    Call<ApiModel<String>> saveCollegeStuRelation(@Field("stu_id") String studentId, @Field("school_id") String schoolId, @Field("relation_type") String relationType);
 
     /**
      * 查询学生的分数列表
@@ -94,7 +94,7 @@ public interface UserStudentApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("stuScore/getList")
-    Observable<ApiModel<List<StuScore>>> getStuScoreList(@Field("stu_id") String studentId);
+    Call<ApiModel<List<StuScore>>> getStuScoreList(@Field("stu_id") String studentId);
 
     /**
      * 保存学生的分数
@@ -108,7 +108,7 @@ public interface UserStudentApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("stuScore/saveScore")
-    Observable<ApiModel<String>> saveStuScore(@Field("stu_id") String studentId, @Field("type_id") String typeId, @Field("score") String score, @Field("type") String type);
+    Call<ApiModel<String>> saveStuScore(@Field("stu_id") String studentId, @Field("type_id") String typeId, @Field("score") String score, @Field("type") String type);
 
     /**
      * 获取智能选校分数(获取学生的最近一次根据考试类型倒序排的分数记录)
@@ -119,7 +119,7 @@ public interface UserStudentApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("stuScore/getScore")
-    Observable<ApiModel<StuScore>> getStuScore(@Field("stu_id") String studentId);
+    Call<ApiModel<StuScore>> getStuScore(@Field("stu_id") String studentId);
 
     /**
      * 我的志愿表数量
@@ -130,7 +130,7 @@ public interface UserStudentApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("wish/myWishTableCount")
-    Observable<ApiModel<String>> myWishTableCount(@Field("stu_id") String studentId);
+    Call<ApiModel<String>> myWishTableCount(@Field("stu_id") String studentId);
 
     /**
      * 我的志愿表
@@ -143,7 +143,7 @@ public interface UserStudentApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("wish/myWishTables")
-    Observable<ApiModel<List<StudentWish>>> myWishTables(@Field("stu_id") String studentId, @Field("page") String page, @Field("rows") String rows);
+    Call<ApiModel<List<StudentWish>>> myWishTables(@Field("stu_id") String studentId, @Field("page") String page, @Field("rows") String rows);
 
     /**
      * 查看志愿表详情
@@ -155,7 +155,7 @@ public interface UserStudentApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("wish/wishDetail")
-    Observable<ApiModel<StudentWish>> wishDetail(@Field("stu_id") String studentId, @Field("wish_id") String wishId);
+    Call<ApiModel<StudentWish>> wishDetail(@Field("stu_id") String studentId, @Field("wish_id") String wishId);
 
     /**
      * 删除志愿表
@@ -167,7 +167,7 @@ public interface UserStudentApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("wish/delWishTable")
-    Observable<ApiModel<String>> delWishTable(@Field("stu_id") String studentId, @Field("wish_id") String wishId);
+    Call<ApiModel<String>> delWishTable(@Field("stu_id") String studentId, @Field("wish_id") String wishId);
 
     /**
      * 保存志愿表
@@ -179,7 +179,7 @@ public interface UserStudentApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("wish/saveWishTable")
-    Observable<ApiModel<String>> saveWishTable(@Field("stu_id") String studentId, @Field("wish_table_json") String wishTableJson);
+    Call<ApiModel<String>> saveWishTable(@Field("stu_id") String studentId, @Field("wish_table_json") String wishTableJson);
 
     /**
      * 智能填报志愿
@@ -192,7 +192,7 @@ public interface UserStudentApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("wish/insightFillWishTable")
-    Observable<ApiModel<StudentWish>> insightFillWishTable(@Field("stu_id") String studentId, @Field("score") String score, @Field("fill_condition") String fillCondition);
+    Call<ApiModel<StudentWish>> insightFillWishTable(@Field("stu_id") String studentId, @Field("score") String score, @Field("fill_condition") String fillCondition);
 
     /**
      * 分享得积分
@@ -204,7 +204,7 @@ public interface UserStudentApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("integral/share")
-    Observable<ApiModel<String>> integralShare(@Field("account_id") String accountId, @Field("type") String type);
+    Call<ApiModel<String>> integralShare(@Field("account_id") String accountId, @Field("type") String type);
 
     /**
      * 我的积分详情列表
@@ -217,7 +217,7 @@ public interface UserStudentApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("integral/record")
-    Observable<ApiModel<String>> integralRecord(@Field("account_id") String accountId, @Field("page") String page, @Field("rows") String rows);
+    Call<ApiModel<String>> integralRecord(@Field("account_id") String accountId, @Field("page") String page, @Field("rows") String rows);
 
     /**
      * 活动码-好友激活
@@ -231,7 +231,7 @@ public interface UserStudentApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("student/activate")
-    Observable<ApiModel<String>> studentActivate(@Field("account_id") String accountId, @Field("activate_code") String activateCode,
+    Call<ApiModel<String>> studentActivate(@Field("account_id") String accountId, @Field("activate_code") String activateCode,
                                                  @Field("stu_phone") String stuPhone, @Field("appid") String appid);
 
     /**
@@ -243,7 +243,7 @@ public interface UserStudentApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("student/activateCount")
-    Observable<ApiModel<String>> studentActivateCount(@Field("stu_id") String stuId);
+    Call<ApiModel<String>> studentActivateCount(@Field("stu_id") String stuId);
 
     /**
      * 活动码-判断学生是否已经激活
@@ -255,7 +255,7 @@ public interface UserStudentApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("student/isActivated")
-    Observable<ApiModel<String>> studentIsActivated(@Field("stu_phone") String stuPhone, @Field("appid") String appid);
+    Call<ApiModel<String>> studentIsActivated(@Field("stu_phone") String stuPhone, @Field("appid") String appid);
 
     /**
      * 获取用户的当前积分,用于刷新我的页面
@@ -266,7 +266,7 @@ public interface UserStudentApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("integral/student")
-    Observable<ApiModel<String>> studentIntegral(@Field("account_id") String accountId);
+    Call<ApiModel<String>> studentIntegral(@Field("account_id") String accountId);
 
     /**
      * 兑换码兑积分
@@ -278,7 +278,7 @@ public interface UserStudentApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("integral/activitycode")
-    Observable<ApiModel<String>> activityCode(@Field("account_id") String accountId, @Field("activity_code") String activityCode);
+    Call<ApiModel<String>> activityCode(@Field("account_id") String accountId, @Field("activity_code") String activityCode);
 
     /**
      * 修改昵称
@@ -290,7 +290,7 @@ public interface UserStudentApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("userStudent/updateNickName")
-    Observable<ApiModel<String>> updateNickName(@Field("id") String studentId, @Field("nick_name") String nickName);
+    Call<ApiModel<String>> updateNickName(@Field("id") String studentId, @Field("nick_name") String nickName);
 
     /**
      * 查询用户普招院校收藏状态,返回Boolean值 true:已收藏  false：未收藏
@@ -302,7 +302,7 @@ public interface UserStudentApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("studentAttention/query")
-    Observable<ApiModel<String>> queryStudentAttention(@Field("student_id") String studentId, @Field("school_id") String schoolId);
+    Call<ApiModel<String>> queryStudentAttention(@Field("student_id") String studentId, @Field("school_id") String schoolId);
 
     /**
      * 分阶段补录信息
@@ -325,6 +325,6 @@ public interface UserStudentApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("userStudent/saveStuInfoNew")
-    Observable<ApiModel<String>> saveStuInfoNew(@FieldMap Map<String, Object> conditionMap);
+    Call<ApiModel<String>> saveStuInfoNew(@FieldMap Map<String, Object> conditionMap);
 
 }

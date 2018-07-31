@@ -7,7 +7,7 @@ import com.qxb.student.common.module.bean.UserSchoolTeacher;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
@@ -27,7 +27,7 @@ public interface RongyUserApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("teacher/listBySchoolId")
-    Observable<ApiModel<List<RongyUser>>> teacherListBySchoolId(@Field("school_id") String schoolId);
+    Call<ApiModel<List<RongyUser>>> teacherListBySchoolId(@Field("school_id") String schoolId);
 
     /**
      * 在线咨询-查询聊天老师列表
@@ -40,7 +40,7 @@ public interface RongyUserApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("teacher/chatlist")
-    Observable<ApiModel<List<UserSchoolTeacher>>> getTeacherChatList(@Field("school") String schoolName, @Field("page") String page, @Field("rows") String rows);
+    Call<ApiModel<List<UserSchoolTeacher>>> getTeacherChatList(@Field("school") String schoolName, @Field("page") String page, @Field("rows") String rows);
 
     /**
      * 通过accountId查询聊天老师列表
@@ -51,7 +51,7 @@ public interface RongyUserApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("teacher/getListByPhone")
-    Observable<ApiModel<List<UserSchoolTeacher>>> getTeacherChatListByAcoountId(@Field("account_id") String accountId);
+    Call<ApiModel<List<UserSchoolTeacher>>> getTeacherChatListByAcoountId(@Field("account_id") String accountId);
 
     /**
      * 监听用户发送消息（学生给老师发消息，老师不在线则发送短信）
@@ -62,7 +62,7 @@ public interface RongyUserApi {
      */
     @FormUrlEncoded
     @POST("chat/sendMsg")
-    Observable<ApiModel<String>> chatSendMsg(@Field("sendUserId") String sendUserId, @Field("targetId") String targetId);
+    Call<ApiModel<String>> chatSendMsg(@Field("sendUserId") String sendUserId, @Field("targetId") String targetId);
 
     /**
      * 官方客服机构编码及电话号码配置
@@ -72,7 +72,7 @@ public interface RongyUserApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("chat/getCustService")
-    Observable<ApiModel<String>> getCustService();
+    Call<ApiModel<String>> getCustService();
 
 
 }

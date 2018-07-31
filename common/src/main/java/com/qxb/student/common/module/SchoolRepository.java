@@ -2,9 +2,11 @@ package com.qxb.student.common.module;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.support.annotation.NonNull;
 
 import com.qxb.student.common.Config;
-import com.qxb.student.common.http.SubscribeObj;
+import com.qxb.student.common.http.DataHandle;
+import com.qxb.student.common.http.HttpTask;
 import com.qxb.student.common.listener.TRunnable;
 import com.qxb.student.common.module.api.SchoolApi;
 import com.qxb.student.common.module.api.SchoolNewsApi;
@@ -24,8 +26,6 @@ import com.qxb.student.common.utils.UserCache;
 import java.io.IOException;
 import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.functions.Consumer;
 import retrofit2.Call;
 
 /**
@@ -41,73 +41,57 @@ public class SchoolRepository extends BaseRepository {
     private MutableLiveData<List<SchoolVideo>> schoolVideoLiveData = new MutableLiveData<>();
     private MutableLiveData<List<SchoolNews>> schoolNewsLiveData = new MutableLiveData<>();
     private MutableLiveData<List<MajorBat>> majorLiveData = new MutableLiveData<>();
-    private MutableLiveData<List<ScoreBat>> scoreLiveData=new MutableLiveData<>();
+    private MutableLiveData<List<ScoreBat>> scoreLiveData = new MutableLiveData<>();
 
     public LiveData<List<RecomSchool>> getSchoolLiveData() {
-        Observable<ApiModel<List<RecomSchool>>> observable = httpUtils.convert(httpUtils.create(SchoolApi.class)
-                        .getRecommendedCollegeList(UserCache.getInstance().getProvince()),
-                new Consumer<ApiModel<List<RecomSchool>>>() {
+        new HttpTask<List<RecomSchool>>()
+                .netLive(schoolListLiveData)
+                .localLive(roomUtils.schoolDao().getRecommendedColleges())
+                .call(httpUtils.create(SchoolApi.class)
+                        .getRecommendedCollegeList(UserCache.getInstance().getProvince()))
+                .handle(new DataHandle<List<RecomSchool>>() {
                     @Override
-                    public void accept(ApiModel<List<RecomSchool>> listApiModel) {
-//                        httpUtils.addCache(RecomSchool.class, listApiModel.getCacheTime());
-//                        roomUtils.schoolDao().insertColleges(listApiModel.getData());
+                    public void handle(@NonNull List<RecomSchool> data) {
+                        roomUtils.schoolDao().insertColleges(data);
                     }
-                });
-        httpUtils.request(schoolListLiveData, new SubscribeObj<List<RecomSchool>>() {
-            @Override
-            protected List<RecomSchool> queryLocal() {
-                return roomUtils.schoolDao().getRecommendedColleges();
-            }
-        }, observable);
+                })
+                .start();
         return schoolListLiveData;
     }
 
-    public LiveData<SchoolDetail> getSchoolById(final String schoolId) {
-        Observable<ApiModel<SchoolDetail>> observable = httpUtils.convert(httpUtils.create(SchoolApi.class)
-                        .getSchoolById(schoolId, UserCache.getInstance().getUserId()),
-                new Consumer<ApiModel<SchoolDetail>>() {
+    public LiveData<SchoolDetail> getSchoolById(String schoolId) {
+        new HttpTask<SchoolDetail>()
+                .netLive(schoolLiveData)
+                .localLive(roomUtils.schoolDetailDao().querySchoolById(schoolId))
+                .call(httpUtils.create(SchoolApi.class)
+                        .getSchoolById(schoolId, UserCache.getInstance().getUserId()))
+                .handle(new DataHandle<SchoolDetail>() {
                     @Override
-                    public void accept(ApiModel<SchoolDetail> apiModel) {
-                        roomUtils.schoolDetailDao().insertColleges(apiModel.getData());
+                    public void handle(@NonNull SchoolDetail data) {
+                        roomUtils.schoolDetailDao().insertColleges(data);
                     }
-                });
-        httpUtils.request(schoolLiveData, new SubscribeObj<SchoolDetail>() {
-            @Override
-            protected SchoolDetail queryLocal() {
-                return roomUtils.schoolDetailDao().querySchoolById(schoolId);
-            }
-        }, observable);
+                }).start();
         return schoolLiveData;
     }
 
     public LiveData<List<SchoolVideo>> getSchoolVideoList(String schoolId, String rows, String page) {
-        httpUtils.convert(httpUtils.create(SchoolApi.class).schoolVideoList(schoolId, rows, page),
-                new Consumer<ApiModel<List<SchoolVideo>>>() {
-                    @Override
-                    public void accept(ApiModel<List<SchoolVideo>> apiModel) {
-                        if (apiModel.getCode() == Config.HTTP_SUCCESS) {
-                            schoolVideoLiveData.postValue(apiModel.getData());
-                        }
-                    }
-                }).subscribe();
+
+        new HttpTask<List<SchoolVideo>>()
+                .netLive(schoolVideoLiveData)
+                .call(httpUtils.create(SchoolApi.class).schoolVideoList(schoolId, rows, page))
+                .start();
         return schoolVideoLiveData;
     }
 
     public LiveData<List<SchoolNews>> getSchoolNews(String schoolId, String type, String title, String page) {
-        httpUtils.convert(httpUtils.create(SchoolNewsApi.class).getSchoolNewslist(schoolId, type, title, page),
-                new Consumer<ApiModel<List<SchoolNews>>>() {
-                    @Override
-                    public void accept(ApiModel<List<SchoolNews>> apiModel) {
-                        if (apiModel.getCode() == Config.HTTP_SUCCESS) {
-                            schoolNewsLiveData.postValue(apiModel.getData());
-                        }
-                    }
-                }).subscribe();
+        new HttpTask<List<SchoolNews>>()
+                .netLive(schoolNewsLiveData)
+                .call(httpUtils.create(SchoolNewsApi.class).getSchoolNewslist(schoolId, type, title, page))
+                .start();
         return schoolNewsLiveData;
     }
 
     public LiveData<List<MajorBat>> getSchoolRecruitMajor(String schoolId) {
-
         ExecutorUtils.getInstance().addTask(new TRunnable<String>(schoolId) {
             @Override
             public void run(String schoolId) {
@@ -119,7 +103,7 @@ public class SchoolRepository extends BaseRepository {
                         User user = UserCache.getInstance().getUser();
                         if (user == null || user.isLiberalArt()) {
                             majorLiveData.postValue(apiModel.getData().get(1).getData());
-                        }else{
+                        } else {
                             majorLiveData.postValue(apiModel.getData().get(0).getData());
                         }
                     }
@@ -128,18 +112,10 @@ public class SchoolRepository extends BaseRepository {
                 }
             }
         });
-
-//        httpUtils.convert(httpUtils.create(SchoolApi.class).getSchoolRecruitMajor(schoolId, UserCache.getInstance().getUserId(),
-//                new Consumer<ApiModel<List<MajorBat>>>() {
-//                    @Override
-//                    public void accept(ApiModel<List<MajorBat>> listApiModel) {
-//
-//                    }
-//                }).subscribe();
         return majorLiveData;
     }
 
-    public LiveData<List<ScoreBat>> getSchoolScore(String schoolId){
+    public LiveData<List<ScoreBat>> getSchoolScore(String schoolId) {
         ExecutorUtils.getInstance().addTask(new TRunnable<String>(schoolId) {
             @Override
             public void run(String schoolId) {
@@ -151,7 +127,7 @@ public class SchoolRepository extends BaseRepository {
                         User user = UserCache.getInstance().getUser();
                         if (user == null || !user.isLiberalArt()) {
                             scoreLiveData.postValue(apiModel.getData().get(0).getData());
-                        }else{
+                        } else {
                             scoreLiveData.postValue(apiModel.getData().get(1).getData());
                         }
                     }
@@ -167,5 +143,10 @@ public class SchoolRepository extends BaseRepository {
     public void onCleared() {
         schoolListLiveData = null;
         schoolLiveData = null;
+        schoolVideoLiveData = null;
+        schoolNewsLiveData = null;
+        majorLiveData = null;
+        scoreLiveData = null;
+
     }
 }

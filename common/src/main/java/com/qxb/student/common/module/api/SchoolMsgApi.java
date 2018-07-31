@@ -5,7 +5,7 @@ import com.qxb.student.common.module.bean.SchoolMsg;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -26,7 +26,7 @@ public interface SchoolMsgApi {
      */
     @FormUrlEncoded
     @POST("school/noticlist")
-    Observable<ApiModel<List<SchoolMsg>>> getSchoolNoticlist(@Field("student_id") String studentId, @Field("n") String n, @Field("page") String page, @Field("rows") String rows);
+    Call<ApiModel<List<SchoolMsg>>> getSchoolNoticlist(@Field("student_id") String studentId, @Field("n") String n, @Field("page") String page, @Field("rows") String rows);
 
     /**
      * 最新学校通知
@@ -36,7 +36,7 @@ public interface SchoolMsgApi {
      */
     @FormUrlEncoded
     @POST("school/newnotic")
-    Observable<ApiModel<List<SchoolMsg>>> schoolNewNotic(@Field("student_id") String studentId);
+    Call<ApiModel<List<SchoolMsg>>> schoolNewNotic(@Field("student_id") String studentId);
 
     /**
      * 学校通知已读
@@ -46,7 +46,7 @@ public interface SchoolMsgApi {
      */
     @FormUrlEncoded
     @POST("school/noticread")
-    Observable<ApiModel<String>> schoolNoticRead(@Field("id") String schoolNoticId);
+    Call<ApiModel<String>> schoolNoticRead(@Field("id") String schoolNoticId);
 
     /**
      * 学校通知详情-返回网页
@@ -56,5 +56,5 @@ public interface SchoolMsgApi {
      */
     @FormUrlEncoded
     @POST("view/schoolmsg/detail")
-    Observable<String> viewSchoolMsgDetail(@Field("id") String schoolMsgId);
+    Call<String> viewSchoolMsgDetail(@Field("id") String schoolMsgId);
 }

@@ -3,7 +3,7 @@ package com.qxb.student.common.module.api;
 import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.ApiModel;
 
-import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
@@ -25,7 +25,7 @@ public interface SysGoodsApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("goods/getGoodsByCode")
-    Observable<ApiModel<String>> getGoodsByCode(@Field("goods_code") String goodsCode);
+    Call<ApiModel<String>> getGoodsByCode(@Field("goods_code") String goodsCode);
 
     /**
      * 获取商品的名称及使用说明
@@ -36,7 +36,7 @@ public interface SysGoodsApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("goods/explain")
-    Observable<ApiModel<String>> getGoodsExplain(@Field("goods_code") String goodsCode);
+    Call<ApiModel<String>> getGoodsExplain(@Field("goods_code") String goodsCode);
 
 
 }

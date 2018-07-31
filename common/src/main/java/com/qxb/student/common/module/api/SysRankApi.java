@@ -3,7 +3,7 @@ package com.qxb.student.common.module.api;
 import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.ApiModel;
 
-import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
@@ -23,7 +23,7 @@ public interface SysRankApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("sysRank/list/1/yxfy")
-    Observable<ApiModel<String>> sysRankList(@Field("page") String page, @Field("rows") String rows);
+    Call<ApiModel<String>> sysRankList(@Field("page") String page, @Field("rows") String rows);
 
 
 

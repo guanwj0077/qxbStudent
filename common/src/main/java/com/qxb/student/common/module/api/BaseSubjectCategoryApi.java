@@ -7,7 +7,7 @@ import com.qxb.student.common.module.bean.SubjectCategory;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
@@ -27,7 +27,7 @@ public interface BaseSubjectCategoryApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("baseSubjectCategory/getListByDepth")
-    Observable<ApiModel<List<BaseSubjectCategory>>> getBaseSubjectCategoryListByDepth(@Field("depth") String depth, @Field("type") String type);
+    Call<ApiModel<List<BaseSubjectCategory>>> getBaseSubjectCategoryListByDepth(@Field("depth") String depth, @Field("type") String type);
 
     /***
      * 通过父编码查询学科列表
@@ -37,7 +37,7 @@ public interface BaseSubjectCategoryApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("baseSubjectCategory/getListByParent")
-    Observable<ApiModel<List<BaseSubjectCategory>>> getBaseSubjectCategoryListByParent(@Field("p_code") String pCode);
+    Call<ApiModel<List<BaseSubjectCategory>>> getBaseSubjectCategoryListByParent(@Field("p_code") String pCode);
 
     /**
      * 专业大类列表
@@ -48,7 +48,7 @@ public interface BaseSubjectCategoryApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("subject/getList")
-    Observable<ApiModel<List<SubjectCategory>>> getSubjectList(@Field("type") String type, @Field("name") String name);
+    Call<ApiModel<List<SubjectCategory>>> getSubjectList(@Field("type") String type, @Field("name") String name);
 
     /**
      * 学科实力排行学校列表
@@ -58,6 +58,6 @@ public interface BaseSubjectCategoryApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("subject/getSchoolList")
-    Observable<ApiModel<List<SubjectCategory>>> getSchoolListBySubjectId(@Field("id") String id);
+    Call<ApiModel<List<SubjectCategory>>> getSchoolListBySubjectId(@Field("id") String id);
 
 }

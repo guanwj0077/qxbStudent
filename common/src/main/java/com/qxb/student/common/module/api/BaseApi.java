@@ -4,7 +4,7 @@ import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.AppVersion;
 
-import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
@@ -21,7 +21,7 @@ public interface BaseApi {
      */
     @Headers(Config.AUTH_COMMON)
     @POST("base/getYear")
-    Observable<ApiModel<String>> getCurrentYear();
+    Call<ApiModel<String>> getCurrentYear();
 
     /**
      * 版本更新
@@ -32,7 +32,7 @@ public interface BaseApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("update/version")
-    Observable<ApiModel<AppVersion>> updateVersion(@Field("client_type")String clientType, @Field("version_code")String versionCode);
+    Call<ApiModel<AppVersion>> updateVersion(@Field("client_type")String clientType, @Field("version_code")String versionCode);
 
     /**
      * 用户使用帮助视频地址
@@ -40,5 +40,5 @@ public interface BaseApi {
      */
     @FormUrlEncoded
     @POST("user/useHelpVideo")
-    Observable<ApiModel<String>> useHelpVideo();
+    Call<ApiModel<String>> useHelpVideo();
 }

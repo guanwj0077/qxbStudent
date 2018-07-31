@@ -17,10 +17,6 @@ public abstract class BaseRepository {
      */
     protected static final RoomUtils roomUtils = RoomUtils.getInstance();
 
-    /**
-     * 页面关系通知httpUtils切断订阅
-     */
     public void onCleared() {
-        httpUtils.onCleared();
     }
 }

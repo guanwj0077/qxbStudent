@@ -4,7 +4,7 @@ import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.User;
 
-import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
@@ -26,7 +26,7 @@ public interface UserApi {
     @Headers({Config.AUTH_COMMON})
     @FormUrlEncoded
     @POST("login_new/stuapp")
-    Observable<ApiModel<User>> login(@Field("login_name") String account, @Field("login_pwd") String password);
+    Call<ApiModel<User>> login(@Field("login_name") String account, @Field("login_pwd") String password);
 
     /**
      * 用户修改密码
@@ -39,7 +39,7 @@ public interface UserApi {
     @Headers({Config.AUTH_COMMON})
     @FormUrlEncoded
     @POST("user/forgotpwd")
-    Observable<ApiModel<String>> saveNewPwd(@Field("password") String password, @Field("tel") String tel, @Field("smsCode") String smsCode);
+    Call<ApiModel<String>> saveNewPwd(@Field("password") String password, @Field("tel") String tel, @Field("smsCode") String smsCode);
 
     /**
      * 用户获取极光配置
@@ -51,7 +51,7 @@ public interface UserApi {
     @Headers({Config.AUTH_COMMON})
     @FormUrlEncoded
     @POST("jpush/config")
-    Observable<ApiModel<User>> getJpushConfig(@Field("jtype") String jtype, @Field("id") String id);
+    Call<ApiModel<User>> getJpushConfig(@Field("jtype") String jtype, @Field("id") String id);
 
     /**
      * 用户获取token
@@ -62,7 +62,7 @@ public interface UserApi {
     @Headers({Config.AUTH_CUSTOM})
     @FormUrlEncoded
     @POST("chat/token")
-    Observable<ApiModel<String>> token(@Field("account_id") String accountId);
+    Call<ApiModel<String>> token(@Field("account_id") String accountId);
 
     /**
      * 智能选校-申请清除位次
@@ -73,7 +73,7 @@ public interface UserApi {
     @Headers({Config.AUTH_CUSTOM})
     @FormUrlEncoded
     @POST("cleanPrecedence")
-    Observable<ApiModel<String>> cleanPrecedence(@Field("phone") String phone);
+    Call<ApiModel<String>> cleanPrecedence(@Field("phone") String phone);
 
     /**
      * 通过账户id获取实体信息
@@ -84,7 +84,7 @@ public interface UserApi {
     @Headers({Config.AUTH_CUSTOM})
     @FormUrlEncoded
     @POST("getSubjectEntity")
-    Observable<ApiModel<User>> getSubjectEntity(@Field("account_id") String accountId);
+    Call<ApiModel<User>> getSubjectEntity(@Field("account_id") String accountId);
 
     /**
      * 退出登录清除缓存
@@ -95,7 +95,7 @@ public interface UserApi {
     @Headers({Config.AUTH_CUSTOM})
     @FormUrlEncoded
     @POST("logout")
-    Observable<ApiModel<String>> logOut(@Field("account_id") String accountId);
+    Call<ApiModel<String>> logOut(@Field("account_id") String accountId);
 
     /**
      * 写登录记录
@@ -106,7 +106,7 @@ public interface UserApi {
     @Headers({Config.AUTH_CUSTOM})
     @FormUrlEncoded
     @POST("loginRecord")
-    Observable<ApiModel<String>> loginRecord(@Field("account_id") String accountId);
+    Call<ApiModel<String>> loginRecord(@Field("account_id") String accountId);
 
     /**
      * 学生端三方登录接口
@@ -118,7 +118,7 @@ public interface UserApi {
     @Headers({Config.AUTH_COMMON})
     @FormUrlEncoded
     @POST("third_party_login")
-    Observable<ApiModel<String>> thirdPartyLogin(@Field("type") String type, @Field("open_id") String openId);
+    Call<ApiModel<String>> thirdPartyLogin(@Field("type") String type, @Field("open_id") String openId);
 
     /**
      * 注册
@@ -135,7 +135,7 @@ public interface UserApi {
      */
     @FormUrlEncoded
     @POST("userStudent/regist_new")
-    Observable<ApiModel<String>> registNew(@Field("telphone") String telphone, @Field("password") String password,
+    Call<ApiModel<String>> registNew(@Field("telphone") String telphone, @Field("password") String password,
                                            @Field("pic") String pic, @Field("nick_name") String nickName, @Field("type") String type,
                                            @Field("open_id") String open_id, @Field("has_regist") String hasRegist, @Field("app_type") String appType);
 

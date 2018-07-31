@@ -2,22 +2,16 @@ package com.qxb.student.common.module;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.text.TextUtils;
 
-import com.qxb.student.common.Config;
+import com.qxb.student.common.http.HttpTask;
 import com.qxb.student.common.module.api.BaseNewsApi;
-import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.Bankao;
 import com.qxb.student.common.module.bean.BaseNews;
-import com.qxb.student.common.utils.ExecutorUtils;
 import com.qxb.student.common.utils.UserCache;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
-import retrofit2.Call;
 
 /**
  * @author winky
@@ -28,54 +22,25 @@ public class NewsRepository extends BaseRepository {
     private MutableLiveData<List<Bankao>> bankaoLiveData = new MutableLiveData<>();
     private MutableLiveData<BaseNews> newsLiveData = new MutableLiveData<>();
 
-    public LiveData<List<Bankao>> getBankaoList(final String keyWord, final String channel, final String page) {
-        ExecutorUtils.getInstance().addTask(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    boolean readCache = "1".equals(page) && !TextUtils.isEmpty(channel);
-//                    if (readCache) {
-//                        List<Bankao> bankaoList = roomUtils.bankaoDao().getBankaoCache(channel);
-//                        bankaoLiveData.postValue(bankaoList);
-//                        return;
-//                    }
-                    Map<String, String> params = new ConcurrentHashMap<>();
-                    params.put("keyword", keyWord);
-                    params.put("channel", channel);
-                    params.put("page", page);
-                    params.put("province", UserCache.getInstance().getProvince());
-                    params.put("stu_id", UserCache.getInstance().getUserId());
-                    Call<ApiModel<List<Bankao>>> call = httpUtils.create(BaseNewsApi.class).baseNewslist(params);
-                    ApiModel<List<Bankao>> apiModel = call.execute().body();
-                    if ((apiModel != null ? apiModel.getCode() : 0) == Config.HTTP_SUCCESS) {
-                        bankaoLiveData.postValue(apiModel.getData());
-//                        if (readCache) {
-//                            roomUtils.bankaoDao().insert(apiModel.getData());
-//                        }
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+    public LiveData<List<Bankao>> getBankaoList(String keyWord, String channel, String page) {
+        Map<String, String> params = new ConcurrentHashMap<>();
+        params.put("keyword", keyWord);
+        params.put("channel", channel);
+        params.put("page", page);
+        params.put("province", UserCache.getInstance().getProvince());
+        params.put("stu_id", UserCache.getInstance().getUserId());
+        new HttpTask<List<Bankao>>()
+                .netLive(bankaoLiveData)
+                .call(httpUtils.create(BaseNewsApi.class).baseNewslist(params))
+                .start();
         return bankaoLiveData;
     }
 
-    public LiveData<BaseNews> getBankaoDetail(final String bankaoId) {
-        ExecutorUtils.getInstance().addTask(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Call<ApiModel<BaseNews>> call = httpUtils.create(BaseNewsApi.class).baseNewsDetail(bankaoId, UserCache.getInstance().getUserId());
-                    ApiModel<BaseNews> apiModel = call.execute().body();
-                    if ((apiModel != null ? apiModel.getCode() : 0) == Config.HTTP_SUCCESS) {
-                        newsLiveData.postValue(apiModel.getData());
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+    public LiveData<BaseNews> getBankaoDetail(String bankaoId) {
+        new HttpTask<BaseNews>()
+                .netLive(newsLiveData)
+                .call(httpUtils.create(BaseNewsApi.class).baseNewsDetail(bankaoId, UserCache.getInstance().getUserId()))
+                .start();
         return newsLiveData;
     }
 }

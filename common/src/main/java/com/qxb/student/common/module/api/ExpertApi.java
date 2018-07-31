@@ -13,7 +13,7 @@ import com.qxb.student.common.module.bean.SysStaff;
 import java.util.List;
 import java.util.Map;
 
-import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -37,7 +37,7 @@ public interface ExpertApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("expert/bannerList")
-    Observable<ApiModel<List<SysAd>>> bannerList(@Field("province") String province);
+    Call<ApiModel<List<SysAd>>> bannerList(@Field("province") String province);
 
     /**
      * 问专家-专家列表
@@ -50,7 +50,7 @@ public interface ExpertApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("expert/expertList")
-    Observable<ApiModel<List<Expert>>> expertList(@Field("province") String province, @Field("page") String page, @Field("rows") String rows);
+    Call<ApiModel<List<Expert>>> expertList(@Field("province") String province, @Field("page") String page, @Field("rows") String rows);
 
     /**
      * 问专家-专家详情接口
@@ -62,7 +62,7 @@ public interface ExpertApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("expert/expertDetail")
-    Observable<ApiModel<Expert>> expertDetail(@Field("expert_id") String expertId, @Field("stu_id") String stuId);
+    Call<ApiModel<Expert>> expertDetail(@Field("expert_id") String expertId, @Field("stu_id") String stuId);
 
     /**
      * 问专家-专家热门回答列表
@@ -76,7 +76,7 @@ public interface ExpertApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("expert/hotAnswer")
-    Observable<ApiModel<List<ExpertQuestion>>> expertHotAnswer(@Field("expert_id") String expertId, @Field("stu_id") String stuId, @Field("page") String page, @Field("rows") String rows);
+    Call<ApiModel<List<ExpertQuestion>>> expertHotAnswer(@Field("expert_id") String expertId, @Field("stu_id") String stuId, @Field("page") String page, @Field("rows") String rows);
 
     /**
      * 2.3版本 提交问题
@@ -92,7 +92,7 @@ public interface ExpertApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("new/question/put")
-    Observable<ApiModel<String>> expertQuestion(@Field("question_type") String questionType, @Field("content") String content,
+    Call<ApiModel<String>> expertQuestion(@Field("question_type") String questionType, @Field("content") String content,
                                                 @Field("stu_id") String stuId, @Field("expert_id") String expertId,
                                                 @Field("account_id") String accountId, @Field("stu_province") String stuProvince);
 
@@ -108,7 +108,7 @@ public interface ExpertApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("expert/new/question/detail")
-    Observable<ApiModel<ExpertQuestion>> questionDetail(@Field("question_id") String question_id, @Field("account_id") String accountId,
+    Call<ApiModel<ExpertQuestion>> questionDetail(@Field("question_id") String question_id, @Field("account_id") String accountId,
                                                         @Field("stu_id") String stuId, @Field("type") String type);
 
     /**
@@ -122,7 +122,7 @@ public interface ExpertApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("expert/evaluationLabel")
-    Observable<ApiModel<String>> evaluationLabel(@Field("answer_id") String answerId, @Field("expert_id") String expertId,
+    Call<ApiModel<String>> evaluationLabel(@Field("answer_id") String answerId, @Field("expert_id") String expertId,
                                                  @Field("stu_id") String stuId);
 
     /**
@@ -140,7 +140,7 @@ public interface ExpertApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("expert/expertEvaluation")
-    Observable<ApiModel<String>> expertEvaluation(@FieldMap Map<String, Object> conditionMap);
+    Call<ApiModel<String>> expertEvaluation(@FieldMap Map<String, Object> conditionMap);
 
     /**
      * 获取客服列表
@@ -154,7 +154,7 @@ public interface ExpertApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("expert/getExpertCustomerServiceList")
-    Observable<ApiModel<List<SysStaff>>> getExpertCustomerServiceList(@Field("type") String type, @Field("province") String province,
+    Call<ApiModel<List<SysStaff>>> getExpertCustomerServiceList(@Field("type") String type, @Field("province") String province,
                                                                       @Field("page") String page, @Field("rows") String rows);
 
     /**
@@ -168,7 +168,7 @@ public interface ExpertApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("expert/look")
-    Observable<ApiModel<String>> lookQuestion(@Field("account_id") String accountId, @Field("stu_id") String stuId, @Field("question_id") String questionId);
+    Call<ApiModel<String>> lookQuestion(@Field("account_id") String accountId, @Field("stu_id") String stuId, @Field("question_id") String questionId);
 
     /**
      * 1对1志愿填报-创建1对1订单
@@ -186,7 +186,7 @@ public interface ExpertApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("expert/createExpertOneToOneOrder")
-    Observable<ApiModel<String>> createExpertOneToOneOrder(@Field("account_id") String accountId, @Field("expert_id") String expertId, @Field("type") String type);
+    Call<ApiModel<String>> createExpertOneToOneOrder(@Field("account_id") String accountId, @Field("expert_id") String expertId, @Field("type") String type);
 
     /**
      * 取消订单  此处APP接口则为全退
@@ -198,7 +198,7 @@ public interface ExpertApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("expert/cancelOrder")
-    Observable<ApiModel<String>> cancelExpertOrder(@Field("order_id") String orderId, @Field("refund_descr") String refundDescr);
+    Call<ApiModel<String>> cancelExpertOrder(@Field("order_id") String orderId, @Field("refund_descr") String refundDescr);
 
     /**
      * 删除订单
@@ -209,7 +209,7 @@ public interface ExpertApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("expert/deleteOrder")
-    Observable<ApiModel<String>> deleteExpertOrder(@Field("order_id") String orderId);
+    Call<ApiModel<String>> deleteExpertOrder(@Field("order_id") String orderId);
 
     /**
      * 学生档案保存
@@ -245,7 +245,7 @@ public interface ExpertApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("expert/studentFile/save")
-    Observable<ApiModel<String>> saveStudentFile(@FieldMap Map<String, Object> conditionNap);
+    Call<ApiModel<String>> saveStudentFile(@FieldMap Map<String, Object> conditionNap);
 
     /**
      * 获取学生档案
@@ -257,7 +257,7 @@ public interface ExpertApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("expert/getStudentFile")
-    Observable<ApiModel<ExpertStuInfo>> getStudentFile(@Field("order_id") String orderId, @Field("stu_id") String stuId);
+    Call<ApiModel<ExpertStuInfo>> getStudentFile(@Field("order_id") String orderId, @Field("stu_id") String stuId);
 
     /**
      * 学生分数保存/更新
@@ -284,7 +284,7 @@ public interface ExpertApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("expert/studentFileScore/save")
-    Observable<ApiModel<String>> saveStudentFileScore(@FieldMap Map<String, Object> conditionNap);
+    Call<ApiModel<String>> saveStudentFileScore(@FieldMap Map<String, Object> conditionNap);
 
     /**
      * 订单详情-返回Map里有Expert对象
@@ -296,7 +296,7 @@ public interface ExpertApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("expert/getOrderDetail")
-    Observable<ApiModel<String>> getOrderDetail(@Field("order_id") String orderId, @Field("expert_id") String expertId);
+    Call<ApiModel<String>> getOrderDetail(@Field("order_id") String orderId, @Field("expert_id") String expertId);
 
     /**
      * 1v1服务订单详情
@@ -314,7 +314,7 @@ public interface ExpertApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("expert/getOneToOneDetail")
-    Observable<ApiModel<String>> getOneToOneDetail(@Field("order_id") String orderId, @Field("stu_id") String stuId, @Field("type") String type);
+    Call<ApiModel<String>> getOneToOneDetail(@Field("order_id") String orderId, @Field("stu_id") String stuId, @Field("type") String type);
 
     /**
      * 1对1志愿填报-获取志愿草表
@@ -326,7 +326,7 @@ public interface ExpertApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("expert/getWishTable")
-    Observable<ApiModel<StudentWish>> getWishTable(@Field("order_id") String orderId, @Field("wish_type") String wishType);
+    Call<ApiModel<StudentWish>> getWishTable(@Field("order_id") String orderId, @Field("wish_type") String wishType);
 
     /**
      * 问专家-找专家首页-今日大咖、分类专家列表  （返回Map里包含多个List<Map>)
@@ -337,7 +337,7 @@ public interface ExpertApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("expert/expertListByGoodService")
-    Observable<ApiModel<String>> getExpertListByGoodService(@Field("province") String province);
+    Call<ApiModel<String>> getExpertListByGoodService(@Field("province") String province);
 
     /**
      * 专家主页
@@ -349,7 +349,7 @@ public interface ExpertApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("expert/new/home")
-    Observable<ApiModel<Expert>> getExpertHomeData(@Field("expert_id") String expertId, @Field("stu_id") String stuId);
+    Call<ApiModel<Expert>> getExpertHomeData(@Field("expert_id") String expertId, @Field("stu_id") String stuId);
 
     /**
      * 专家主页，我的已答问题列表(后台无认证头校验)
@@ -364,7 +364,7 @@ public interface ExpertApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("expert/new/myAnswerQuestion/list")
-    Observable<ApiModel<List<ExpertQuestion>>> getExpertAnsweredQuestionList(@Field("expert_id") String expertId, @Field("stu_id") String stuId, @Field("type") String type,
+    Call<ApiModel<List<ExpertQuestion>>> getExpertAnsweredQuestionList(@Field("expert_id") String expertId, @Field("stu_id") String stuId, @Field("type") String type,
                                                                              @Field("page") String page, @Field("rows") String rows);
 
     /**
@@ -377,7 +377,7 @@ public interface ExpertApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("expert/new/question/praise")
-    Observable<ApiModel<String>> praiseAnswer(@Field("answer_id") String answerId, @Field("stu_id") String stuId);
+    Call<ApiModel<String>> praiseAnswer(@Field("answer_id") String answerId, @Field("stu_id") String stuId);
 
     /**
      * 根据问题类型选择专家，返回专家列表
@@ -391,7 +391,7 @@ public interface ExpertApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("expert/new/select")
-    Observable<ApiModel<List<Expert>>> selectExpertList(@Field("province") String province, @Field("type") String type, @Field("page") String page, @Field("rows") String rows);
+    Call<ApiModel<List<Expert>>> selectExpertList(@Field("province") String province, @Field("type") String type, @Field("page") String page, @Field("rows") String rows);
 
     /**
      * 专家 1v1服务详情
@@ -403,7 +403,7 @@ public interface ExpertApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("expert/expertListByTypeOneToOne")
-    Observable<ApiModel<ExpertOneToOneServiceDetail>> expertListByTypeOneToOne(@Field("type") String type, @Field("stu_id") String stuId);
+    Call<ApiModel<ExpertOneToOneServiceDetail>> expertListByTypeOneToOne(@Field("type") String type, @Field("stu_id") String stuId);
 
 
 }

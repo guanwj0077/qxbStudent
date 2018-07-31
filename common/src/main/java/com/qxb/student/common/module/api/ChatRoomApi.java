@@ -7,7 +7,7 @@ import com.qxb.student.common.module.bean.RcChatRoom;
 import java.util.List;
 import java.util.Map;
 
-import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -32,7 +32,7 @@ public interface ChatRoomApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("chatRoom/liveDetail")
-    Observable<ApiModel<RcChatRoom>> getLiveDetail(@Field("id") int id, @Field("type") int type, @Field("relateId") int relateId);
+    Call<ApiModel<RcChatRoom>> getLiveDetail(@Field("id") int id, @Field("type") int type, @Field("relateId") int relateId);
 
     /**
      * 任意聊-学生评价老师
@@ -44,7 +44,7 @@ public interface ChatRoomApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("studentInfo/evaluateTeacher")
-    Observable<ApiModel<String>> evaluateTeacher(@Field("accountId") int accountId, @Field("studentId") int studentId);
+    Call<ApiModel<String>> evaluateTeacher(@Field("accountId") int accountId, @Field("studentId") int studentId);
 
     /**
      * 任意聊-直播订阅
@@ -57,7 +57,7 @@ public interface ChatRoomApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("chatRoom/liveSubscribe")
-    Observable<ApiModel<String>> liveSubscribe(@Field("liveId") int liveId, @Field("type") int type, @Field("subscriberId") int subscriberId);
+    Call<ApiModel<String>> liveSubscribe(@Field("liveId") int liveId, @Field("type") int type, @Field("subscriberId") int subscriberId);
 
     /**
      * 任意聊-直播间列表
@@ -74,7 +74,7 @@ public interface ChatRoomApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("chatRoom/chatRoomList")
-    Observable<ApiModel<List<RcChatRoom>>> chatRoomList(@FieldMap Map<String, Object> conditionMap);
+    Call<ApiModel<List<RcChatRoom>>> chatRoomList(@FieldMap Map<String, Object> conditionMap);
 
     /**
      * 任意聊-学生聊天禁言
@@ -86,7 +86,7 @@ public interface ChatRoomApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("chatRoom/bannedSpeak")
-    Observable<ApiModel<String>> bannedSpeak(@Field("id") int liveId, @Field("type") int type);
+    Call<ApiModel<String>> bannedSpeak(@Field("id") int liveId, @Field("type") int type);
 
     /**
      * 任意聊-交换电话
@@ -98,5 +98,5 @@ public interface ChatRoomApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("chatRoom/exchangePhone")
-    Observable<ApiModel<String>> exchangePhone(@Field("accountId") int accountId, @Field("collegeAccountId") int collegeAccountId);
+    Call<ApiModel<String>> exchangePhone(@Field("accountId") int accountId, @Field("collegeAccountId") int collegeAccountId);
 }

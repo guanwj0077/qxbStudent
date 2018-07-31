@@ -3,6 +3,7 @@ package com.qxb.student.common.http;
 import android.support.annotation.Nullable;
 
 import com.alibaba.fastjson.JSON;
+import com.qxb.student.common.Config;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -23,8 +24,6 @@ import retrofit2.Retrofit;
  * @date 2018/7/24
  */
 public final class JsonConverterFactory extends Converter.Factory {
-
-    private static final MediaType MEDIA_TYPE = MediaType.parse("application/json; charset=UTF-8");
 
     public JsonConverterFactory() {
         super();
@@ -65,7 +64,7 @@ public final class JsonConverterFactory extends Converter.Factory {
     private class RequestBodyConverter<T> implements Converter<T, RequestBody> {
         @Override
         public RequestBody convert(T value) {
-            return RequestBody.create(MEDIA_TYPE, JSON.toJSONBytes(value));
+            return RequestBody.create(Config.MEDIA_TYPE, JSON.toJSONBytes(value));
         }
     }
 }

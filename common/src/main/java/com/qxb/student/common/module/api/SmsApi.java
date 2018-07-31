@@ -4,10 +4,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.ApiModel;
 
-import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -27,7 +26,7 @@ public interface SmsApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("SMS/VaildCode")
-    Observable<ApiModel<JSONObject>> vaildCode(@Field("tel") String tel, @Field("smsCode") String smsCode);
+    Call<ApiModel<JSONObject>> vaildCode(@Field("tel") String tel, @Field("smsCode") String smsCode);
 
 
     /**
@@ -39,6 +38,6 @@ public interface SmsApi {
      */
     @Headers(Config.AUTH_COMMON)
     @POST("SMS/CreateCode_new/{tel}/{type}")
-    Observable<ApiModel<JSONObject>> CreateCode(@Path("tel") String tel, @Path("type") String type);
+    Call<ApiModel<JSONObject>> CreateCode(@Path("tel") String tel, @Path("type") String type);
 
 }

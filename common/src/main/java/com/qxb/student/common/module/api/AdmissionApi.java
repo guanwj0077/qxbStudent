@@ -6,7 +6,7 @@ import com.qxb.student.common.module.bean.SysStaff;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
@@ -29,7 +29,7 @@ public interface AdmissionApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("admissions/banner")
-    Observable<ApiModel<String>> getBannerList(@Field("area_code") String areaCode);
+    Call<ApiModel<String>> getBannerList(@Field("area_code") String areaCode);
 
     /**
      * 获取该市招办及区招办的员工
@@ -42,7 +42,7 @@ public interface AdmissionApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("admissions/staffList")
-    Observable<ApiModel<List<SysStaff>>> getStaffList(@Field("area_code") String areaCode, @Field("page") String page, @Field("rows") String rows);
+    Call<ApiModel<List<SysStaff>>> getStaffList(@Field("area_code") String areaCode, @Field("page") String page, @Field("rows") String rows);
 
 
 }

@@ -20,7 +20,7 @@ import com.qxb.student.common.module.bean.SysStaff;
 import java.util.List;
 import java.util.Map;
 
-import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -39,7 +39,7 @@ public interface ArtApi {
      */
     @FormUrlEncoded
     @POST("artnews/cycleImg")
-    Observable<ApiModel<List<ArtNewsBanner>>> artCycleImg();
+    Call<ApiModel<List<ArtNewsBanner>>> artCycleImg();
 
     /**
      * 艺考招生-专业培训banner
@@ -48,7 +48,7 @@ public interface ArtApi {
      */
     @FormUrlEncoded
     @POST("artnews/trainimg")
-    Observable<ApiModel<List<ArtNewsBanner>>> artTrainImg();
+    Call<ApiModel<List<ArtNewsBanner>>> artTrainImg();
 
     /**
      * 艺考-艺考资讯列表接口
@@ -63,7 +63,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("artnews/artList")
-    Observable<ApiModel<List<ArtNews>>> artNewsList(@Field("news_type") String newsType, @Field("stu_id") String stuId, @Field("keyword") String keyword,
+    Call<ApiModel<List<ArtNews>>> artNewsList(@Field("news_type") String newsType, @Field("stu_id") String stuId, @Field("keyword") String keyword,
                                                     @Field("page") String page, @Field("rows") String rows);
 
     /**
@@ -76,7 +76,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("artnews/artDetail")
-    Observable<ApiModel<ArtNews>> artNewsDetail(@Field("art_id") String newsId, @Field("stu_id") String stuId);
+    Call<ApiModel<ArtNews>> artNewsDetail(@Field("art_id") String newsId, @Field("stu_id") String stuId);
 
     /**
      * 艺考-艺术院校库
@@ -99,7 +99,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("art/school/list")
-    Observable<ApiModel<List<ArtSchoolBaseinfo>>> artSchoolList(@FieldMap Map<String, Object> conditionMap);
+    Call<ApiModel<List<ArtSchoolBaseinfo>>> artSchoolList(@FieldMap Map<String, Object> conditionMap);
 
     /**
      * 艺考-艺术热门院校
@@ -112,7 +112,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("art/school/topList")
-    Observable<ApiModel<ArtNews>> artHotSchoolList(@Field("s_province") String sProvince, @Field("page") String page, @Field("rows") String rows);
+    Call<ApiModel<ArtNews>> artHotSchoolList(@Field("s_province") String sProvince, @Field("page") String page, @Field("rows") String rows);
 
     /**
      * 艺考-艺术院校tag标签
@@ -122,7 +122,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("art/school/tagList")
-    Observable<ApiModel<String>> artSchoolTagList();
+    Call<ApiModel<String>> artSchoolTagList();
 
     /**
      * 艺考-学校专业方向列表
@@ -132,7 +132,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("art/school/majorCategory")
-    Observable<ApiModel<String>> artSchoolMajorCategory();
+    Call<ApiModel<String>> artSchoolMajorCategory();
 
     /**
      * 艺考-艺考资讯评论列表
@@ -146,7 +146,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("artnews/commentList")
-    Observable<ApiModel<List<ArtNewsComment>>> artNewCommentList(@Field("art_news_id") String artNewsId, @Field("student_id") String studentId, @Field("page") String page, @Field("rows") String rows);
+    Call<ApiModel<List<ArtNewsComment>>> artNewCommentList(@Field("art_news_id") String artNewsId, @Field("student_id") String studentId, @Field("page") String page, @Field("rows") String rows);
 
     /**
      * 艺考-艺考资讯评论
@@ -159,7 +159,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("artnews/review")
-    Observable<ApiModel<String>> artNewReview(@Field("art_news_id") String artNewsId, @Field("stu_id") String studentId, @Field("content") String content);
+    Call<ApiModel<String>> artNewReview(@Field("art_news_id") String artNewsId, @Field("stu_id") String studentId, @Field("content") String content);
 
     /**
      * 艺考-智能选校
@@ -177,7 +177,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("art/school/autoSelectSchool")
-    Observable<ApiModel<String>> artSelectSchool(@FieldMap Map<String, Object> conditionMap);
+    Call<ApiModel<String>> artSelectSchool(@FieldMap Map<String, Object> conditionMap);
 
     /**
      * 艺考-院校首页录取数据
@@ -190,7 +190,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("art/school/recruitData")
-    Observable<ApiModel<ArtSchoolRecruitData>> schoolRecruitData(@Field("province") String province, @Field("school_id") String schoolId, @Field("art_category_code") String artCategoryCode);
+    Call<ApiModel<ArtSchoolRecruitData>> schoolRecruitData(@Field("province") String province, @Field("school_id") String schoolId, @Field("art_category_code") String artCategoryCode);
 
     /**
      * 艺考-院校首页基本信息
@@ -202,7 +202,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("art/school/head")
-    Observable<ApiModel<ArtSchoolBaseinfo>> artSchoolDetail(@Field("student_id") String studentId, @Field("school_id") String schoolId);
+    Call<ApiModel<ArtSchoolBaseinfo>> artSchoolDetail(@Field("student_id") String studentId, @Field("school_id") String schoolId);
 
     /**
      * 艺考-院校专业详情
@@ -213,7 +213,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("art/school/majorDetail")
-    Observable<ApiModel<ArtMajor>> artSchoolMajorDetail(@Field("id") String artMajorId);
+    Call<ApiModel<ArtMajor>> artSchoolMajorDetail(@Field("id") String artMajorId);
 
     /**
      * 艺考-艺考资讯评论点赞
@@ -226,7 +226,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("artnews/praise")
-    Observable<ApiModel<String>> artNewsPraise(@Field("art_news_id") String artNewsId, @Field("stu_id") String stuId, @Field("comment_id") String commentId);
+    Call<ApiModel<String>> artNewsPraise(@Field("art_news_id") String artNewsId, @Field("stu_id") String stuId, @Field("comment_id") String commentId);
 
     /**
      * 艺考-艺考资讯评论取消点赞
@@ -239,7 +239,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("artnews/cancelPraise")
-    Observable<ApiModel<String>> artNewsCancelPraise(@Field("art_news_id") String artNewsId, @Field("stu_id") String stuId, @Field("comment_id") String commentId);
+    Call<ApiModel<String>> artNewsCancelPraise(@Field("art_news_id") String artNewsId, @Field("stu_id") String stuId, @Field("comment_id") String commentId);
 
     /**
      * 艺考-院校首页招生简章列表
@@ -252,7 +252,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("art/school/generalRules")
-    Observable<ApiModel<List<SchoolNews>>> getArtSchoolGeneralRuleList(@Field("school_id") String schoolId, @Field("page") String page, @Field("rows") String rows);
+    Call<ApiModel<List<SchoolNews>>> getArtSchoolGeneralRuleList(@Field("school_id") String schoolId, @Field("page") String page, @Field("rows") String rows);
 
     /**
      * 艺考-院校首页录取规则列表
@@ -265,7 +265,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("art/school/enrollRule")
-    Observable<ApiModel<List<SchoolNews>>> getArtSchoolEnrollRuleList(@Field("school_id") String schoolId, @Field("page") String page, @Field("rows") String rows);
+    Call<ApiModel<List<SchoolNews>>> getArtSchoolEnrollRuleList(@Field("school_id") String schoolId, @Field("page") String page, @Field("rows") String rows);
 
     /**
      * 艺考-院校首页学校概况
@@ -276,7 +276,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("art/school/remark")
-    Observable<ApiModel<String>> getArtSchoolRemark(@Field("school_id") String schoolId);
+    Call<ApiModel<String>> getArtSchoolRemark(@Field("school_id") String schoolId);
 
     /**
      * 艺考-专业培训-老师/机构 列表搜索
@@ -292,7 +292,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("art/train/list")
-    Observable<ApiModel<List<ArtTeacher>>> getArtTrainList(@Field("searchType") String searchType, @Field("searchCondition") String searchCondition,
+    Call<ApiModel<List<ArtTeacher>>> getArtTrainList(@Field("searchType") String searchType, @Field("searchCondition") String searchCondition,
                                                            @Field("area_code") String areaCode, @Field("category_code") String categoryCode,
                                                            @Field("page") String page, @Field("rows") String rows);
 
@@ -307,7 +307,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("art/train/details")
-    Observable<ApiModel<ArtTeacher>> getArtTrainDetail(@Field("id") String id, @Field("student_id") String studentId, @Field("type") String type);
+    Call<ApiModel<ArtTeacher>> getArtTrainDetail(@Field("id") String id, @Field("student_id") String studentId, @Field("type") String type);
 
     /**
      * 艺考-专业培训-老师/机构 相册
@@ -321,7 +321,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("group/photoList")
-    Observable<ApiModel<List<ArtPhoto>>> groupPhotoList(@Field("id") String id, @Field("type") String type,
+    Call<ApiModel<List<ArtPhoto>>> groupPhotoList(@Field("id") String id, @Field("type") String type,
                                                         @Field("page") String page, @Field("rows") String rows);
 
     /**
@@ -336,7 +336,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("group/caseList")
-    Observable<ApiModel<List<ArtCase>>> groupCaseList(@Field("id") String id, @Field("type") String type,
+    Call<ApiModel<List<ArtCase>>> groupCaseList(@Field("id") String id, @Field("type") String type,
                                                       @Field("page") String page, @Field("rows") String rows);
 
     /**
@@ -351,7 +351,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("group/courseList")
-    Observable<ApiModel<List<ArtCourse>>> groupCourseList(@Field("id") String id, @Field("type") String type,
+    Call<ApiModel<List<ArtCourse>>> groupCourseList(@Field("id") String id, @Field("type") String type,
                                                           @Field("page") String page, @Field("rows") String rows);
 
     /**
@@ -363,7 +363,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("group/courseDetail")
-    Observable<ApiModel<ArtCourse>> groupCourseDetail(@Field("id") String id);
+    Call<ApiModel<ArtCourse>> groupCourseDetail(@Field("id") String id);
 
     /**
      * 艺考-专业培训-课程报名
@@ -378,7 +378,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("group/course/apply")
-    Observable<ApiModel<String>> groupCourseApply(@Field("student_id") String studentId, @Field("course_id") String courseId,
+    Call<ApiModel<String>> groupCourseApply(@Field("student_id") String studentId, @Field("course_id") String courseId,
                                                   @Field("type") String type, @Field("item_id") String itemId, @Field("number") String number);
 
     /**
@@ -390,7 +390,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("group/course/applyDetails")
-    Observable<ApiModel<List<ArtApply>>> getMyGroupCourseApply(@Field("student_id") String studentId);
+    Call<ApiModel<List<ArtApply>>> getMyGroupCourseApply(@Field("student_id") String studentId);
 
     /**
      * 艺考老师列表
@@ -402,7 +402,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("org/product/artTeacher")
-    Observable<ApiModel<List<SysStaff>>> getArtTeacherList(@Field("page") String page, @Field("rows") String rows);
+    Call<ApiModel<List<SysStaff>>> getArtTeacherList(@Field("page") String page, @Field("rows") String rows);
 
     /**
      * 艺考-案例详情
@@ -413,7 +413,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("group/caseDetail")
-    Observable<ApiModel<ArtCase>> getGroupCaseDetail(@Field("id") String caseId);
+    Call<ApiModel<ArtCase>> getGroupCaseDetail(@Field("id") String caseId);
 
     /**
      * 艺考招生热门名师榜
@@ -424,7 +424,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("art/teacherRank")
-    Observable<ApiModel<List<ArtTeacher>>> getArtTeacherRankList(@Field("province") String province);
+    Call<ApiModel<List<ArtTeacher>>> getArtTeacherRankList(@Field("province") String province);
 
     /**
      * 艺考-智能选校说明文字
@@ -433,7 +433,7 @@ public interface ArtApi {
      */
     @FormUrlEncoded
     @POST("art/school/autoSelectSchoolExplain")
-    Observable<ApiModel<String>> getAutoSelectSchoolExplain();
+    Call<ApiModel<String>> getAutoSelectSchoolExplain();
 
     /**
      * 艺考-查看上次选校结果--返回模型很复杂，需作调整
@@ -445,7 +445,7 @@ public interface ArtApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("art/school/historySchool")
-    Observable<ApiModel<String>> getArtHistorySchoolList(@Field("stu_id") String stuId, @Field("stu_addr") String stuProvince);
+    Call<ApiModel<String>> getArtHistorySchoolList(@Field("stu_id") String stuId, @Field("stu_addr") String stuProvince);
 
     /**
      * 艺考-优秀机构榜
@@ -456,6 +456,6 @@ public interface ArtApi {
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("group/groupRank")
-    Observable<ApiModel<List<SysGroup>>> getArtGroupRankList(@Field("province") String province);
+    Call<ApiModel<List<SysGroup>>> getArtGroupRankList(@Field("province") String province);
 
 }
