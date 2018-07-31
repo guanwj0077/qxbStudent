@@ -1,4 +1,4 @@
-package com.qxb.student.common.http;
+package com.qxb.student.common.http.task;
 
 import android.support.annotation.NonNull;
 

@@ -5,8 +5,9 @@ import android.arch.lifecycle.MutableLiveData;
 import android.os.Build;
 import android.support.annotation.NonNull;
 
-import com.qxb.student.common.http.DataHandle;
-import com.qxb.student.common.http.HttpTask;
+import com.qxb.student.common.http.task.ClientTask;
+import com.qxb.student.common.http.task.DataHandle;
+import com.qxb.student.common.http.task.HttpTask;
 import com.qxb.student.common.module.api.SysAdApi;
 import com.qxb.student.common.module.bean.FunctionItem;
 import com.qxb.student.common.module.bean.SysAd;
@@ -39,7 +40,12 @@ public class AdvertRepository extends BaseRepository {
         new HttpTask<List<SysAd>>()
                 .call(httpUtils.create(SysAdApi.class).getHomeBanner(UserCache.getInstance().getProvince()))
                 .netLive(bannerLiveData)
-                .localLive(roomUtils.sysAdDao().getAdByType("home_ad"))
+                .localLive(new ClientTask<List<SysAd>>() {
+                    @Override
+                    public List<SysAd> reqInSQLite() {
+                        return roomUtils.sysAdDao().getAdByType("home_ad");
+                    }
+                })
                 .handle(new DataHandle<List<SysAd>>() {
                     @Override
                     public void handle(@NonNull List<SysAd> data) {
@@ -53,7 +59,12 @@ public class AdvertRepository extends BaseRepository {
     public LiveData<List<SysAd>> getSysAdList(final String type) {
         new HttpTask<List<SysAd>>()
                 .netLive(bannerLiveData)
-                .localLive(roomUtils.sysAdDao().getAdByType(type))
+                .localLive(new ClientTask<List<SysAd>>() {
+                    @Override
+                    public List<SysAd> reqInSQLite() {
+                        return roomUtils.sysAdDao().getAdByType(type);
+                    }
+                })
                 .call(httpUtils.create(SysAdApi.class)
                         .getSysAdList(type, UserCache.getInstance().getProvince(), UserCache.getInstance().getUserId()))
                 .handle(new DataHandle<List<SysAd>>() {
@@ -74,11 +85,17 @@ public class AdvertRepository extends BaseRepository {
         }
         new HttpTask<List<FunctionItem>>()
                 .netLive(functionLiveData)
-                .localLive(roomUtils.functionItemDao().getIndexFunctions())
+                .localLive(new ClientTask<List<FunctionItem>>() {
+                    @Override
+                    public List<FunctionItem> reqInSQLite() {
+                        return roomUtils.functionItemDao().getIndexFunctions();
+                    }
+                })
                 .call(httpUtils.create(SysAdApi.class).getIndexFunctions(versionCode))
                 .handle(new DataHandle<List<FunctionItem>>() {
                     @Override
                     public void handle(@NonNull List<FunctionItem> data) {
+                        roomUtils.functionItemDao().del();
                         roomUtils.functionItemDao().insert(data);
                     }
                 }).start();

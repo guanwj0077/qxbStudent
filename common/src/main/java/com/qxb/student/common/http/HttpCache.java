@@ -1,4 +1,4 @@
-package com.qxb.student.common.http.cache;
+package com.qxb.student.common.http;
 
 import android.content.Context;
 import android.support.annotation.Nullable;

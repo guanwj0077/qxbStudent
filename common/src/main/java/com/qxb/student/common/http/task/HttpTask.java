@@ -1,4 +1,4 @@
-package com.qxb.student.common.http;
+package com.qxb.student.common.http.task;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
@@ -19,7 +19,7 @@ import retrofit2.Call;
 public class HttpTask<T> implements Runnable {
 
     private MutableLiveData<T> netLiveData;
-    private LiveData<T> localLiveData;
+    private ClientTask<T> clientTask;
     private Call<ApiModel<T>> call;
     private DataHandle<T> handle;
     private ApiModelHandle<T> apiModelHandle;
@@ -31,8 +31,8 @@ public class HttpTask<T> implements Runnable {
         return this;
     }
 
-    public HttpTask<T> localLive(LiveData<T> localLiveData) {
-        this.localLiveData = localLiveData;
+    public HttpTask<T> localLive(ClientTask<T> clientTask) {
+        this.clientTask = clientTask;
         return this;
     }
 
@@ -68,12 +68,11 @@ public class HttpTask<T> implements Runnable {
     @Override
     public final void run() {
         try {
-            if (localLiveData != null) {
-                T data = localLiveData.getValue();
+            if (clientTask != null) {
+                T data = clientTask.reqInSQLite();
                 if (data != null) {
                     if (data instanceof List) {
-                        List list = (List) data;
-                        if (list.size() > 0) {
+                        if (((List) data).size() > 0) {
                             netLiveData.postValue(data);
                             return;
                         }
@@ -86,11 +85,13 @@ public class HttpTask<T> implements Runnable {
             ApiModel<T> apiModel = call.execute().body();
             alreadyReq = true;
             if ((apiModel != null ? apiModel.getCode() : 0) == Config.HTTP_SUCCESS) {
-                if (handle != null) {
-                    netLiveData.postValue(apiModel.getData());
-                    handle.handle(apiModel.getData());
-                } else if (apiModelHandle != null) {
+                if (apiModelHandle != null) {
                     apiModelHandle.handle(apiModel);
+                } else {
+                    netLiveData.postValue(apiModel.getData());
+                    if (handle != null) {
+                        handle.handle(apiModel.getData());
+                    }
                 }
             }
         } catch (IOException e) {

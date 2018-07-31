@@ -52,6 +52,8 @@ public class HomeAdapter extends NestingAdapter {
 
     private FunctionViewPagerAdapter functionViewPagerAdapter;
     private ViewFlipper viewFlipper;
+    private ViewFlow viewFlow;
+    private CircleFlowIndicator flowIndicator;
 
     public HomeAdapter(Fragment fragment) {
         this.fragment = fragment;
@@ -81,6 +83,22 @@ public class HomeAdapter extends NestingAdapter {
                 }
             }
         });
+        homeControl.getHomeBanner().observe(fragment, new Observer<List<SysAd>>() {
+            @Override
+            public void onChanged(@Nullable List<SysAd> sysAds) {
+                viewFlow.setNestedpParent((ViewGroup) viewFlow.getParent());
+                viewFlow.setFlowIndicator(flowIndicator);
+                viewFlow.setTimeSpan(4500);
+                getBannerAdapter().clear();
+                getBannerAdapter().addCollection(sysAds);
+                viewFlow.setAdapter(getBannerAdapter());
+                int size = sysAds.size();
+                viewFlow.setSideBuffer(size);
+                flowIndicator.setCount(size);
+                viewFlow.setSelection(size * 1000);
+                viewFlow.startAutoFlowTimer();
+            }
+        });
     }
 
     private SysAd byPosition(List<SysAd> sysAdList, int i) {
@@ -107,24 +125,8 @@ public class HomeAdapter extends NestingAdapter {
     protected void convert(ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
             case BANNER:
-                final ViewFlow viewFlow = holder.getView(R.id.viewFlow);
-                final CircleFlowIndicator flowIndicator = holder.getView(R.id.flowIndicator);
-                viewFlow.setNestedpParent((ViewGroup) viewFlow.getParent());
-                viewFlow.setFlowIndicator(flowIndicator);
-                viewFlow.setTimeSpan(4500);
-                homeControl.getHomeBanner().observe(fragment, new Observer<List<SysAd>>() {
-                    @Override
-                    public void onChanged(@Nullable List<SysAd> sysAds) {
-                        getBannerAdapter().clear();
-                        getBannerAdapter().addCollection(sysAds);
-                        viewFlow.setAdapter(getBannerAdapter());
-                        int size = sysAds.size();
-                        viewFlow.setSideBuffer(size);
-                        flowIndicator.setCount(size);
-                        viewFlow.setSelection(size * 1000);
-                        viewFlow.startAutoFlowTimer();
-                    }
-                });
+                viewFlow = holder.getView(R.id.viewFlow);
+                flowIndicator = holder.getView(R.id.flowIndicator);
                 break;
             case FUNCTION:
                 functionViewPagerAdapter = new FunctionViewPagerAdapter(fragment.getContext(), holder.getConvertView());

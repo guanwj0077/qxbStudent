@@ -86,7 +86,7 @@ public class AuthInterceptor implements Interceptor {
         return response.newBuilder()
                 .removeHeader("Pragma")
                 .removeHeader("Cache-Control")
-                .header("Cache-Control", "public, max-age=" + maxAge)
+                .header("Cache-Control", "public, max-age=" + (maxAge > 600 ? maxAge : 600))
                 .build();
     }
 

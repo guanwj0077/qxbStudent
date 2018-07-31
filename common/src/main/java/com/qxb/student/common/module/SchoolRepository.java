@@ -5,8 +5,9 @@ import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
 import com.qxb.student.common.Config;
-import com.qxb.student.common.http.DataHandle;
-import com.qxb.student.common.http.HttpTask;
+import com.qxb.student.common.http.task.ClientTask;
+import com.qxb.student.common.http.task.DataHandle;
+import com.qxb.student.common.http.task.HttpTask;
 import com.qxb.student.common.listener.TRunnable;
 import com.qxb.student.common.module.api.SchoolApi;
 import com.qxb.student.common.module.api.SchoolNewsApi;
@@ -46,7 +47,12 @@ public class SchoolRepository extends BaseRepository {
     public LiveData<List<RecomSchool>> getSchoolLiveData() {
         new HttpTask<List<RecomSchool>>()
                 .netLive(schoolListLiveData)
-                .localLive(roomUtils.schoolDao().getRecommendedColleges())
+                .localLive(new ClientTask<List<RecomSchool>>() {
+                    @Override
+                    public List<RecomSchool> reqInSQLite() {
+                        return roomUtils.schoolDao().getRecommendedColleges();
+                    }
+                })
                 .call(httpUtils.create(SchoolApi.class)
                         .getRecommendedCollegeList(UserCache.getInstance().getProvince()))
                 .handle(new DataHandle<List<RecomSchool>>() {
@@ -59,10 +65,15 @@ public class SchoolRepository extends BaseRepository {
         return schoolListLiveData;
     }
 
-    public LiveData<SchoolDetail> getSchoolById(String schoolId) {
+    public LiveData<SchoolDetail> getSchoolById(final String schoolId) {
         new HttpTask<SchoolDetail>()
                 .netLive(schoolLiveData)
-                .localLive(roomUtils.schoolDetailDao().querySchoolById(schoolId))
+                .localLive(new ClientTask<SchoolDetail>() {
+                    @Override
+                    public SchoolDetail reqInSQLite() {
+                        return roomUtils.schoolDetailDao().querySchoolById(schoolId);
+                    }
+                })
                 .call(httpUtils.create(SchoolApi.class)
                         .getSchoolById(schoolId, UserCache.getInstance().getUserId()))
                 .handle(new DataHandle<SchoolDetail>() {

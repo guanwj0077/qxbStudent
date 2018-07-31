@@ -5,9 +5,9 @@ import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
 import com.alibaba.fastjson.JSONObject;
-import com.qxb.student.common.http.ApiModelHandle;
-import com.qxb.student.common.http.DataHandle;
-import com.qxb.student.common.http.HttpTask;
+import com.qxb.student.common.http.task.ApiModelHandle;
+import com.qxb.student.common.http.task.DataHandle;
+import com.qxb.student.common.http.task.HttpTask;
 import com.qxb.student.common.module.api.SmsApi;
 import com.qxb.student.common.module.api.UserApi;
 import com.qxb.student.common.module.bean.ApiModel;

@@ -32,5 +32,5 @@ public interface SchoolDetailDao {
      * @return
      */
     @Query("SELECT * FROM SchoolDetail WHERE id=:school_id")
-    LiveData<SchoolDetail> querySchoolById(String school_id);
+    SchoolDetail querySchoolById(String school_id);
 }

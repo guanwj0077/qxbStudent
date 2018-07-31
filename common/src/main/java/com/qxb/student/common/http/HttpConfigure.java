@@ -5,7 +5,6 @@ import android.content.Context;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.qxb.student.common.Config;
-import com.qxb.student.common.http.cache.HttpCache;
 import com.qxb.student.common.utils.ContextUtils;
 
 import java.security.SecureRandom;

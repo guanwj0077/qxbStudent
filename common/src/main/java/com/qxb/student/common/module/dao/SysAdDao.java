@@ -28,7 +28,7 @@ public interface SysAdDao {
      * @return 广告集合
      */
     @Query("SELECT * FROM SysAd WHERE type=:type")
-    LiveData<List<SysAd>> getAdByType(String type);
+    List<SysAd> getAdByType(String type);
 
     /**
      * 插入广告

@@ -3,7 +3,7 @@ package com.qxb.student.common.module;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
-import com.qxb.student.common.http.HttpTask;
+import com.qxb.student.common.http.task.HttpTask;
 import com.qxb.student.common.module.api.BaseNewsApi;
 import com.qxb.student.common.module.bean.Bankao;
 import com.qxb.student.common.module.bean.BaseNews;

@@ -26,7 +26,7 @@ public interface RecomSchoolDao {
      * @return 学校集合
      */
     @Query("SELECT * FROM RecomSchool")
-    LiveData<List<RecomSchool>> getRecommendedColleges();
+    List<RecomSchool> getRecommendedColleges();
 
     /**
      * 学校列表数据
