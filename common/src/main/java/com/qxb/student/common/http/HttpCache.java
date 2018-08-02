@@ -90,6 +90,7 @@ public class HttpCache implements InternalCache {
             long expiryTime = readInt(source);
             //如果缓存已经到期
             if (expiryTime <= System.currentTimeMillis()) {
+                diskLruCache.remove(key);
                 return null;
             }
             long contentLength = readInt(source);
@@ -142,7 +143,6 @@ public class HttpCache implements InternalCache {
                             : 0L)
                     .build();
         } catch (IOException e) {
-            // Give up because the cache cannot be read.
             return null;
         } finally {
             if (source != null) {
@@ -158,16 +158,28 @@ public class HttpCache implements InternalCache {
 
     @Override
     public CacheRequest put(Response response) {
+        DiskLruCache.Editor editor = null;
         try {
-            return new CacheRequestImpl(diskLruCache, response);
+            editor = diskLruCache.edit(judgeUrl(response.request()));
+            if (editor == null) {
+                return null;
+            }
+            return new CacheRequestImpl(editor, response);
         } catch (IOException e) {
             return null;
+        } finally {
+            try {
+                if (editor != null) {
+                    editor.abort();
+                }
+            } catch (IOException ignored) {
+            }
         }
     }
 
     @Override
     public void remove(Request request) throws IOException {
-
+        diskLruCache.remove(judgeUrl(request));
     }
 
     @Override
@@ -193,13 +205,9 @@ public class HttpCache implements InternalCache {
         private boolean done;
         private final Response response;
 
-        CacheRequestImpl(@NonNull DiskLruCache diskLruCache, @NonNull Response netResponse) throws IOException {
+        CacheRequestImpl(@NonNull DiskLruCache.Editor temp, @NonNull Response netResponse) throws IOException {
+            this.editor = temp;
             this.response = netResponse;
-            String key = judgeUrl(response.request());
-            this.editor = diskLruCache.edit(key);
-            if (editor == null) {
-                throw new IllegalArgumentException();
-            }
             this.cacheOut = Okio.buffer(editor.newSink(ENTRY_METADATA));
             this.body = new ForwardingSink(cacheOut) {
 
