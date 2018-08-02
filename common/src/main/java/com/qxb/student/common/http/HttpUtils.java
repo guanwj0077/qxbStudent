@@ -1,20 +1,10 @@
 package com.qxb.student.common.http;
 
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.persistence.db.SupportSQLiteStatement;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
-import com.qxb.student.common.Config;
-import com.qxb.student.common.module.bean.ApiModel;
-import com.qxb.student.common.module.bean.tab.HttpCache;
-import com.qxb.student.common.module.dao.HttpCacheDao;
 import com.qxb.student.common.module.dao.RoomUtils;
 import com.qxb.student.common.utils.Singleton;
-
-import java.io.IOException;
-
-import retrofit2.Call;
 
 public class HttpUtils {
 
@@ -42,43 +32,13 @@ public class HttpUtils {
      * 数据库实例
      */
     protected static final RoomUtils roomUtils = RoomUtils.getInstance();
-    /**
-     * 缓存操作
-     */
-    private static final HttpCacheDao httpCacheDao = roomUtils.httpCacheDao();
-
 
     public <T> T create(Class<T> clazz) {
         return httpConfigure.getRetrofit().create(clazz);
     }
 
     /**
-     * 检查数据缓存到期
-     *
-     * @param clazz 表实体
-     * @return 是否需要请求新的数据
+     * SupportSQLiteStatement statement = roomUtils.compileStatement("delete from " + clazz.getSimpleName());
+     * statement.execute();
      */
-    protected boolean checkCacheTime(@NonNull Class<?> clazz) {
-        HttpCache httpCache = httpCacheDao.queryByEntity(clazz.getName());
-        if (httpCache == null) {
-            return true;
-        }
-        if (System.currentTimeMillis() >= httpCache.getTime()) {
-            httpCacheDao.delete(httpCache);
-            SupportSQLiteStatement statement = roomUtils.compileStatement("delete from " + clazz.getSimpleName());
-            statement.execute();
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * 添加缓存记录
-     *
-     * @param clazz 表实体
-     */
-    public void addCache(@NonNull Class<?> clazz, long cacheTime) {
-        httpCacheDao.insert(new HttpCache(clazz.getName(), System.currentTimeMillis() + cacheTime));
-    }
 }

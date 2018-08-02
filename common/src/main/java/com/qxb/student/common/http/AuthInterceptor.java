@@ -1,5 +1,7 @@
 package com.qxb.student.common.http;
 
+import android.support.annotation.NonNull;
+
 import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.User;
 import com.qxb.student.common.utils.Encrypt;
@@ -7,17 +9,13 @@ import com.qxb.student.common.utils.Logger;
 import com.qxb.student.common.utils.UserCache;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.Objects;
 
 import okhttp3.FormBody;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
 import okio.Buffer;
-import okio.BufferedSource;
 
 /**
  * http请求拦截器
@@ -30,15 +28,11 @@ public class AuthInterceptor implements Interceptor {
     private final String POST = "POST";
     private final static String AUTHORIZATION = "Authorization";
     private final static String APP_SRC = "Appsrc";
-    private final static Logger logger = Logger.getInstance();
 
     @Override
-    public Response intercept(Chain chain) throws IOException {
+    public Response intercept(@NonNull Chain chain) throws IOException {
         Request request = chain.request();
         Request.Builder builder = request.newBuilder();
-        if (Logger.isDebug) {
-            logger.d("HttpRequest:" + request.url().toString());
-        }
         if (request.method().equals(POST)) {
             if (Config.CUSTOM.equals(request.header(Config.AUTH))) {
                 User user = UserCache.getInstance().getUser();
@@ -48,14 +42,6 @@ public class AuthInterceptor implements Interceptor {
                 }
             } else if (Config.COMMON.equals(request.header(Config.AUTH))) {
                 builder.addHeader(AUTHORIZATION, Config.AUTH_COMMON_SECRET);
-                if (Logger.isDebug) {
-                    Buffer buffer = new Buffer();
-                    Objects.requireNonNull(request.body()).writeTo(buffer);
-                    byte[] buff = new byte[(int) buffer.size()];
-                    buffer.inputStream().read(buff);
-                    String params = new String(buff, "UTF-8");
-                    logger.d("params:" + params);
-                }
             }
             //删除自定义的认证头标记
             builder.removeHeader(Config.AUTH);
@@ -64,22 +50,10 @@ public class AuthInterceptor implements Interceptor {
 
         Response response = chain.proceed(builder.build());
 
-
-        ResponseBody responseBody = response.body();
-        if (Logger.isDebug) {
-            if ((responseBody != null ? responseBody.contentLength() : 0) > 0) {
-                BufferedSource source = responseBody.source();
-                source.request(responseBody.contentLength());
-                Buffer buffer = source.buffer();
-                String responseBodyString = buffer.clone().readString(Charset.forName(Config.UTF_8));
-                logger.d("HttpResponse:" + responseBodyString);
-            }
-        }
-
         return response.newBuilder()
                 .removeHeader("Pragma")
                 .removeHeader("Cache-Control")
-                //指定缓存600秒，不作为最终参考，只为通过okhttp缓存验证
+                //只为通过缓存验证，600秒不作为缓存参考时间
                 .header("Cache-Control", "public, max-age=600")
                 .build();
     }
@@ -93,9 +67,7 @@ public class AuthInterceptor implements Interceptor {
             String secretKey = Encrypt.getReverseString(timeTemp + loginName);
             Buffer buffer = new Buffer();
             body.writeTo(buffer);
-            byte[] buff = new byte[(int) buffer.size()];
-            buffer.inputStream().read(buff);
-            String params = new String(buff, "UTF-8");
+            String params = buffer.readUtf8();
             /*待签名*/
             String signTemp = params + "&secretKey=" + secretKey;
             String md51 = Encrypt.md5(signTemp).toUpperCase();
@@ -108,10 +80,11 @@ public class AuthInterceptor implements Interceptor {
             bodyBuilder.add("timestamp", timeTemp);
             bodyBuilder.add("sign", sign);
             if (Logger.isDebug) {
+                Logger logger = Logger.getInstance();
                 logger.d("------------------------------------------------------");
                 logger.d("loginName:" + loginName);
                 logger.d("timeTemp:" + timeTemp);
-                logger.d("params:" + params);
+                logger.d("signTemp:" + signTemp);
                 logger.d("------------------------------------------------------");
             }
             builder.post(bodyBuilder.build());
@@ -121,7 +94,7 @@ public class AuthInterceptor implements Interceptor {
     }
 
     private String custom(User user) {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         buffer.append(user.getTelphone());
         buffer.append(":");
         buffer.append(user.getPassword());

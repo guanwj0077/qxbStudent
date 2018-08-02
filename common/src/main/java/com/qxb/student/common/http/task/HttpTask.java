@@ -1,15 +1,23 @@
 package com.qxb.student.common.http.task;
 
 import android.arch.lifecycle.MutableLiveData;
+import android.text.TextUtils;
 
 import com.qxb.student.common.Config;
+import com.qxb.student.common.http.HttpCache;
 import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.utils.ExecutorUtils;
+import com.qxb.student.common.utils.Logger;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
+import okio.Buffer;
 import retrofit2.Call;
+import retrofit2.Response;
+
+import static com.qxb.student.common.http.HttpCache.RECEIVED_MILLIS;
 
 /**
  * http任务
@@ -39,8 +47,6 @@ public class HttpTask<T> implements Runnable {
      * 数据处理，此步骤不包含netLiveData.postValue
      */
     private ApiModelHandle<T> apiModelHandle;
-
-    private boolean alreadyReq;
 
     public HttpTask<T> netLive(MutableLiveData<T> netLiveData) {
         this.netLiveData = netLiveData;
@@ -77,15 +83,14 @@ public class HttpTask<T> implements Runnable {
         ExecutorUtils.getInstance().remove(this);
     }
 
-    public boolean isAlreadyReq() {
-        return alreadyReq;
-    }
-
     @Override
     public final void run() {
-        //标记改任务已执行
-        alreadyReq = true;
         try {
+            //如果没有观察者监听数据，说明页面已经关闭则不需要请求
+            if (!netLiveData.hasObservers()) {
+                return;
+            }
+
             //如果数据有本地存储则先检查本地数据
             if (clientTask != null) {
                 T data = clientTask.reqInSQLite();
@@ -103,7 +108,8 @@ public class HttpTask<T> implements Runnable {
                 }
             }
             //执行网络请求
-            ApiModel<T> apiModel = call.execute().body();
+            Response<ApiModel<T>> response = call.execute();
+            ApiModel<T> apiModel = response.body();
             if ((apiModel != null ? apiModel.getCode() : 0) == Config.HTTP_SUCCESS) {
                 //如果页面需要apiModel
                 if (apiModelHandle != null) {
@@ -113,6 +119,30 @@ public class HttpTask<T> implements Runnable {
                     if (handle != null) {
                         handle.handle(apiModel.getData());
                     }
+                }
+                //如果是缓存数据则根据写入响应头的真实接收数据时间判断数据是否过期
+                String receivedTime = response.headers().get(RECEIVED_MILLIS);
+                if (!TextUtils.isEmpty(receivedTime)) {
+                    long time;
+                    try {
+                        time = Long.parseLong(receivedTime);
+                    } catch (Exception ex) {
+                        time = 0;
+                    }
+                    //检查缓存到期
+                    if (time == 0 || (apiModel.getCacheTime() + time) >= System.currentTimeMillis()) {
+                        HttpCache.getInstance().remove(call.request());
+                    }
+                }
+
+                if (Logger.isDebug) {
+                    Logger logger = Logger.getInstance();
+                    logger.d("HttpRequest:" + call.request().url().toString());
+                    Buffer buffer = new Buffer();
+                    Objects.requireNonNull(call.request().body()).writeTo(buffer);
+                    String params = buffer.readUtf8();
+                    logger.d("params:" + params);
+                    logger.d("HttpResponse:" + apiModel.toString());
                 }
             }
         } catch (IOException e) {

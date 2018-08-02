@@ -91,7 +91,7 @@ public class HttpConfigure {
                         .connectTimeout(30, TimeUnit.SECONDS)
                         .writeTimeout(30, TimeUnit.SECONDS)
                         .readTimeout(30, TimeUnit.SECONDS);
-                Internal.instance.setCache(builder, new HttpCache(context));
+                Internal.instance.setCache(builder, HttpCache.getInstance());
                 okHttpClient = builder.build();
             } catch (Exception e) {
                 e.printStackTrace();

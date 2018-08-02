@@ -35,6 +35,7 @@ public class JsonUtils {
      */
     public <T> T toBean(String json, Class<T> cls) {
         try {
+            System.out.println(json);
             return JSON.parseObject(json, cls);
         } catch (Exception e) {
             e.printStackTrace();

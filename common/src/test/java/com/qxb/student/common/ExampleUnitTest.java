@@ -2,7 +2,6 @@ package com.qxb.student.common;
 
 import com.qxb.student.common.http.AuthInterceptor;
 import com.qxb.student.common.http.JsonConverterFactory;
-import com.qxb.student.common.http.HttpCache;
 import com.qxb.student.common.module.TestApi;
 import com.qxb.student.common.module.bean.ApiModel;
 

@@ -10,7 +10,6 @@ import com.qxb.student.common.module.bean.RecomSchool;
 import com.qxb.student.common.module.bean.SchoolDetail;
 import com.qxb.student.common.module.bean.SysAd;
 import com.qxb.student.common.module.bean.User;
-import com.qxb.student.common.module.bean.tab.HttpCache;
 import com.qxb.student.common.utils.ContextUtils;
 import com.qxb.student.common.utils.Singleton;
 
@@ -23,7 +22,6 @@ import com.qxb.student.common.utils.Singleton;
         version = 1,
         exportSchema = false,
         entities = {
-                HttpCache.class,
                 User.class,
                 RecomSchool.class,
                 SchoolDetail.class,
@@ -44,11 +42,6 @@ public abstract class RoomUtils extends RoomDatabase {
     public static RoomUtils getInstance() {
         return SINGLETON.get();
     }
-
-    /**
-     * 请求缓存记录
-     */
-    public abstract HttpCacheDao httpCacheDao();
 
     /**
      * 推荐院校
