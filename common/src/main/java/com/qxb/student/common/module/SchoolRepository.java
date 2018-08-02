@@ -74,8 +74,7 @@ public class SchoolRepository extends BaseRepository {
                         return roomUtils.schoolDetailDao().querySchoolById(schoolId);
                     }
                 })
-                .call(httpUtils.create(SchoolApi.class)
-                        .getSchoolById(schoolId, UserCache.getInstance().getUserId()))
+                .call(httpUtils.create(SchoolApi.class).getSchoolById(schoolId, UserCache.getInstance().getUserId()))
                 .handle(new DataHandle<SchoolDetail>() {
                     @Override
                     public void handle(@NonNull SchoolDetail data) {

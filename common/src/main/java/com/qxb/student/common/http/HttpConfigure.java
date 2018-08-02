@@ -87,7 +87,6 @@ public class HttpConfigure {
                         //设置计算机验证
                         .hostnameVerifier(hostnameVerifier)
                         .addNetworkInterceptor(new AuthInterceptor())
-                        .addInterceptor(new CacheInterceptor())
                         //设置请求读写的超时时间
                         .connectTimeout(30, TimeUnit.SECONDS)
                         .writeTimeout(30, TimeUnit.SECONDS)

@@ -1,10 +1,8 @@
 package com.qxb.student.common.http;
 
 import com.qxb.student.common.Config;
-import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.User;
 import com.qxb.student.common.utils.Encrypt;
-import com.qxb.student.common.utils.JsonUtils;
 import com.qxb.student.common.utils.Logger;
 import com.qxb.student.common.utils.UserCache;
 
@@ -12,17 +10,14 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Objects;
 
-import okhttp3.Cache;
 import okhttp3.FormBody;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import okhttp3.internal.http.RealResponseBody;
 import okio.Buffer;
 import okio.BufferedSource;
-import okio.Okio;
 
 /**
  * http请求拦截器
@@ -71,22 +66,21 @@ public class AuthInterceptor implements Interceptor {
 
 
         ResponseBody responseBody = response.body();
-        long maxAge = 0;
-        if ((responseBody != null ? responseBody.contentLength() : 0) > 0) {
-            BufferedSource source = responseBody.source();
-            source.request(responseBody.contentLength());
-            Buffer buffer = source.buffer();
-            String responseBodyString = buffer.clone().readString(Charset.forName("UTF-8"));
-            if (Logger.isDebug) {
+        if (Logger.isDebug) {
+            if ((responseBody != null ? responseBody.contentLength() : 0) > 0) {
+                BufferedSource source = responseBody.source();
+                source.request(responseBody.contentLength());
+                Buffer buffer = source.buffer();
+                String responseBodyString = buffer.clone().readString(Charset.forName(Config.UTF_8));
                 logger.d("HttpResponse:" + responseBodyString);
             }
-            maxAge = JsonUtils.getInstance().toBean(responseBodyString, ApiModel.class).getCacheTime() / 1000;
         }
 
         return response.newBuilder()
                 .removeHeader("Pragma")
                 .removeHeader("Cache-Control")
-                .header("Cache-Control", "public, max-age=" + (maxAge > 600 ? maxAge : 600))
+                //指定缓存600秒，不作为最终参考，只为通过okhttp缓存验证
+                .header("Cache-Control", "public, max-age=600")
                 .build();
     }
 

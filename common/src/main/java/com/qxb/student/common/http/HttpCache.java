@@ -1,10 +1,12 @@
 package com.qxb.student.common.http;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import android.support.annotation.NonNull;
 
 import com.qxb.student.common.Config;
+import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.utils.Encrypt;
+import com.qxb.student.common.utils.JsonUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,14 +46,10 @@ import okio.Sink;
 import static java.net.HttpURLConnection.HTTP_OK;
 
 /**
- * DiskLruCache缓存数据实现
- *
  * @author winky
- * @date 2018/7/30
+ * @date 2018/8/1
  */
 public class HttpCache implements InternalCache {
-
-    private static final String CACHE_DIR = "httpCache";
 
     /**
      * Synthetic response header: the local time when the request was sent.
@@ -63,14 +61,19 @@ public class HttpCache implements InternalCache {
      */
     private static final String RECEIVED_MILLIS = Platform.get().getPrefix() + "-Received-Millis";
 
-    private static final int VERSION = 20180731;
+    private final int VERSION = 20180801;
     private static final int ENTRY_METADATA = 0;
+    private final DiskLruCache diskLruCache;
 
-    private final DiskLruCache cache;
+    private static final Object OBJECT = new Object();
 
-    public HttpCache(Context context) {
-        File file = new File(context.getExternalCacheDir(), CACHE_DIR);
-        this.cache = DiskLruCache.create(FileSystem.SYSTEM, file, VERSION, 2, 10 * 1024 * 1024);
+    HttpCache(Context context) {
+        File file = new File(context.getExternalCacheDir(), "httpCache");
+        this.diskLruCache = DiskLruCache.create(FileSystem.SYSTEM, file, VERSION, 1, 10 * 1024 * 1024);
+    }
+
+    public HttpCache(File file) {
+        this.diskLruCache = DiskLruCache.create(FileSystem.SYSTEM, file, VERSION, 1, 10 * 1024 * 1024);
     }
 
     @Override
@@ -79,19 +82,28 @@ public class HttpCache implements InternalCache {
         DiskLruCache.Snapshot snapshot = null;
         BufferedSource source = null;
         try {
-            snapshot = cache.get(key);
+            snapshot = diskLruCache.get(key);
             if (snapshot == null) {
                 return null;
             }
             source = Okio.buffer(snapshot.getSource(ENTRY_METADATA));
-            ResponseBody responseBody = ResponseBody.create(Config.MEDIA_TYPE, source.readUtf8LineStrict());
+            long expiryTime = readInt(source);
+            //如果缓存已经到期
+            if (expiryTime <= System.currentTimeMillis()) {
+                return null;
+            }
+            long contentLength = readInt(source);
+            Buffer buffer = new Buffer();
+            source.read(buffer, contentLength);
+//            String content = source.readString(contentLength, Charset.forName(Config.UTF_8));
+            source.readUtf8Line();
             Headers.Builder varyHeadersBuilder = new Headers.Builder();
-            int varyRequestHeaderLineCount = readInt(source);
+            int varyRequestHeaderLineCount = (int) readInt(source);
             for (int i = 0; i < varyRequestHeaderLineCount; i++) {
                 varyHeadersBuilder.add(source.readUtf8LineStrict());
             }
             Headers.Builder responseHeadersBuilder = new Headers.Builder();
-            int responseHeaderLineCount = readInt(source);
+            int responseHeaderLineCount = (int) readInt(source);
             for (int i = 0; i < responseHeaderLineCount; i++) {
                 responseHeadersBuilder.add(source.readUtf8LineStrict());
             }
@@ -120,7 +132,7 @@ public class HttpCache implements InternalCache {
                     .code(HTTP_OK)
                     .message("Unsatisfiable Request (only-if-cached)")
                     .headers(responseHeadersBuilder.build())
-                    .body(responseBody)
+                    .body(ResponseBody.create(Config.MEDIA_TYPE, contentLength, buffer))
                     .handshake(handshake)
                     .sentRequestAtMillis(sendRequestMillisString != null
                             ? Long.parseLong(sendRequestMillisString)
@@ -146,67 +158,16 @@ public class HttpCache implements InternalCache {
 
     @Override
     public CacheRequest put(Response response) {
-        String key = judgeUrl(response.request());
-        DiskLruCache.Editor editor = null;
         try {
-            editor = cache.edit(key);
-            if (editor == null) {
-                return null;
-            }
-            BufferedSink sink = Okio.buffer(editor.newSink(ENTRY_METADATA));
-            ResponseBody responseBody = response.body();
-            if (responseBody != null) {
-                //写返回json数据写入流
-                sink.write(responseBody.source(), responseBody.contentLength()).writeUtf8("\n");
-                //写响应头  仿Cache
-                Headers varyHeaders = HttpHeaders.varyHeaders(response);
-                sink.writeDecimalLong(varyHeaders.size()).writeByte('\n');
-                for (int i = 0, size = varyHeaders.size(); i < size; i++) {
-                    sink.writeUtf8(varyHeaders.name(i))
-                            .writeUtf8(": ")
-                            .writeUtf8(varyHeaders.value(i))
-                            .writeByte('\n');
-                }
-                Headers responseHeaders = response.headers();
-                sink.writeDecimalLong(responseHeaders.size() + 2).writeByte('\n');
-                for (int i = 0, size = responseHeaders.size(); i < size; i++) {
-                    sink.writeUtf8(responseHeaders.name(i))
-                            .writeUtf8(": ")
-                            .writeUtf8(responseHeaders.value(i))
-                            .writeByte('\n');
-                }
-                sink.writeUtf8(SENT_MILLIS)
-                        .writeUtf8(": ")
-                        .writeDecimalLong(response.sentRequestAtMillis())
-                        .writeByte('\n');
-                sink.writeUtf8(RECEIVED_MILLIS)
-                        .writeUtf8(": ")
-                        .writeDecimalLong(response.receivedResponseAtMillis());
-                //写handshake  仿Cache
-                if (isHttps(response.request())) {
-                    sink.writeByte('\n');
-                    sink.writeUtf8(response.handshake().cipherSuite().javaName())
-                            .writeByte('\n');
-                    writeCertList(sink, response.handshake().peerCertificates());
-                    writeCertList(sink, response.handshake().localCertificates());
-                    sink.writeUtf8(response.handshake().tlsVersion().javaName()).writeByte('\n');
-                }
-            }
-            sink.close();
-            return new CacheRequestImpl(editor);
+            return new CacheRequestImpl(diskLruCache, response);
         } catch (IOException e) {
-            abortQuietly(editor);
             return null;
         }
     }
 
-    private boolean isHttps(Request request) {
-        return request.url().toString().startsWith("https://");
-    }
-
     @Override
     public void remove(Request request) throws IOException {
-        cache.remove(judgeUrl(request));
+
     }
 
     @Override
@@ -224,13 +185,127 @@ public class HttpCache implements InternalCache {
 
     }
 
-    private void abortQuietly(@Nullable DiskLruCache.Editor editor) {
-        // Give up because the cache cannot be written.
-        try {
-            if (editor != null) {
-                editor.abort();
+    public class CacheRequestImpl implements CacheRequest {
+
+        private final DiskLruCache.Editor editor;
+        private final BufferedSink cacheOut;
+        private final ForwardingSink body;
+        private boolean done;
+        private final Response response;
+
+        CacheRequestImpl(@NonNull DiskLruCache diskLruCache, @NonNull Response netResponse) throws IOException {
+            this.response = netResponse;
+            String key = judgeUrl(response.request());
+            this.editor = diskLruCache.edit(key);
+            if (editor == null) {
+                throw new IllegalArgumentException();
             }
-        } catch (IOException ignored) {
+            this.cacheOut = Okio.buffer(editor.newSink(ENTRY_METADATA));
+            this.body = new ForwardingSink(cacheOut) {
+
+                @Override
+                public void write(@NonNull Buffer source, long byteCount) throws IOException {
+                    String bodyContent = source.clone().readUtf8();
+                    ApiModel apiModel = JsonUtils.getInstance().toBean(bodyContent, ApiModel.class);
+                    //如果返回数据不是标准apiModel则不缓存
+                    if (apiModel == null) {
+                        return;
+                    }
+                    //记录到期时间
+                    cacheOut.writeDecimalLong(System.currentTimeMillis() + apiModel.getCacheTime()).writeByte('\n');
+                    //记录数据长度
+                    cacheOut.writeDecimalLong(byteCount).writeByte('\n');
+                    //记录返回数据内容
+                    cacheOut.write(source, byteCount);
+                    cacheOut.writeByte('\n');
+                    Headers varyHeaders = HttpHeaders.varyHeaders(response);
+                    cacheOut.writeDecimalLong(varyHeaders.size()).writeByte('\n');
+                    for (int i = 0, size = varyHeaders.size(); i < size; i++) {
+                        cacheOut.writeUtf8(varyHeaders.name(i)).writeUtf8(": ").writeUtf8(varyHeaders.value(i)).writeByte('\n');
+                    }
+                    Headers responseHeaders = response.headers().newBuilder().build();
+                    cacheOut.writeDecimalLong(responseHeaders.size() + 2).writeByte('\n');
+                    for (int i = 0, size = responseHeaders.size(); i < size; i++) {
+                        cacheOut.writeUtf8(responseHeaders.name(i)).writeUtf8(": ")
+                                .writeUtf8(responseHeaders.value(i)).writeByte('\n');
+                    }
+                    cacheOut.writeUtf8(SENT_MILLIS).writeUtf8(": ")
+                            .writeDecimalLong(response.sentRequestAtMillis()).writeByte('\n');
+                    cacheOut.writeUtf8(RECEIVED_MILLIS).writeUtf8(": ")
+                            .writeDecimalLong(response.receivedResponseAtMillis());
+                    //写handshake  仿Cache 缓存验证
+                    if (isHttps(response.request())) {
+                        cacheOut.writeByte('\n');
+                        cacheOut.writeUtf8(response.handshake().cipherSuite().javaName()).writeByte('\n');
+                        writeCertList(cacheOut, response.handshake().peerCertificates());
+                        writeCertList(cacheOut, response.handshake().localCertificates());
+                        cacheOut.writeUtf8(response.handshake().tlsVersion().javaName()).writeByte('\n');
+                    }
+                    cacheOut.close();
+                }
+
+                @Override
+                public void close() throws IOException {
+                    synchronized (OBJECT) {
+                        if (done) {
+                            return;
+                        }
+                        done = true;
+                    }
+                    super.close();
+                    editor.commit();
+                }
+            };
+        }
+
+        @Override
+        public void abort() {
+            synchronized (OBJECT) {
+                if (done) {
+                    return;
+                }
+                done = true;
+            }
+            Util.closeQuietly(cacheOut);
+            try {
+                editor.abort();
+            } catch (IOException ignored) {
+            }
+        }
+
+        @Override
+        public Sink body() {
+            return body;
+        }
+    }
+
+    private boolean isHttps(Request request) {
+        return request.url().toString().startsWith("https://");
+    }
+
+    /**
+     * 缓存key
+     *
+     * @param request 请求
+     * @return key
+     */
+    private String judgeUrl(Request request) {
+        try {
+            Buffer buffer = new Buffer();
+            Objects.requireNonNull(request.body()).writeTo(buffer);
+            String[] strings = buffer.readUtf8().split("&");
+            StringBuilder builder = new StringBuilder();
+            for (String str : strings) {
+                //如果参数是  签名，时间戳，或key则剔除
+                if (str.contains("sign=") || str.contains("timestamp=") || str.contains("secretKey=")) {
+                    continue;
+                }
+                builder.append(str).append("&");
+            }
+            return Encrypt.md5(request.url().toString() + "?" + builder.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
         }
     }
 
@@ -248,7 +323,7 @@ public class HttpCache implements InternalCache {
     }
 
     private List<Certificate> readCertificateList(BufferedSource source) throws IOException {
-        int length = readInt(source);
+        int length = (int) readInt(source);
         if (length == -1) return Collections.emptyList(); // OkHttp v1.2 used -1 to indicate null.
         try {
             CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
@@ -272,91 +347,17 @@ public class HttpCache implements InternalCache {
      * @return
      * @throws IOException
      */
-    private int readInt(BufferedSource source) throws IOException {
+    private long readInt(BufferedSource source) throws IOException {
         try {
             long result = source.readDecimalLong();
             String line = source.readUtf8LineStrict();
-            if (result < 0 || result > Integer.MAX_VALUE || !line.isEmpty()) {
+            if (result < 0 || !line.isEmpty()) {
                 throw new IOException("expected an int but was \"" + result + line + "\"");
             }
-            return (int) result;
+            return result;
         } catch (NumberFormatException e) {
             throw new IOException(e.getMessage());
         }
     }
 
-    /**
-     * 缓存key
-     *
-     * @param request 请求
-     * @return key
-     */
-    private String judgeUrl(Request request) {
-        try {
-            Buffer buffer = new Buffer();
-            Objects.requireNonNull(request.body()).writeTo(buffer);
-            byte[] buff = new byte[(int) buffer.size()];
-            buffer.inputStream().read(buff);
-            String params = new String(buff, "UTF-8");
-            String[] strings = params.split("&");
-            StringBuilder builder = new StringBuilder();
-            for (String str : strings) {
-                //如果参数是  签名，时间戳，或key则剔除
-                if (str.contains("sign=") || str.contains("timestamp=") || str.contains("secretKey=")) {
-                    continue;
-                }
-                builder.append(str).append("&");
-            }
-            return Encrypt.md5(request.url().toString() + "?" + builder.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "";
-        }
-    }
-
-    private class CacheRequestImpl implements CacheRequest {
-        private final DiskLruCache.Editor editor;
-        private final Sink cacheOut;
-        private final ForwardingSink body;
-        boolean done;
-        private static final int ENTRY_BODY = 1;
-
-        CacheRequestImpl(final DiskLruCache.Editor editor) {
-            this.editor = editor;
-            this.cacheOut = editor.newSink(ENTRY_BODY);
-            this.body = new ForwardingSink(cacheOut) {
-                @Override
-                public void close() throws IOException {
-                    synchronized (HttpCache.this) {
-                        if (done) {
-                            return;
-                        }
-                        done = true;
-                    }
-                    super.close();
-                    editor.commit();
-                }
-            };
-        }
-
-        @Override
-        public void abort() {
-            synchronized (HttpCache.this) {
-                if (done) {
-                    return;
-                }
-                done = true;
-            }
-            Util.closeQuietly(cacheOut);
-            try {
-                editor.abort();
-            } catch (IOException ignored) {
-            }
-        }
-
-        @Override
-        public Sink body() {
-            return body;
-        }
-    }
 }

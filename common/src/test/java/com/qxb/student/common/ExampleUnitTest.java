@@ -1,9 +1,8 @@
 package com.qxb.student.common;
 
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.qxb.student.common.http.AuthInterceptor;
 import com.qxb.student.common.http.JsonConverterFactory;
-import com.qxb.student.common.http.MyCache;
+import com.qxb.student.common.http.HttpCache;
 import com.qxb.student.common.module.TestApi;
 import com.qxb.student.common.module.bean.ApiModel;
 
@@ -12,10 +11,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 
-import okhttp3.Call;
-import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.internal.Internal;
 import retrofit2.Retrofit;
 
@@ -30,12 +26,13 @@ public class ExampleUnitTest {
         try {
             OkHttpClient.Builder builder = new OkHttpClient.Builder()
                     .addInterceptor(new AuthInterceptor());
-//            Internal.instance.setCache(builder, new MyCache(new File("cache")));
+            File file = new File("cache");
+            Internal.instance.setCache(builder, new HttpCache(file));
             OkHttpClient okHttpClient = builder.build();
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("https://api.qiuxuebao.com/api/")
                     .callFactory(okHttpClient)
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(new JsonConverterFactory())
                     .build();
 
@@ -47,7 +44,9 @@ public class ExampleUnitTest {
 //                    .addHeader("Authorization", Config.AUTH_COMMON_SECRET)
 //                    .build();
 //            Call call = okHttpClient.newCall(request);
-            System.out.println(apiModel.toString());
+            if (apiModel != null) {
+                System.out.println(apiModel.toString());
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

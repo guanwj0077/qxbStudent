@@ -12,10 +12,22 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity(tableName = "RecomSchool")
 public class RecomSchool {
 
-    @PrimaryKey
+    /**
+     * 如果用后台返回的id作为主键，数据会自动排序
+     */
+    @PrimaryKey(autoGenerate = true)
+    private int key;
     private int id;
     private String logoRealPath;
     private String school_name;
+
+    public int getKey() {
+        return key;
+    }
+
+    public void setKey(int key) {
+        this.key = key;
+    }
 
     public int getId() {
         return id;

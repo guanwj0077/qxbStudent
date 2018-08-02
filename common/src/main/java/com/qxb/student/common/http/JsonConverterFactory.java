@@ -1,5 +1,6 @@
 package com.qxb.student.common.http;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.alibaba.fastjson.JSON;
@@ -12,6 +13,7 @@ import java.lang.reflect.Type;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import okio.Buffer;
 import okio.BufferedSource;
 import okio.Okio;
 import retrofit2.Converter;
@@ -53,11 +55,13 @@ public final class JsonConverterFactory extends Converter.Factory {
          * 转换方法
          */
         @Override
-        public T convert(ResponseBody value) throws IOException {
-            BufferedSource bufferedSource = Okio.buffer(value.source());
-            String tempStr = bufferedSource.readUtf8();
-            bufferedSource.close();
-            return JSON.parseObject(tempStr, type);
+        public T convert(@NonNull ResponseBody value) throws IOException {
+            if (value.contentLength() > 0) {
+                String tempStr = value.string();
+                return JSON.parseObject(tempStr, type);
+            } else {
+                return null;
+            }
         }
     }
 

@@ -2,6 +2,9 @@ package com.qxb.student.common.module;
 
 import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.ApiModel;
+import com.qxb.student.common.module.bean.SchoolVideo;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Headers;
@@ -21,4 +24,5 @@ public interface TestApi {
     @Headers(Config.AUTH_COMMON)
     @POST("chatRoom/liveHomeAd23")
     Call<ApiModel<String>> getLiveHomeAd();
+
 }

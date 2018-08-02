@@ -71,7 +71,11 @@ public final class Config {
     /**
      * http请求数据类型
      */
-    public static final MediaType MEDIA_TYPE = MediaType.parse("application/json; charset=UTF-8");
+    public static final MediaType MEDIA_TYPE = MediaType.parse("application/json; charset=UTF-8;1111");
+    /**
+     * 编码格式
+     */
+    public static final String UTF_8 = "UTF-8";
 
     /**
      * 根据id查询院校招生简章、资讯详情,返回网页
