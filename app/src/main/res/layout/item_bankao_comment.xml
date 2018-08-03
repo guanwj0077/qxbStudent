@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:paddingBottom="@dimen/px_20"
+    android:paddingEnd="@dimen/px_40"
+    android:paddingStart="@dimen/px_40"
+    android:paddingTop="@dimen/px_20">
+
+    <ImageView
+        android:id="@+id/image1"
+        android:layout_width="@dimen/px_140"
+        android:layout_height="@dimen/px_140"
+        android:layout_marginTop="@dimen/px_10"
+        android:contentDescription="@string/hint_not_describe" />
+
+
+    <LinearLayout
+        android:id="@+id/middle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/px_35"
+        android:layout_toEndOf="@id/image1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/px_45" />
+
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="@dimen/px_6"
+            android:textColor="@color/colorDesc"
+            android:textSize="@dimen/px_40" />
+
+        <TextView
+            android:id="@+id/text3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorDesc"
+            android:textSize="@dimen/px_40" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/text4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="@dimen/px_40"
+        android:layout_marginTop="@dimen/px_40"
+        android:text="0"
+        android:textColor="@color/colorDesc"
+        android:textSize="@dimen/px_40" />
+
+    <ImageView
+        android:id="@+id/image2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px_40"
+        android:layout_toStartOf="@id/text4"
+        android:clickable="true"
+        android:contentDescription="@string/hint_not_describe"
+        android:focusable="true" />
+
+    <TextView
+        android:id="@+id/zan_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dip"
+        android:text="+1"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/px_35"
+        android:visibility="gone" />
+
+</RelativeLayout>

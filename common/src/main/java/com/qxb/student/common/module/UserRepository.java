@@ -46,7 +46,7 @@ public class UserRepository extends BaseRepository {
                 .call(httpUtils.create(UserApi.class).thirdPartyLogin(type, open_id))
                 .apiModel(new ApiModelHandle<String>() {
                     @Override
-                    public void handle(@NonNull ApiModel<String> apiModel) {
+                    public void handle(@NonNull ApiModel<String> apiModel, int pageIndex) {
                         thirdLoginLiveData.postValue(apiModel);
                     }
                 }).start();
@@ -58,7 +58,7 @@ public class UserRepository extends BaseRepository {
                 .call(httpUtils.create(SmsApi.class).CreateCode(phone, type))
                 .apiModel(new ApiModelHandle<JSONObject>() {
                     @Override
-                    public void handle(@NonNull ApiModel<JSONObject> apiModel) {
+                    public void handle(@NonNull ApiModel<JSONObject> apiModel, int pageIndex) {
                         sendCodeLiveData.postValue(apiModel);
                     }
                 }).start();
@@ -70,7 +70,7 @@ public class UserRepository extends BaseRepository {
                 .call(httpUtils.create(SmsApi.class).vaildCode(phone, code))
                 .apiModel(new ApiModelHandle<JSONObject>() {
                     @Override
-                    public void handle(@NonNull ApiModel<JSONObject> apiModel) {
+                    public void handle(@NonNull ApiModel<JSONObject> apiModel, int pageIndex) {
                         checkCodeLiveData.postValue(apiModel);
                     }
                 }).start();

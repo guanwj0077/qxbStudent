@@ -5,7 +5,6 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
 import com.qxb.student.common.module.bean.Bankao;
-import com.qxb.student.common.module.bean.SysAd;
 
 import java.util.List;
 
@@ -27,6 +26,9 @@ public interface BankaoDao {
     @Query("SELECT * FROM Bankao WHERE type=:type")
     List<Bankao> getBankaoCache(String type);
 
+    @Query("SELECT * FROM Bankao WHERE type=:type limit :start,:end")
+    List<Bankao> getBankaoCache(String type, int start, int end);
+
     /**
      * 插入广告
      *
@@ -35,4 +37,6 @@ public interface BankaoDao {
     @Insert(onConflict = REPLACE)
     void insert(List<Bankao> list);
 
+    @Query("DELETE FROM Bankao")
+    void deleteAll();
 }

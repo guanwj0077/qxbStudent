@@ -41,7 +41,14 @@ public abstract class AbsNoTitleRefreshFragment<T> extends AbsExpandFragment imp
     public abstract void initContent(@Nullable Bundle savedInstanceState);
 
     @Override
-    public void refreshData(List<T> data, int count) {
+    public void refreshData(@NonNull List<T> data, int count) {
         delegate.refreshData(data, count);
     }
+
+    @Override
+    public void autoRefresh() {
+        delegate.autoRefresh();
+    }
+
+
 }

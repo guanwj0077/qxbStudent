@@ -2,20 +2,32 @@ package com.qxb.student.common.utils;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
+import android.net.LinkProperties;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
+import android.net.NetworkRequest;
+import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
+
+import java.util.Objects;
 
 /**
  * 获取系统相关
+ *
  * @author winky
  */
 public class SysUtils {
@@ -43,8 +55,63 @@ public class SysUtils {
      * 当前包信息
      */
     private PackageInfo packageInfo;
+    /**
+     * 是否链接网络
+     */
+    private static boolean isNetwork;
 
     private Context context = ContextUtils.getInstance().getContext();
+
+    public void recovery() {
+        displayMetrics = null;
+        packageInfo = null;
+        context.unregisterReceiver(broadcastReceiver);
+        broadcastReceiver = null;
+        context = null;
+    }
+
+    private SysUtils() {
+        //初始化网络监听
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (connectivityManager != null) {
+                connectivityManager.requestNetwork(new NetworkRequest.Builder().build(), new ConnectivityManager.NetworkCallback() {
+                    @Override
+                    public void onAvailable(Network network) {
+                        super.onAvailable(network);
+                        isNetwork = true;//网络可用
+                    }
+
+                    @Override
+                    public void onLost(Network network) {
+                        super.onLost(network);
+                        isNetwork = false;//网络不可用
+                    }
+                });
+            } else {
+                //注册广播接收
+                IntentFilter filter = new IntentFilter();
+                filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+                context.registerReceiver(broadcastReceiver, filter);
+            }
+
+        }
+    }
+
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (Objects.equals(intent.getAction(), ConnectivityManager.CONNECTIVITY_ACTION)) {
+                ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                if (null != connectivity) {
+                    NetworkInfo info = connectivity.getActiveNetworkInfo();
+                    if (null != info && info.isConnected()) {
+                        isNetwork = info.getState() == NetworkInfo.State.CONNECTED;
+                    }
+                }
+            }
+        }
+    };
 
     /**
      * 获得进程的名字
@@ -70,14 +137,7 @@ public class SysUtils {
      * @return
      */
     public boolean isConnected() {
-        ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (null != connectivity) {
-            NetworkInfo info = connectivity.getActiveNetworkInfo();
-            if (null != info && info.isConnected()) {
-                return info.getState() == NetworkInfo.State.CONNECTED;
-            }
-        }
-        return false;
+        return isNetwork;
     }
 
     /**

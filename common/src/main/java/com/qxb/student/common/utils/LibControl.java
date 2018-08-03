@@ -59,8 +59,9 @@ public class LibControl {
      * 释放三方库及辅助工具类
      */
     public void release() {
-        ContextUtils.getInstance().cleared();
         RoomUtils.getInstance().close();
+        SysUtils.getInstance().recovery();
+        ContextUtils.getInstance().cleared();
         context = null;
     }
 }

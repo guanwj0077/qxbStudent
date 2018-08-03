@@ -36,4 +36,9 @@ public abstract class AbsRefreshFragment<T> extends AbsToolbarFragment implement
     public void refreshData(List<T> data, int count) {
         delegate.refreshData(data, count);
     }
+
+    @Override
+    public void autoRefresh() {
+        delegate.autoRefresh();
+    }
 }
