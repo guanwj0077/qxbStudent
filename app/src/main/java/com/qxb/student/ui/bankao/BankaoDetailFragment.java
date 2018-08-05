@@ -4,15 +4,16 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.qxb.student.R;
 import com.qxb.student.common.Constant;
-import com.qxb.student.common.basics.AbsExpandFragment;
+import com.qxb.student.common.basics.AbsToolbarFragment;
 import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.BaseNews;
 import com.qxb.student.common.module.bean.BaseNewsComment;
@@ -31,7 +32,7 @@ import java.util.List;
  * @author winky
  * @date 2018/7/30
  */
-public class BankaoDetailFragment extends AbsExpandFragment {
+public class BankaoDetailFragment extends AbsToolbarFragment {
 
     private static final String ID = "_id";
 
@@ -48,13 +49,13 @@ public class BankaoDetailFragment extends AbsExpandFragment {
     private AbsAdapter<BaseNewsComment> adapter;
 
     @Override
-    public int bindLayout() {
+    public int bindContentView() {
         return R.layout.fragment_bankao_detail;
     }
 
     @Override
-    public void init(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.bind(view);
+    public void initContent(View contentView, @Nullable Bundle savedInstanceState) {
+        binding = DataBindingUtil.bind(contentView);
         banKaoControl = ViewModelProviders.of(this).get(BanKaoControl.class);
         bankaoId = getStringExtra(ID);
         adapter = new AbsAdapter<BaseNewsComment>(getContext(), R.layout.item_bankao_comment) {
@@ -68,7 +69,7 @@ public class BankaoDetailFragment extends AbsExpandFragment {
                 ((ImageView) view.findViewById(R.id.image2)).setImageResource(item.getIspraise() == 1 ? R.mipmap.zan1x : R.mipmap.zan2x);
             }
         };
-        ListView listView = view.findViewById(R.id.listView);
+        ListView listView = contentView.findViewById(R.id.listView);
         listView.setAdapter(adapter);
         banKaoControl.getBankaoDetail(bankaoId).observe(this, new Observer<BaseNews>() {
             @Override
@@ -92,14 +93,34 @@ public class BankaoDetailFragment extends AbsExpandFragment {
         binding.webView.setWebClientListener(new WebView.OnWebClientListener() {
             @Override
             public void onPageFinished(android.webkit.WebView view, String url) {
-                
+                ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+                layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                view.setLayoutParams(layoutParams);
             }
         });
+        binding.edit1.setOnClickListener(clickListener);
+    }
+
+    private View.OnClickListener clickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.edit1:
+                    binding.edit1.requestFocus();
+                    break;
+            }
+        }
+    };
+
+    public void onClick(View view) {
+
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
+        if (binding != null) {
+            binding.unbind();
+        }
     }
 }

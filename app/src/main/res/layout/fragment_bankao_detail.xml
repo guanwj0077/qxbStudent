@@ -9,26 +9,31 @@
             type="com.qxb.student.common.module.bean.BaseNews" />
     </data>
 
-    <android.support.design.widget.CoordinatorLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorDivider"
+        android:orientation="vertical">
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:fillViewport="true"
+            android:layout_weight="1"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:scrollbars="none">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorDivider"
                 android:orientation="vertical">
 
                 <com.qxb.student.common.view.web.WebView
                     android:id="@+id/webView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="match_parent" />
 
                 <TextView
                     android:id="@+id/commentCount"
@@ -41,63 +46,61 @@
                     android:text="@string/bankao_comment_count" />
 
                 <include layout="@layout/view_list" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/px_100"
-                    android:padding="@dimen/px_20">
-
-                    <TextView
-                        android:id="@+id/send"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:background="@drawable/shape_darker_gray_10"
-                        android:gravity="center"
-                        android:paddingBottom="@dimen/px_20"
-                        android:paddingEnd="@dimen/px_30"
-                        android:paddingStart="@dimen/px_30"
-                        android:paddingTop="@dimen/px_20"
-                        android:text="@string/hint_send"
-                        android:textColor="@android:color/white"
-                        android:textSize="@dimen/px_35" />
-
-                    <ImageView
-                        android:id="@+id/collect"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="@dimen/px_20"
-                        android:layout_toStartOf="@id/send"
-                        android:contentDescription="@string/hint_not_describe" />
-
-                    <EditText
-                        android:id="@+id/edit1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="@dimen/px_10"
-                        android:layout_toStartOf="@id/collect"
-                        android:background="@drawable/stroke_gray_20"
-                        android:gravity="start|top"
-                        android:hint="@string/hint_bankao_edit"
-                        android:inputType="textMultiLine"
-                        android:focusable="false"
-                        android:maxLength="200"
-                        android:paddingBottom="@dimen/px_20"
-                        android:paddingEnd="@dimen/px_20"
-                        android:paddingStart="@dimen/px_20"
-                        android:paddingTop="@dimen/px_20"
-                        android:scrollHorizontally="false"
-                        android:textColor="@android:color/black"
-                        android:textColorHint="@android:color/darker_gray"
-                        android:textSize="@dimen/px_40" />
-
-                </RelativeLayout>
-
             </LinearLayout>
+
         </android.support.v4.widget.NestedScrollView>
 
-    </android.support.design.widget.CoordinatorLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/px_20">
+
+            <TextView
+                android:id="@+id/send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/shape_darker_gray_10"
+                android:gravity="center"
+                android:paddingBottom="@dimen/px_20"
+                android:paddingEnd="@dimen/px_30"
+                android:paddingStart="@dimen/px_30"
+                android:paddingTop="@dimen/px_20"
+                android:text="@string/hint_send"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/px_35" />
+
+            <ImageView
+                android:id="@+id/collect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/px_20"
+                android:layout_toStartOf="@id/send"
+                android:contentDescription="@string/hint_not_describe"
+                app:srcCompat="@drawable/collect" />
+
+            <EditText
+                android:id="@+id/edit1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/px_10"
+                android:layout_toStartOf="@id/collect"
+                android:background="@drawable/stroke_gray_20"
+                android:gravity="start|top"
+                android:hint="@string/hint_bankao_edit"
+                android:inputType="textMultiLine"
+                android:maxLength="200"
+                android:paddingBottom="@dimen/px_20"
+                android:paddingEnd="@dimen/px_20"
+                android:paddingStart="@dimen/px_20"
+                android:paddingTop="@dimen/px_20"
+                android:scrollHorizontally="false"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/darker_gray"
+                android:textSize="@dimen/px_40" />
+
+        </RelativeLayout>
+    </LinearLayout>
 </layout>
