@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".basics.VideoPlayActivity">
+    tools:context=".basics.VideoPlayActivity"
+
+    android:background="@android:color/transparent">
     <com.qxb.student.common.view.LandLayoutVideo
         android:id="@+id/video_play"
         android:layout_width="match_parent"

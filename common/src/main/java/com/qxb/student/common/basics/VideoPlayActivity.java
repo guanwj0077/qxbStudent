@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.qxb.student.common.Constant;
@@ -34,9 +36,11 @@ public class VideoPlayActivity extends BaseAppActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View view = inflater.inflate(R.layout.activity_video_play, null, true);
-        setContentView(view);
+        //去除title
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //去掉Activity上面的状态栏
+        getWindow().setFlags(WindowManager.LayoutParams. FLAG_FULLSCREEN , WindowManager.LayoutParams. FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_video_play);
         VoideAttr mVoideAttr=getIntent().getParcelableExtra(Constant.PURPOSE);
         video_play = findViewById(R.id.video_play);
         iv_share = findViewById(R.id.iv_share);

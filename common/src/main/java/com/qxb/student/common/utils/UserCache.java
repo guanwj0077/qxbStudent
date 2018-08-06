@@ -79,7 +79,10 @@ public class UserCache {
     }
 
     public String getAccountId() {
-        return String.valueOf(getUser().getAccount_id());
+        if (getUser() != null) {
+            return String.valueOf(getUser().getAccount_id());
+        }
+        return "";
     }
 
     public String getProvince() {

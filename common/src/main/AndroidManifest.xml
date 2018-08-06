@@ -9,7 +9,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".basics.NavHostActivity"
-            android:label=""/>
+            android:label=""
+           />
         <activity
             android:name=".basics.WebActivity"
             android:hardwareAccelerated="true"
@@ -19,7 +20,8 @@
             android:label=""/>
         <activity android:name=".basics.VideoPlayActivity"
                   android:configChanges="orientation|keyboardHidden|screenSize"
-                  android:screenOrientation="landscape">
+                  android:screenOrientation="landscape"
+            >
         </activity>
     </application>
 
