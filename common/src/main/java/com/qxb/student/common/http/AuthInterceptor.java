@@ -60,8 +60,7 @@ public class AuthInterceptor implements Interceptor {
 
     private void handle(Request.Builder builder, RequestBody body, User user) {
         try {
-            //user.getTelphone();
-            String loginName = "13343426551";
+            String loginName = user.getTelphone();
             String timeTemp = String.valueOf(System.currentTimeMillis());
             /*密钥*/
             String secretKey = Encrypt.getReverseString(timeTemp + loginName);
@@ -93,18 +92,18 @@ public class AuthInterceptor implements Interceptor {
         }
     }
 
-    private String custom(User user) {
+    private String custom(@NonNull  User user) {
         StringBuilder buffer = new StringBuilder();
         buffer.append(user.getTelphone());
         buffer.append(":");
-        buffer.append(user.getPassword());
+        buffer.append("123456");
         buffer.append(":student");
-        return Encrypt.base64("13343426551:123456:student");
-//        return Encrypt.base64(buffer.toString());
+        return Encrypt.base64("18908683128:123456:student");
+      //  return Encrypt.base64(buffer.toString());
     }
 
     private String getAppSrc() {
 //        PackageInfo packageInfo = SysUtils.getInstance().getPackageInfo();
-        return "{\"os_type\":1,\"app_type\":1,\"ver_v\":\"76\",\"ver_s\":\"5.0\",\"chan\":\"3\"}";
+        return "{\"os_type\":1,\"app_type\":1,\"ver_v\":\"77\",\"ver_s\":\"5.1\",\"chan\":\"3\"}";
     }
 }

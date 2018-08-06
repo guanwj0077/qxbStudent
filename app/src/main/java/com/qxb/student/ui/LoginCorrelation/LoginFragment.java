@@ -167,7 +167,7 @@ public class LoginFragment extends AbsExpandFragment implements Handler.Callback
                 dissWaitingDialog();
                 SharedUtils.get().put(Constant.SHARE_FILE_CURRENCY,phone);
                 getActivity().finish();
-                //NavigationUtils.getInstance().goBack(getFragment());
+
             }
         });
     }

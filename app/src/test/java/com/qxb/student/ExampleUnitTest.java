@@ -11,6 +11,6 @@ public class ExampleUnitTest {
 
     @Test
     public void test() {
-
+            System.out.println("1   11");
     }
 }

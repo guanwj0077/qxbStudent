@@ -30,7 +30,7 @@
     <string name="hint_look_more">查看更多</string>
     <string name="com_add">添加</string>
     <string name="hint_exit">再返回一次退出程序</string>
-
+    <string name="failed_to_init_chat">初始化聊天失败</string>
     <string name="hint_login_phone">请输入手机号码</string>
     <string name="hint_login_pwd">请输入密码</string>
     <string name="hint_login_verify">请输入验证码</string>
@@ -134,4 +134,8 @@
 
     <string name="bankao_comment_count">最新评论(共%1$d条评论)</string>
     <string name="combine_plan">%1$d年招生计划%2$s人</string>
+    <string name="zhuajiajntzy">专家教你填志愿</string>
+    <string name="counsel_me">咨询我</string>
+    <string name="lecture_num_summary">共%1$s课 | %2$s次播放</string>
+    <string name="specialist_summary">专家介绍</string>
 </resources>

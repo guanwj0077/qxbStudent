@@ -55,7 +55,7 @@
                 android:layout_marginLeft="@dimen/px_40"
                 android:layout_marginRight="@dimen/px_50"
                 android:background="@null"
-                android:text="13343426551"
+                android:text="18908683128"
                 android:hint="@string/hint_login_phone"
                 android:inputType="phone"
                 android:maxLength="13"

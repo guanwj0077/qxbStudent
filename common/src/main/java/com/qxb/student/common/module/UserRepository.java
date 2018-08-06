@@ -27,13 +27,14 @@ public class UserRepository extends BaseRepository {
     private MutableLiveData<ApiModel<JSONObject>> sendCodeLiveData = new MutableLiveData<>();
     private MutableLiveData<ApiModel<JSONObject>> checkCodeLiveData = new MutableLiveData<>();
 
-    public LiveData<User> login(String account, String password) {
+    public LiveData<User> login(final String account, String password) {
         new HttpTask<User>()
                 .netLive(userMutableLiveData)
                 .call(httpUtils.create(UserApi.class).login(account, password))
                 .handle(new DataHandle<User>() {
                     @Override
                     public void handle(@NonNull User data) {
+                        data.setTelphone(account);
                         roomUtils.userDao().insert(data);
                         UserCache.getInstance().update(data);
                     }

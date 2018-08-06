@@ -133,4 +133,14 @@
     <string name="hint_send">发送</string>
 
     <string name="combine_plan">%1$d年招生计划%2$s人</string>
+
+    <string name="ninshi">您是？</string>
+    <string name="next_cn">下一步</string>
+    <string name="yyzhanghaoqdl"><Data><![CDATA[<font color="#3a3f39"><b>已有账号请</b></font><font color="#00bd9f"><b>登录</b></font>]]></Data></string>
+    <string name="black">返回</string>
+    <string name="fsyzm">发送验证码</string>
+    <string name="qqrmm">请确认密码</string>
+    <string name="zxgkbkzjsp">在线观看报考专家视频讲座</string>
+    <string name="open_the_service">开通服务</string>
+    <string name="attending_a_lecture">听讲座</string>
 </resources>

@@ -32,7 +32,7 @@ public class UserCache {
     private final Object OBJECT = new Object();
 
     public void update(User user) {
-        userLiveData.setValue(user);
+        userLiveData.postValue(user);
     }
 
     public LiveData<User> getUserLiveData() {
@@ -79,7 +79,10 @@ public class UserCache {
     }
 
     public String getAccountId() {
-        return String.valueOf(getUser().getAccount_id());
+        if (getUser() != null) {
+            return String.valueOf(getUser().getAccount_id());
+        }
+        return "";
     }
 
     public String getProvince() {

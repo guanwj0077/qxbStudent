@@ -3,9 +3,7 @@ package com.qxb.student.ui.LoginCorrelation;
 
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -15,9 +13,7 @@ import android.text.Editable;
 import android.text.Html;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -35,8 +31,8 @@ import com.qxb.student.common.utils.CommonUtils;
 import com.qxb.student.common.utils.NavigationUtils;
 import com.qxb.student.common.utils.SharedUtils;
 import com.qxb.student.common.utils.dialog.ToastUtils;
-import com.qxb.student.common.view.Toolbar;
 import com.qxb.student.control.ResetPasswordControl;
+
 
 /**
  * A simple {@link Fragment} subclass.

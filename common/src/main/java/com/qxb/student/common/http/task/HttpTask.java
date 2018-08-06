@@ -142,16 +142,15 @@ public class HttpTask<T> implements Runnable {
                         HttpCache.getInstance().remove(call.request());
                     }
                 }
-
-                if (Logger.isDebug) {
-                    Logger logger = Logger.getInstance();
-                    logger.d("HttpRequest:" + call.request().url().toString());
-                    Buffer buffer = new Buffer();
-                    Objects.requireNonNull(call.request().body()).writeTo(buffer);
-                    String params = buffer.readUtf8();
-                    logger.d("params:" + params);
-                    logger.d("HttpResponse:" + apiModel.toString());
-                }
+            }
+            if (Logger.isDebug) {
+                Logger logger = Logger.getInstance();
+                logger.d("HttpRequest:" + call.request().url().toString());
+                Buffer buffer = new Buffer();
+                Objects.requireNonNull(call.request().body()).writeTo(buffer);
+                String params = buffer.readUtf8();
+                logger.d("params:" + params);
+                logger.d("HttpResponse:" + apiModel.toString());
             }
         } catch (IOException e) {
             e.printStackTrace();
