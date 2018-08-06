@@ -49,7 +49,7 @@ public class SchoolRepository extends BaseRepository {
                 .netLive(schoolListLiveData)
                 .localLive(new ClientTask<List<RecomSchool>>() {
                     @Override
-                    public List<RecomSchool> reqInSQLite() {
+                    public List<RecomSchool> reqInSQLite(int pageIndex) {
                         return roomUtils.schoolDao().getRecommendedColleges();
                     }
                 })
@@ -70,7 +70,7 @@ public class SchoolRepository extends BaseRepository {
                 .netLive(schoolLiveData)
                 .localLive(new ClientTask<SchoolDetail>() {
                     @Override
-                    public SchoolDetail reqInSQLite() {
+                    public SchoolDetail reqInSQLite(int pageIndex) {
                         return roomUtils.schoolDetailDao().querySchoolById(schoolId);
                     }
                 })

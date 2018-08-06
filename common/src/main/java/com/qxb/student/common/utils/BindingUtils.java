@@ -8,8 +8,6 @@ import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.qxb.student.common.R;
-
 /**
  * Databinding框架绑定事件
  *
@@ -37,7 +35,12 @@ public class BindingUtils {
         GlideUtils.getInstance().LoadContextRoundBitmap(imageView.getContext(), imageUrl, imageView, radius);
     }
 
-    public static void setTextDrawable(@NonNull TextView textView, int resId) {
+    @BindingAdapter({"commentTime"})
+    public static void commentTime(TextView textView, long time) {
+        textView.setText(TimeUtils.intervalStr(time));
+    }
+
+    public static void setTextDrawable(@NonNull TextView textView, @DrawableRes int resId) {
         Drawable drawable = ContextCompat.getDrawable(textView.getContext(), resId);
         if (drawable != null) {
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());

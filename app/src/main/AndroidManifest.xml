@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="com.qxb.student">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.qxb.student">
 
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <!-- <uses-permission -->
-    <!-- android:name="android.permission.WRITE_SETTINGS" -->
-    <!-- tools:ignore="ProtectedPermissions"/> -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!--<uses-permission-->
+    <!--android:name="android.permission.WRITE_SETTINGS"-->
+    <!--tools:ignore="ProtectedPermissions"/>-->
     <!-- 获取机型信息权限 -->
     <!-- <uses-permission android:name="android.permission.READ_PHONE_STATE"/> -->
     <!-- 查看 Wi-Fi 状态 -->
@@ -30,6 +30,13 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:name=".Application"
@@ -41,18 +48,17 @@
         tools:replace="android:name">
         <meta-data
             android:name="design_width"
-            android:value="1080"/>
+            android:value="1080" />
         <meta-data
             android:name="design_height"
-            android:value="1920"/>
+            android:value="1920" />
 
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
@@ -60,12 +66,12 @@
             android:launchMode="singleTask"
             android:noHistory="true">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="tencent1105228887"/>
+                <data android:scheme="tencent1105228887" />
             </intent-filter>
         </activity>
         <activity android:name=".ui.home.toLecture.ListenToLectureActivity"

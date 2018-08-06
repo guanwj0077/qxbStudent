@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.qxb.student.R;
 import com.qxb.student.common.Config;
+import com.qxb.student.common.Constant;
 import com.qxb.student.common.basics.AbsExpandFragment;
 import com.qxb.student.common.module.bean.SchoolNews;
 import com.qxb.student.common.module.bean.attr.WebAttr;
@@ -98,7 +99,7 @@ public class SchoolConductFragment extends AbsExpandFragment {
             public void onItemClick(RecyclerView parent, View view, int position) {
                 WebAttr webAttr = new WebAttr.Builder()
                         .title(getString(R.string.school_conduct))
-                        .url(Config.SCHOOL_NEW_DETAIL + adapter.getItem(position).getId())
+                        .url(Constant.SCHOOL_NEW_DETAIL + adapter.getItem(position).getId())
                         .auth(Config.AUTH_COMMON_SECRET)
                         .build();
                 NavigationUtils.getInstance().toWeb(Objects.requireNonNull(getContext()), webAttr);

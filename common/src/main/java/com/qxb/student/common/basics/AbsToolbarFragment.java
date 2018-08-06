@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.qxb.student.common.R;
-import com.qxb.student.common.utils.SysUtils;
 
 /**
  * 包含toolbar的fragment
@@ -36,9 +35,10 @@ public abstract class AbsToolbarFragment extends AbsExpandFragment {
     /**
      * 初始化
      *
+     * @param contentView
      * @param savedInstanceState bundle
      */
-    public abstract void initContent(@Nullable Bundle savedInstanceState);
+    public abstract void initContent(View contentView, @Nullable Bundle savedInstanceState);
 
     @Override
     public void init(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -46,8 +46,9 @@ public abstract class AbsToolbarFragment extends AbsExpandFragment {
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.arrow_left_black);
         frameLayout = view.findViewById(R.id.fl_content);
-        frameLayout.addView(View.inflate(getContext(), bindContentView(), null));
-        initContent(savedInstanceState);
+        View contentView = View.inflate(getContext(), bindContentView(), null);
+        frameLayout.addView(contentView);
+        initContent(contentView, savedInstanceState);
     }
 
     /**

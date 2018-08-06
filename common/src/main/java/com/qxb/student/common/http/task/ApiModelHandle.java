@@ -10,5 +10,5 @@ import com.qxb.student.common.module.bean.ApiModel;
  */
 public interface ApiModelHandle<T> {
 
-    void handle(@NonNull ApiModel<T> apiModel);
+    void handle(@NonNull ApiModel<T> apiModel, int pageIndex);
 }

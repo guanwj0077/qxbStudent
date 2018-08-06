@@ -51,4 +51,17 @@ public class Constant {
      */
     public static final String NAV_SCHOOL_ID = "nav_school_id";
     public static final String NAV_SCHOOL_BAT = "nav_school_bat";
+
+
+
+    /**
+     * 根据id查询院校招生简章、资讯详情,返回网页
+     */
+    public static final String SCHOOL_NEW_DETAIL = Config.SERVER_URL + "view/school/news/detail?id=";
+
+    /**
+     * 伴考详情
+     * https://www.qiuxuebao.com/web//b_news/detail?id=
+     */
+    public static final String BANKAO_NEW_DETAIL = Config.SERVER_HOST + "web//b_news/detail?id=";
 }

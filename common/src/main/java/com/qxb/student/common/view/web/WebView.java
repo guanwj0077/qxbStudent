@@ -9,7 +9,6 @@ import android.net.http.SslError;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -41,6 +40,7 @@ public class WebView extends android.webkit.WebView {
     private View view;
     private FrameLayout frameLayout;
     private WebChromeClient.CustomViewCallback viewCallback;
+    private OnWebClientListener listener;
 
     public WebView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -78,14 +78,26 @@ public class WebView extends android.webkit.WebView {
         super.onScrollChanged(l, t, oldl, oldt);
     }
 
+    public void setWebClientListener(OnWebClientListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnWebClientListener {
+        void onPageFinished(android.webkit.WebView view, String url);
+    }
+
     private WebViewClient webViewClient = new WebViewClient() {
 
         private boolean toWebUrl(android.webkit.WebView webView, @NonNull Uri uri) {
             String url = uri.toString();
-            if (external || !url.startsWith("http") || !url.startsWith("https")) {
+            if (external) {
                 try {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                    activity.startActivity(intent);
+                    if (url.startsWith("http") || url.startsWith("https")) {
+                        webView.loadUrl(uri.toString());
+                    } else {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        activity.startActivity(intent);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -122,6 +134,9 @@ public class WebView extends android.webkit.WebView {
         @Override
         public void onPageFinished(android.webkit.WebView view, String url) {
             super.onPageFinished(view, url);
+            if (listener != null) {
+                listener.onPageFinished(view, url);
+            }
             //当页面加载完成，修改图片点击事件
             view.loadUrl("javascript:(function(){" +
                     "var objs = document.getElementById(\"content\").getElementsByTagName(\"img\");" +
@@ -241,7 +256,7 @@ public class WebView extends android.webkit.WebView {
     class JavaScriptInterface {
         private ArrayList<String> imgList = null;
 
-        public JavaScriptInterface() {
+        JavaScriptInterface() {
             imgList = new ArrayList<>();
         }
 

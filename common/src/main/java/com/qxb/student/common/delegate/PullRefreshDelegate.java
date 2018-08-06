@@ -1,10 +1,13 @@
 package com.qxb.student.common.delegate;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewStub;
 
+import com.qxb.student.common.Config;
 import com.qxb.student.common.R;
+import com.qxb.student.common.utils.SysUtils;
 import com.qxb.student.common.view.recycler.adapter.QuickAdapter;
 import com.qxb.student.common.view.recycler.decoration.SimpleDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -34,18 +37,19 @@ public class PullRefreshDelegate<T> {
 
     private IPullRefresh<T> pullRefresh;
 
-    public PullRefreshDelegate(IPullRefresh pullRefresh) {
+    public PullRefreshDelegate(@NonNull IPullRefresh<T> pullRefresh) {
         this.pullRefresh = pullRefresh;
     }
 
-    public void init(SmartRefreshLayout refreshLayout, RecyclerView recyclerView) {
+    public void init(final SmartRefreshLayout refreshLayout, RecyclerView recyclerView) {
         this.refreshLayout = refreshLayout;
         this.recyclerView = recyclerView;
         this.recyclerView.setAdapter(this.adapter = pullRefresh.initAdapter());
         this.recyclerView.addItemDecoration(new SimpleDecoration(recyclerView.getContext(), R.drawable.list_divider_1));
         this.refreshLayout.setDisableContentWhenLoading(false);
+        this.refreshLayout.setEnableLoadMoreWhenContentNotFull(false);
+        this.refreshLayout.setEnableScrollContentWhenLoaded(false);
         this.refreshLayout.setEnableOverScrollDrag(true);
-        this.refreshLayout.setEnableFooterFollowWhenLoadFinished(false);
         this.refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
@@ -55,11 +59,19 @@ public class PullRefreshDelegate<T> {
         });
         this.refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
-            public void onLoadMore(RefreshLayout refreshlayout) {
-                pageIndex++;
-                pullRefresh.reqData(pageIndex);
+            public void onLoadMore(@NonNull RefreshLayout refreshlayout) {
+                if (SysUtils.getInstance().isConnected()) {
+                    pageIndex++;
+                    pullRefresh.reqData(pageIndex);
+                } else {
+                    refreshlayout.finishLoadMore(1000, false, false);
+                }
             }
         });
+    }
+
+    public void autoRefresh() {
+        refreshLayout.autoRefresh();
     }
 
     public void setViewStub(ViewStub viewStub) {
@@ -77,11 +89,20 @@ public class PullRefreshDelegate<T> {
         if (data != null) {
             adapter.addAll(data);
         }
-        if (adapter.getItemCount() >= count) {
-            refreshLayout.finishLoadMoreWithNoMoreData();
+        //是否有网
+        if (SysUtils.getInstance().isConnected()) {
+            //注意是缓存数据则count为0  保证所有缓存数据都
+            if (adapter.getItemCount() >= count && count > 0) {
+                refreshLayout.finishLoadMoreWithNoMoreData();
+            } else {
+                refreshLayout.finishLoadMore();
+            }
         } else {
-            refreshLayout.finishLoadMore();
+            if (data == null || data.size() < Config.PAGE_SIZE) {
+                refreshLayout.finishLoadMore(false);
+            }
         }
+
         /*如果没有数据则展示空白视图*/
         if (adapter.getItemCount() == 0) {
             if (viewStub != null) {

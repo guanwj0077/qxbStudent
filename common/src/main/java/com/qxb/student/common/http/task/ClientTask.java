@@ -6,5 +6,5 @@ package com.qxb.student.common.http.task;
  */
 public interface ClientTask<T> {
 
-    T reqInSQLite();
+    T reqInSQLite(int pageIndex);
 }

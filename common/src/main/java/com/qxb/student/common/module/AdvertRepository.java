@@ -42,7 +42,7 @@ public class AdvertRepository extends BaseRepository {
                 .netLive(bannerLiveData)
                 .localLive(new ClientTask<List<SysAd>>() {
                     @Override
-                    public List<SysAd> reqInSQLite() {
+                    public List<SysAd> reqInSQLite(int pageIndex) {
                         return roomUtils.sysAdDao().getAdByType("home_ad");
                     }
                 })
@@ -61,7 +61,7 @@ public class AdvertRepository extends BaseRepository {
                 .netLive(bannerLiveData)
                 .localLive(new ClientTask<List<SysAd>>() {
                     @Override
-                    public List<SysAd> reqInSQLite() {
+                    public List<SysAd> reqInSQLite(int pageIndex) {
                         return roomUtils.sysAdDao().getAdByType(type);
                     }
                 })
@@ -87,7 +87,7 @@ public class AdvertRepository extends BaseRepository {
                 .netLive(functionLiveData)
                 .localLive(new ClientTask<List<FunctionItem>>() {
                     @Override
-                    public List<FunctionItem> reqInSQLite() {
+                    public List<FunctionItem> reqInSQLite(int pageIndex) {
                         return roomUtils.functionItemDao().getIndexFunctions();
                     }
                 })

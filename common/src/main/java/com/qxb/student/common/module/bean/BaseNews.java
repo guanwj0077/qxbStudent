@@ -3,7 +3,7 @@ package com.qxb.student.common.module.bean;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity(tableName = "tb_base_news")
+@Entity(tableName = "BaseNews")
 public class BaseNews{
 	/** id */
 	@PrimaryKey

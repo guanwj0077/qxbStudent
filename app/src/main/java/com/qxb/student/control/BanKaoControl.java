@@ -6,8 +6,10 @@ import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
 import com.qxb.student.common.module.NewsRepository;
+import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.Bankao;
 import com.qxb.student.common.module.bean.BaseNews;
+import com.qxb.student.common.module.bean.BaseNewsComment;
 
 import java.util.List;
 
@@ -31,15 +33,19 @@ public class BanKaoControl extends AndroidViewModel {
         super.onCleared();
     }
 
-    public LiveData<List<Bankao>> getBankaoListByType(String channel, String page) {
+    public LiveData<ApiModel<List<Bankao>>> getBankaoListByType(String channel, int page) {
         return newsRepository.getBankaoList("", channel, page);
     }
 
-    public LiveData<List<Bankao>> getBankaoListByKeyWord(String keyWord, String page) {
+    public LiveData<ApiModel<List<Bankao>>> getBankaoListByKeyWord(String keyWord, int page) {
         return newsRepository.getBankaoList(keyWord, "", page);
     }
 
     public LiveData<BaseNews> getBankaoDetail(String bankaoId) {
         return newsRepository.getBankaoDetail(bankaoId);
+    }
+
+    public LiveData<ApiModel<List<BaseNewsComment>>> getBaseNewsCommentList(String id) {
+        return newsRepository.getBaseNewsCommentList(id, 1, "10");
     }
 }

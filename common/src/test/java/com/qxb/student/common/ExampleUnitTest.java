@@ -1,6 +1,7 @@
 package com.qxb.student.common;
 
 import com.qxb.student.common.http.AuthInterceptor;
+import com.qxb.student.common.http.HttpCache;
 import com.qxb.student.common.http.JsonConverterFactory;
 import com.qxb.student.common.module.TestApi;
 import com.qxb.student.common.module.bean.ApiModel;
@@ -25,8 +26,6 @@ public class ExampleUnitTest {
         try {
             OkHttpClient.Builder builder = new OkHttpClient.Builder()
                     .addInterceptor(new AuthInterceptor());
-            File file = new File("cache");
-            Internal.instance.setCache(builder, new HttpCache(file));
             OkHttpClient okHttpClient = builder.build();
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("https://api.qiuxuebao.com/api/")

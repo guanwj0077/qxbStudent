@@ -1,8 +1,6 @@
 package com.qxb.student.common.module.bean;
 
 
-import java.util.Date;
-
 /**
  * 伴考评论实体
  *
@@ -15,7 +13,7 @@ public class BaseNewsComment {
     private int base_news_id;
     private int praise;
     private int status;
-    private Date create_time;
+    private long create_time;
     private String content;
 
     private String stu_name;
@@ -90,11 +88,11 @@ public class BaseNewsComment {
         return status;
     }
 
-    public void setCreate_time(Date create_time) {
+    public void setCreate_time(long create_time) {
         this.create_time = create_time;
     }
 
-    public Date getCreate_time() {
+    public long getCreate_time() {
         return create_time;
     }
 

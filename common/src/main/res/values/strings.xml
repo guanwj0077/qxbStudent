@@ -132,6 +132,7 @@
 
     <string name="hint_send">发送</string>
 
+    <string name="bankao_comment_count">最新评论(共%1$d条评论)</string>
     <string name="combine_plan">%1$d年招生计划%2$s人</string>
     <string name="zhuajiajntzy">专家教你填志愿</string>
     <string name="counsel_me">咨询我</string>

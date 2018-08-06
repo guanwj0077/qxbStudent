@@ -4,13 +4,18 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.view.ViewStub;
 import android.widget.ImageView;
 
 import com.qxb.student.R;
 import com.qxb.student.common.basics.AbsNoTitleRefreshFragment;
+import com.qxb.student.common.listener.OnPositionClickListener;
+import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.Bankao;
+import com.qxb.student.common.module.bean.attr.NavAttr;
 import com.qxb.student.common.utils.GlideUtils;
+import com.qxb.student.common.utils.NavigationUtils;
 import com.qxb.student.common.view.recycler.ViewHolder;
 import com.qxb.student.common.view.recycler.adapter.QuickAdapter;
 import com.qxb.student.control.BanKaoControl;
@@ -42,14 +47,18 @@ public class BanKaoListFragment extends AbsNoTitleRefreshFragment<Bankao> {
     public void initContent(@Nullable Bundle savedInstanceState) {
         type = getArguments() != null ? getArguments().getString(TYPE) : null;
         banKaoControl = ViewModelProviders.of(this).get(BanKaoControl.class);
+
+        autoRefresh();
     }
 
     @Override
     public void reqData(int pageIndex) {
-        banKaoControl.getBankaoListByType(type, String.valueOf(pageIndex)).observe(this, new Observer<List<Bankao>>() {
+        banKaoControl.getBankaoListByType(type, pageIndex).observe(this, new Observer<ApiModel<List<Bankao>>>() {
             @Override
-            public void onChanged(@Nullable List<Bankao> bankaos) {
-                refreshData(bankaos, bankaos != null ? bankaos.size() : 0);
+            public void onChanged(@Nullable ApiModel<List<Bankao>> apiModel) {
+                if (apiModel != null) {
+                    refreshData(apiModel.getData(), apiModel.getTotal());
+                }
             }
         });
     }
@@ -62,6 +71,18 @@ public class BanKaoListFragment extends AbsNoTitleRefreshFragment<Bankao> {
                 GlideUtils.getInstance().LoadSupportv4FragmentRoundBitmap(getFragment(), item.getImg_url(), (ImageView) holder.getView(R.id.image1), 10);
                 holder.setText(R.id.text1, item.getTitle());
                 holder.setText(R.id.text2, item.getIntro());
+                //这里将id设置给监听
+                holder.setOnClickListener(new OnPositionClickListener(item.getId()) {
+                    @Override
+                    public void onPositionClick(View view, int position) {
+                        NavigationUtils.getInstance()
+                                .toNavigation(getContext(),
+                                        new NavAttr.Builder()
+                                                .graphRes(R.navigation.nav_bankao)
+                                                .navId(R.id.nav_bankao_detail)
+                                                .params(BankaoDetailFragment.build(position)).build());
+                    }
+                });
             }
         };
     }
