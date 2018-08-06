@@ -9,8 +9,8 @@ public final class Config {
     public static final boolean IS_DEBUG = false;
 
     private static final String SERVER_HOST_RELEASE = "https://api.qiuxuebao.com/";
-    //private static final String SERVER_URL_RELEASE = "http://172.16.100.135:8080/qxb_api/api/";
-    private static final String SERVER_HOST_DEBUG = "http://qxb.ylcplus.club:8081/qxb_api/";
+    private static final String SERVER_HOST_DEBUG = "http://172.16.100.154:8080/qxb_api/";
+//    private static final String SERVER_HOST_DEBUG = "http://qxb.ylcplus.club:8081/qxb_api/";
 
     public static final String SERVER_HOST = IS_DEBUG ? SERVER_HOST_DEBUG : SERVER_HOST_RELEASE;
 
@@ -73,5 +73,5 @@ public final class Config {
     /**
      * http请求数据类型
      */
-    public static final MediaType MEDIA_TYPE = MediaType.parse("application/json; charset=UTF-8;1111");
+    public static final MediaType MEDIA_TYPE = MediaType.parse("application/json; charset=UTF-8;");
 }
