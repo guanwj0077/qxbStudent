@@ -22,7 +22,7 @@
             android:layout_width="@dimen/px_200"
             android:layout_height="@dimen/px_200"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorAccent"
+           android:src="@mipmap/user_head_img"
             android:contentDescription="@string/hint_not_describe"
             android:scaleType="centerCrop" />
 

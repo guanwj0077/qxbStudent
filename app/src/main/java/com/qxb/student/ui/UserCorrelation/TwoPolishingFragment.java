@@ -1,16 +1,13 @@
-package com.qxb.student.ui.LoginCorrelation;
+package com.qxb.student.ui.UserCorrelation;
 
 
 import android.os.Bundle;
-import android.os.UserManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.SparseArray;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CheckedTextView;
 
 import com.qxb.student.R;
@@ -21,8 +18,6 @@ import com.qxb.student.common.module.bean.Enum.MajorType;
 import com.qxb.student.common.module.bean.User;
 import com.qxb.student.common.module.bean.attr.NavAttr;
 import com.qxb.student.common.utils.NavigationUtils;
-import com.qxb.student.common.utils.UserCache;
-import com.qxb.student.common.utils.UserManagement;
 import com.qxb.student.common.view.ClearEditText;
 
 /**

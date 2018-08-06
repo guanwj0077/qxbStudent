@@ -46,7 +46,7 @@ public abstract class AbsToolbarFragment extends AbsExpandFragment {
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.arrow_left_black);
         frameLayout = view.findViewById(R.id.fl_content);
-        View contentView = View.inflate(getContext(), bindContentView(), null);
+        View contentView = View.inflate(getActivity(), bindContentView(), null);
         frameLayout.addView(contentView);
         initContent(contentView, savedInstanceState);
     }

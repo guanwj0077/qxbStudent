@@ -11,6 +11,8 @@ import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.qxb.student.R;
@@ -21,6 +23,7 @@ import com.qxb.student.common.listener.MultiClickUtil;
 import com.qxb.student.common.module.bean.User;
 import com.qxb.student.common.module.bean.attr.NavAttr;
 import com.qxb.student.common.module.bean.attr.VoideAttr;
+import com.qxb.student.common.utils.GlideUtils;
 import com.qxb.student.common.utils.NavigationUtils;
 import com.qxb.student.common.utils.UserCache;
 import com.qxb.student.common.view.Toolbar;
@@ -45,6 +48,10 @@ public class MineFragment extends AbsExpandFragment {
     private HeaderMineBinding headerMineBinding;
     private Toolbar toolbar;
     private LectureControl mLectureControl;
+    private ImageView img;
+    private TextView username;
+    private boolean isLogin = false;
+
 
     @Override
     public int bindLayout() {
@@ -59,12 +66,15 @@ public class MineFragment extends AbsExpandFragment {
         toolbar.setAppBarLayout((AppBarLayout) findViewById(R.id.appBarLayout), true);
         HeaderRecyclerView recyclerView = findViewById(R.id.recyclerView);
         headerMineBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.header_mine, null, false);
-        findViewById(R.id.img).setOnClickListener(clickListener);
-        findViewById(R.id.username).setOnClickListener(clickListener);
+        img = findViewById(R.id.img);
+        img.setOnClickListener(clickListener);
+        username = findViewById(R.id.username);
+        username.setOnClickListener(clickListener);
         findViewById(R.id.rl_myjf).setOnClickListener(clickListener);
         headerMineBinding.myFraction.setOnClickListener(clickListener);
         headerMineBinding.mineQiuxuedanan.setOnClickListener(clickListener);
         recyclerView.addHeaderView(headerMineBinding.getRoot());
+        showView();
         adapter = new QuickAdapter<MineItem>(R.layout.item_mine, Arrays.asList(MineItem.values())) {
             @Override
             protected void convert(ViewHolder holder, int position, MineItem item) {
@@ -76,17 +86,26 @@ public class MineFragment extends AbsExpandFragment {
         };
         recyclerView.setAdapter(adapter);
         adapter.setItemClickListener(itemClickListener);
-        UserCache.getInstance().getUserLiveData().observe(this, new Observer<User>() {
-            @Override
-            public void onChanged(@Nullable User user) {
-                showUserData();
-            }
-        });
-        mLectureControl=ViewModelProviders.of(getFragment()).get(LectureControl.class);
+        mLectureControl = ViewModelProviders.of(getFragment()).get(LectureControl.class);
     }
 
 
-    private void showUserData() {
+    private void showView() {
+        UserCache.getInstance().getUserLiveData().observe(MineFragment.this, new Observer<User>() {
+            @Override
+            public void onChanged(@Nullable User user) {
+                if (user != null) {
+                    isLogin=true;
+                    GlideUtils.getInstance().LoadContextCircleBitmap(getContext(), user.getPicRealPath(), img);
+                    username.setText(TextUtils.isEmpty(user.getNick_name()) ? user.getTelphone() : user.getNick_name());
+                }
+                showUserData(user);
+            }
+        });
+    }
+
+    private void showUserData(User user) {
+
     }
 
     private OnItemClickListener itemClickListener = new OnItemClickListener() {
@@ -95,7 +114,7 @@ public class MineFragment extends AbsExpandFragment {
             if (!MultiClickUtil.isFastClick()) {
                 return;
             }
-            switch (adapter.getItem(position-1).getName()) {
+            switch (adapter.getItem(position - 1).getName()) {
                 case R.string.yqm:
                     //邀请码
 
@@ -149,7 +168,7 @@ public class MineFragment extends AbsExpandFragment {
         mLectureControl.UsingHelp().observe(MineFragment.this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                if (!TextUtils.isEmpty(s)){
+                if (!TextUtils.isEmpty(s)) {
                     Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
                     intent.putExtra(Constant.PURPOSE, new VoideAttr.VoideBuilder(Constant.ZERO).isShare(false).title(getString(R.string.usinghelp)).url(s).build());
                     startActivity(intent);
@@ -176,10 +195,22 @@ public class MineFragment extends AbsExpandFragment {
                     break;
                 case R.id.img:
                     //头像
-                    NavigationUtils.getInstance().toNavigation(getContext(), new NavAttr.Builder().graphRes(R.navigation.nav_login).build());
+                    if (isLogin){
+                        NavigationUtils.getInstance().toNavigation(getContext(),new NavAttr.Builder().graphRes(R.navigation.nav_user_setting).build());
+                    }else{
+                        NavigationUtils.getInstance().toNavigation(getContext(), new NavAttr.Builder().graphRes(R.navigation.nav_login).build());
+                    }
+
+
                     break;
                 case R.id.username:
                     //用户名
+                    if(isLogin){
+
+                    }else{
+
+                    }
+
                     break;
                 case R.id.rl_myjf:
                     //积分

@@ -11,5 +11,18 @@
     <string name="usinghelp">使用帮助</string>
 
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="head_portrait">头像</string>
+    <string name="sex">性别</string>
+    <string name="gkyear">高考年份</string>
+    <string name="txt_exit">退出登录</string>
+    <string name="personal_details">个人信息</string>
+    <string name="todo">TODO</string>
+    <string name="nick_name">昵称</string>
+    <string name="kaishengclass">考生类型</string>
+    <string name="ssgzhong">所属高中</string>
+    <string name="weitian">未填</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

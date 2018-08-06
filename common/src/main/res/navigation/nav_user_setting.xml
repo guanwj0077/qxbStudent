@@ -2,12 +2,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
-            app:startDestination="@+id/nav_password"
+            app:startDestination="@+id/nav_setting"
     >
 
     <fragment
-        android:id="@+id/nav_password"
-        android:name="com.qxb.student.ui.UserCorrelation.ResetPasswordFragment"/>
+        android:id="@+id/nav_setting"
+        android:name="com.qxb.student.ui.UserCorrelation.SettingFragment"/>
 
 
 </navigation>

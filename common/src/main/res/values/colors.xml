@@ -15,6 +15,8 @@
     <color name="tv_line_color">#fff2f2f2</color>
     <color name="button_color">#fbe777</color>
     <color name="black">#90000000</color>
+    <color name="black1">#4c000000</color>
     <color name="light_gray">#ffe1e1e1</color>
     <color name="orange">#ffffa500</color>
+    <color name="color_f0f0f0f">#F0F0F0</color>
 </resources>
