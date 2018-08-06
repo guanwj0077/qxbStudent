@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/rootView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_lv_selector">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="@dimen/px_30"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_is_playing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/act_lecture_is_palying"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_lecture_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/px_20"
+            android:paddingBottom="@dimen/px_45"
+            android:paddingTop="@dimen/px_45"
+            android:singleLine="true"
+            android:text=""
+            android:textSize="@dimen/px_45" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_right_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/px_25"
+        android:src="@mipmap/act_lecture_right_arrow" />
+
+    <ImageView
+        android:id="@+id/iv_mianfei_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:src="@mipmap/mianfeijb"
+        android:visibility="gone"/>
+</RelativeLayout>

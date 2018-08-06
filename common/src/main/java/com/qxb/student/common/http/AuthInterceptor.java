@@ -60,8 +60,7 @@ public class AuthInterceptor implements Interceptor {
 
     private void handle(Request.Builder builder, RequestBody body, User user) {
         try {
-            //user.getTelphone();
-            String loginName = "13343426551";
+            String loginName = user.getTelphone();
             String timeTemp = String.valueOf(System.currentTimeMillis());
             /*密钥*/
             String secretKey = Encrypt.getReverseString(timeTemp + loginName);
@@ -93,14 +92,14 @@ public class AuthInterceptor implements Interceptor {
         }
     }
 
-    private String custom(User user) {
+    private String custom(@NonNull  User user) {
         StringBuilder buffer = new StringBuilder();
         buffer.append(user.getTelphone());
         buffer.append(":");
         buffer.append(user.getPassword());
         buffer.append(":student");
-        return Encrypt.base64("13343426551:123456:student");
-//        return Encrypt.base64(buffer.toString());
+//        return Encrypt.base64("13343426551:123456:student");
+        return Encrypt.base64(buffer.toString());
     }
 
     private String getAppSrc() {

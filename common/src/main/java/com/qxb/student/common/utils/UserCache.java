@@ -32,7 +32,7 @@ public class UserCache {
     private final Object OBJECT = new Object();
 
     public void update(User user) {
-        userLiveData.setValue(user);
+        userLiveData.postValue(user);
     }
 
     public LiveData<User> getUserLiveData() {

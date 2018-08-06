@@ -10,7 +10,10 @@ android {
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        ndk {
+            //设置支持的SO库架构
+            abiFilters 'armeabi', 'armeabi-v7a', 'x86'
+        }
     }
 
     buildTypes {
@@ -93,6 +96,10 @@ dependencies {
     api files("./libs/ShareSDK-Wechat-Favorite-3.2.0.jar")
     api files("./libs/ShareSDK-Wechat-Moments-3.2.0.jar")
     api files("./libs/ShareSDK-TencentWeibo-3.2.0.jar")
+
+    api 'com.shuyu:gsyVideoPlayer-java:5.0.1'
+    api 'com.shuyu:gsyVideoPlayer-armv7a:5.0.1'
+
 
     testImplementation "junit:junit:4.12"
     androidTestImplementation "com.android.support.test:runner:1.0.2"

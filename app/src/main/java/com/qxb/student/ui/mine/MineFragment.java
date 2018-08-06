@@ -2,20 +2,25 @@ package com.qxb.student.ui.mine;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
 import com.qxb.student.R;
+import com.qxb.student.common.Constant;
 import com.qxb.student.common.basics.AbsExpandFragment;
+import com.qxb.student.common.basics.VideoPlayActivity;
 import com.qxb.student.common.listener.MultiClickUtil;
 import com.qxb.student.common.module.bean.User;
 import com.qxb.student.common.module.bean.attr.NavAttr;
+import com.qxb.student.common.module.bean.attr.VoideAttr;
 import com.qxb.student.common.utils.NavigationUtils;
 import com.qxb.student.common.utils.UserCache;
 import com.qxb.student.common.view.Toolbar;
@@ -23,9 +28,11 @@ import com.qxb.student.common.view.recycler.HeaderRecyclerView;
 import com.qxb.student.common.view.recycler.ViewHolder;
 import com.qxb.student.common.view.recycler.adapter.QuickAdapter;
 import com.qxb.student.common.view.recycler.listener.OnItemClickListener;
+import com.qxb.student.control.LectureControl;
 import com.qxb.student.control.LoginControl;
 import com.qxb.student.databinding.HeaderMineBinding;
 import com.qxb.student.type.MineItem;
+import com.qxb.student.ui.home.toLecture.ListenToLectureActivity;
 
 import java.util.Arrays;
 
@@ -37,6 +44,7 @@ public class MineFragment extends AbsExpandFragment {
     private QuickAdapter<MineItem> adapter;
     private HeaderMineBinding headerMineBinding;
     private Toolbar toolbar;
+    private LectureControl mLectureControl;
 
     @Override
     public int bindLayout() {
@@ -74,6 +82,7 @@ public class MineFragment extends AbsExpandFragment {
                 showUserData();
             }
         });
+        mLectureControl=ViewModelProviders.of(getFragment()).get(LectureControl.class);
     }
 
 
@@ -86,11 +95,13 @@ public class MineFragment extends AbsExpandFragment {
             if (!MultiClickUtil.isFastClick()) {
                 return;
             }
-            switch (adapter.getItem(position).getName()) {
+            switch (adapter.getItem(position-1).getName()) {
                 case R.string.yqm:
                     //邀请码
+
                     break;
                 case R.string.yhm:
+                    startActivity(new Intent(getActivity(), ListenToLectureActivity.class));
                     //优惠码
                     break;
                 case R.string.wdsc:
@@ -116,6 +127,7 @@ public class MineFragment extends AbsExpandFragment {
                     break;
                 case R.string.sybz:
                     //使用帮助
+                    getVoideUrl();
                     break;
                 case R.string.bzyfk:
                     //帮助与反馈
@@ -132,6 +144,21 @@ public class MineFragment extends AbsExpandFragment {
             }
         }
     };
+
+    private void getVoideUrl() {
+        mLectureControl.UsingHelp().observe(MineFragment.this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                if (!TextUtils.isEmpty(s)){
+                    Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
+                    intent.putExtra(Constant.PURPOSE, new VoideAttr.VoideBuilder(Constant.ZERO).isShare(false).title(getString(R.string.usinghelp)).url(s).build());
+                    startActivity(intent);
+                }
+
+            }
+        });
+
+    }
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
