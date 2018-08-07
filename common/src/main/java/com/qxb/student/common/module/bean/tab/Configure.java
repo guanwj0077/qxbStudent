@@ -1,6 +1,7 @@
 package com.qxb.student.common.module.bean.tab;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 /**
@@ -23,6 +24,14 @@ public class Configure {
      */
     private String value;
 
+    public Configure() {
+    }
+
+    @Ignore
+    public Configure(String key, String value) {
+        this.key = key;
+        this.value = value;
+    }
 
     public int get_id() {
         return _id;

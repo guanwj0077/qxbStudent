@@ -88,9 +88,9 @@ public class HttpConfigure {
                         .hostnameVerifier(hostnameVerifier)
                         .addInterceptor(new AuthInterceptor())
                         //设置请求读写的超时时间
-                        .connectTimeout(30, TimeUnit.SECONDS)
-                        .writeTimeout(30, TimeUnit.SECONDS)
-                        .readTimeout(30, TimeUnit.SECONDS);
+                        .connectTimeout(60, TimeUnit.SECONDS)
+                        .writeTimeout(60, TimeUnit.SECONDS)
+                        .readTimeout(60, TimeUnit.SECONDS);
                 Internal.instance.setCache(builder, HttpCache.getInstance());
                 okHttpClient = builder.build();
             } catch (Exception e) {

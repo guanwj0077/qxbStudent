@@ -96,10 +96,10 @@ public class HttpTask<T> implements Runnable {
     @Override
     public final void run() {
         try {
-            //如果没有观察者监听数据，说明页面已经关闭则不需要请求
-            if (netLiveData != null && !netLiveData.hasObservers()) {
-                return;
-            }
+//            //如果没有观察者监听数据，说明页面已经关闭则不需要请求
+//            if (netLiveData != null && !netLiveData.hasObservers()) {
+//                return;
+//            }
 
             //如果数据有本地存储则先检查本地数据
             if (clientTask != null && pageIndex == 1) {

@@ -167,9 +167,7 @@ public class MineFragment extends AbsExpandFragment {
             @Override
             public void onChanged(@Nullable String s) {
                 if (!TextUtils.isEmpty(s)) {
-                    Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
-                    intent.putExtra(Constant.PURPOSE, new VoideAttr.VoideBuilder(Constant.ZERO).isShare(false).title(getString(R.string.usinghelp)).url(s).build());
-                    startActivity(intent);
+                    NavigationUtils.getInstance().toVideoPlay(getContext(),new VoideAttr.VoideBuilder(Constant.ZERO).isShare(false).title(getString(R.string.usinghelp)).url(s).build());
                 }
 
             }
@@ -198,8 +196,6 @@ public class MineFragment extends AbsExpandFragment {
                     } else {
                         NavigationUtils.getInstance().toNavigation(getContext(), new NavAttr.Builder().graphRes(R.navigation.nav_login).build());
                     }
-
-
                     break;
                 case R.id.username:
                     //用户名

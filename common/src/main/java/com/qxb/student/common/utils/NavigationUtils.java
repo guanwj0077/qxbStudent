@@ -10,11 +10,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
+import com.qxb.student.common.Constant;
 import com.qxb.student.common.R;
 import com.qxb.student.common.basics.NavFragment;
 import com.qxb.student.common.basics.NavHostActivity;
+import com.qxb.student.common.basics.VideoPlayActivity;
 import com.qxb.student.common.basics.WebActivity;
 import com.qxb.student.common.module.bean.attr.NavAttr;
+import com.qxb.student.common.module.bean.attr.VoideAttr;
 import com.qxb.student.common.module.bean.attr.WebAttr;
 
 import androidx.navigation.NavOptions;
@@ -119,6 +122,18 @@ public class NavigationUtils {
     public void toWeb(@NonNull Context context, @NonNull WebAttr webAttr) {
         Intent intent = new Intent(context, WebActivity.class);
         intent.putExtra(WebAttr.TAG, webAttr);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 跳转通用视屏播放类
+     *
+     * @param context 上下文
+     * @param mVoideAttr 视屏播放参数
+     */
+    public void toVideoPlay(@NonNull Context context, @NonNull VoideAttr mVoideAttr) {
+        Intent intent = new Intent(context, VideoPlayActivity.class);
+        intent.putExtra(Constant.PURPOSE, mVoideAttr);
         context.startActivity(intent);
     }
 }

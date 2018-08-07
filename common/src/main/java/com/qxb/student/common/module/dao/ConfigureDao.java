@@ -22,5 +22,5 @@ public interface ConfigureDao {
     void insert(Configure configure);
 
     @Query("SELECT * FROM Configure WHERE `key`=:key")
-    String query(String key);
+    Configure query(String key);
 }
