@@ -59,7 +59,6 @@ public class BankaoDetailFragment extends AbsToolbarFragment {
 
     @Override
     public void initContent(View contentView, @Nullable Bundle savedInstanceState) {
-        setTitle("伴考");
         binding = DataBindingUtil.bind(contentView);
         banKaoControl = ViewModelProviders.of(this).get(BanKaoControl.class);
         bankaoId = getStringExtra(ID);
@@ -153,7 +152,7 @@ public class BankaoDetailFragment extends AbsToolbarFragment {
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if(MultiClickUtil.isFastClick()){
+            if(!MultiClickUtil.isFastClick()){
                 return;
             }
             if (!HintHelper.hasLogin(getContext())) {

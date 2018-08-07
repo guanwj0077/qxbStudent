@@ -4,6 +4,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 /**
+ * 缓存配置
+ *
  * @author winky
  * @date 2018/7/19
  */
@@ -12,6 +14,37 @@ public class Configure {
 
     @PrimaryKey(autoGenerate = true)
     private int _id;
+    /**
+     * 键
+     */
+    private String key;
+    /**
+     * 值
+     */
+    private String value;
 
 
+    public int get_id() {
+        return _id;
+    }
+
+    public void set_id(int _id) {
+        this._id = _id;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
 }

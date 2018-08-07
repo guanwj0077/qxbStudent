@@ -7,17 +7,20 @@
     <application
         android:allowBackup="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".basics.NavHostActivity" />
+        <activity
+            android:name=".basics.NavHostActivity"
+            android:label="" />
         <activity
             android:name=".basics.WebActivity"
-            android:hardwareAccelerated="true" />
+            android:hardwareAccelerated="true"
+            android:label="" />
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:label="" />
         <activity
             android:name=".basics.VideoPlayActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

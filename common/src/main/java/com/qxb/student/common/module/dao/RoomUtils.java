@@ -10,6 +10,7 @@ import com.qxb.student.common.module.bean.RecomSchool;
 import com.qxb.student.common.module.bean.SchoolDetail;
 import com.qxb.student.common.module.bean.SysAd;
 import com.qxb.student.common.module.bean.User;
+import com.qxb.student.common.module.bean.tab.Configure;
 import com.qxb.student.common.utils.ContextUtils;
 import com.qxb.student.common.utils.Singleton;
 
@@ -27,7 +28,8 @@ import com.qxb.student.common.utils.Singleton;
                 SchoolDetail.class,
                 SysAd.class,
                 FunctionItem.class,
-                Bankao.class})
+                Bankao.class,
+                Configure.class})
 public abstract class RoomUtils extends RoomDatabase {
 
     private static final String DATABASE_NAME = "qxb.db";
@@ -42,6 +44,11 @@ public abstract class RoomUtils extends RoomDatabase {
     public static RoomUtils getInstance() {
         return SINGLETON.get();
     }
+
+    /**
+     * 配置表
+     */
+    public abstract ConfigureDao configureDao();
 
     /**
      * 推荐院校

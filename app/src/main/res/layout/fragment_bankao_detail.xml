@@ -141,9 +141,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_margin="@dimen/px_20"
+                android:layout_marginEnd="@dimen/px_20"
+                android:layout_marginStart="@dimen/px_20"
                 android:layout_toStartOf="@id/send"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
                 android:contentDescription="@string/hint_not_describe"
+                android:focusable="true"
+                android:padding="@dimen/px_10"
                 app:srcCompat="@drawable/collect" />
 
             <EditText
