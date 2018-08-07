@@ -56,6 +56,8 @@ public class SettingFragment extends AbsToolbarFragment {
         });
         binding.lyExit.setOnClickListener(mOnClickListener);
         binding.avatorContainer.setOnClickListener(mOnClickListener);
+        binding.llNickname.setOnClickListener(mOnClickListener);
+        binding.lyKm.setOnClickListener(mOnClickListener);
 
     }
 
@@ -72,6 +74,16 @@ public class SettingFragment extends AbsToolbarFragment {
                 case R.id.avator_container:
                     //换头像
                     break;
+                case R.id.ll_nickname:
+                    //昵称
+                    break;
+                case R.id.ly_km:
+                    //考试类型
+                    break;
+                case R.id.txt_right_dq:
+                    //高中
+                    break;
+
                 default:
                     break;
             }
