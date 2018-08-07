@@ -32,7 +32,6 @@ import com.qxb.student.common.view.recycler.ViewHolder;
 import com.qxb.student.common.view.recycler.adapter.QuickAdapter;
 import com.qxb.student.common.view.recycler.listener.OnItemClickListener;
 import com.qxb.student.control.LectureControl;
-import com.qxb.student.control.LoginControl;
 import com.qxb.student.databinding.HeaderMineBinding;
 import com.qxb.student.type.MineItem;
 import com.qxb.student.ui.home.toLecture.ListenToLectureActivity;
@@ -94,7 +93,7 @@ public class MineFragment extends AbsExpandFragment {
             @Override
             public void onChanged(@Nullable User user) {
                 if (user != null) {
-                    isLogin=true;
+                    isLogin = true;
                     GlideUtils.getInstance().LoadContextCircleBitmap(getContext(), user.getPicRealPath(), img);
                     username.setText(TextUtils.isEmpty(user.getNick_name()) ? user.getTelphone() : user.getNick_name());
                 }
@@ -194,9 +193,9 @@ public class MineFragment extends AbsExpandFragment {
                     break;
                 case R.id.img:
                     //头像
-                    if (isLogin){
-                        NavigationUtils.getInstance().toNavigation(getContext(),new NavAttr.Builder().graphRes(R.navigation.nav_user_setting).build());
-                    }else{
+                    if (isLogin) {
+                        NavigationUtils.getInstance().toNavigation(getContext(), new NavAttr.Builder().graphRes(R.navigation.nav_user_setting).build());
+                    } else {
                         NavigationUtils.getInstance().toNavigation(getContext(), new NavAttr.Builder().graphRes(R.navigation.nav_login).build());
                     }
 
@@ -204,9 +203,9 @@ public class MineFragment extends AbsExpandFragment {
                     break;
                 case R.id.username:
                     //用户名
-                    if(isLogin){
+                    if (isLogin) {
 
-                    }else{
+                    } else {
 
                     }
 
@@ -224,7 +223,6 @@ public class MineFragment extends AbsExpandFragment {
     public void onDestroyView() {
         super.onDestroyView();
         headerMineBinding.unbind();
-        toolbar = null;
         adapter = null;
     }
 
