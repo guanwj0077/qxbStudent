@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/nav_Three_polishing"
-        android:name="com.qxb.student.ui.LoginCorrelation.ThreePolishingFragment"/>
+        android:name="com.qxb.student.ui.UserCorrelation.ThreePolishingFragment"/>
 
 
 </navigation>

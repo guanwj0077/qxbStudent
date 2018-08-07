@@ -53,7 +53,7 @@
     <string name="cancel">取消</string>
     <string name="prompt">提示</string>
     <string name="zhuce_judge">请填写真实信息，填写后不可修改</string>
-
+    <string name="registration_number">注册手机号码</string>
     <string name="tv_ljwssjf">立即完善得积分</string>
     <string name="tv_wdqxda">我的求学档案</string>
     <string name="tv_wtx">未填写</string>
@@ -143,4 +143,6 @@
     <string name="zxgkbkzjsp">在线观看报考专家视频讲座</string>
     <string name="open_the_service">开通服务</string>
     <string name="attending_a_lecture">听讲座</string>
+    <string name="reallyname">真实姓名</string>
+
 </resources>

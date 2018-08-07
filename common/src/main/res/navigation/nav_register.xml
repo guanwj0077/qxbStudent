@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/nav_register"
-        android:name="com.qxb.student.ui.LoginCorrelation.ResetPasswordCodeFragment" />
+        android:name="com.qxb.student.ui.UserCorrelation.ResetPasswordCodeFragment" />
 
 
 </navigation>

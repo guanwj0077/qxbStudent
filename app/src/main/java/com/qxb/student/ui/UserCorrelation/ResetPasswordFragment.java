@@ -1,4 +1,4 @@
-package com.qxb.student.ui.LoginCorrelation;
+package com.qxb.student.ui.UserCorrelation;
 
 
 import android.os.Bundle;
