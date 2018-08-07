@@ -29,7 +29,6 @@ import com.qxb.student.common.view.recycler.ViewHolder;
 import com.qxb.student.common.view.recycler.adapter.QuickAdapter;
 import com.qxb.student.common.view.recycler.listener.OnItemClickListener;
 import com.qxb.student.control.LectureControl;
-import com.qxb.student.control.LoginControl;
 import com.qxb.student.databinding.HeaderMineBinding;
 import com.qxb.student.type.MineItem;
 import com.qxb.student.ui.home.toLecture.ListenToLectureActivity;
@@ -43,7 +42,6 @@ public class MineFragment extends AbsExpandFragment {
 
     private QuickAdapter<MineItem> adapter;
     private HeaderMineBinding headerMineBinding;
-    private Toolbar toolbar;
     private LectureControl mLectureControl;
 
     @Override
@@ -53,10 +51,10 @@ public class MineFragment extends AbsExpandFragment {
 
     @Override
     public void init(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.main_mine));
         toolbar.setAppBarLayout((AppBarLayout) findViewById(R.id.appBarLayout), true);
+        setSupportActionBar(toolbar);
         HeaderRecyclerView recyclerView = findViewById(R.id.recyclerView);
         headerMineBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.header_mine, null, false);
         findViewById(R.id.img).setOnClickListener(clickListener);
@@ -82,7 +80,7 @@ public class MineFragment extends AbsExpandFragment {
                 showUserData();
             }
         });
-        mLectureControl=ViewModelProviders.of(getFragment()).get(LectureControl.class);
+        mLectureControl = ViewModelProviders.of(getFragment()).get(LectureControl.class);
     }
 
 
@@ -95,7 +93,7 @@ public class MineFragment extends AbsExpandFragment {
             if (!MultiClickUtil.isFastClick()) {
                 return;
             }
-            switch (adapter.getItem(position-1).getName()) {
+            switch (adapter.getItem(position - 1).getName()) {
                 case R.string.yqm:
                     //邀请码
 
@@ -149,7 +147,7 @@ public class MineFragment extends AbsExpandFragment {
         mLectureControl.UsingHelp().observe(MineFragment.this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                if (!TextUtils.isEmpty(s)){
+                if (!TextUtils.isEmpty(s)) {
                     Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
                     intent.putExtra(Constant.PURPOSE, new VoideAttr.VoideBuilder(Constant.ZERO).isShare(false).title(getString(R.string.usinghelp)).url(s).build());
                     startActivity(intent);
@@ -194,7 +192,6 @@ public class MineFragment extends AbsExpandFragment {
     public void onDestroyView() {
         super.onDestroyView();
         headerMineBinding.unbind();
-        toolbar = null;
         adapter = null;
     }
 

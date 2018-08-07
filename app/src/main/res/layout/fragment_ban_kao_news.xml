@@ -29,7 +29,15 @@
                     android:src="@mipmap/bk_dt2x"
                     app:layout_collapseMode="pin" />
 
-                <include layout="@layout/view_toolbar" />
+                <com.qxb.student.common.view.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/px_110"
+                    android:background="@drawable/shape_bottom_divider"
+                    app:layout_collapseMode="pin"
+                    app:paddingTop="true"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:titleTextAppearance="@style/TextAppearance" />
 
             </android.support.design.widget.CollapsingToolbarLayout>
 

@@ -13,15 +13,20 @@ import android.widget.ListView;
 import com.qxb.student.R;
 import com.qxb.student.common.Constant;
 import com.qxb.student.common.basics.AbsToolbarFragment;
+import com.qxb.student.common.listener.MultiClickUtil;
+import com.qxb.student.common.listener.OnPositionClickListener;
 import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.BaseNews;
 import com.qxb.student.common.module.bean.BaseNewsComment;
+import com.qxb.student.common.module.bean.SchoolDetail;
 import com.qxb.student.common.utils.GlideUtils;
 import com.qxb.student.common.utils.TimeUtils;
+import com.qxb.student.common.utils.dialog.ToastUtils;
 import com.qxb.student.common.view.abslist.adapter.AbsAdapter;
 import com.qxb.student.common.view.web.WebView;
 import com.qxb.student.control.BanKaoControl;
 import com.qxb.student.databinding.FragmentBankaoDetailBinding;
+import com.qxb.student.helper.HintHelper;
 
 import java.util.List;
 
@@ -54,6 +59,7 @@ public class BankaoDetailFragment extends AbsToolbarFragment {
 
     @Override
     public void initContent(View contentView, @Nullable Bundle savedInstanceState) {
+        setTitle("伴考");
         binding = DataBindingUtil.bind(contentView);
         banKaoControl = ViewModelProviders.of(this).get(BanKaoControl.class);
         bankaoId = getStringExtra(ID);
@@ -66,10 +72,17 @@ public class BankaoDetailFragment extends AbsToolbarFragment {
                 setText(view, R.id.text3, item.getContent());
                 setText(view, R.id.text4, String.valueOf(item.getPraise()));
                 ((ImageView) view.findViewById(R.id.image2)).setImageResource(item.getIspraise() == 1 ? R.mipmap.zan1x : R.mipmap.zan2x);
+                setOnClickListener(view, new OnPositionClickListener(position) {
+                    @Override
+                    public void onPositionClick(View view, int position) {
+                        dianzan(position);
+                    }
+                });
             }
         };
         ListView listView = contentView.findViewById(R.id.listView);
         listView.setAdapter(adapter);
+        listView.setEmptyView(findViewById(R.id.empty_text1));
         banKaoControl.getBankaoDetail(bankaoId).observe(this, new Observer<BaseNews>() {
             @Override
             public void onChanged(@Nullable BaseNews baseNews) {
@@ -83,9 +96,9 @@ public class BankaoDetailFragment extends AbsToolbarFragment {
             @Override
             public void onChanged(@Nullable ApiModel<List<BaseNewsComment>> apiModel) {
                 binding.commentCount.setText(String.format(getString(R.string.bankao_comment_count), apiModel == null ? 0 : apiModel.getTotal()));
-                if (apiModel != null) {
-                    adapter.addCollection(apiModel.getData());
-                }
+                binding.setCommentNum(apiModel != null ? apiModel.getTotal() : 0);
+                adapter.addCollection(apiModel.getData());
+                adapter.notifyDataSetChanged();
             }
         });
         binding.webView.loadUrl(Constant.BANKAO_NEW_DETAIL + bankaoId);
@@ -97,23 +110,80 @@ public class BankaoDetailFragment extends AbsToolbarFragment {
                 view.setLayoutParams(layoutParams);
             }
         });
+        banKaoControl.connectSchool(bankaoId).observe(this, new Observer<SchoolDetail>() {
+            @Override
+            public void onChanged(@Nullable SchoolDetail schoolDetail) {
+                if (schoolDetail != null) {
+                    binding.includeSchool.setSchool(schoolDetail);
+                }
+            }
+        });
         binding.edit1.setOnClickListener(clickListener);
+        binding.collect.setOnClickListener(clickListener);
+        binding.send.setOnClickListener(clickListener);
+    }
+
+    private void dianzan(int position) {
+        final BaseNewsComment item = adapter.getItem(position);
+        if (item.getIspraise() == 0) {
+            banKaoControl.commentPraise(String.valueOf(item.getBase_news_id()), String.valueOf(item.getId()))
+                    .observe(this, new Observer<Boolean>() {
+                        @Override
+                        public void onChanged(@Nullable Boolean aBoolean) {
+                            if (aBoolean) {
+                                item.setIspraise(1);
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+                    });
+        } else {
+            banKaoControl.cancelCommentPraise(String.valueOf(item.getBase_news_id()), String.valueOf(item.getId()))
+                    .observe(this, new Observer<Boolean>() {
+                        @Override
+                        public void onChanged(@Nullable Boolean aBoolean) {
+                            if (aBoolean) {
+                                item.setIspraise(0);
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+                    });
+        }
     }
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            if(MultiClickUtil.isFastClick()){
+                return;
+            }
+            if (!HintHelper.hasLogin(getContext())) {
+                return;
+            }
             switch (view.getId()) {
                 case R.id.edit1:
                     binding.edit1.requestFocus();
                     break;
+                case R.id.collect:
+                    if (HintHelper.hasNetwork()) {
+                        banKaoControl.collection(getFragment(), bankaoId);
+                    }
+                    break;
+                case R.id.send:
+                    if (HintHelper.hasNetwork()) {
+                        banKaoControl.submitNewsReview(bankaoId, binding.edit1.getText().toString()).observe(getFragment(), new Observer<Boolean>() {
+                            @Override
+                            public void onChanged(@Nullable Boolean aBoolean) {
+                                if (aBoolean) {
+                                    ToastUtils.toast(R.string.hint_comment_success);
+                                    binding.edit1.setText("");
+                                }
+                            }
+                        });
+                    }
+                    break;
             }
         }
     };
-
-    public void onClick(View view) {
-
-    }
 
     @Override
     public void onDestroyView() {

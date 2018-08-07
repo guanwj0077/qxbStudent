@@ -83,6 +83,7 @@
     <string name="code_send_success">验证码已成功发送</string>
     <string name="hint_not_describe">暂无描述</string>
     <string name="hint_not_data">暂无数据</string>
+    <string name="hint_not_comment">暂无评论</string>
 
     <string name="yqm">邀请码</string>
     <string name="yhm">优惠码</string>
@@ -132,10 +133,19 @@
 
     <string name="hint_send">发送</string>
 
+    <string name="hint_more">点击查看更多</string>
+    <string name="hint_no_more">没有更多评论了</string>
+    <string name="hint_add_collection">收藏成功</string>
+    <string name="hint_add_good">点赞成功</string>
+    <string name="hint_cancel">取消成功</string>
+    <string name="hint_comment_success">评论成功</string>
+
+    
     <string name="bankao_comment_count">最新评论(共%1$d条评论)</string>
     <string name="combine_plan">%1$d年招生计划%2$s人</string>
     <string name="zhuajiajntzy">专家教你填志愿</string>
     <string name="counsel_me">咨询我</string>
     <string name="lecture_num_summary">共%1$s课 | %2$s次播放</string>
     <string name="specialist_summary">专家介绍</string>
+    <string name="hint_no_network">请联网后再操作</string>
 </resources>

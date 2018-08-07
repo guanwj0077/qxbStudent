@@ -5,7 +5,7 @@ import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.Bankao;
 import com.qxb.student.common.module.bean.BaseNews;
 import com.qxb.student.common.module.bean.BaseNewsComment;
-import com.qxb.student.common.module.bean.NewsConnectInfo;
+import com.qxb.student.common.module.bean.SchoolDetail;
 
 import java.util.List;
 import java.util.Map;
@@ -61,20 +61,17 @@ public interface BaseNewsApi {
 
     /**
      * 根据伴考ID获取学校信息
-     *
-     * @param newsId       伴考id(必传)
-     * @param type         1：伴考 2：系统通知 3：推送消息(必传)
-     * @param tag          新老版本区分标志，新版本传参旧版本不传
-     * @param msgId        推送消息id
-     * @param receiverType 接收消息者类型，1.学生，2老师
-     * @param receiverId   接收消息者id，学生对应user_id,	老师暂无
-     * @return
+     * newsId       伴考id(必传)
+     * type         1：伴考 2：系统通知 3：推送消息(必传)
+     * tag          新老版本区分标志，新版本传参旧版本不传
+     * msgId        推送消息id
+     * receiverType 接收消息者类型，1.学生，2老师
+     * receiverId   接收消息者id，学生对应user_id,	老师暂无
      */
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
     @POST("baseNews/connectSchool")
-    Call<ApiModel<NewsConnectInfo>> connectSchool(@Field("id") String newsId, @Field("type") String type, @Field("tag") String tag,
-                                                        @Field("msg_id") String msgId, @Field("receiver_type") String receiverType, @Field("receiver_id") String receiverId);
+    Call<ApiModel<SchoolDetail>> connectSchool(@FieldMap Map<String, String> conditionMap);
 
     /**
      * 伴考资讯列表
@@ -120,11 +117,10 @@ public interface BaseNewsApi {
     /**
      * 伴考资讯评论列表
      *
-     * @param newsId
-     * @param studentId
-     * @param page
+     * @param newsId    伴考id
+     * @param studentId 学生id
+     * @param page      页码
      * @param rows      默认10
-     * @return
      */
     @Headers(Config.AUTH_COMMON)
     @FormUrlEncoded
@@ -137,7 +133,6 @@ public interface BaseNewsApi {
      * @param newsId    资讯id（必传）
      * @param studentId 学生id（必传）
      * @param commentId 评论id（必传）
-     * @return
      */
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
@@ -150,35 +145,9 @@ public interface BaseNewsApi {
      * @param newsId    资讯id（必传）
      * @param studentId 学生id（必传）
      * @param commentId 评论id（必传）
-     * @return
      */
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("b_news/praise")
     Call<ApiModel<String>> commentPraise(@Field("base_news_id") String newsId, @Field("stu_id") String studentId, @Field("comment_id") String commentId);
-
-    /**
-     * 伴考资讯收藏
-     *
-     * @param newsId    资讯id（必传）
-     * @param studentId 学生id（必传）
-     * @return
-     */
-    @Headers(Config.AUTH_CUSTOM)
-    @FormUrlEncoded
-    @POST("b_news/collection")
-    Call<ApiModel<String>> collectBaseNews(@Field("base_news_id") String newsId, @Field("stu_id") String studentId);
-
-    /**
-     * 伴考资讯取消收藏
-     *
-     * @param newsId    资讯id（必传）
-     * @param studentId 学生id（必传）
-     * @return
-     */
-    @Headers(Config.AUTH_CUSTOM)
-    @FormUrlEncoded
-    @POST("b_news/cancelCollection")
-    Call<ApiModel<String>> cancelCollectBaseNews(@Field("base_news_id") String newsId, @Field("stu_id") String studentId);
-
 }

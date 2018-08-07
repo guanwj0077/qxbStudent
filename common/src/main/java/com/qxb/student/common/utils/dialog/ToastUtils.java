@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.qxb.student.common.Constant;
 import com.qxb.student.common.R;
+import com.qxb.student.common.utils.ContextUtils;
 
 /**
  * author: zjk9527
@@ -24,6 +25,10 @@ import com.qxb.student.common.R;
  */
 public class ToastUtils {
     private static Toast toast;
+
+    public static void toast(int textRes) {
+        toast(ContextUtils.getInstance().getContext(), textRes);
+    }
 
     public static void toast(Context context, int textRes) {
         CharSequence text = context.getResources().getText(textRes);

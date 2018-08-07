@@ -102,7 +102,7 @@ public class HttpTask<T> implements Runnable {
             }
 
             //如果数据有本地存储则先检查本地数据
-            if (clientTask != null) {
+            if (clientTask != null && pageIndex == 1) {
                 T data = clientTask.reqInSQLite(pageIndex);
                 //判断泛型类型是集合还是单个对象，如果有数据则直接post给liveData
                 ApiModel<T> apiModel = new ApiModel<>();
@@ -150,7 +150,9 @@ public class HttpTask<T> implements Runnable {
                 Objects.requireNonNull(call.request().body()).writeTo(buffer);
                 String params = buffer.readUtf8();
                 logger.d("params:" + params);
-                logger.d("HttpResponse:" + apiModel.toString());
+                if (apiModel != null) {
+                    logger.d("HttpResponse:" + apiModel.toString());
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -7,15 +7,23 @@
         <variable
             name="banKao"
             type="com.qxb.student.common.module.bean.BaseNews" />
+
+        <variable
+            name="commentNum"
+            type="Integer" />
+
+        <import type="android.view.View" />
     </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorDivider"
-        android:orientation="vertical"
-        android:fitsSystemWindows="true">
+        android:orientation="vertical">
 
-        <include layout="@layout/header_web_school" />
+        <include
+            android:id="@+id/include_school"
+            layout="@layout/header_web_school" />
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -30,6 +38,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@android:color/white"
                 android:descendantFocusability="blocksDescendants"
                 android:orientation="vertical">
 
@@ -42,6 +51,7 @@
                     android:id="@+id/commentCount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/colorDivider"
                     android:paddingBottom="@dimen/px_20"
                     android:paddingEnd="@dimen/px_40"
                     android:paddingStart="@dimen/px_40"
@@ -49,6 +59,59 @@
                     android:text="@string/bankao_comment_count" />
 
                 <include layout="@layout/view_list" />
+
+                <include
+                    layout="@layout/empty_bankao_comment"
+                    android:visibility="@{commentNum == 0 ? View.VISIBLE : View.GONE}" />
+
+                <TextView
+                    android:id="@+id/text3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/px_30"
+                    android:paddingTop="@dimen/px_30"
+                    android:text="@string/hint_more"
+                    android:visibility="@{commentNum > 5 ? View.VISIBLE : View.GONE}" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/px_30"
+                    android:paddingTop="@dimen/px_30"
+                    android:visibility="@{commentNum &gt; 0 &amp;&amp; commentNum &lt;= 5 ? View.VISIBLE : View.GONE}">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/px_3"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/px_40"
+                        android:layout_marginStart="@dimen/px_40"
+                        android:layout_toEndOf="@+id/text"
+                        android:background="@color/colorDivider" />
+
+                    <TextView
+                        android:id="@+id/text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/hint_no_more"
+                        android:textColor="@color/colorDesc"
+                        android:textSize="@dimen/px_40" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/px_3"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/px_40"
+                        android:layout_marginStart="@dimen/px_40"
+                        android:layout_toStartOf="@+id/text"
+                        android:background="@color/colorDivider" />
+                </RelativeLayout>
+
             </LinearLayout>
 
         </android.support.v4.widget.NestedScrollView>
@@ -56,8 +119,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/px_20"
-            >
+            android:padding="@dimen/px_20">
 
             <TextView
                 android:id="@+id/send"
@@ -103,8 +165,7 @@
                 android:scrollHorizontally="false"
                 android:textColor="@android:color/black"
                 android:textColorHint="@android:color/darker_gray"
-                android:textSize="@dimen/px_40"
-                />
+                android:textSize="@dimen/px_40" />
 
         </RelativeLayout>
     </LinearLayout>

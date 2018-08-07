@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,6 +41,11 @@ public class BindingUtils {
         textView.setText(TimeUtils.intervalStr(time));
     }
 
+    @BindingAdapter({"str1", "str2"})
+    public static void equalsVisible(ImageView view, String str1, String str2) {
+        view.setVisibility(str1.equals(str2) ? View.VISIBLE : View.GONE);
+    }
+
     public static void setTextDrawable(@NonNull TextView textView, @DrawableRes int resId) {
         Drawable drawable = ContextCompat.getDrawable(textView.getContext(), resId);
         if (drawable != null) {
@@ -47,4 +53,6 @@ public class BindingUtils {
         }
         textView.setCompoundDrawables(null, null, drawable, null);
     }
+
+
 }

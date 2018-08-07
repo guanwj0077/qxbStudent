@@ -4,6 +4,10 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <import type="com.qxb.student.R" />
+
         <variable
             name="school"
             type="com.qxb.student.common.module.bean.SchoolDetail" />
@@ -13,7 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="@{school == null ? View.GONE :  View.VISIBLE }">
 
         <RelativeLayout
             android:id="@+id/school_item_layout"
@@ -109,7 +114,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/px_30"
-                    android:text="@string/hint_sign_up"
+                    android:text="@{school.is_reg ? R.string.hint_sign_on : R.string.hint_sign_up}"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/px_40" />
             </LinearLayout>
@@ -148,5 +153,9 @@
             </LinearLayout>
         </LinearLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_1"
+            android:background="@color/colorDivider" />
     </LinearLayout>
 </layout>

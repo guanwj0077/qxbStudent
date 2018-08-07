@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.qxb.student.common.R;
+import com.qxb.student.common.listener.OnPositionClickListener;
 import com.qxb.student.common.view.recycler.ViewHolder;
 
 import java.util.ArrayList;
@@ -130,5 +131,9 @@ public abstract class AbsAdapter<T> extends android.widget.BaseAdapter {
 
     public void setText(View view, @IdRes int id, String charSequence) {
         ((TextView) view.findViewById(id)).setText(charSequence);
+    }
+
+    public void setOnClickListener(View view, OnPositionClickListener clickListener) {
+        view.setOnClickListener(clickListener);
     }
 }

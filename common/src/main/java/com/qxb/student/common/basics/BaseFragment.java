@@ -1,7 +1,7 @@
 package com.qxb.student.common.basics;
 
+import android.app.Activity;
 import android.arch.lifecycle.HolderFragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.IdRes;
@@ -34,9 +34,10 @@ public abstract class BaseFragment extends HolderFragment implements IBinding {
     private View contentView;
     private String title;
     public DialogUtils mWaitingDialog;
+
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
         weakReference = new WeakReference<Fragment>(this);
     }
 

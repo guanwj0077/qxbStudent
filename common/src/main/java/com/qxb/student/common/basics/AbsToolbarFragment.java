@@ -1,14 +1,15 @@
 package com.qxb.student.common.basics;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import com.qxb.student.common.R;
+import com.qxb.student.common.view.Toolbar;
 
 /**
  * 包含toolbar的fragment
@@ -43,12 +44,18 @@ public abstract class AbsToolbarFragment extends AbsExpandFragment {
     @Override
     public void init(@NonNull View view, @Nullable Bundle savedInstanceState) {
         toolbar = view.findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.arrow_left_black);
         frameLayout = view.findViewById(R.id.fl_content);
-        View contentView = View.inflate(getContext(), bindContentView(), null);
+        View contentView = View.inflate(getActivity(), bindContentView(), null);
         frameLayout.addView(contentView);
         initContent(contentView, savedInstanceState);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.arrow_left_black);
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Context context = view.getContext();
+//            }
+//        });
     }
 
     /**
@@ -71,8 +78,10 @@ public abstract class AbsToolbarFragment extends AbsExpandFragment {
     public BaseFragment setTitle(String title) {
         if (toolbar != null) {
             toolbar.setTitle(title);
+            return null;
+        } else {
+            return super.setTitle(title);
         }
-        return super.setTitle(title);
     }
 
     public void setTitle(@StringRes int titleRes) {

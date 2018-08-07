@@ -1,22 +1,33 @@
 package com.qxb.student.common.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.design.widget.AppBarLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.content.res.AppCompatResources;
+import android.support.v7.widget.AppCompatImageButton;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.qxb.student.common.R;
-import com.qxb.student.common.utils.Logger;
+import com.qxb.student.common.utils.NavigationUtils;
+import com.qxb.student.common.utils.SysUtils;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * 处理toolbar固定大小后文字居中微调
@@ -26,12 +37,9 @@ import com.qxb.student.common.utils.Logger;
  * @date 2018/7/21
  */
 public class Toolbar extends android.support.v7.widget.Toolbar {
-
-    /**
-     * 上间距
-     */
-    private final int VIEW_PADDING_TOP = 40;
     private TextView mTitleTextView;
+    private ImageButton mNavButtonView;
+    private boolean isPaddingTop;
 
     public Toolbar(Context context) {
         super(context);
@@ -54,8 +62,14 @@ public class Toolbar extends android.support.v7.widget.Toolbar {
         if (titleTextAppearance != 0) {
             setTitleTextAppearance(context, titleTextAppearance);
         }
-        setPadding(0, VIEW_PADDING_TOP, 0, 0);
         a.recycle();
+        final TypedArray b = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ToolbarPadding, defStyleAttr, 0);
+        isPaddingTop = b.getBoolean(R.styleable.ToolbarPadding_paddingTop, false);
+        b.recycle();
+
+        setContentInsetStartWithNavigation(0);
+        setContentInsetEndWithActions(0);
+
         post(new Runnable() {
             @Override
             public void run() {
@@ -84,6 +98,24 @@ public class Toolbar extends android.support.v7.widget.Toolbar {
                     }
                 }
             });
+        }
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        if (isPaddingTop) {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec + SysUtils.getInstance().getStatusHeight());
+        } else {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        }
+    }
+
+    @Override
+    public int getPaddingTop() {
+        if (isPaddingTop) {
+            return super.getPaddingTop() + SysUtils.getInstance().getStatusHeight();
+        } else {
+            return super.getPaddingTop();
         }
     }
 
@@ -119,11 +151,6 @@ public class Toolbar extends android.support.v7.widget.Toolbar {
         if (mTitleTextView != null) {
             mTitleTextView.setText(title);
         }
-    }
-
-    @Override
-    public int getTitleMarginTop() {
-        return super.getTitleMarginTop() + VIEW_PADDING_TOP;
     }
 
     private void addCenterView(View v) {
@@ -183,4 +210,41 @@ public class Toolbar extends android.support.v7.widget.Toolbar {
             mTitleTextView.setTextColor(color);
         }
     }
+
+    private void ensureNavButtonView() {
+        if (this.mNavButtonView == null) {
+            this.mNavButtonView = new AppCompatImageButton(this.getContext(), (AttributeSet) null, android.support.v7.appcompat.R.attr.toolbarNavigationButtonStyle);
+            android.support.v7.widget.Toolbar.LayoutParams lp = this.generateDefaultLayoutParams();
+            lp.gravity = Gravity.CENTER_VERTICAL | Gravity.START;
+            addView(mNavButtonView, lp);
+        }
+    }
+
+    @Override
+    public void setNavigationOnClickListener(OnClickListener listener) {
+        this.ensureNavButtonView();
+        this.mNavButtonView.setOnClickListener(listener);
+    }
+
+    @Override
+    public void setNavigationIcon(@DrawableRes int resId) {
+        this.setNavigationIcon(AppCompatResources.getDrawable(this.getContext(), resId));
+    }
+
+    @Override
+    public void setNavigationIcon(@Nullable Drawable icon) {
+        if (icon != null) {
+            this.ensureNavButtonView();
+        } else if (this.mNavButtonView != null && this.isChildOrHidden(this.mNavButtonView)) {
+            this.removeView(this.mNavButtonView);
+        }
+        if (this.mNavButtonView != null) {
+            this.mNavButtonView.setImageDrawable(icon);
+        }
+    }
+
+    private boolean isChildOrHidden(View child) {
+        return child.getParent() == this;
+    }
+
 }

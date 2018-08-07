@@ -78,31 +78,43 @@ public class PullRefreshDelegate<T> {
         this.viewStub = viewStub;
     }
 
+
     public void refreshData(List<T> data, int count) {
         if (refreshLayout == null || recyclerView == null) {
             return;
         }
+        if (data == null) {
+            showEmpty();
+            return;
+        }
         refreshLayout.finishRefresh();
-        if (pageIndex == 1) {
-            adapter.clear();
-        }
-        if (data != null) {
+        synchronized (PullRefreshDelegate.this) {
+            // TODO: 2018/8/6 liveData会重复赋值引起，有时间需要针对liveData问题深入研究处理，这里先简单判断处理
+            if (adapter.getData().contains(data.get(0))) {
+                return;
+            }
+            if (pageIndex == 1) {
+                adapter.clear();
+            }
             adapter.addAll(data);
-        }
-        //是否有网
-        if (SysUtils.getInstance().isConnected()) {
-            //注意是缓存数据则count为0  保证所有缓存数据都
-            if (adapter.getItemCount() >= count && count > 0) {
-                refreshLayout.finishLoadMoreWithNoMoreData();
+            //是否有网
+            if (SysUtils.getInstance().isConnected()) {
+                //注意是缓存数据则count为0  保证所有缓存数据都
+                if (adapter.getItemCount() >= count && count > 0) {
+                    refreshLayout.finishLoadMoreWithNoMoreData();
+                } else {
+                    refreshLayout.finishLoadMore();
+                }
             } else {
-                refreshLayout.finishLoadMore();
+                if (data.size() < Config.PAGE_SIZE) {
+                    refreshLayout.finishLoadMore(false);
+                }
             }
-        } else {
-            if (data == null || data.size() < Config.PAGE_SIZE) {
-                refreshLayout.finishLoadMore(false);
-            }
+            showEmpty();
         }
+    }
 
+    private void showEmpty() {
         /*如果没有数据则展示空白视图*/
         if (adapter.getItemCount() == 0) {
             if (viewStub != null) {

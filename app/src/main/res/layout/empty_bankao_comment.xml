@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/empty_text1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorDivider"
+    android:drawablePadding="@dimen/px_20"
+    android:drawableTop="@mipmap/no_record"
+    android:gravity="center"
+    android:paddingBottom="@dimen/px_80"
+    android:paddingTop="@dimen/px_30"
+    android:text="@string/hint_not_comment"
+    android:textColor="@color/colorDesc"
+    android:textSize="@dimen/px_45" />

@@ -9,6 +9,7 @@ import com.qxb.student.common.utils.Logger;
 import com.qxb.student.common.utils.UserCache;
 
 import java.io.IOException;
+import java.util.TreeMap;
 
 import okhttp3.FormBody;
 import okhttp3.Interceptor;
@@ -47,7 +48,6 @@ public class AuthInterceptor implements Interceptor {
             builder.removeHeader(Config.AUTH);
             builder.addHeader(APP_SRC, getAppSrc());
         }
-
         Response response = chain.proceed(builder.build());
 
         return response.newBuilder()
@@ -66,18 +66,30 @@ public class AuthInterceptor implements Interceptor {
             String secretKey = Encrypt.getReverseString(timeTemp + loginName);
             Buffer buffer = new Buffer();
             body.writeTo(buffer);
-            String params = buffer.readUtf8();
-            /*待签名*/
-            String signTemp = params + "&secretKey=" + secretKey;
-            String md51 = Encrypt.md5(signTemp).toUpperCase();
-            String sign = Encrypt.md5(Encrypt.getReverseString(md51)).toUpperCase();
-            FormBody.Builder bodyBuilder = new FormBody.Builder();
-            for (String pair : signTemp.split("&")) {
+
+            TreeMap<String, String> treeMap = new TreeMap<>();
+            for (String pair : buffer.readUtf8().split("&")) {
                 String[] kv = pair.split("=");
-                bodyBuilder.add(kv[0], kv[1]);
+                if (kv.length == 2) {
+                    treeMap.put(kv[0], kv[1]);
+                }
             }
+            buffer.clear();
+            StringBuilder params = new StringBuilder();
+            FormBody.Builder bodyBuilder = new FormBody.Builder();
+            for (String key : treeMap.keySet()) {
+                String value = treeMap.get(key);
+                bodyBuilder.add(key, value);
+                params.append(key).append("=").append(value).append("&");
+            }
+
+            String signTemp = params.toString() + "secretKey=" + secretKey;
+            params.setLength(0);
+            String sign = Encrypt.md5(Encrypt.getReverseString(Encrypt.md5(signTemp).toUpperCase())).toUpperCase();
             bodyBuilder.add("timestamp", timeTemp);
             bodyBuilder.add("sign", sign);
+            FormBody fromBody = bodyBuilder.build();
+
             if (Logger.isDebug) {
                 Logger logger = Logger.getInstance();
                 logger.d("------------------------------------------------------");
@@ -86,20 +98,20 @@ public class AuthInterceptor implements Interceptor {
                 logger.d("signTemp:" + signTemp);
                 logger.d("------------------------------------------------------");
             }
-            builder.post(bodyBuilder.build());
+            builder.post(fromBody);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    private String custom(@NonNull  User user) {
+    private String custom(@NonNull User user) {
         StringBuilder buffer = new StringBuilder();
         buffer.append(user.getTelphone());
         buffer.append(":");
-        buffer.append("123456");
+        buffer.append(user.getPassword());
         buffer.append(":student");
-        return Encrypt.base64("18908683128:123456:student");
-      //  return Encrypt.base64(buffer.toString());
+//        return Encrypt.base64("18908683128:123456:student");
+        return Encrypt.base64(buffer.toString());
     }
 
     private String getAppSrc() {

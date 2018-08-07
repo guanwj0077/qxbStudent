@@ -1,18 +1,18 @@
 package com.qxb.student.common;
 
 import com.qxb.student.common.http.AuthInterceptor;
-import com.qxb.student.common.http.HttpCache;
 import com.qxb.student.common.http.JsonConverterFactory;
 import com.qxb.student.common.module.TestApi;
 import com.qxb.student.common.module.bean.ApiModel;
+import com.qxb.student.common.utils.Encrypt;
 
 import org.junit.Test;
 
-import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.OkHttpClient;
-import okhttp3.internal.Internal;
 import retrofit2.Retrofit;
 
 /**
@@ -35,13 +35,11 @@ public class ExampleUnitTest {
                     .build();
 
             TestApi testApi = retrofit.create(TestApi.class);
-            ApiModel<String> apiModel = testApi.getLiveHomeAd().execute().body();
-//            Request request = new Request.Builder()
-//                    .url("https://api.qiuxuebao.com/api/")
-//                    .post(new FormBody.Builder().build())
-//                    .addHeader("Authorization", Config.AUTH_COMMON_SECRET)
-//                    .build();
-//            Call call = okHttpClient.newCall(request);
+            Map<String, String> params = new HashMap<>();
+            params.put("type", "1");
+            params.put("newsId", "7312");
+            params.put("tag", "1");
+            ApiModel<String> apiModel = testApi.connectSchool(params).execute().body();
             if (apiModel != null) {
                 System.out.println(apiModel.toString());
             }

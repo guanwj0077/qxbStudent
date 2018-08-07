@@ -16,7 +16,6 @@ import com.qxb.student.common.listener.MultiClickUtil;
 import com.qxb.student.common.module.bean.FunctionItem;
 import com.qxb.student.common.view.abslist.GridView;
 import com.qxb.student.common.view.abslist.adapter.AbsListAdapter;
-import com.qxb.student.common.view.pager.ViewPagerWrapContent;
 import com.qxb.student.databinding.ItemFunctionItemBinding;
 import com.qxb.student.helper.FunctionHelper;
 
@@ -61,11 +60,12 @@ public class FunctionViewPagerAdapter extends PagerAdapter {
         container.removeView((View) object);
     }
 
-    private AbsListAdapter<ItemFunctionItemBinding,FunctionItem> initAdapter() {
-        return new AbsListAdapter<ItemFunctionItemBinding, FunctionItem>(context,R.layout.item_function_item) {
+    private AbsListAdapter<ItemFunctionItemBinding, FunctionItem> initAdapter() {
+        return new AbsListAdapter<ItemFunctionItemBinding, FunctionItem>(context, R.layout.item_function_item) {
             @Override
             protected void bind(ItemFunctionItemBinding binding, int position, FunctionItem item) {
                 binding.setFunction(item);
+                binding.isVip.setVisibility("1".equals(item.getNeed_pay()) ? View.VISIBLE : View.GONE);
             }
         };
     }
@@ -140,7 +140,7 @@ public class FunctionViewPagerAdapter extends PagerAdapter {
     @NonNull
     @Override
     public View instantiateItem(@NonNull ViewGroup container, int position) {
-        final AbsListAdapter<ItemFunctionItemBinding,FunctionItem> adapter = initAdapter();
+        final AbsListAdapter<ItemFunctionItemBinding, FunctionItem> adapter = initAdapter();
         GridView gridView = gridViews.get(position);
         gridView.setAdapter(adapter);
         adapter.clear();

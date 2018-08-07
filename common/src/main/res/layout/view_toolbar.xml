@@ -3,8 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/px_180"
+    android:layout_height="@dimen/px_110"
     android:background="@drawable/shape_bottom_divider"
+    app:contentInsetEnd="@dimen/px_0"
+    app:contentInsetStart="@dimen/px_0"
     app:layout_collapseMode="pin"
+    app:paddingTop="true"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     app:titleTextAppearance="@style/TextAppearance" />

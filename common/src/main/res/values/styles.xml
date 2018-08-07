@@ -16,7 +16,7 @@
         <item name="android:windowSoftInputMode">stateHidden|adjustResize</item>
 
         <item name="android:fitsSystemWindows">false</item>
-        <item name="android:clipToPadding">true</item>
+        <item name="android:clipToPadding">false</item>
         <!--标题栏-->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

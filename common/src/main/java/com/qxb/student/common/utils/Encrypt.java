@@ -35,7 +35,7 @@ public class Encrypt {
             return new String(str);
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return "";
         }
     }
 

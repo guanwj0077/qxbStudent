@@ -8,8 +8,11 @@
     <com.qxb.student.common.view.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/px_180"
+        android:layout_height="@dimen/px_110"
         android:background="@drawable/shape_bottom_divider"
+        app:contentInsetEnd="@dimen/px_0"
+        app:contentInsetStart="@dimen/px_0"
+        app:paddingTop="true"
         app:titleTextAppearance="@style/TextAppearance">
 
         <RelativeLayout
@@ -29,7 +32,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 app:srcCompat="@drawable/main_frg_search" />
         </RelativeLayout>

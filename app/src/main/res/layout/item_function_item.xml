@@ -3,6 +3,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="function"
             type="com.qxb.student.common.module.bean.FunctionItem" />
@@ -40,12 +42,14 @@
             android:textSize="@dimen/px_35" />
 
         <ImageView
+            android:id="@+id/is_vip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="@dimen/px_15"
             android:layout_marginTop="@dimen/px_15"
-            android:src="@mipmap/vipp" />
+            android:contentDescription="@string/hint_not_describe"
+            android:src="@mipmap/vipp"/>
 
     </RelativeLayout>
 </layout>

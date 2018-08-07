@@ -13,6 +13,7 @@ import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.Bankao;
 import com.qxb.student.common.module.bean.BaseNews;
 import com.qxb.student.common.module.bean.BaseNewsComment;
+import com.qxb.student.common.module.bean.SchoolDetail;
 import com.qxb.student.common.utils.UserCache;
 
 import java.util.List;
@@ -28,6 +29,10 @@ public class NewsRepository extends BaseRepository {
     private MutableLiveData<ApiModel<List<Bankao>>> bankaoLiveData = new MutableLiveData<>();
     private MutableLiveData<BaseNews> newsLiveData = new MutableLiveData<>();
     private MutableLiveData<ApiModel<List<BaseNewsComment>>> commentListLiveData = new MutableLiveData<>();
+    private MutableLiveData<Boolean> dianzanLiveData = new MutableLiveData<>();
+    private MutableLiveData<Boolean> quxiaoLiveData = new MutableLiveData<>();
+    private MutableLiveData<Boolean> commentLiveData = new MutableLiveData<>();
+    private MutableLiveData<SchoolDetail> connectInfoLiveData = new MutableLiveData<>();
 
     public LiveData<ApiModel<List<Bankao>>> getBankaoList(String keyWord, final String channel, int page) {
         Map<String, String> params = new ConcurrentHashMap<>();
@@ -53,9 +58,6 @@ public class NewsRepository extends BaseRepository {
                         //如果重新刷新则清掉之前的，重新缓存
                         if (pageIndex == 1) {
                             roomUtils.bankaoDao().deleteAll();
-                        }
-                        //最多缓存3页数据
-                        if (pageIndex < 4) {
                             roomUtils.bankaoDao().insert(apiModel.getData());
                         }
                     }
@@ -77,11 +79,56 @@ public class NewsRepository extends BaseRepository {
         return commentListLiveData;
     }
 
-    public LiveData<BaseNews> getBankaoDetail(String bankaoId) {
+    public MutableLiveData<BaseNews> getBankaoDetail(String bankaoId) {
         new HttpTask<BaseNews>()
                 .netLive(newsLiveData)
                 .call(httpUtils.create(BaseNewsApi.class).baseNewsDetail(bankaoId, UserCache.getInstance().getUserId()))
                 .start();
         return newsLiveData;
     }
+
+    public LiveData<Boolean> commentPraise(String newId, String commentId) {
+        new HttpTask<String>()
+                .call(httpUtils.create(BaseNewsApi.class).commentPraise(newId, UserCache.getInstance().getUserId(), commentId))
+                .apiModel(new ApiModelHandle<String>() {
+                    @Override
+                    public void handle(@NonNull ApiModel<String> apiModel, int pageIndex) {
+                        dianzanLiveData.postValue(apiModel.getCode() == Config.HTTP_SUCCESS);
+                    }
+                }).start();
+        return dianzanLiveData;
+    }
+
+    public LiveData<Boolean> cancelCommentPraise(String newId, String commentId) {
+        new HttpTask<String>()
+                .call(httpUtils.create(BaseNewsApi.class).cancelCommentPraise(newId, UserCache.getInstance().getUserId(), commentId))
+                .apiModel(new ApiModelHandle<String>() {
+                    @Override
+                    public void handle(@NonNull ApiModel<String> apiModel, int pageIndex) {
+                        quxiaoLiveData.postValue(apiModel.getCode() == Config.HTTP_SUCCESS);
+                    }
+                }).start();
+        return quxiaoLiveData;
+    }
+
+    public LiveData<Boolean> submitNewsReview(String newsId, String content) {
+        new HttpTask<String>()
+                .call(httpUtils.create(BaseNewsApi.class).baseNewsReview(newsId, UserCache.getInstance().getUserId(), content))
+                .apiModel(new ApiModelHandle<String>() {
+                    @Override
+                    public void handle(@NonNull ApiModel<String> apiModel, int pageIndex) {
+                        commentLiveData.postValue(apiModel.getCode() == Config.HTTP_SUCCESS);
+                    }
+                }).start();
+        return commentLiveData;
+    }
+
+    public LiveData<SchoolDetail> connectSchool(Map<String, String> hashMap) {
+        new HttpTask<SchoolDetail>()
+                .call(httpUtils.create(BaseNewsApi.class).connectSchool(hashMap))
+                .netLive(connectInfoLiveData)
+                .start();
+        return connectInfoLiveData;
+    }
+
 }
