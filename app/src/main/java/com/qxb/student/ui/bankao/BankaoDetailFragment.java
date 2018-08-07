@@ -169,11 +169,14 @@ public class BankaoDetailFragment extends AbsToolbarFragment {
                     break;
                 case R.id.send:
                     if (HintHelper.hasNetwork()) {
+                        showWaitingDialog();
                         banKaoControl.submitNewsReview(bankaoId, binding.edit1.getText().toString()).observe(getFragment(), new Observer<Boolean>() {
                             @Override
                             public void onChanged(@Nullable Boolean aBoolean) {
+                                dissWaitingDialog();
                                 if (aBoolean) {
                                     ToastUtils.toast(R.string.hint_comment_success);
+                                    banKaoControl.getBaseNewsCommentList(bankaoId);
                                     binding.edit1.setText("");
                                 }
                             }
