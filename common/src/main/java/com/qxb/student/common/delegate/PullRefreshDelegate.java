@@ -53,8 +53,12 @@ public class PullRefreshDelegate<T> {
         this.refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                pageIndex = 1;
-                pullRefresh.reqData(pageIndex);
+                if (SysUtils.getInstance().isConnected()) {
+                    pageIndex = 1;
+                    pullRefresh.reqData(pageIndex);
+                } else {
+                    refreshlayout.finishRefresh(1000, false);
+                }
             }
         });
         this.refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {

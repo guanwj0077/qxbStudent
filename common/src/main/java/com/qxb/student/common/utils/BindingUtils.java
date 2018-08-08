@@ -41,11 +41,6 @@ public class BindingUtils {
         textView.setText(TimeUtils.intervalStr(time));
     }
 
-    @BindingAdapter({"str1", "str2"})
-    public static void equalsVisible(ImageView view, String str1, String str2) {
-        view.setVisibility(str1.equals(str2) ? View.VISIBLE : View.GONE);
-    }
-
     public static void setTextDrawable(@NonNull TextView textView, @DrawableRes int resId) {
         Drawable drawable = ContextCompat.getDrawable(textView.getContext(), resId);
         if (drawable != null) {

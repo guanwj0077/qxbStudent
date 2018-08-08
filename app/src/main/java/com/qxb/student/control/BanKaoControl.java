@@ -59,7 +59,11 @@ public class BanKaoControl extends AndroidViewModel {
     }
 
     public LiveData<ApiModel<List<BaseNewsComment>>> getBaseNewsCommentList(String id) {
-        return newsRepository.getBaseNewsCommentList(id, 1, "10");
+        return newsRepository.getBaseNewsCommentList(id, 1, "5");
+    }
+
+    public LiveData<ApiModel<List<BaseNewsComment>>> getBaseNewsCommentList(String id, int page) {
+        return newsRepository.getBaseNewsCommentList(id, page, "10");
     }
 
     public LiveData<Boolean> commentPraise(String newId, String commentId) {

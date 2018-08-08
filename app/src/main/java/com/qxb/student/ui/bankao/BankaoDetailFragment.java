@@ -20,6 +20,7 @@ import com.qxb.student.common.module.bean.BaseNews;
 import com.qxb.student.common.module.bean.BaseNewsComment;
 import com.qxb.student.common.module.bean.SchoolDetail;
 import com.qxb.student.common.utils.GlideUtils;
+import com.qxb.student.common.utils.NavigationUtils;
 import com.qxb.student.common.utils.TimeUtils;
 import com.qxb.student.common.utils.dialog.ToastUtils;
 import com.qxb.student.common.view.abslist.adapter.AbsAdapter;
@@ -70,8 +71,9 @@ public class BankaoDetailFragment extends AbsToolbarFragment {
                 setText(view, R.id.text2, TimeUtils.intervalStr(item.getCreate_time()));
                 setText(view, R.id.text3, item.getContent());
                 setText(view, R.id.text4, String.valueOf(item.getPraise()));
-                ((ImageView) view.findViewById(R.id.image2)).setImageResource(item.getIspraise() == 1 ? R.mipmap.zan1x : R.mipmap.zan2x);
-                setOnClickListener(view, new OnPositionClickListener(position) {
+                ImageView imageView = view.findViewById(R.id.image2);
+                imageView.setImageResource(item.getIspraise() == 1 ? R.mipmap.zan1x : R.mipmap.zan2x);
+                imageView.setOnClickListener(new OnPositionClickListener(position) {
                     @Override
                     public void onPositionClick(View view, int position) {
                         dianzan(position);
@@ -96,6 +98,7 @@ public class BankaoDetailFragment extends AbsToolbarFragment {
             public void onChanged(@Nullable ApiModel<List<BaseNewsComment>> apiModel) {
                 binding.commentCount.setText(String.format(getString(R.string.bankao_comment_count), apiModel == null ? 0 : apiModel.getTotal()));
                 binding.setCommentNum(apiModel != null ? apiModel.getTotal() : 0);
+                adapter.clear();
                 adapter.addCollection(apiModel.getData());
                 adapter.notifyDataSetChanged();
             }
@@ -120,6 +123,7 @@ public class BankaoDetailFragment extends AbsToolbarFragment {
         binding.edit1.setOnClickListener(clickListener);
         binding.collect.setOnClickListener(clickListener);
         binding.send.setOnClickListener(clickListener);
+        binding.text3.setOnClickListener(clickListener);
     }
 
     private void dianzan(int position) {
@@ -152,7 +156,7 @@ public class BankaoDetailFragment extends AbsToolbarFragment {
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if(!MultiClickUtil.isFastClick()){
+            if (!MultiClickUtil.isFastClick()) {
                 return;
             }
             if (!HintHelper.hasLogin(getContext())) {
@@ -182,6 +186,11 @@ public class BankaoDetailFragment extends AbsToolbarFragment {
                             }
                         });
                     }
+                    break;
+                case R.id.text3:
+                    NavigationUtils.getInstance().jump(getFragment(), R.id.nav_bankao_comment, BankaoCommentListFragment.create(bankaoId));
+                    break;
+                default:
                     break;
             }
         }

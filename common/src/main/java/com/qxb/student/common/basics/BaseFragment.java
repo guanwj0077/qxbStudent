@@ -50,6 +50,17 @@ public abstract class BaseFragment extends HolderFragment implements IBinding {
         return contentView;
     }
 
+    /**
+     * 异步执行runnable
+     *
+     * @param runnable runnable
+     */
+    public void postRunnable(Runnable runnable) {
+        if (contentView != null) {
+            contentView.postDelayed(runnable, 200);
+        }
+    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

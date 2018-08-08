@@ -50,6 +50,15 @@ public class SchoolDetail {
     private String videoImageRealPath;
     private int web_level;
     private int web_rank;
+    private String video_url;
+
+    public String getVideo_url() {
+        return video_url;
+    }
+
+    public void setVideo_url(String video_url) {
+        this.video_url = video_url;
+    }
 
     public String getAddress() {
         return address;

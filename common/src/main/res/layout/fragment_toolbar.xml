@@ -1,23 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorTheme"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical">
+    android:fitsSystemWindows="true">
 
-    <com.qxb.student.common.view.Toolbar
-        android:id="@+id/toolbar"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/rootView"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/px_110"
-        android:background="@drawable/shape_bottom_divider"
-        app:contentInsetEnd="@dimen/px_0"
-        app:contentInsetStart="@dimen/px_0"
-        app:layout_collapseMode="pin"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:titleTextAppearance="@style/TextAppearance" />
+        android:layout_height="match_parent"
+        android:background="@color/colorTheme"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
 
-    <include layout="@layout/view_frame" />
+        <com.qxb.student.common.view.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_110"
+            android:background="@drawable/shape_bottom_divider"
+            android:fitsSystemWindows="true"
+            app:contentInsetEnd="@dimen/px_0"
+            app:contentInsetStart="@dimen/px_0"
+            app:layout_collapseMode="pin"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:titleTextAppearance="@style/TextAppearance" />
 
-</LinearLayout>
+        <include layout="@layout/view_frame" />
+
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

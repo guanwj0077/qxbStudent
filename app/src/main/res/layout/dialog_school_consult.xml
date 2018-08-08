@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/px_60"
+            android:background="@drawable/shape_white_radius_30"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/px_30"
+            android:paddingTop="@dimen/px_30">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="@dimen/px_30"
+                android:paddingTop="@dimen/px_30"
+                android:text="@string/hint_consult"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/px_55" />
+
+            <com.qxb.student.common.view.abslist.GridView
+                android:id="@+id/gridView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px_400"
+                android:background="@color/colorDivider"
+                android:horizontalSpacing="@dimen/px_10"
+                android:numColumns="3"
+                android:padding="@dimen/px_10"
+                android:scrollbars="none"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="@dimen/px_10"
+                android:visibility="gone" />
+
+            <include
+                layout="@layout/empty_school_consult"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/layout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/px_35"
+                android:paddingRight="@dimen/px_35"
+                android:paddingTop="@dimen/px_30">
+
+                <TextView
+                    android:id="@+id/text1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/px_15"
+                    android:background="@drawable/shape_orange"
+                    android:gravity="center"
+                    android:padding="@dimen/px_20"
+                    android:text="@string/hint_consult_school_question"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/px_45" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/px_10"
+                    android:drawableStart="@mipmap/djtxzx_xs"
+                    android:text="@string/hint_consult_all_question"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/px_35" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/image1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/hint_not_describe"
+            android:src="@mipmap/img_close" />
+    </RelativeLayout>
+</LinearLayout>

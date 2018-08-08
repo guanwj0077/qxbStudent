@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v4.view.OnApplyWindowInsetsListener;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.WindowInsetsCompat;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -42,35 +45,24 @@ public abstract class AbsToolbarFragment extends AbsExpandFragment {
     public abstract void initContent(View contentView, @Nullable Bundle savedInstanceState);
 
     @Override
-    public void init(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public final void init(@NonNull View view, @Nullable Bundle savedInstanceState) {
         toolbar = view.findViewById(R.id.toolbar);
         frameLayout = view.findViewById(R.id.fl_content);
         View contentView = View.inflate(getActivity(), bindContentView(), null);
         frameLayout.addView(contentView);
-        initContent(contentView, savedInstanceState);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.arrow_left_black);
-//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Context context = view.getContext();
-//            }
-//        });
-    }
-
-    /**
-     * 异步执行runnable
-     *
-     * @param runnable runnable
-     */
-    public void postRunnable(Runnable runnable) {
-        if (frameLayout != null) {
-            frameLayout.postDelayed(runnable, 200);
-        }
+        initContent(contentView, savedInstanceState);
     }
 
     @Override
-    public <T extends View> T findViewById(int id) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+    }
+
+    @Override
+    public final <T extends View> T findViewById(int id) {
         return frameLayout.findViewById(id);
     }
 

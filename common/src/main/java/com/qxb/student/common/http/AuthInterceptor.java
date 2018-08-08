@@ -51,8 +51,8 @@ public class AuthInterceptor implements Interceptor {
             builder.addHeader(APP_SRC, getAppSrc());
             builder.addHeader("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
         }
-        Response response = chain.proceed(builder.build());
-
+        Response response = null;
+        response = chain.proceed(builder.build());
         return response.newBuilder()
                 .removeHeader("Pragma")
                 .removeHeader("Cache-Control")

@@ -29,7 +29,10 @@
     <string name="hint_repeat_baoming">不能重复报名</string>
     <string name="hint_baoming_success">预报名成功</string>
     <string name="hint_concern_success">关注成功</string>
-
+    <string name="hint_consult">点击头像咨询大学老师</string>
+    <string name="hint_consult_no_teacher">该学校暂时还没有老师入驻</string>
+    <string name="hint_consult_school_question">本校常见问题</string>
+    <string name="hint_consult_all_question">考生关心的问题都在这里</string>
     <string name="hint_sign_up">预报名</string>
     <string name="hint_sign_on">已报名</string>
     <string name="hint_concern">关注</string>

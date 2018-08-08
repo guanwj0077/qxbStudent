@@ -15,6 +15,7 @@ import java.util.List;
 
 /**
  * 下拉刷新基类
+ *
  * @author winky
  */
 public abstract class AbsRefreshFragment<T> extends AbsToolbarFragment implements IPullRefresh<T> {
@@ -24,13 +25,15 @@ public abstract class AbsRefreshFragment<T> extends AbsToolbarFragment implement
         return R.layout.fragment_refresh;
     }
 
-    private final PullRefreshDelegate delegate = new PullRefreshDelegate(this);
+    private final PullRefreshDelegate<T> delegate = new PullRefreshDelegate<>(this);
 
     @Override
-    public void init(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.init(view, savedInstanceState);
-        delegate.init((SmartRefreshLayout) view.findViewById(R.id.refreshLayout), (RecyclerView) view.findViewById(R.id.recyclerView));
+    public final void initContent(View contentView, @Nullable Bundle savedInstanceState) {
+        delegate.init((SmartRefreshLayout) contentView.findViewById(R.id.refreshLayout), (RecyclerView) contentView.findViewById(R.id.recyclerView));
+        init(savedInstanceState);
     }
+
+    public abstract void init(@Nullable Bundle savedInstanceState);
 
     @Override
     public void refreshData(List<T> data, int count) {

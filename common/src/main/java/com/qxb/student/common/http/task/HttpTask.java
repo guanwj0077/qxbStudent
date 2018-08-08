@@ -155,7 +155,7 @@ public class HttpTask<T> implements Runnable {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 

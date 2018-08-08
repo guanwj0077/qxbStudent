@@ -47,7 +47,12 @@ public abstract class AbsNoTitleRefreshFragment<T> extends AbsExpandFragment imp
 
     @Override
     public void autoRefresh() {
-        delegate.autoRefresh();
+        postRunnable(new Runnable() {
+            @Override
+            public void run() {
+                delegate.autoRefresh();
+            }
+        });
     }
 
 

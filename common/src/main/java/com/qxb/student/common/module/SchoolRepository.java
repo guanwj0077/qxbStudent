@@ -10,6 +10,7 @@ import com.qxb.student.common.http.task.ClientTask;
 import com.qxb.student.common.http.task.DataHandle;
 import com.qxb.student.common.http.task.HttpTask;
 import com.qxb.student.common.listener.TRunnable;
+import com.qxb.student.common.module.api.RongyUserApi;
 import com.qxb.student.common.module.api.SchoolApi;
 import com.qxb.student.common.module.api.SchoolNewsApi;
 import com.qxb.student.common.module.api.UserStudentApi;
@@ -17,6 +18,7 @@ import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.MajorBat;
 import com.qxb.student.common.module.bean.MajorSubject;
 import com.qxb.student.common.module.bean.RecomSchool;
+import com.qxb.student.common.module.bean.RongyUser;
 import com.qxb.student.common.module.bean.SchoolDetail;
 import com.qxb.student.common.module.bean.SchoolNews;
 import com.qxb.student.common.module.bean.SchoolVideo;
@@ -46,6 +48,19 @@ public class SchoolRepository extends BaseRepository {
     private MutableLiveData<List<MajorBat>> majorLiveData = new MutableLiveData<>();
     private MutableLiveData<List<ScoreBat>> scoreLiveData = new MutableLiveData<>();
     private MutableLiveData<Boolean> registrationLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<RongyUser>> rongUserLiveData = new MutableLiveData<>();
+
+    @Override
+    public void onCleared() {
+        schoolListLiveData = null;
+        schoolLiveData = null;
+        schoolVideoLiveData = null;
+        schoolNewsLiveData = null;
+        majorLiveData = null;
+        scoreLiveData = null;
+        registrationLiveData = null;
+        rongUserLiveData = null;
+    }
 
     public LiveData<List<RecomSchool>> getSchoolLiveData() {
         new HttpTask<List<RecomSchool>>()
@@ -114,10 +129,14 @@ public class SchoolRepository extends BaseRepository {
                     ApiModel<List<MajorSubject>> apiModel = call.execute().body();
                     if ((apiModel != null ? apiModel.getCode() : 0) == Config.HTTP_SUCCESS) {
                         User user = UserCache.getInstance().getUser();
-                        if (user == null || user.isLiberalArt()) {
-                            majorLiveData.postValue(apiModel.getData().get(1).getData());
+                        if (user == null || !user.isLiberalArt()) {
+                            if (apiModel.getData().size() >= 2) {
+                                majorLiveData.postValue(apiModel.getData().get(1).getData());
+                            }
                         } else {
-                            majorLiveData.postValue(apiModel.getData().get(0).getData());
+                            if (apiModel.getData().size() >= 1) {
+                                majorLiveData.postValue(apiModel.getData().get(0).getData());
+                            }
                         }
                     }
                 } catch (IOException e) {
@@ -136,12 +155,16 @@ public class SchoolRepository extends BaseRepository {
                     Call<ApiModel<List<ScoreSubject>>> call = httpUtils.create(SchoolApi.class)
                             .getSchoolScore(schoolId, UserCache.getInstance().getProvince());
                     ApiModel<List<ScoreSubject>> apiModel = call.execute().body();
-                    if ((apiModel != null ? apiModel.getCode() : 0) == Config.HTTP_SUCCESS) {
+                    if ((apiModel != null ? apiModel.getCode() : 0) == Config.HTTP_SUCCESS && apiModel.getData().size() == 2) {
                         User user = UserCache.getInstance().getUser();
                         if (user == null || !user.isLiberalArt()) {
-                            scoreLiveData.postValue(apiModel.getData().get(0).getData());
+                            if (apiModel.getData().size() >= 2) {
+                                scoreLiveData.postValue(apiModel.getData().get(1).getData());
+                            }
                         } else {
-                            scoreLiveData.postValue(apiModel.getData().get(1).getData());
+                            if (apiModel.getData().size() >= 1) {
+                                scoreLiveData.postValue(apiModel.getData().get(0).getData());
+                            }
                         }
                     }
                 } catch (IOException e) {
@@ -165,14 +188,11 @@ public class SchoolRepository extends BaseRepository {
         return registrationLiveData;
     }
 
-    @Override
-    public void onCleared() {
-        schoolListLiveData = null;
-        schoolLiveData = null;
-        schoolVideoLiveData = null;
-        schoolNewsLiveData = null;
-        majorLiveData = null;
-        scoreLiveData = null;
-
+    public LiveData<List<RongyUser>> teacherListBySchoolId(String schoolId) {
+        new HttpTask<List<RongyUser>>()
+                .call(httpUtils.create(RongyUserApi.class).teacherListBySchoolId(schoolId))
+                .netLive(rongUserLiveData)
+                .start();
+        return rongUserLiveData;
     }
 }

@@ -49,7 +49,10 @@ public abstract class AbsAdapter<T> extends android.widget.BaseAdapter {
         return mList;
     }
 
-    public void addCollection(Collection<T> collection) {
+    public void addCollection(List<T> collection) {
+        if (collection.size() > 0 && mList.contains(collection.get(0))) {
+            return;
+        }
         this.mList.addAll(collection);
     }
 

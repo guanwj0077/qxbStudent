@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -8,17 +8,32 @@
             type="com.qxb.student.common.module.bean.SchoolDetail" />
     </data>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white">
 
-        <ImageView
-            android:id="@+id/image1"
-            imageUrl="@{school.coverRealPath}"
+        <RelativeLayout
+            android:id="@+id/layout1"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/px_550"
-            android:scaleType="fitXY" />
+            android:layout_height="@dimen/px_550">
+
+            <ImageView
+                imageUrl="@{school.coverRealPath}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/hint_not_describe"
+                android:scaleType="fitXY" />
+
+            <ImageView
+                android:id="@+id/iv_play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:contentDescription="@string/hint_not_describe"
+                android:src="@mipmap/video_play"
+                android:visibility="gone" />
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/image2"
@@ -31,7 +46,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/image1"
+            android:layout_below="@id/layout1"
             android:layout_marginStart="@dimen/px_20"
             android:layout_toEndOf="@id/image2"
             android:orientation="vertical"

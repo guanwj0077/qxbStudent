@@ -22,6 +22,7 @@ import com.qxb.student.common.listener.MultiClickUtil;
 import com.qxb.student.common.module.CollectionRepository;
 import com.qxb.student.common.module.SchoolRepository;
 import com.qxb.student.common.module.bean.MajorBat;
+import com.qxb.student.common.module.bean.RongyUser;
 import com.qxb.student.common.module.bean.SchoolDetail;
 import com.qxb.student.common.module.bean.SchoolNews;
 import com.qxb.student.common.module.bean.SchoolVideo;
@@ -35,6 +36,7 @@ import com.qxb.student.ui.home.school.SchoolConductFragment;
 import com.qxb.student.ui.home.school.SchoolDetailFragment;
 import com.qxb.student.ui.home.school.SchoolIntroFragment;
 import com.qxb.student.ui.home.school.SchoolRecruitMajorFragment;
+import com.qxb.student.ui.widget.SchoolConsultFragment;
 
 import java.util.Arrays;
 import java.util.List;
@@ -87,6 +89,7 @@ public class SchoolControl extends AndroidViewModel {
                 binding.setSchool(schoolDetail);
                 binding.includeHeader.setSchool(schoolDetail);
                 if (schoolDetail != null) {
+                    binding.includeHeader.ivPlay.setVisibility(TextUtils.isEmpty(schoolDetail.getVideo_url()) ? View.GONE : View.VISIBLE);
                     toolbar.setTitle(schoolDetail.getSchool_name());
                     if (!TextUtils.isEmpty(schoolDetail.getTag())) {
                         String[] tags = schoolDetail.getTag().replaceAll("，", ",").replaceAll("；", ",").replaceAll(";", ",").split(",");
@@ -110,6 +113,7 @@ public class SchoolControl extends AndroidViewModel {
                 SchoolConductFragment.getInstance(schoolId).setTitle(fragment.getString(R.string.school_conduct))
         )));
         binding.viewPager.setCurrentItem(0);
+        binding.includeHeader.ivPlay.setOnClickListener(clickListener);
         binding.layout1.setOnClickListener(clickListener);
         binding.layout2.setOnClickListener(clickListener);
         binding.layout3.setOnClickListener(clickListener);
@@ -120,6 +124,11 @@ public class SchoolControl extends AndroidViewModel {
         @Override
         public void onClick(View view) {
             if (!MultiClickUtil.isFastClick()) {
+                return;
+            }
+            //跳转视频播放
+            if (view.getId() == R.id.iv_play) {
+
                 return;
             }
             if (!HintHelper.hasLogin(fragment.getContext())) {
@@ -135,7 +144,7 @@ public class SchoolControl extends AndroidViewModel {
             switch (view.getId()) {
                 //咨询
                 case R.id.layout1:
-
+                    SchoolConsultFragment.create().show(fragment.getChildFragmentManager(), "");
                     break;
                 //预报名
                 case R.id.layout2:
@@ -179,7 +188,7 @@ public class SchoolControl extends AndroidViewModel {
         DialogInterface.OnClickListener clickListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if (i == 0) {
+                if (i == -1) {
                     schoolRepository.saveStudentRegistration(String.valueOf(schoolDetail.getId())).observe(fragment, new Observer<Boolean>() {
                         @Override
                         public void onChanged(@Nullable Boolean aBoolean) {
@@ -255,4 +264,12 @@ public class SchoolControl extends AndroidViewModel {
         return schoolRepository.getSchoolScore(schoolId);
     }
 
+    public LiveData<List<RongyUser>> teacherListBySchoolId() {
+        SchoolDetail schoolDetail = schoolLiveData.getValue();
+        if (schoolDetail != null) {
+            return schoolRepository.teacherListBySchoolId(String.valueOf(schoolDetail.getId()));
+        } else {
+            return new MutableLiveData<>();
+        }
+    }
 }
