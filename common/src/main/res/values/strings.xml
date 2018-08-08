@@ -23,6 +23,12 @@
     <string name="school_line_control">控制线</string>
     <string name="hint_school_bat">点击切换招生批次</string>
     <string name="hint_school_recruit">招生计划</string>
+    <string name="hint_school_baoming">报名后老师会主动与你联系,提供细心、周到的服务与指导</string>
+    <string name="hint_no_thanks">不，谢谢</string>
+    <string name="hint_want_baoming">我要报名</string>
+    <string name="hint_repeat_baoming">不能重复报名</string>
+    <string name="hint_baoming_success">预报名成功</string>
+    <string name="hint_concern_success">关注成功</string>
 
     <string name="hint_sign_up">预报名</string>
     <string name="hint_sign_on">已报名</string>

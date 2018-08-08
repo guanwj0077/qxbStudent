@@ -5,12 +5,14 @@ import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
 import com.qxb.student.common.Config;
+import com.qxb.student.common.http.task.ApiModelHandle;
 import com.qxb.student.common.http.task.ClientTask;
 import com.qxb.student.common.http.task.DataHandle;
 import com.qxb.student.common.http.task.HttpTask;
 import com.qxb.student.common.listener.TRunnable;
 import com.qxb.student.common.module.api.SchoolApi;
 import com.qxb.student.common.module.api.SchoolNewsApi;
+import com.qxb.student.common.module.api.UserStudentApi;
 import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.MajorBat;
 import com.qxb.student.common.module.bean.MajorSubject;
@@ -43,6 +45,7 @@ public class SchoolRepository extends BaseRepository {
     private MutableLiveData<List<SchoolNews>> schoolNewsLiveData = new MutableLiveData<>();
     private MutableLiveData<List<MajorBat>> majorLiveData = new MutableLiveData<>();
     private MutableLiveData<List<ScoreBat>> scoreLiveData = new MutableLiveData<>();
+    private MutableLiveData<Boolean> registrationLiveData = new MutableLiveData<>();
 
     public LiveData<List<RecomSchool>> getSchoolLiveData() {
         new HttpTask<List<RecomSchool>>()
@@ -147,6 +150,19 @@ public class SchoolRepository extends BaseRepository {
             }
         });
         return scoreLiveData;
+    }
+
+    public LiveData<Boolean> saveStudentRegistration(String schoolId) {
+        new HttpTask<String>()
+                .call(httpUtils.create(UserStudentApi.class).saveStudentRegistration(UserCache.getInstance().getUserId(), schoolId))
+                .apiModel(new ApiModelHandle<String>() {
+                    @Override
+                    public void handle(@NonNull ApiModel<String> apiModel, int pageIndex) {
+                        registrationLiveData.postValue(apiModel.getCode() == Config.HTTP_SUCCESS);
+                    }
+                }).start();
+
+        return registrationLiveData;
     }
 
     @Override

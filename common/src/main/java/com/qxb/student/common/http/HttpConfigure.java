@@ -97,7 +97,6 @@ public class HttpConfigure {
                 e.printStackTrace();
                 okHttpClient = new OkHttpClient();
             }
-
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(Objects.requireNonNull(httpUrl))
                     .callFactory(okHttpClient)

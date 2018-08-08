@@ -9,6 +9,7 @@ import com.qxb.student.common.utils.Logger;
 import com.qxb.student.common.utils.UserCache;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.TreeMap;
 
 import okhttp3.FormBody;
@@ -16,6 +17,7 @@ import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.internal.Util;
 import okio.Buffer;
 
 /**
@@ -47,6 +49,7 @@ public class AuthInterceptor implements Interceptor {
             //删除自定义的认证头标记
             builder.removeHeader(Config.AUTH);
             builder.addHeader(APP_SRC, getAppSrc());
+            builder.addHeader("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
         }
         Response response = chain.proceed(builder.build());
 
@@ -66,9 +69,8 @@ public class AuthInterceptor implements Interceptor {
             String secretKey = Encrypt.getReverseString(timeTemp + loginName);
             Buffer buffer = new Buffer();
             body.writeTo(buffer);
-
             TreeMap<String, String> treeMap = new TreeMap<>();
-            for (String pair : buffer.readUtf8().split("&")) {
+            for (String pair : URLDecoder.decode(buffer.readUtf8(), Util.UTF_8.name()).split("&")) {
                 String[] kv = pair.split("=");
                 if (kv.length == 2) {
                     treeMap.put(kv[0], kv[1]);
@@ -76,13 +78,13 @@ public class AuthInterceptor implements Interceptor {
             }
             buffer.clear();
             StringBuilder params = new StringBuilder();
-            FormBody.Builder bodyBuilder = new FormBody.Builder();
+            FormBody.Builder bodyBuilder = new FormBody.Builder(Util.UTF_8);
             for (String key : treeMap.keySet()) {
                 String value = treeMap.get(key);
-                bodyBuilder.add(key, value);
+                bodyBuilder.addEncoded(key, value);
                 params.append(key).append("=").append(value).append("&");
             }
-
+//            String s=new String(buffer.readString(Util.UTF_8));
             String signTemp = params.toString() + "secretKey=" + secretKey;
             params.setLength(0);
             String sign = Encrypt.md5(Encrypt.getReverseString(Encrypt.md5(signTemp).toUpperCase())).toUpperCase();

@@ -6,7 +6,7 @@ public final class Config {
     /**
      * 是否调试模式
      */
-    public static final boolean IS_DEBUG = false;
+    public static final boolean IS_DEBUG = true;
 
     private static final String SERVER_HOST_RELEASE = "https://api.qiuxuebao.com/";
     private static final String SERVER_HOST_DEBUG = "http://172.16.100.154:8080/qxb_api/";

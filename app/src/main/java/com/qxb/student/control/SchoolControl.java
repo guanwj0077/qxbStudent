@@ -1,10 +1,12 @@
 package com.qxb.student.control;
 
+import android.app.AlertDialog;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +18,8 @@ import android.widget.RadioGroup;
 import com.qxb.student.R;
 import com.qxb.student.common.adapter.FragmentAdapter;
 import com.qxb.student.common.adapter.SchoolTagAdapter;
+import com.qxb.student.common.listener.MultiClickUtil;
+import com.qxb.student.common.module.CollectionRepository;
 import com.qxb.student.common.module.SchoolRepository;
 import com.qxb.student.common.module.bean.MajorBat;
 import com.qxb.student.common.module.bean.SchoolDetail;
@@ -23,8 +27,10 @@ import com.qxb.student.common.module.bean.SchoolNews;
 import com.qxb.student.common.module.bean.SchoolVideo;
 import com.qxb.student.common.module.bean.ScoreBat;
 import com.qxb.student.common.utils.dialog.DialogUtils;
+import com.qxb.student.common.utils.dialog.ToastUtils;
 import com.qxb.student.common.view.Toolbar;
 import com.qxb.student.databinding.FragmentSchoolBinding;
+import com.qxb.student.helper.HintHelper;
 import com.qxb.student.ui.home.school.SchoolConductFragment;
 import com.qxb.student.ui.home.school.SchoolDetailFragment;
 import com.qxb.student.ui.home.school.SchoolIntroFragment;
@@ -49,6 +55,7 @@ public class SchoolControl extends AndroidViewModel {
     private SchoolDetailFragment fragment;
     private FragmentSchoolBinding binding;
     private SchoolRepository schoolRepository = new SchoolRepository();
+    private CollectionRepository collectionRepository = new CollectionRepository();
 
     private LiveData<SchoolDetail> schoolLiveData = new MutableLiveData<>();
     private LiveData<List<SchoolNews>> schoolNewsLiveData;
@@ -103,10 +110,98 @@ public class SchoolControl extends AndroidViewModel {
                 SchoolConductFragment.getInstance(schoolId).setTitle(fragment.getString(R.string.school_conduct))
         )));
         binding.viewPager.setCurrentItem(0);
+        binding.layout1.setOnClickListener(clickListener);
+        binding.layout2.setOnClickListener(clickListener);
+        binding.layout3.setOnClickListener(clickListener);
         showWaitingDialog();
     }
 
-    public void showWaitingDialog() {
+    private View.OnClickListener clickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if (!MultiClickUtil.isFastClick()) {
+                return;
+            }
+            if (!HintHelper.hasLogin(fragment.getContext())) {
+                return;
+            }
+            if (!HintHelper.hasNetwork()) {
+                return;
+            }
+            final SchoolDetail schoolDetail = binding.getSchool();
+            if (schoolDetail == null) {
+                return;
+            }
+            switch (view.getId()) {
+                //咨询
+                case R.id.layout1:
+
+                    break;
+                //预报名
+                case R.id.layout2:
+                    if (schoolDetail.isIs_reg()) {
+                        ToastUtils.toast(R.string.hint_repeat_baoming);
+                    } else {
+                        baoming(schoolDetail);
+                    }
+                    break;
+                //关注
+                case R.id.layout3:
+                    if (schoolDetail.isIs_att()) {
+                        collectionRepository.cancel(String.valueOf(schoolDetail.getId()), "3").observe(fragment, new Observer<Boolean>() {
+                            @Override
+                            public void onChanged(@Nullable Boolean aBoolean) {
+                                if (aBoolean) {
+                                    schoolDetail.setIs_att(false);
+                                    binding.setSchool(schoolDetail);
+                                    ToastUtils.toast(R.string.hint_cancel);
+                                }
+                            }
+                        });
+                    } else {
+                        collectionRepository.add(String.valueOf(schoolDetail.getId()), "3", schoolDetail.getSchool_name()).observe(fragment, new Observer<Boolean>() {
+                            @Override
+                            public void onChanged(@Nullable Boolean aBoolean) {
+                                if (aBoolean) {
+                                    schoolDetail.setIs_att(true);
+                                    binding.setSchool(schoolDetail);
+                                    ToastUtils.toast(R.string.hint_concern_success);
+                                }
+                            }
+                        });
+                    }
+                    break;
+            }
+        }
+    };
+
+    private void baoming(final SchoolDetail schoolDetail) {
+        DialogInterface.OnClickListener clickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (i == 0) {
+                    schoolRepository.saveStudentRegistration(String.valueOf(schoolDetail.getId())).observe(fragment, new Observer<Boolean>() {
+                        @Override
+                        public void onChanged(@Nullable Boolean aBoolean) {
+                            if (aBoolean) {
+                                ToastUtils.toast(R.string.hint_baoming_success);
+                                schoolDetail.setIs_reg(true);
+                                binding.setSchool(schoolDetail);
+                            }
+                        }
+                    });
+                }
+            }
+        };
+        AlertDialog.Builder builder = new AlertDialog.Builder(fragment.getContext());
+        builder.setMessage(R.string.hint_school_baoming)
+                .setPositiveButton(R.string.hint_want_baoming, clickListener)
+                .setNegativeButton(R.string.hint_no_thanks, clickListener)
+                .create()
+                .show();
+    }
+
+    private void showWaitingDialog() {
         dialogUtils = new DialogUtils(fragment.getContext());
         dialogUtils.show();
     }

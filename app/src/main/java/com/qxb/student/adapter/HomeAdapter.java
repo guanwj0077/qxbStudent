@@ -86,7 +86,7 @@ public class HomeAdapter extends NestingAdapter {
         homeControl.getHomeBanner().observe(fragment, new Observer<List<SysAd>>() {
             @Override
             public void onChanged(@Nullable List<SysAd> sysAds) {
-               /* viewFlow.setNestedpParent((ViewGroup) viewFlow.getParent());
+                viewFlow.setNestedpParent((ViewGroup) viewFlow.getParent());
                 viewFlow.setFlowIndicator(flowIndicator);
                 viewFlow.setTimeSpan(4500);
                 getBannerAdapter().clear();
@@ -96,7 +96,7 @@ public class HomeAdapter extends NestingAdapter {
                 viewFlow.setSideBuffer(size);
                 flowIndicator.setCount(size);
                 viewFlow.setSelection(size * 1000);
-                viewFlow.startAutoFlowTimer();*/
+                viewFlow.startAutoFlowTimer();
             }
         });
     }

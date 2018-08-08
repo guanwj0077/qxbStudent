@@ -131,7 +131,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:drawablePadding="@dimen/px_30"
-                                android:drawableStart="@{school.is_att ? @drawable/sch_detail_gzn : @drawable/sch_detail_gz}"
+                                android:drawableStart="@{school.is_att ? @drawable/sch_detail_gz : @drawable/sch_detail_gzn}"
                                 android:text="@string/hint_concern" />
                         </FrameLayout>
                     </LinearLayout>
