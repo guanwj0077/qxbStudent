@@ -16,7 +16,7 @@ import com.qxb.student.common.module.bean.Bankao;
 import com.qxb.student.common.module.bean.BaseNews;
 import com.qxb.student.common.module.bean.BaseNewsComment;
 import com.qxb.student.common.module.bean.SchoolDetail;
-import com.qxb.student.common.utils.dialog.ToastUtils;
+import com.qxb.student.common.view.dialog.ToastUtils;
 
 import java.util.HashMap;
 import java.util.List;

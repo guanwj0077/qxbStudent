@@ -16,7 +16,7 @@ import com.qxb.student.common.Constant;
 import com.qxb.student.common.basics.AbsExpandFragment;
 import com.qxb.student.common.listener.MultiClickUtil;
 import com.qxb.student.common.module.bean.LRegister;
-import com.qxb.student.common.utils.dialog.ToastUtils;
+import com.qxb.student.common.view.dialog.ToastUtils;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -1,4 +1,4 @@
-package com.qxb.student.common.utils.dialog;
+package com.qxb.student.common.view.dialog;
 
 import android.annotation.SuppressLint;
 import android.support.v4.app.FragmentManager;

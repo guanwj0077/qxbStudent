@@ -396,7 +396,6 @@
                     android:gravity="right"
                     android:paddingLeft="@dimen/px_25"
                     android:paddingRight="@dimen/px_15"
-                    android:text="@{user.highschool_name}"
                     android:textColor="@color/black1"
                     android:textSize="15.0sp"
                     android:visibility="visible"

@@ -15,7 +15,7 @@ import com.qxb.student.common.basics.AbsToolbarFragment;
 import com.qxb.student.common.listener.MultiClickUtil;
 import com.qxb.student.common.module.bean.User;
 import com.qxb.student.common.utils.UserCache;
-import com.qxb.student.common.utils.dialog.ToastUtils;
+import com.qxb.student.common.view.dialog.ToastUtils;
 import com.qxb.student.databinding.FragmentSettingBinding;
 
 /**
@@ -32,7 +32,7 @@ public class SettingFragment extends AbsToolbarFragment {
 
     @Override
     public void initContent(View contentView, @Nullable Bundle savedInstanceState) {
-        setTitle("1");
+        setTitle(getString(R.string.personal_details));
         binding = DataBindingUtil.bind(contentView);
         UserCache.getInstance().getUserLiveData().observe(SettingFragment.this, new Observer<User>() {
             @Override
@@ -46,7 +46,7 @@ public class SettingFragment extends AbsToolbarFragment {
                             (TextUtils.isEmpty(user.getCity_name()) ? "" : user.getCity_name()) + " " +
                             (TextUtils.isEmpty(user.getArea_name()) ? "" : user.getArea_name()) + "\n" +
                             (TextUtils.isEmpty(user.getHighschool_name()) ? "" : user.getHighschool_name());
-                    user.setHighschool_name(!TextUtils.isEmpty(user.getHighschool_name()) ? tempname : getString(R.string.weitian));
+                    binding.txtRightDq.setText(!TextUtils.isEmpty(user.getHighschool_name()) ? tempname : getString(R.string.weitian));
                     binding.setUser(user);
                     binding.txtRightGknf.setText(user.getYears() == 0 || user.getYears() == 999 ? getString(R.string.weitian) : user.getYears() + "年");
 

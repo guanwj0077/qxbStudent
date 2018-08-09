@@ -14,7 +14,7 @@ import com.qxb.student.common.basics.AbsExpandFragment;
 import com.qxb.student.common.listener.MultiClickUtil;
 import com.qxb.student.common.module.bean.attr.NavAttr;
 import com.qxb.student.common.utils.NavigationUtils;
-import com.qxb.student.common.utils.dialog.DialogTwoBtn;
+import com.qxb.student.common.view.dialog.DialogTwoBtn;
 import com.qxb.student.common.view.ClearEditText;
 
 /**

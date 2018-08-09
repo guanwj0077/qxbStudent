@@ -30,7 +30,7 @@ import com.qxb.student.common.module.bean.attr.NavAttr;
 import com.qxb.student.common.utils.CommonUtils;
 import com.qxb.student.common.utils.NavigationUtils;
 import com.qxb.student.common.utils.SharedUtils;
-import com.qxb.student.common.utils.dialog.ToastUtils;
+import com.qxb.student.common.view.dialog.ToastUtils;
 import com.qxb.student.control.ResetPasswordControl;
 
 

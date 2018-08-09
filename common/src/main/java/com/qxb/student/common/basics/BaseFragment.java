@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 
 import com.qxb.student.common.listener.IBinding;
 import com.qxb.student.common.utils.NavigationUtils;
-import com.qxb.student.common.utils.dialog.DialogUtils;
+import com.qxb.student.common.view.dialog.DialogUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.Objects;

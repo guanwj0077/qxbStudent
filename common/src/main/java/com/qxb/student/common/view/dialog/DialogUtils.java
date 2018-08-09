@@ -1,8 +1,7 @@
-package com.qxb.student.common.utils.dialog;
+package com.qxb.student.common.view.dialog;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.view.View;

@@ -3,7 +3,6 @@ package com.qxb.student.common.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,9 +13,8 @@ import com.qxb.student.common.R;
 import com.qxb.student.common.listener.MultiClickUtil;
 import com.qxb.student.common.module.bean.LectureVideo;
 import com.qxb.student.common.utils.GlideUtils;
-import com.qxb.student.common.utils.dialog.ToastUtils;
+import com.qxb.student.common.view.dialog.ToastUtils;
 
-import java.net.FileNameMap;
 import java.util.List;
 
 /**
