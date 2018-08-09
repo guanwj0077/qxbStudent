@@ -1,20 +1,13 @@
-package com.qxb.student.common.utils.dialog;
+package com.qxb.student.common.view.dialog;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.qxb.student.common.Constant;
 import com.qxb.student.common.R;
 import com.qxb.student.common.utils.ContextUtils;
 

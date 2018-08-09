@@ -22,7 +22,7 @@ import com.qxb.student.common.module.bean.SchoolDetail;
 import com.qxb.student.common.utils.GlideUtils;
 import com.qxb.student.common.utils.NavigationUtils;
 import com.qxb.student.common.utils.TimeUtils;
-import com.qxb.student.common.utils.dialog.ToastUtils;
+import com.qxb.student.common.view.dialog.ToastUtils;
 import com.qxb.student.common.view.abslist.adapter.AbsAdapter;
 import com.qxb.student.common.view.web.WebView;
 import com.qxb.student.control.BanKaoControl;

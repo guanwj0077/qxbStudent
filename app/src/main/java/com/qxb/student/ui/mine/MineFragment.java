@@ -167,7 +167,7 @@ public class MineFragment extends AbsExpandFragment {
             @Override
             public void onChanged(@Nullable String s) {
                 if (!TextUtils.isEmpty(s)) {
-                    NavigationUtils.getInstance().toVideoPlay(getContext(),new VoideAttr.VoideBuilder(Constant.ZERO).isShare(false).title(getString(R.string.usinghelp)).url(s).build());
+                    NavigationUtils.getInstance().toVideoPlay(getContext(),new VoideAttr.VoideBuilder(s,getString(R.string.usinghelp),null).isShare(true).build());
                 }
 
             }

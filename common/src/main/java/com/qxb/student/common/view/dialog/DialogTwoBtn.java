@@ -1,10 +1,9 @@
-package com.qxb.student.common.utils.dialog;
+package com.qxb.student.common.view.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 

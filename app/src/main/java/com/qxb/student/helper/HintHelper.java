@@ -1,16 +1,14 @@
 package com.qxb.student.helper;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import com.qxb.student.R;
-import com.qxb.student.common.module.bean.User;
 import com.qxb.student.common.module.bean.attr.NavAttr;
 import com.qxb.student.common.utils.ContextUtils;
 import com.qxb.student.common.utils.NavigationUtils;
 import com.qxb.student.common.utils.SysUtils;
 import com.qxb.student.common.utils.UserCache;
-import com.qxb.student.common.utils.dialog.ToastUtils;
+import com.qxb.student.common.view.dialog.ToastUtils;
 
 /**
  * @author winky

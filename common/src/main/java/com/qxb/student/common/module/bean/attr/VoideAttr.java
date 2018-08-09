@@ -22,14 +22,6 @@ public class VoideAttr implements Parcelable {
     private final String title;
 
     /**
-     * 来源标签（界面）
-     * 0 我的
-     * 1 大学专业展示
-     *    .....
-     */
-    private final int type;
-
-    /**
      * 视屏封面
      */
     private final String coverRealPath;
@@ -40,28 +32,28 @@ public class VoideAttr implements Parcelable {
     private final boolean isShare;
 
 
-    public VoideAttr(VoideBuilder voideBuilder) {
+   public VoideAttr(VoideBuilder voideBuilder) {
         this.url = voideBuilder.url;
         this.title = voideBuilder.title;
         this.coverRealPath = voideBuilder.coverRealPath;
         this.isShare = voideBuilder.isShare;
-        this.type = voideBuilder.type;
+
     }
 
 
     protected VoideAttr(Parcel in) {
         url = in.readString();
         title = in.readString();
-        type = in.readInt();
         coverRealPath = in.readString();
         isShare = in.readByte() != 0;
     }
+
+
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(url);
         dest.writeString(title);
-        dest.writeInt(type);
         dest.writeString(coverRealPath);
         dest.writeByte((byte) (isShare ? 1 : 0));
     }
@@ -99,47 +91,31 @@ public class VoideAttr implements Parcelable {
         return isShare;
     }
 
-    public int getType() {
-        return type;
-    }
-
     public static class VoideBuilder {
         /**
          * 必传
          */
-        private String url;
+        private final String url;
 
         /**
          * 必传
          */
-        private String title;
+        private final String title;
 
         /**
          * 必传
          */
-        private final int type;
+        private  final String coverRealPath;
 
-        private String coverRealPath;
-
+        /**
+         * 非必传
+         * */
         private boolean isShare;
 
-        public VoideBuilder url(String url) {
+        public VoideBuilder(String url, String title, String coverRealPath) {
             this.url = url;
-            return this;
-        }
-
-        public VoideBuilder title(String title) {
             this.title = title;
-            return this;
-        }
-
-        public VoideBuilder(int type) {
-            this.type = type;
-        }
-
-        public VoideBuilder coverRealPath(String coverRealPath) {
             this.coverRealPath = coverRealPath;
-            return this;
         }
 
         public VoideBuilder isShare(boolean isShare) {
