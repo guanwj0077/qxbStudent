@@ -1,6 +1,5 @@
 package com.qxb.student.common.module;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
@@ -26,15 +25,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class NewsRepository extends BaseRepository {
 
-    private MutableLiveData<ApiModel<List<Bankao>>> bankaoLiveData = new MutableLiveData<>();
-    private MutableLiveData<BaseNews> newsLiveData = new MutableLiveData<>();
-    private MutableLiveData<ApiModel<List<BaseNewsComment>>> commentListLiveData = new MutableLiveData<>();
-    private MutableLiveData<Boolean> dianzanLiveData = new MutableLiveData<>();
-    private MutableLiveData<Boolean> quxiaoLiveData = new MutableLiveData<>();
-    private MutableLiveData<Boolean> commentLiveData = new MutableLiveData<>();
-    private MutableLiveData<SchoolDetail> connectInfoLiveData = new MutableLiveData<>();
-
-    public LiveData<ApiModel<List<Bankao>>> getBankaoList(String keyWord, final String channel, int page) {
+    public void getBankaoList(final MutableLiveData<ApiModel<List<Bankao>>> liveData, String keyWord, final String channel, int page) {
         Map<String, String> params = new ConcurrentHashMap<>();
         params.put("keyword", keyWord);
         params.put("channel", channel);
@@ -54,7 +45,7 @@ public class NewsRepository extends BaseRepository {
                 .apiModel(new ApiModelHandle<List<Bankao>>() {
                     @Override
                     public void handle(@NonNull ApiModel<List<Bankao>> apiModel, int pageIndex) {
-                        bankaoLiveData.postValue(apiModel);
+                        liveData.postValue(apiModel);
                         //如果重新刷新则清掉之前的，重新缓存
                         if (pageIndex == 1) {
                             roomUtils.bankaoDao().deleteAll();
@@ -63,31 +54,28 @@ public class NewsRepository extends BaseRepository {
                     }
                 })
                 .start();
-        return bankaoLiveData;
     }
 
-    public LiveData<ApiModel<List<BaseNewsComment>>> getBaseNewsCommentList(String id, int page, String rows) {
+    public void getBaseNewsCommentList(final MutableLiveData<ApiModel<List<BaseNewsComment>>> liveData, String id, int page, String rows) {
         new HttpTask<List<BaseNewsComment>>()
                 .call(httpUtils.create(BaseNewsApi.class).getBaseNewsCommentList(id, UserCache.getInstance().getUserId(), String.valueOf(page), rows))
                 .page(page)
                 .apiModel(new ApiModelHandle<List<BaseNewsComment>>() {
                     @Override
                     public void handle(@NonNull ApiModel<List<BaseNewsComment>> apiModel, int pageIndex) {
-                        commentListLiveData.postValue(apiModel);
+                        liveData.postValue(apiModel);
                     }
                 }).start();
-        return commentListLiveData;
     }
 
-    public MutableLiveData<BaseNews> getBankaoDetail(String bankaoId) {
+    public void getBankaoDetail(MutableLiveData<BaseNews> liveData, String bankaoId) {
         new HttpTask<BaseNews>()
-                .netLive(newsLiveData)
+                .netLive(liveData)
                 .call(httpUtils.create(BaseNewsApi.class).baseNewsDetail(bankaoId, UserCache.getInstance().getUserId()))
                 .start();
-        return newsLiveData;
     }
 
-    public LiveData<Boolean> commentPraise(String newId, String commentId) {
+    public void commentPraise(final MutableLiveData<Boolean> dianzanLiveData, String newId, String commentId) {
         new HttpTask<String>()
                 .call(httpUtils.create(BaseNewsApi.class).commentPraise(newId, UserCache.getInstance().getUserId(), commentId))
                 .apiModel(new ApiModelHandle<String>() {
@@ -96,22 +84,20 @@ public class NewsRepository extends BaseRepository {
                         dianzanLiveData.postValue(apiModel.getCode() == Config.HTTP_SUCCESS);
                     }
                 }).start();
-        return dianzanLiveData;
     }
 
-    public LiveData<Boolean> cancelCommentPraise(String newId, String commentId) {
+    public void cancelCommentPraise(final MutableLiveData<Boolean> mutableLiveData, String newId, String commentId) {
         new HttpTask<String>()
                 .call(httpUtils.create(BaseNewsApi.class).cancelCommentPraise(newId, UserCache.getInstance().getUserId(), commentId))
                 .apiModel(new ApiModelHandle<String>() {
                     @Override
                     public void handle(@NonNull ApiModel<String> apiModel, int pageIndex) {
-                        quxiaoLiveData.postValue(apiModel.getCode() == Config.HTTP_SUCCESS);
+                        mutableLiveData.postValue(apiModel.getCode() == Config.HTTP_SUCCESS);
                     }
                 }).start();
-        return quxiaoLiveData;
     }
 
-    public LiveData<Boolean> submitNewsReview(String newsId, String content) {
+    public void submitNewsReview(final MutableLiveData<Boolean> commentLiveData, String newsId, String content) {
         new HttpTask<String>()
                 .call(httpUtils.create(BaseNewsApi.class).baseNewsReview(newsId, UserCache.getInstance().getUserId(), content))
                 .apiModel(new ApiModelHandle<String>() {
@@ -120,15 +106,13 @@ public class NewsRepository extends BaseRepository {
                         commentLiveData.postValue(apiModel.getCode() == Config.HTTP_SUCCESS);
                     }
                 }).start();
-        return commentLiveData;
     }
 
-    public LiveData<SchoolDetail> connectSchool(Map<String, String> hashMap) {
+    public void connectSchool(MutableLiveData<SchoolDetail> connectInfoLiveData, Map<String, String> hashMap) {
         new HttpTask<SchoolDetail>()
                 .call(httpUtils.create(BaseNewsApi.class).connectSchool(hashMap))
                 .netLive(connectInfoLiveData)
                 .start();
-        return connectInfoLiveData;
     }
 
 }

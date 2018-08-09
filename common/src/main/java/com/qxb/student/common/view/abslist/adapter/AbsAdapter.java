@@ -1,6 +1,7 @@
 package com.qxb.student.common.view.abslist.adapter;
 
 import android.content.Context;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.view.LayoutInflater;
@@ -134,6 +135,10 @@ public abstract class AbsAdapter<T> extends android.widget.BaseAdapter {
 
     public void setText(View view, @IdRes int id, String charSequence) {
         ((TextView) view.findViewById(id)).setText(charSequence);
+    }
+
+    public void setImageResource(View view, @IdRes int id, @DrawableRes int resId) {
+        ((ImageView) view.findViewById(id)).setImageResource(resId);
     }
 
     public void setOnClickListener(View view, OnPositionClickListener clickListener) {

@@ -50,12 +50,7 @@ public class BankaoCommentListFragment extends AbsRefreshFragment<BaseNewsCommen
             NavigationUtils.getInstance().goBack(getFragment());
             return;
         }
-        autoRefresh();
-    }
-
-    @Override
-    public void reqData(int pageIndex) {
-        banKaoControl.getBaseNewsCommentList(newsId, pageIndex).observe(this, new Observer<ApiModel<List<BaseNewsComment>>>() {
+        banKaoControl.getCommentListLiveData().observe(this, new Observer<ApiModel<List<BaseNewsComment>>>() {
             @Override
             public void onChanged(@Nullable ApiModel<List<BaseNewsComment>> apiModel) {
                 if (apiModel != null) {
@@ -63,6 +58,12 @@ public class BankaoCommentListFragment extends AbsRefreshFragment<BaseNewsCommen
                 }
             }
         });
+        autoRefresh();
+    }
+
+    @Override
+    public void reqData(int pageIndex) {
+        banKaoControl.getBaseNewsCommentList(newsId, pageIndex);
     }
 
     @Override

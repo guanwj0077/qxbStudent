@@ -21,6 +21,7 @@ import com.qxb.student.common.adapter.SchoolTagAdapter;
 import com.qxb.student.common.listener.MultiClickUtil;
 import com.qxb.student.common.module.CollectionRepository;
 import com.qxb.student.common.module.SchoolRepository;
+import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.MajorBat;
 import com.qxb.student.common.module.bean.RongyUser;
 import com.qxb.student.common.module.bean.SchoolDetail;
@@ -56,11 +57,17 @@ public class SchoolControl extends AndroidViewModel {
     private DialogUtils dialogUtils;
     private SchoolDetailFragment fragment;
     private FragmentSchoolBinding binding;
+
     private SchoolRepository schoolRepository = new SchoolRepository();
     private CollectionRepository collectionRepository = new CollectionRepository();
 
-    private LiveData<SchoolDetail> schoolLiveData = new MutableLiveData<>();
-    private LiveData<List<SchoolNews>> schoolNewsLiveData;
+    private MutableLiveData<SchoolDetail> schoolLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<SchoolVideo>> schoolVideoLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<SchoolNews>> schoolNewsLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<MajorBat>> majorLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<ScoreBat>> scoreLiveData = new MutableLiveData<>();
+    private MutableLiveData<Boolean> registrationLiveData = new MutableLiveData<>();
+    private MutableLiveData<ApiModel<List<RongyUser>>> rongUserLiveData = new MutableLiveData<>();
 
     @Override
     protected void onCleared() {
@@ -70,6 +77,14 @@ public class SchoolControl extends AndroidViewModel {
             binding = null;
         }
         schoolRepository = null;
+        collectionRepository = null;
+        schoolLiveData = null;
+        schoolVideoLiveData = null;
+        schoolNewsLiveData = null;
+        majorLiveData = null;
+        scoreLiveData = null;
+        registrationLiveData = null;
+        rongUserLiveData = null;
         fragment = null;
     }
 
@@ -82,7 +97,7 @@ public class SchoolControl extends AndroidViewModel {
         binding.viewPager.addOnPageChangeListener(pageChangeListener);
         binding.radioGroup.setOnCheckedChangeListener(checkedChangeListener);
         binding.radioGroup.check(binding.radioGroup.getChildAt(0).getId());
-        schoolLiveData = schoolRepository.getSchoolById(schoolId);
+        schoolRepository.getSchoolById(schoolId, schoolLiveData);
         schoolLiveData.observe(fragment, new Observer<SchoolDetail>() {
             @Override
             public void onChanged(@Nullable SchoolDetail schoolDetail) {
@@ -98,7 +113,7 @@ public class SchoolControl extends AndroidViewModel {
                 }
             }
         });
-        schoolRepository.getSchoolVideoList(schoolId, "3", "1").observe(fragment, new Observer<List<SchoolVideo>>() {
+        schoolVideoLiveData.observe(fragment, new Observer<List<SchoolVideo>>() {
             @Override
             public void onChanged(@Nullable List<SchoolVideo> schoolVideos) {
                 int size = schoolVideos != null ? schoolVideos.size() : 0;
@@ -107,6 +122,7 @@ public class SchoolControl extends AndroidViewModel {
                 binding.includeVideo.setVideoSize(size);
             }
         });
+        schoolRepository.getSchoolVideoList(schoolId, "3", "1", schoolVideoLiveData);
         binding.viewPager.setAdapter(new FragmentAdapter(fragment.getChildFragmentManager(), Arrays.asList(
                 SchoolRecruitMajorFragment.getInstance(schoolId, bat).setTitle(fragment.getString(R.string.school_major)),
                 new SchoolIntroFragment().setTitle(fragment.getString(R.string.school_intro)),
@@ -189,7 +205,8 @@ public class SchoolControl extends AndroidViewModel {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (i == -1) {
-                    schoolRepository.saveStudentRegistration(String.valueOf(schoolDetail.getId())).observe(fragment, new Observer<Boolean>() {
+                    schoolRepository.saveStudentRegistration(String.valueOf(schoolDetail.getId()), registrationLiveData);
+                    registrationLiveData.observe(fragment, new Observer<Boolean>() {
                         @Override
                         public void onChanged(@Nullable Boolean aBoolean) {
                             if (aBoolean) {
@@ -222,7 +239,8 @@ public class SchoolControl extends AndroidViewModel {
     }
 
     public LiveData<List<SchoolNews>> getSchoolNews(String schoolId, int page) {
-        return schoolRepository.getSchoolNews(schoolId, "3", "", String.valueOf(page));
+        schoolRepository.getSchoolNews(schoolId, "3", "", String.valueOf(page), schoolNewsLiveData);
+        return schoolNewsLiveData;
     }
 
     private RadioGroup.OnCheckedChangeListener checkedChangeListener = new RadioGroup.OnCheckedChangeListener() {
@@ -257,19 +275,20 @@ public class SchoolControl extends AndroidViewModel {
     }
 
     public LiveData<List<MajorBat>> getSchoolRecruitMajor(String schoolId) {
-        return schoolRepository.getSchoolRecruitMajor(schoolId);
+        schoolRepository.getSchoolRecruitMajor(schoolId, majorLiveData);
+        return majorLiveData;
     }
 
     public LiveData<List<ScoreBat>> getSchoolScore(String schoolId) {
-        return schoolRepository.getSchoolScore(schoolId);
+        schoolRepository.getSchoolScore(schoolId, scoreLiveData);
+        return scoreLiveData;
     }
 
-    public LiveData<List<RongyUser>> teacherListBySchoolId() {
+    public LiveData<ApiModel<List<RongyUser>>> teacherListBySchoolId() {
         SchoolDetail schoolDetail = schoolLiveData.getValue();
         if (schoolDetail != null) {
-            return schoolRepository.teacherListBySchoolId(String.valueOf(schoolDetail.getId()));
-        } else {
-            return new MutableLiveData<>();
+            schoolRepository.teacherListBySchoolId(String.valueOf(schoolDetail.getId()), rongUserLiveData);
         }
+        return rongUserLiveData;
     }
 }

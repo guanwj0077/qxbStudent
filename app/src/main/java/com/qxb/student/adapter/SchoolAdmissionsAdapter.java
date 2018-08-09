@@ -37,6 +37,7 @@ import com.qxb.student.ui.home.school.SchoolMajorDetailFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author winky
@@ -58,7 +59,7 @@ public class SchoolAdmissionsAdapter extends NestingAdapter {
 
     public SchoolAdmissionsAdapter(Fragment fragmentTemp, String schoolId, final int bat) {
         this.fragment = fragmentTemp;
-        schoolControl = ViewModelProviders.of(fragment.getActivity()).get(SchoolControl.class);
+        schoolControl = ViewModelProviders.of(Objects.requireNonNull(fragmentTemp.getActivity())).get(SchoolControl.class);
         addItemType(SCORE_BAT, R.layout.header_school_admissions_info);
         addItemType(SCORE_LINE, R.layout.item_school_score);
         addItemType(MAJOR_TAG, R.layout.view_module_tag);
@@ -88,7 +89,7 @@ public class SchoolAdmissionsAdapter extends NestingAdapter {
                             @Override
                             public void onPositionClick(View view, int position) {
                                 MajorChild majorChild = getItem(position);
-                                NavigationUtils.getInstance().jump(fragment, R.id.nav_school_major, SchoolMajorDetailFragment.create(majorChild.getId(), "4"));
+                                NavigationUtils.getInstance().jump(fragment, R.id.nav_school_major, SchoolMajorDetailFragment.create(majorChild.getId()));
                             }
                         });
                     }
@@ -219,6 +220,9 @@ public class SchoolAdmissionsAdapter extends NestingAdapter {
     }
 
     private SparseArray<Admission> loadAdmissions() {
+        if (admissionLiveData == null) {
+            admissionLiveData = new MutableLiveData<>();
+        }
         return admissionLiveData.getValue() == null ? new SparseArray<Admission>(5) : admissionLiveData.getValue();
     }
 

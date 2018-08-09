@@ -33,7 +33,14 @@ public class RongyUser{
 	 * 学校类型 0.国内 1.国外大学
 	 */
 	private int school_type;
+	/**
+	 * 老师头像
+	 */
 	private String picRealPath;
+
+	public void setPicRealPath(String picRealPath) {
+		this.picRealPath = picRealPath;
+	}
 
 	public int getSchool_type() {
 		return school_type;

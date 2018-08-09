@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            app:collapsedTitleGravity="top|center_horizontal"
+            app:contentScrim="@drawable/shape_bottom_divider"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:scrimAnimationDuration="0"
+            app:titleEnabled="false"
+            app:toolbarId="@id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/image1"
+                app:layout_collapseParallaxMultiplier="0.7"
+                android:layout_width="match_parent"
+                android:scaleType="fitXY"
+                android:layout_height="@dimen/px_500"
+                android:background="@color/colorDivider"
+                android:contentDescription="@string/hint_not_describe" />
+
+            <include layout="@layout/view_toolbar" />
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/view_recycler" />
+
+</android.support.design.widget.CoordinatorLayout>

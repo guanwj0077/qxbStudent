@@ -2,7 +2,6 @@ package com.qxb.student.control;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.support.annotation.NonNull;
@@ -31,11 +30,16 @@ import java.util.Map;
  */
 public class BanKaoControl extends AndroidViewModel {
 
+    private MutableLiveData<ApiModel<List<Bankao>>> bankaoLiveData = new MutableLiveData<>();
+    private MutableLiveData<BaseNews> newsLiveData = new MutableLiveData<>();
+    private MutableLiveData<ApiModel<List<BaseNewsComment>>> commentListLiveData = new MutableLiveData<>();
+    private MutableLiveData<Boolean> dianzanLiveData = new MutableLiveData<>();
+    private MutableLiveData<Boolean> quxiaoLiveData = new MutableLiveData<>();
+    private MutableLiveData<Boolean> commentLiveData = new MutableLiveData<>();
+    private MutableLiveData<SchoolDetail> connectInfoLiveData = new MutableLiveData<>();
 
     private NewsRepository newsRepository = new NewsRepository();
     private CollectionRepository collectionRepository = new CollectionRepository();
-
-    private MutableLiveData<BaseNews> baseNewsLiveData;
 
     public BanKaoControl(@NonNull Application application) {
         super(application);
@@ -44,38 +48,60 @@ public class BanKaoControl extends AndroidViewModel {
     @Override
     protected void onCleared() {
         super.onCleared();
+        bankaoLiveData = null;
+        newsLiveData = null;
+        commentListLiveData = null;
+        dianzanLiveData = null;
+        quxiaoLiveData = null;
+        commentLiveData = null;
+        connectInfoLiveData = null;
+
+        newsRepository = null;
+        collectionRepository = null;
     }
 
-    public LiveData<ApiModel<List<Bankao>>> getBankaoListByType(String channel, int page) {
-        return newsRepository.getBankaoList("", channel, page);
+    public MutableLiveData<ApiModel<List<Bankao>>> getBankaoLiveData() {
+        return bankaoLiveData;
     }
 
-    public LiveData<ApiModel<List<Bankao>>> getBankaoListByKeyWord(String keyWord, int page) {
-        return newsRepository.getBankaoList(keyWord, "", page);
+    public MutableLiveData<ApiModel<List<BaseNewsComment>>> getCommentListLiveData() {
+        return commentListLiveData;
     }
 
-    public LiveData<BaseNews> getBankaoDetail(String bankaoId) {
-        return baseNewsLiveData = newsRepository.getBankaoDetail(bankaoId);
+    public void getBankaoListByType(String channel, int page) {
+        newsRepository.getBankaoList(bankaoLiveData, "", channel, page);
     }
 
-    public LiveData<ApiModel<List<BaseNewsComment>>> getBaseNewsCommentList(String id) {
-        return newsRepository.getBaseNewsCommentList(id, 1, "5");
+    public void getBankaoListByKeyWord(String keyWord, int page) {
+        newsRepository.getBankaoList(bankaoLiveData, keyWord, "", page);
     }
 
-    public LiveData<ApiModel<List<BaseNewsComment>>> getBaseNewsCommentList(String id, int page) {
-        return newsRepository.getBaseNewsCommentList(id, page, "10");
+    public MutableLiveData<BaseNews> getBankaoDetail(String bankaoId) {
+        newsRepository.getBankaoDetail(newsLiveData, bankaoId);
+        return newsLiveData;
     }
 
-    public LiveData<Boolean> commentPraise(String newId, String commentId) {
-        return newsRepository.commentPraise(newId, commentId);
+    public MutableLiveData<ApiModel<List<BaseNewsComment>>> getBaseNewsCommentList(String id) {
+        newsRepository.getBaseNewsCommentList(commentListLiveData, id, 1, "5");
+        return commentListLiveData;
     }
 
-    public LiveData<Boolean> cancelCommentPraise(String newId, String commentId) {
-        return newsRepository.cancelCommentPraise(newId, commentId);
+    public void getBaseNewsCommentList(String id, int page) {
+        newsRepository.getBaseNewsCommentList(commentListLiveData, id, page, "10");
+    }
+
+    public MutableLiveData<Boolean> commentPraise(String newId, String commentId) {
+        newsRepository.commentPraise(dianzanLiveData, newId, commentId);
+        return dianzanLiveData;
+    }
+
+    public MutableLiveData<Boolean> cancelCommentPraise(String newId, String commentId) {
+        newsRepository.cancelCommentPraise(quxiaoLiveData, newId, commentId);
+        return quxiaoLiveData;
     }
 
     public void collection(Fragment fragment, String newId) {
-        final BaseNews baseNews = baseNewsLiveData.getValue();
+        final BaseNews baseNews = newsLiveData.getValue();
         if (baseNews == null) {
             return;
         }
@@ -85,7 +111,7 @@ public class BanKaoControl extends AndroidViewModel {
                 public void onChanged(@Nullable Boolean aBoolean) {
                     if (aBoolean) {
                         baseNews.setIs_collectioned(1);
-                        baseNewsLiveData.setValue(baseNews);
+                        newsLiveData.setValue(baseNews);
                         ToastUtils.toast(R.string.hint_add_collection);
                     }
                 }
@@ -96,7 +122,7 @@ public class BanKaoControl extends AndroidViewModel {
                 public void onChanged(@Nullable Boolean aBoolean) {
                     if (aBoolean) {
                         baseNews.setIs_collectioned(0);
-                        baseNewsLiveData.setValue(baseNews);
+                        newsLiveData.setValue(baseNews);
                         ToastUtils.toast(R.string.hint_cancel);
                     }
                 }
@@ -104,8 +130,9 @@ public class BanKaoControl extends AndroidViewModel {
         }
     }
 
-    public LiveData<Boolean> submitNewsReview(String newsId, String content) {
-        return newsRepository.submitNewsReview(newsId, content);
+    public MutableLiveData<Boolean> submitNewsReview(String newsId, String content) {
+        newsRepository.submitNewsReview(commentLiveData, newsId, content);
+        return commentLiveData;
     }
 
     /**
@@ -115,15 +142,14 @@ public class BanKaoControl extends AndroidViewModel {
      * msgId        推送消息id
      * receiverType 接收消息者类型，1.学生，2老师
      * receiverId   接收消息者id，学生对应user_id,	老师暂无
-     *
-     * @return
      */
-    public LiveData<SchoolDetail> connectSchool(String newsId) {
+    public MutableLiveData<SchoolDetail> connectSchool(String newsId) {
         Map<String, String> params = new HashMap<>();
         params.put("newsId", newsId);
         params.put("type", "1");
         params.put("tag", "1");
-        return newsRepository.connectSchool(params);
+        newsRepository.connectSchool(connectInfoLiveData, params);
+        return connectInfoLiveData;
     }
 
 }

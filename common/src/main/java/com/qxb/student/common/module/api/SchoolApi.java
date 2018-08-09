@@ -35,20 +35,23 @@ public interface SchoolApi {
 
     /**
      * 获取志愿信息
-     * @param id 学校专业信息
+     *
+     * @param id       学校专业信息
      * @param stuId
      * @param province 招生省份
      * @return
      */
     @Headers(Config.AUTH_COMMON)
-    @FormUrlEncoded    @POST("school/getSchoolProfessNew")
+    @FormUrlEncoded
+    @POST("school/getSchoolProfessNew")
     Call<ApiModel<CollegeMajorRecruit>> getSchoolProfessNew(@Field("id") String id, @Field("stu_id") String stuId, @Field("province") String province);
 
     /**
      * 根据省市区获得高中学校列表
+     *
      * @param province 省份编码
-     * @param city 城市编码
-     * @param area 地区编码
+     * @param city     城市编码
+     * @param area     地区编码
      * @return
      */
     @Headers(Config.AUTH_COMMON)
@@ -74,8 +77,8 @@ public interface SchoolApi {
     @FormUrlEncoded
     @POST("school/list")
     Call<ApiModel<List<RecomSchool>>> getSchoolList(@Field("rows") String rows, @Field("page") String page, @Field("school_name") String schoolName,
-                                                          @Field("province") String province, @Field("city") String city, @Field("tag") String tag,
-                                                          @Field("type") String type, @Field("stipend") String stipend, @Field("status") String status);
+                                                    @Field("province") String province, @Field("city") String city, @Field("tag") String tag,
+                                                    @Field("type") String type, @Field("stipend") String stipend, @Field("status") String status);
 
     /**
      * 根据学校名称搜索学校
@@ -102,6 +105,7 @@ public interface SchoolApi {
 
     /**
      * 学校分数线
+     *
      * @param schoolId
      * @param province
      * @return
@@ -113,6 +117,7 @@ public interface SchoolApi {
 
     /**
      * 学校在招专业
+     *
      * @param schoolId
      * @param province
      * @return
@@ -147,7 +152,7 @@ public interface SchoolApi {
     @FormUrlEncoded
     @POST("school/listbyprofess")
     Call<ApiModel<List<RecomSchool>>> getSchoolListByProfess(@Field("student_id") String studentId, @Field("profess") String profess, @Field("subject_type") String subjectType,
-                                                                   @Field("province") String province, @Field("page") String page, @Field("rows") String rows);
+                                                             @Field("province") String province, @Field("page") String page, @Field("rows") String rows);
 
 
     /**
@@ -237,9 +242,9 @@ public interface SchoolApi {
     @FormUrlEncoded
     @POST("school/search")
     Call<ApiModel<List<RecomSchool>>> schoolSearch(@Field("school_name") String schoolName, @Field("province") String province,
-                                                         @Field("tag") String tag, @Field("status") String status,
-                                                         @Field("category_code") String categoryCode, @Field("rprovince") String rProvince,
-                                                         @Field("bat") String bat, @Field("subject_type") String subjectType);
+                                                   @Field("tag") String tag, @Field("status") String status,
+                                                   @Field("category_code") String categoryCode, @Field("rprovince") String rProvince,
+                                                   @Field("bat") String bat, @Field("subject_type") String subjectType);
 
     /**
      * 取系统配置985,211等学校标签名字解释
@@ -266,7 +271,7 @@ public interface SchoolApi {
     @FormUrlEncoded
     @POST("school/questionList")
     Call<ApiModel<List<CollegeQuestion>>> schoolQuestionList(@Field("school_id") String schoolId, @Field("enroll_type") String enrollType, @Field("title") String title,
-                                                                   @Field("page") String page, @Field("rows") String rows);
+                                                             @Field("page") String page, @Field("rows") String rows);
 
     /**
      * 大学常见问题详情
@@ -293,7 +298,7 @@ public interface SchoolApi {
     @FormUrlEncoded
     @POST("mettingschool/search")
     Call<ApiModel<List<CollegeQuestion>>> mettingSchoolSearch(@Field("search_type") String searchType, @Field("school_type") String schoolType, @Field("province") String province,
-                                                                    @Field("page") String page, @Field("rows") String rows);
+                                                              @Field("page") String page, @Field("rows") String rows);
 
     /**
      * 热门院校搜索
@@ -307,7 +312,7 @@ public interface SchoolApi {
     @FormUrlEncoded
     @POST("school/searchHotList")
     Call<ApiModel<List<CollegeSearchHot>>> searchHotSchoolList(@Field("recruit_type") String recruitType,
-                                                                     @Field("page") String page, @Field("rows") String rows);
+                                                               @Field("page") String page, @Field("rows") String rows);
 
     /**
      * 在招院校
@@ -324,15 +329,16 @@ public interface SchoolApi {
     @FormUrlEncoded
     @POST("school/recruitList")
     Call<ApiModel<List<RecomSchool>>> schoolRecruitList(@Field("major_type") String majorType, @Field("major_name") String majorName,
-                                                              @Field("subject_type") String subjectType, @Field("province") String province,
-                                                              @Field("page") String page, @Field("rows") String rows);
+                                                        @Field("subject_type") String subjectType, @Field("province") String province,
+                                                        @Field("page") String page, @Field("rows") String rows);
 
 
     /**
      * 获取学校视频列表
+     *
      * @param schoolId 学校id
-     * @param rows 一页加载条数
-     * @param page 页码
+     * @param rows     一页加载条数
+     * @param page     页码
      * @return
      */
     @Headers(Config.AUTH_COMMON)

@@ -1,6 +1,5 @@
 package com.qxb.student.common.module;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -23,20 +22,14 @@ import java.util.List;
  */
 public class AdvertRepository extends BaseRepository {
 
-
-    private MutableLiveData<String> adHomeLive = new MutableLiveData<>();
-    private MutableLiveData<List<SysAd>> bannerLiveData = new MutableLiveData<>();
-    private MutableLiveData<List<FunctionItem>> functionLiveData = new MutableLiveData<>();
-
-    public LiveData<String> getLiveHomeAd() {
+    public void getLiveHomeAd(MutableLiveData<String> adHomeLive) {
         new HttpTask<String>()
                 .netLive(adHomeLive)
                 .call(httpUtils.create(SysAdApi.class).getLiveHomeAd())
                 .start();
-        return adHomeLive;
     }
 
-    public LiveData<List<SysAd>> getHomeBanner() {
+    public void getHomeBanner(MutableLiveData<List<SysAd>> bannerLiveData) {
         new HttpTask<List<SysAd>>()
                 .call(httpUtils.create(SysAdApi.class).getHomeBanner(UserCache.getInstance().getProvince()))
                 .netLive(bannerLiveData)
@@ -53,10 +46,9 @@ public class AdvertRepository extends BaseRepository {
                     }
                 })
                 .start();
-        return bannerLiveData;
     }
 
-    public LiveData<List<SysAd>> getSysAdList(final String type) {
+    public void getSysAdList(final String type, MutableLiveData<List<SysAd>> bannerLiveData) {
         new HttpTask<List<SysAd>>()
                 .netLive(bannerLiveData)
                 .localLive(new ClientTask<List<SysAd>>() {
@@ -73,10 +65,9 @@ public class AdvertRepository extends BaseRepository {
                         roomUtils.sysAdDao().insertSysAd(data);
                     }
                 }).start();
-        return bannerLiveData;
     }
 
-    public LiveData<List<FunctionItem>> getIndexFunctions() {
+    public void getIndexFunctions(MutableLiveData<List<FunctionItem>> functionLiveData) {
         String versionCode;
         if (Build.VERSION.SDK_INT >= 28) {
             versionCode = String.valueOf(SysUtils.getInstance().getPackageInfo().getLongVersionCode());
@@ -99,12 +90,5 @@ public class AdvertRepository extends BaseRepository {
                         roomUtils.functionItemDao().insert(data);
                     }
                 }).start();
-        return functionLiveData;
-    }
-
-
-    @Override
-    public void onCleared() {
-
     }
 }

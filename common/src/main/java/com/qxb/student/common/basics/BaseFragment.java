@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,7 +29,7 @@ import java.util.Objects;
  *
  * @author winky
  */
-public abstract class BaseFragment extends HolderFragment implements IBinding {
+public abstract class BaseFragment extends Fragment implements IBinding {
 
     private WeakReference<Fragment> weakReference = null;
     private View contentView;
@@ -44,9 +45,11 @@ public abstract class BaseFragment extends HolderFragment implements IBinding {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        this.contentView = inflater.inflate(bindLayout(), container, false);
-        init(contentView, savedInstanceState);
-        mWaitingDialog = new DialogUtils(getActivity());
+        if (contentView == null) {
+            this.contentView = inflater.inflate(bindLayout(), container, false);
+            mWaitingDialog = new DialogUtils(getActivity());
+            init(contentView, savedInstanceState);
+        }
         return contentView;
     }
 
@@ -59,11 +62,6 @@ public abstract class BaseFragment extends HolderFragment implements IBinding {
         if (contentView != null) {
             contentView.postDelayed(runnable, 200);
         }
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
     }
 
     /**
@@ -93,14 +91,19 @@ public abstract class BaseFragment extends HolderFragment implements IBinding {
         weakReference = null;
     }
 
-    public <T extends View> T findViewById(@IdRes int id) {
-        return contentView.findViewById(id);
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        contentView = null;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        contentView = null;
+    }
+
+    public <T extends View> T findViewById(@IdRes int id) {
+        return contentView.findViewById(id);
     }
 
     public String getTitle() {

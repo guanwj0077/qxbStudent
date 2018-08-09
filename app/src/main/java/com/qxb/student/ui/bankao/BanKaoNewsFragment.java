@@ -28,13 +28,11 @@ public class BanKaoNewsFragment extends AbsExpandFragment {
         return R.layout.fragment_ban_kao_news;
     }
 
-    @Nullable
     private FragmentBanKaoNewsBinding binding;
-    private Toolbar toolbar;
 
     @Override
     public void init(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setBackgroundResource(android.R.color.transparent);
         binding = DataBindingUtil.bind(view);

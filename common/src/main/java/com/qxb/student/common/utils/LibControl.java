@@ -46,6 +46,7 @@ public class LibControl {
         AutoLayoutConifg.getInstance().useDeviceSize();
         //分享，登录，用户行为分析
         MobSDK.init(context);
+        UserCache.getInstance().getUser();
     }
 
     public Context getContext() {

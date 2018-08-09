@@ -98,9 +98,11 @@ public class BankaoDetailFragment extends AbsToolbarFragment {
             public void onChanged(@Nullable ApiModel<List<BaseNewsComment>> apiModel) {
                 binding.commentCount.setText(String.format(getString(R.string.bankao_comment_count), apiModel == null ? 0 : apiModel.getTotal()));
                 binding.setCommentNum(apiModel != null ? apiModel.getTotal() : 0);
-                adapter.clear();
-                adapter.addCollection(apiModel.getData());
-                adapter.notifyDataSetChanged();
+                if (apiModel != null) {
+                    adapter.clear();
+                    adapter.addCollection(apiModel.getData());
+                    adapter.notifyDataSetChanged();
+                }
             }
         });
         binding.webView.loadUrl(Constant.BANKAO_NEW_DETAIL + bankaoId);
@@ -133,7 +135,7 @@ public class BankaoDetailFragment extends AbsToolbarFragment {
                     .observe(this, new Observer<Boolean>() {
                         @Override
                         public void onChanged(@Nullable Boolean aBoolean) {
-                            if (aBoolean) {
+                            if (aBoolean != null && aBoolean) {
                                 item.setIspraise(1);
                                 adapter.notifyDataSetChanged();
                             }

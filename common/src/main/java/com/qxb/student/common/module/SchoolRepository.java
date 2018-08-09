@@ -1,6 +1,5 @@
 package com.qxb.student.common.module;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
@@ -41,28 +40,7 @@ import retrofit2.Call;
  */
 public class SchoolRepository extends BaseRepository {
 
-    private MutableLiveData<List<RecomSchool>> schoolListLiveData = new MutableLiveData<>();
-    private MutableLiveData<SchoolDetail> schoolLiveData = new MutableLiveData<>();
-    private MutableLiveData<List<SchoolVideo>> schoolVideoLiveData = new MutableLiveData<>();
-    private MutableLiveData<List<SchoolNews>> schoolNewsLiveData = new MutableLiveData<>();
-    private MutableLiveData<List<MajorBat>> majorLiveData = new MutableLiveData<>();
-    private MutableLiveData<List<ScoreBat>> scoreLiveData = new MutableLiveData<>();
-    private MutableLiveData<Boolean> registrationLiveData = new MutableLiveData<>();
-    private MutableLiveData<List<RongyUser>> rongUserLiveData = new MutableLiveData<>();
-
-    @Override
-    public void onCleared() {
-        schoolListLiveData = null;
-        schoolLiveData = null;
-        schoolVideoLiveData = null;
-        schoolNewsLiveData = null;
-        majorLiveData = null;
-        scoreLiveData = null;
-        registrationLiveData = null;
-        rongUserLiveData = null;
-    }
-
-    public LiveData<List<RecomSchool>> getSchoolLiveData() {
+    public void getSchoolLiveData(MutableLiveData<List<RecomSchool>> schoolListLiveData) {
         new HttpTask<List<RecomSchool>>()
                 .netLive(schoolListLiveData)
                 .localLive(new ClientTask<List<RecomSchool>>() {
@@ -80,10 +58,9 @@ public class SchoolRepository extends BaseRepository {
                     }
                 })
                 .start();
-        return schoolListLiveData;
     }
 
-    public LiveData<SchoolDetail> getSchoolById(final String schoolId) {
+    public void getSchoolById(final String schoolId, MutableLiveData<SchoolDetail> schoolLiveData) {
         new HttpTask<SchoolDetail>()
                 .netLive(schoolLiveData)
                 .localLive(new ClientTask<SchoolDetail>() {
@@ -99,27 +76,23 @@ public class SchoolRepository extends BaseRepository {
                         roomUtils.schoolDetailDao().insertColleges(data);
                     }
                 }).start();
-        return schoolLiveData;
     }
 
-    public LiveData<List<SchoolVideo>> getSchoolVideoList(String schoolId, String rows, String page) {
-
+    public void getSchoolVideoList(String schoolId, String rows, String page, MutableLiveData<List<SchoolVideo>> schoolVideoLiveData) {
         new HttpTask<List<SchoolVideo>>()
                 .netLive(schoolVideoLiveData)
                 .call(httpUtils.create(SchoolApi.class).schoolVideoList(schoolId, rows, page))
                 .start();
-        return schoolVideoLiveData;
     }
 
-    public LiveData<List<SchoolNews>> getSchoolNews(String schoolId, String type, String title, String page) {
+    public void getSchoolNews(String schoolId, String type, String title, String page, MutableLiveData<List<SchoolNews>> schoolNewsLiveData) {
         new HttpTask<List<SchoolNews>>()
                 .netLive(schoolNewsLiveData)
                 .call(httpUtils.create(SchoolNewsApi.class).getSchoolNewslist(schoolId, type, title, page))
                 .start();
-        return schoolNewsLiveData;
     }
 
-    public LiveData<List<MajorBat>> getSchoolRecruitMajor(String schoolId) {
+    public void getSchoolRecruitMajor(String schoolId, final MutableLiveData<List<MajorBat>> majorLiveData) {
         ExecutorUtils.getInstance().addTask(new TRunnable<String>(schoolId) {
             @Override
             public void run(String schoolId) {
@@ -144,10 +117,9 @@ public class SchoolRepository extends BaseRepository {
                 }
             }
         });
-        return majorLiveData;
     }
 
-    public LiveData<List<ScoreBat>> getSchoolScore(String schoolId) {
+    public void getSchoolScore(String schoolId, final MutableLiveData<List<ScoreBat>> scoreLiveData) {
         ExecutorUtils.getInstance().addTask(new TRunnable<String>(schoolId) {
             @Override
             public void run(String schoolId) {
@@ -172,10 +144,9 @@ public class SchoolRepository extends BaseRepository {
                 }
             }
         });
-        return scoreLiveData;
     }
 
-    public LiveData<Boolean> saveStudentRegistration(String schoolId) {
+    public void saveStudentRegistration(String schoolId, final MutableLiveData<Boolean> registrationLiveData) {
         new HttpTask<String>()
                 .call(httpUtils.create(UserStudentApi.class).saveStudentRegistration(UserCache.getInstance().getUserId(), schoolId))
                 .apiModel(new ApiModelHandle<String>() {
@@ -185,14 +156,17 @@ public class SchoolRepository extends BaseRepository {
                     }
                 }).start();
 
-        return registrationLiveData;
     }
 
-    public LiveData<List<RongyUser>> teacherListBySchoolId(String schoolId) {
+    public void teacherListBySchoolId(String schoolId, final MutableLiveData<ApiModel<List<RongyUser>>> rongUserLiveData) {
         new HttpTask<List<RongyUser>>()
                 .call(httpUtils.create(RongyUserApi.class).teacherListBySchoolId(schoolId))
-                .netLive(rongUserLiveData)
+                .apiModel(new ApiModelHandle<List<RongyUser>>() {
+                    @Override
+                    public void handle(@NonNull ApiModel<List<RongyUser>> apiModel, int pageIndex) {
+                        rongUserLiveData.postValue(apiModel);
+                    }
+                })
                 .start();
-        return rongUserLiveData;
     }
 }

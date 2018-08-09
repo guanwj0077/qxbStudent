@@ -48,12 +48,7 @@ public class BanKaoListFragment extends AbsNoTitleRefreshFragment<Bankao> {
         type = getArguments() != null ? getArguments().getString(TYPE) : null;
         banKaoControl = ViewModelProviders.of(this).get(BanKaoControl.class);
 
-        autoRefresh();
-    }
-
-    @Override
-    public void reqData(int pageIndex) {
-        banKaoControl.getBankaoListByType(type, pageIndex).observe(this, new Observer<ApiModel<List<Bankao>>>() {
+        banKaoControl.getBankaoLiveData().observe(this, new Observer<ApiModel<List<Bankao>>>() {
             @Override
             public void onChanged(@Nullable ApiModel<List<Bankao>> apiModel) {
                 if (apiModel != null) {
@@ -61,6 +56,12 @@ public class BanKaoListFragment extends AbsNoTitleRefreshFragment<Bankao> {
                 }
             }
         });
+        autoRefresh();
+    }
+
+    @Override
+    public void reqData(int pageIndex) {
+        banKaoControl.getBankaoListByType(type, pageIndex);
     }
 
     @Override

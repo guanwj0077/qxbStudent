@@ -22,6 +22,8 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
  */
 public class HomeFragment extends AbsExpandFragment {
 
+    private HomeControl homeControl;
+
     @Override
     public int bindLayout() {
         return R.layout.fragment_home;
@@ -45,13 +47,13 @@ public class HomeFragment extends AbsExpandFragment {
         refreshLayout.setEnableLoadMore(false);
         refreshLayout.setEnableFooterFollowWhenLoadFinished(false);
 
-        recyclerView.setAdapter(new HomeAdapter(this));
+        homeControl = ViewModelProviders.of(HomeFragment.this).get(HomeControl.class);
 
+        recyclerView.setAdapter(new HomeAdapter(this));
         this.refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 refreshlayout.finishRefresh();
-                HomeControl homeControl = ViewModelProviders.of(HomeFragment.this).get(HomeControl.class);
                 homeControl.getLiveAdvert();
                 homeControl.getSchoolLiveData();
                 homeControl.getHomeBanner();

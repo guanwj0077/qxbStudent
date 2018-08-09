@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 
 import com.qxb.student.R;
 import com.qxb.student.common.listener.MultiClickUtil;
+import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.RongyUser;
 import com.qxb.student.common.utils.GlideUtils;
 import com.qxb.student.common.utils.SysUtils;
@@ -41,8 +42,7 @@ import java.util.Objects;
 public class SchoolConsultFragment extends DialogFragment {
 
     public static SchoolConsultFragment create() {
-        SchoolConsultFragment fragment = new SchoolConsultFragment();
-        return fragment;
+        return new SchoolConsultFragment();
     }
 
     @Override
@@ -60,7 +60,7 @@ public class SchoolConsultFragment extends DialogFragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_school_consult, container, false);
         gridView = view.findViewById(R.id.gridView);
         gridView.setEmptyView(view.findViewById(R.id.empty_text1));
@@ -75,9 +75,11 @@ public class SchoolConsultFragment extends DialogFragment {
                 setText(view, R.id.text2, item.getDepartment());
             }
         };
+        gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // TODO: 2018/8/9 跳转聊天
 //                toRongIMChat(adapter.getItem(position));
             }
         });
@@ -88,17 +90,20 @@ public class SchoolConsultFragment extends DialogFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         dialogUtils.show();
-        schoolControl.teacherListBySchoolId().observe(this, new Observer<List<RongyUser>>() {
+        schoolControl.teacherListBySchoolId().observe(this, new Observer<ApiModel<List<RongyUser>>>() {
             @Override
-            public void onChanged(@Nullable List<RongyUser> rongyUsers) {
+            public void onChanged(@Nullable ApiModel<List<RongyUser>> apiModel) {
                 if (dialogUtils != null) {
                     dialogUtils.dismiss();
                 }
-                layout1.setVisibility(rongyUsers == null || rongyUsers.size() == 0 ? View.VISIBLE : View.GONE);
-                if (rongyUsers != null) {
-                    gridView.setAdapter(adapter);
+                if(apiModel==null){
+                    return;
+                }
+                // total 用于判断学校是否有常见问题
+                layout1.setVisibility(apiModel.getData() == null || apiModel.getData().size() == 0 ? View.VISIBLE : View.GONE);
+                if (apiModel.getData() != null) {
                     adapter.clear();
-                    adapter.addCollection(rongyUsers);
+                    adapter.addCollection(apiModel.getData());
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -118,7 +123,7 @@ public class SchoolConsultFragment extends DialogFragment {
                 case R.id.text1:
                     //跳转常见问题
                     if (HintHelper.hasLogin(getContext())) {
-
+                        // TODO: 2018/8/9 跳转常见问题
                     }
                     break;
             }

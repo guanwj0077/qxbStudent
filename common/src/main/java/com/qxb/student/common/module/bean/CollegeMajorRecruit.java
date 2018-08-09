@@ -85,7 +85,7 @@ public class CollegeMajorRecruit {
     /**
      * 本校相似专业
      **/
-    private List<Map<String, String>> similar_list;
+    private List<CollegeMajorRecruitProfess> similar_list;
     /**
      * 视频地址
      **/
@@ -290,11 +290,11 @@ public class CollegeMajorRecruit {
         this.nature_code = nature_code;
     }
 
-    public List<Map<String, String>> getSimilar_list() {
+    public List<CollegeMajorRecruitProfess> getSimilar_list() {
         return similar_list;
     }
 
-    public void setSimilar_list(List<Map<String, String>> similar_list) {
+    public void setSimilar_list(List<CollegeMajorRecruitProfess> similar_list) {
         this.similar_list = similar_list;
     }
 
