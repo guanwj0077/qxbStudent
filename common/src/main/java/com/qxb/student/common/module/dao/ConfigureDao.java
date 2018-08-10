@@ -23,4 +23,7 @@ public interface ConfigureDao {
 
     @Query("SELECT * FROM Configure WHERE `key`=:key")
     Configure query(String key);
+
+    @Query("DELETE FROM Configure WHERE `key`=:key")
+    void delete(String key);
 }

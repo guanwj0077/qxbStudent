@@ -174,4 +174,22 @@
 
     <string name="ben_ke">本科</string>
     <string name="zhuan_ke">专科</string>
+
+    <string name="hint_room_failed">连接聊天系统失败，请退出登录重试</string>
+    <string name="hint_me_evaluation">已对本次服务做出了评价</string>
+    <string name="hint_other_evaluation">学生已对本次服务做出了评价</string>
+    <string name="hint_evaluation_push">学生%1$s：已对本次服务做出了评价，点击查看详情</string>
+    <string name="hint_evaluation">对本次服务感觉如何？满意的话麻烦给个好评哦！</string>
+    <string name="hint_evaluation_good">给个好评</string>
+    <string name="hint_evaluation_com">一般般</string>
+    <string name="hint_evaluation_ago">您已评价</string>
+    <string name="hint_phone_success">已将您的联系方式发送给老师</string>
+    <string name="hint_phone_invite">我想要查看您的联系方式，您是否同意？</string>
+    <string name="hint_phone_invite_agree">同意</string>
+    <string name="hint_phone_invite_reject">拒绝</string>
+    <string name="hint_me_phone_reject">已拒绝与老师交换联系方式</string>
+    <string name="hint_other_phone_reject">学生拒绝与您交换联系方式</string>
+    <string name="hint_phone_exchange_push_failed">学生%1$s：拒绝与您交换联系方式，点击查看详情</string>
+    <string name="hint_phone_exchange_push_success">学生%1$s：拒绝与您交换联系方式，点击查看详情</string>
+    <string name="hint_chat_hello">你好！有什么可以帮助你的吗？</string>
 </resources>

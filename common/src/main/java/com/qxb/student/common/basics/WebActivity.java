@@ -19,20 +19,18 @@ import java.util.Map;
 public class WebActivity extends BaseAppActivity {
 
     private final static String AUTHORIZATION = "Authorization";
-    private Toolbar toolbar;
     private WebView webView;
-    private WebAttr attr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
-        attr = getIntent().getParcelableExtra(WebAttr.TAG);
+        WebAttr attr = getIntent().getParcelableExtra(WebAttr.TAG);
         if (attr == null) {
             finish();
             return;
         }
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         webView = findViewById(R.id.webView);
         toolbar.setTitle(attr.getTitle());
         setSupportActionBar(toolbar);

@@ -2,12 +2,16 @@ package com.qxb.student.common.utils;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.mob.MobSDK;
 import com.qxb.student.common.http.HttpConfigure;
 import com.qxb.student.common.http.HttpUtils;
+import com.qxb.student.common.module.bean.User;
 import com.qxb.student.common.module.dao.RoomUtils;
 import com.zhy.autolayout.config.AutoLayoutConifg;
+
+import io.rong.imkit.RongIM;
 
 /**
  * 初始化工具类
@@ -46,14 +50,32 @@ public class LibControl {
         AutoLayoutConifg.getInstance().useDeviceSize();
         //分享，登录，用户行为分析
         MobSDK.init(context);
-        UserCache.getInstance().getUser();
+        //融云即时通讯
+        RongIM.init(context);
+        User user = UserCache.getInstance().getUser();
+
+        if (user != null) {
+            loadOther(user);
+        }
+    }
+
+    public void loadOther(@NonNull User user){
+        //连接融云
+        OtherHelper.getInstance().initToken(String.valueOf(user.getId()));
     }
 
     public Context getContext() {
         if (context == null) {
-            //注销app
+            logout();
         }
         return context;
+    }
+
+    /**
+     * 退出登录，注销
+     */
+    public void logout() {
+
     }
 
     /**
@@ -63,6 +85,9 @@ public class LibControl {
         RoomUtils.getInstance().close();
         SysUtils.getInstance().recovery();
         ContextUtils.getInstance().cleared();
+        OtherHelper.getInstance().OnCleared();
         context = null;
     }
+
+
 }

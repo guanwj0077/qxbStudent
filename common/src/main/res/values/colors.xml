@@ -18,5 +18,6 @@
     <color name="black1">#4c000000</color>
     <color name="light_gray">#ffe1e1e1</color>
     <color name="orange">#ffffa500</color>
+    <color name="yellow">#fbe778</color>
     <color name="color_f0f0f0f">#F0F0F0</color>
 </resources>

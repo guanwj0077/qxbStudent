@@ -7,8 +7,26 @@
     <application
         android:allowBackup="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="RONG_CLOUD_APP_KEY"
+            android:value="kj7swf8o7tpb2" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.qxb.student.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/rc_file_path" />
+        </provider>
+
         <activity
             android:name=".basics.NavHostActivity"
+            android:label="" />
+        <activity
+            android:name=".rong.ChatActivity"
             android:label="" />
         <activity
             android:name=".basics.WebActivity"

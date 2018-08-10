@@ -70,4 +70,8 @@ public class Constant {
      * 使用帮助视频url
      */
     public static final String CONFIG_USE_HELPER_URL = "config_use_helper_url";
+    /**
+     * 融云token
+     */
+    public static final String CONFIG_ROOM_TOKEN = "config_room_token";
 }

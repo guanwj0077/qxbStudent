@@ -44,7 +44,7 @@ public interface ChatRoomApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("studentInfo/evaluateTeacher")
-    Call<ApiModel<String>> evaluateTeacher(@Field("accountId") int accountId, @Field("studentId") int studentId);
+    Call<ApiModel<String>> evaluateTeacher(@Field("accountId") String accountId, @Field("studentId") String studentId);
 
     /**
      * 任意聊-直播订阅
@@ -98,5 +98,5 @@ public interface ChatRoomApi {
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("chatRoom/exchangePhone")
-    Call<ApiModel<String>> exchangePhone(@Field("accountId") int accountId, @Field("collegeAccountId") int collegeAccountId);
+    Call<ApiModel<String>> exchangePhone(@Field("accountId") String accountId, @Field("collegeAccountId") String collegeAccountId);
 }

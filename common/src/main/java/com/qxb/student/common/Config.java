@@ -74,4 +74,8 @@ public final class Config {
      * http请求数据类型
      */
     public static final MediaType MEDIA_TYPE = MediaType.parse("application/json; charset=UTF-8;");
+    /**
+     * 同步锁
+     */
+    public static final Object LOCK = new Object();
 }

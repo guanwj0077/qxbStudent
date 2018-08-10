@@ -3,6 +3,7 @@ package com.qxb.student.common.utils;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
+import com.qxb.student.common.Config;
 import com.qxb.student.common.module.bean.User;
 import com.qxb.student.common.module.dao.RoomUtils;
 
@@ -29,7 +30,6 @@ public class UserCache {
     }
 
     private volatile MutableLiveData<User> userLiveData = new MutableLiveData<>();
-    private final Object OBJECT = new Object();
 
     public void update(User user) {
         userLiveData.postValue(user);
@@ -39,7 +39,7 @@ public class UserCache {
         if (userLiveData.getValue() != null) {
             return userLiveData;
         }
-        synchronized (OBJECT) {
+        synchronized (Config.LOCK) {
             if (userLiveData.getValue() == null) {
                 ExecutorUtils.getInstance().addTask(new Runnable() {
                     @Override
@@ -60,7 +60,7 @@ public class UserCache {
         if (user != null) {
             return user;
         }
-        synchronized (OBJECT) {
+        synchronized (Config.LOCK) {
             user = userLiveData.getValue();
             if (user == null) {
                 getUserLiveData();
@@ -83,6 +83,10 @@ public class UserCache {
             return String.valueOf(getUser().getAccount_id());
         }
         return "";
+    }
+
+    public String getUserName() {
+        return getUser() == null ? "" : getUser().getName();
     }
 
     public String getProvince() {

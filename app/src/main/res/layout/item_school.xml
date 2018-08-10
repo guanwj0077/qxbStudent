@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
-        <import type="com.qxb.student.common.utils.BindingUtils" />
 
         <variable
             name="school"
@@ -23,7 +21,8 @@
             roundImageUrl="@{school.logoRealPath}"
             android:layout_width="@dimen/px_120"
             android:layout_height="@dimen/px_120"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/hint_not_describe" />
 
         <TextView
             android:id="@+id/text"

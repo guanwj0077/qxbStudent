@@ -57,7 +57,6 @@ public interface UserApi {
      * 用户获取token
      *
      * @param accountId 账户id
-     * @return
      */
     @Headers({Config.AUTH_CUSTOM})
     @FormUrlEncoded

@@ -16,9 +16,11 @@ import com.qxb.student.common.basics.NavFragment;
 import com.qxb.student.common.basics.NavHostActivity;
 import com.qxb.student.common.basics.VideoPlayActivity;
 import com.qxb.student.common.basics.WebActivity;
+import com.qxb.student.common.module.bean.attr.ChatAttr;
 import com.qxb.student.common.module.bean.attr.NavAttr;
 import com.qxb.student.common.module.bean.attr.VoideAttr;
 import com.qxb.student.common.module.bean.attr.WebAttr;
+import com.qxb.student.common.rong.ChatActivity;
 
 import androidx.navigation.NavOptions;
 
@@ -128,12 +130,18 @@ public class NavigationUtils {
     /**
      * 跳转通用视屏播放类
      *
-     * @param context 上下文
+     * @param context    上下文
      * @param mVoideAttr 视屏播放参数
      */
     public void toVideoPlay(@NonNull Context context, @NonNull VoideAttr mVoideAttr) {
         Intent intent = new Intent(context, VideoPlayActivity.class);
         intent.putExtra(Constant.PURPOSE, mVoideAttr);
+        context.startActivity(intent);
+    }
+
+    public void toChat(@NonNull Context context, @NonNull ChatAttr chatAttr) {
+        Intent intent = new Intent(context, ChatActivity.class);
+        intent.putExtra(ChatAttr.TAG, chatAttr);
         context.startActivity(intent);
     }
 }

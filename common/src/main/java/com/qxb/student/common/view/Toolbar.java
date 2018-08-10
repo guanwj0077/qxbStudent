@@ -139,7 +139,7 @@ public class Toolbar extends android.support.v7.widget.Toolbar {
             if (mTitleTextView == null) {
                 final Context context = getContext();
                 mTitleTextView = new TextView(context);
-                mTitleTextView.setSingleLine();
+                mTitleTextView.setMaxLines(2);
                 mTitleTextView.setEllipsize(TextUtils.TruncateAt.END);
             }
             if (mTitleTextView.getParent() != this) {

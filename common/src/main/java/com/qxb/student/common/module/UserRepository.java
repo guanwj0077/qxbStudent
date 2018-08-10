@@ -12,6 +12,8 @@ import com.qxb.student.common.module.api.SmsApi;
 import com.qxb.student.common.module.api.UserApi;
 import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.User;
+import com.qxb.student.common.utils.LibControl;
+import com.qxb.student.common.utils.OtherHelper;
 import com.qxb.student.common.utils.UserCache;
 
 /**
@@ -37,6 +39,7 @@ public class UserRepository extends BaseRepository {
                         data.setTelphone(account);
                         roomUtils.userDao().insert(data);
                         UserCache.getInstance().update(data);
+                        LibControl.getInstance().loadOther(data);
                     }
                 }).start();
         return userMutableLiveData;

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import com.qxb.student.R;
+import com.qxb.student.common.Config;
 import com.qxb.student.common.Constant;
 import com.qxb.student.common.adapter.BannerAdapter;
 import com.qxb.student.common.databinding.ViewImageBinding;
@@ -46,7 +47,6 @@ public class HomeAdapter extends NestingAdapter {
     private static final int HEAD_LINE = 2;
     private static final int LIVE = 3;
     private static final int SCHOOL = 4;
-    private static final Object OBJECT = new Object();
     private HomeControl homeControl;
     private Fragment fragment;
 
@@ -200,7 +200,7 @@ public class HomeAdapter extends NestingAdapter {
         if (schoolAdapter != null) {
             return schoolAdapter;
         }
-        synchronized (OBJECT) {
+        synchronized (Config.LOCK) {
             if (schoolAdapter == null) {
                 schoolAdapter = new AbsListAdapter<ItemSchoolBinding, RecomSchool>(fragment.getContext(), R.layout.item_school) {
                     @Override

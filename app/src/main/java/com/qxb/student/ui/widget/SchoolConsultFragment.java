@@ -24,11 +24,13 @@ import com.qxb.student.R;
 import com.qxb.student.common.listener.MultiClickUtil;
 import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.RongyUser;
+import com.qxb.student.common.module.bean.attr.ChatAttr;
 import com.qxb.student.common.utils.GlideUtils;
+import com.qxb.student.common.utils.NavigationUtils;
 import com.qxb.student.common.utils.SysUtils;
-import com.qxb.student.common.utils.dialog.DialogUtils;
 import com.qxb.student.common.view.abslist.GridView;
 import com.qxb.student.common.view.abslist.adapter.AbsAdapter;
+import com.qxb.student.common.view.dialog.DialogUtils;
 import com.qxb.student.control.SchoolControl;
 import com.qxb.student.helper.HintHelper;
 
@@ -79,8 +81,15 @@ public class SchoolConsultFragment extends DialogFragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO: 2018/8/9 跳转聊天
-//                toRongIMChat(adapter.getItem(position));
+                RongyUser user = adapter.getItem(position);
+                NavigationUtils.getInstance().toChat(Objects.requireNonNull(getActivity()),
+                        new ChatAttr.Builder()
+                                .title(user.getName())
+                                .targetId(String.valueOf(user.getAccount_id()))
+                                .schoolId(String.valueOf(user.getSchool_id()))
+                                .schoolName(user.getSchool_name())
+                                .hasComProblem(layout1.getVisibility() == View.VISIBLE)
+                                .build());
             }
         });
         return view;
@@ -96,11 +105,11 @@ public class SchoolConsultFragment extends DialogFragment {
                 if (dialogUtils != null) {
                     dialogUtils.dismiss();
                 }
-                if(apiModel==null){
+                if (apiModel == null) {
                     return;
                 }
                 // total 用于判断学校是否有常见问题
-                layout1.setVisibility(apiModel.getData() == null || apiModel.getData().size() == 0 ? View.VISIBLE : View.GONE);
+                layout1.setVisibility(apiModel.getTotal() > 0 ? View.VISIBLE : View.GONE);
                 if (apiModel.getData() != null) {
                     adapter.clear();
                     adapter.addCollection(apiModel.getData());
