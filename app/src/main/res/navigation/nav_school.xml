@@ -9,5 +9,8 @@
     <fragment
         android:id="@+id/nav_school_major"
         android:name="com.qxb.student.ui.home.school.SchoolMajorDetailFragment" />
+    <fragment
+        android:id="@+id/nav_school_question"
+        android:name="com.qxb.student.ui.home.school.question.SchoolComQuestionListFragment" />
 
 </navigation>

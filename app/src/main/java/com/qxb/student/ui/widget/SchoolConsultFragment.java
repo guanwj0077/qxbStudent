@@ -24,6 +24,7 @@ import com.qxb.student.R;
 import com.qxb.student.common.listener.MultiClickUtil;
 import com.qxb.student.common.module.bean.ApiModel;
 import com.qxb.student.common.module.bean.RongyUser;
+import com.qxb.student.common.module.bean.SchoolDetail;
 import com.qxb.student.common.module.bean.attr.ChatAttr;
 import com.qxb.student.common.utils.GlideUtils;
 import com.qxb.student.common.utils.NavigationUtils;
@@ -33,6 +34,7 @@ import com.qxb.student.common.view.abslist.adapter.AbsAdapter;
 import com.qxb.student.common.view.dialog.DialogUtils;
 import com.qxb.student.control.SchoolControl;
 import com.qxb.student.helper.HintHelper;
+import com.qxb.student.ui.home.school.question.SchoolComQuestionListFragment;
 
 import java.util.List;
 import java.util.Objects;
@@ -132,7 +134,13 @@ public class SchoolConsultFragment extends DialogFragment {
                 case R.id.text1:
                     //跳转常见问题
                     if (HintHelper.hasLogin(getContext())) {
-                        // TODO: 2018/8/9 跳转常见问题
+                        SchoolDetail schoolDetail= schoolControl.getSchoolLiveData().getValue();
+                        if (schoolDetail != null) {
+                            NavigationUtils.getInstance()
+                                    .jump(Objects.requireNonNull(getParentFragment()),R.id.nav_school_question,
+                                            //type表示是普通学校
+                                            SchoolComQuestionListFragment.create(String.valueOf(schoolDetail.getId()),"1"));
+                        }
                     }
                     break;
             }

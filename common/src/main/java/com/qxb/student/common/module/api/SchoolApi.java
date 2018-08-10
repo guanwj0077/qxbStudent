@@ -13,9 +13,11 @@ import com.qxb.student.common.module.bean.SchoolVideo;
 import com.qxb.student.common.module.bean.ScoreSubject;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -259,19 +261,17 @@ public interface SchoolApi {
 
     /**
      * 大学常见问题列表
-     *
-     * @param schoolId
-     * @param enrollType 招生类型 1：普招 2：自招
-     * @param title      问题标题
-     * @param page
-     * @param rows       默认10
-     * @return
+     * <p>
+     * schoolId
+     * enrollType 招生类型 1：普招 2：自招
+     * title      问题标题
+     * page
+     * rows       默认10
      */
     @Headers(Config.AUTH_CUSTOM)
     @FormUrlEncoded
     @POST("school/questionList")
-    Call<ApiModel<List<CollegeQuestion>>> schoolQuestionList(@Field("school_id") String schoolId, @Field("enroll_type") String enrollType, @Field("title") String title,
-                                                             @Field("page") String page, @Field("rows") String rows);
+    Call<ApiModel<List<CollegeQuestion>>> schoolQuestionList(@FieldMap Map<String, String> params);
 
     /**
      * 大学常见问题详情
